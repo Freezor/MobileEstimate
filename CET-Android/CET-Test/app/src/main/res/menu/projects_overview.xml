@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".ProjectsOverview">
+    <item android:id="@+id/action_search" android:title="@string/action_search" android:icon="@android:drawable/ic_menu_search"
+        android:showAsAction="withText|ifRoom" />
+    <item android:id="@+id/action_sort_newest" android:title="@string/action_sort_newest"
+        android:orderInCategory="100" android:showAsAction="never" />
+    <item android:id="@+id/action_sort_oldest" android:title="@string/action_sort_oldest"
+        android:orderInCategory="100" android:showAsAction="never" />
+    <item android:id="@+id/action_sort_alphabetical" android:title="@string/action_sort_alphabetical"
+        android:orderInCategory="100" android:showAsAction="never" />
+    <item android:id="@+id/action_sort_method_alphabetical" android:title="@string/action_sort_method_alphabetical"
+        android:orderInCategory="100" android:showAsAction="never" />
+</menu>
