@@ -1,0 +1,4 @@
+CETTest.MainActivity, CET-Test;md5a58389585e54be265f701e1c28d2fb38.MainActivity
+CETTest.MainActivity, CET-Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md5a58389585e54be265f701e1c28d2fb38.MainActivity
+CETTest.MainActivity;md5a58389585e54be265f701e1c28d2fb38.MainActivity
+cettest.MainActivity;md5a58389585e54be265f701e1c28d2fb38.MainActivity

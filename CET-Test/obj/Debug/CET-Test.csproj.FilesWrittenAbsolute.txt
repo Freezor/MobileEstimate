@@ -1,0 +1,17 @@
+/Users/oliverfries/workspace/MobileITProjectCostEstimation/CET-Test/obj/Debug/MonoAndroid,Version=v5.1.AssemblyAttribute.cs
+/Users/oliverfries/workspace/MobileITProjectCostEstimation/CET-Test/bin/Debug/CET-Test.dll.mdb
+/Users/oliverfries/workspace/MobileITProjectCostEstimation/CET-Test/bin/Debug/CET-Test.dll
+/Users/oliverfries/workspace/MobileITProjectCostEstimation/CET-Test/bin/Debug/com.companyname.cet_test.apk
+/Users/oliverfries/workspace/MobileITProjectCostEstimation/CET-Test/obj/Debug/android/bin/com.companyname.cet_test.apk
+/Users/oliverfries/workspace/MobileITProjectCostEstimation/CET-Test/obj/Debug/res/layout/main.xml
+/Users/oliverfries/workspace/MobileITProjectCostEstimation/CET-Test/obj/Debug/res/values/strings.xml
+/Users/oliverfries/workspace/MobileITProjectCostEstimation/CET-Test/obj/Debug/res/drawable-hdpi/icon.png
+/Users/oliverfries/workspace/MobileITProjectCostEstimation/CET-Test/obj/Debug/res/drawable-mdpi/icon.png
+/Users/oliverfries/workspace/MobileITProjectCostEstimation/CET-Test/obj/Debug/res/drawable-xhdpi/icon.png
+/Users/oliverfries/workspace/MobileITProjectCostEstimation/CET-Test/obj/Debug/res/drawable-xxhdpi/icon.png
+/Users/oliverfries/workspace/MobileITProjectCostEstimation/CET-Test/obj/Debug/res/drawable-xxxhdpi/icon.png
+/Users/oliverfries/workspace/MobileITProjectCostEstimation/CET-Test/obj/Debug/R.cs.flag
+/Users/oliverfries/workspace/MobileITProjectCostEstimation/CET-Test/bin/Debug/com.companyname.cet_test-Signed.apk
+/Users/oliverfries/workspace/MobileITProjectCostEstimation/CET-Test/obj/Debug/uploadflags.txt
+/Users/oliverfries/workspace/MobileITProjectCostEstimation/CET-Test/obj/Debug/CET-Test.dll
+/Users/oliverfries/workspace/MobileITProjectCostEstimation/CET-Test/obj/Debug/CET-Test.dll.mdb
