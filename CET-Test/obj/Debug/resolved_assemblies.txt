@@ -1,6 +1,0 @@
-/Users/oliverfries/workspace/MobileITProjectCostEstimation/CET-Test/obj/Debug/assemblies/CET-Test.dll
-/Users/oliverfries/workspace/MobileITProjectCostEstimation/CET-Test/obj/Debug/assemblies/System.dll
-/Users/oliverfries/workspace/MobileITProjectCostEstimation/CET-Test/obj/Debug/assemblies/System.Xml.dll
-/Users/oliverfries/workspace/MobileITProjectCostEstimation/CET-Test/obj/Debug/assemblies/Mono.Android.dll
-/Users/oliverfries/workspace/MobileITProjectCostEstimation/CET-Test/obj/Debug/assemblies/System.Core.dll
-/Users/oliverfries/workspace/MobileITProjectCostEstimation/CET-Test/obj/Debug/assemblies/mscorlib.dll
