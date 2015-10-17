@@ -1,5 +1,6 @@
 package com.example.oliverfries.cet_test;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -34,11 +35,13 @@ public class Projects_Overview extends AppCompatActivity
 
     private ArrayAdapter<String> projectsAdapter;
 
+    private Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_projects__overview);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         projectsAdapter=new ArrayAdapter<String>(this,
