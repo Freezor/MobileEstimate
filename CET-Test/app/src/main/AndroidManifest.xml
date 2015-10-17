@@ -18,13 +18,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreateNewProject"
+        <activity
+            android:name=".CreateNewProject"
             android:label="Create New Project"
             android:parentActivityName=".Projects_Overview" >
+
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.oliverfries.cet_test.Projects_Overview" />
+        </activity>
+        <activity android:name=".InfluencingFactorsActivity"
+            android:label="Influencing Factors"
+            android:parentActivityName=".CreateNewProject" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.oliverfries.cet_test.CreateNewProject" />
         </activity>
     </application>
 

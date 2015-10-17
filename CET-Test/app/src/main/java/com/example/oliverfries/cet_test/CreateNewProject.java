@@ -115,12 +115,8 @@ public class CreateNewProject extends AppCompatActivity {
 
 
     public void selectInfluencingFactors(View v) {
-        Context context = getApplicationContext();
-        CharSequence text = _newProject.get_projectName();
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
+        Intent i = new Intent(CreateNewProject.this,InfluencingFactorsActivity.class);
+        startActivity(i);
     }
 
     public void selectProjectProperties(View v) {
