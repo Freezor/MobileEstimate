@@ -38,13 +38,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.oliverfries.cet_test.CreateNewProject" />
         </activity>
-        <activity android:name=".FactorPickerActivity"
-            android:theme="@style/Theme.InfluencingPickerDialog"
+        <activity
+            android:name=".FactorPickerActivity"
             android:label="Choose Value"
-            android:parentActivityName=".InfluencingFactorsActivity"> <!-- Parent activity meta-data to support 4.0 and lower -->
+            android:parentActivityName=".InfluencingFactorsActivity"
+            android:theme="@style/Theme.InfluencingPickerDialog" > <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.oliverfries.cet_test.InfluencingFactorsActivity" />
+        </activity>
+        <activity android:name=".ProjectPropertiesActivity"
+            android:label="Project Properties"
+            android:parentActivityName=".CreateNewProject" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.oliverfries.cet_test.CreateNewProject" />
         </activity>
     </application>
 

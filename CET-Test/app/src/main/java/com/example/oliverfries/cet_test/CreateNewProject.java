@@ -94,7 +94,7 @@ public class CreateNewProject extends AppCompatActivity {
                     }
                 });
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.ok_String, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 Toast.makeText(CreateNewProject.this, _newProject.get_estimationMethod() + " chosen", Toast.LENGTH_SHORT)
                         .show();
@@ -120,12 +120,8 @@ public class CreateNewProject extends AppCompatActivity {
     }
 
     public void selectProjectProperties(View v) {
-        Context context = getApplicationContext();
-        CharSequence text = "Project Properties";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
+        Intent i = new Intent(CreateNewProject.this,ProjectPropertiesActivity.class);
+        startActivity(i);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
