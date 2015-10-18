@@ -44,11 +44,15 @@
             android:id="@+id/integrationFactorValueTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minEms="1" />
+            android:minEms="1"
+            android:clickable="true"
+            android:onClick="onClickIntegrationFactor"/>
         <ImageView
-            android:src="@drawable/abc_btn_check_to_on_mtrl_000"
+            android:src="@drawable/ic_action_help"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:onClick="onClickIntegrationFactorHelp"/>
     </GridLayout>
 
     <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -70,9 +74,11 @@
             android:id="@+id/localDataFactorValueTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minEms="1" />
+            android:minEms="1"
+            android:clickable="true"
+            android:onClick="onClickLocalDataFactor"/>
         <ImageView
-            android:src="@drawable/abc_btn_check_to_on_mtrl_000"
+            android:src="@drawable/ic_action_help"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </GridLayout>
@@ -96,9 +102,11 @@
             android:id="@+id/transactionRateValueTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minEms="1"  />
+            android:minEms="1"
+            android:clickable="true"
+            android:onClick="onClickTransactionRateFactor"/>
         <ImageView
-            android:src="@drawable/abc_btn_check_to_on_mtrl_000"
+            android:src="@drawable/ic_action_help"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </GridLayout>
@@ -147,9 +155,11 @@
             android:id="@+id/arithmeticOperationValueTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minEms="1"  />
+            android:minEms="1"
+            android:clickable="true"
+            android:onClick="onClickArithmeticOperationFactor" />
         <ImageView
-            android:src="@drawable/abc_btn_check_to_on_mtrl_000"
+            android:src="@drawable/ic_action_help"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </GridLayout>
@@ -173,9 +183,11 @@
             android:id="@+id/controlProcedureValueTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minEms="1"  />
+            android:minEms="1"
+            android:clickable="true"
+            android:onClick="onClickControlProcedureFactor" />
         <ImageView
-            android:src="@drawable/abc_btn_check_to_on_mtrl_000"
+            android:src="@drawable/ic_action_help"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </GridLayout>
@@ -199,9 +211,11 @@
             android:id="@+id/exceptionRegulationValueTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minEms="1"  />
+            android:minEms="1"
+            android:clickable="true"
+            android:onClick="onClickExceptionRegulationFactor"/>
         <ImageView
-            android:src="@drawable/abc_btn_check_to_on_mtrl_000"
+            android:src="@drawable/ic_action_help"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </GridLayout>
@@ -225,9 +239,11 @@
             android:id="@+id/logicValueTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minEms="1"  />
+            android:minEms="1"
+            android:clickable="true"
+            android:onClick="onClickLogicFactor"/>
         <ImageView
-            android:src="@drawable/abc_btn_check_to_on_mtrl_000"
+            android:src="@drawable/ic_action_help"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </GridLayout>
@@ -258,9 +274,11 @@
             android:id="@+id/reusabilityValueTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minEms="1" />
+            android:minEms="1"
+            android:clickable="true"
+            android:onClick="onClickReusabilityFactor"/>
         <ImageView
-            android:src="@drawable/abc_btn_check_to_on_mtrl_000"
+            android:src="@drawable/ic_action_help"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </GridLayout>
@@ -272,7 +290,7 @@
         android:columnCount="3">
         <TextView
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Stock Converions"
+            android:text="Stock Conversions"
             android:id="@+id/stockConversionTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -284,9 +302,11 @@
             android:id="@+id/stockConversionValueTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minEms="1" />
+            android:minEms="1"
+            android:clickable="true"
+            android:onClick="onClickStockConversionsFactor" />
         <ImageView
-            android:src="@drawable/abc_btn_check_to_on_mtrl_000"
+            android:src="@drawable/ic_action_help"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </GridLayout>
@@ -310,9 +330,11 @@
             android:id="@+id/adaptabilityValueMethodTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minEms="1" />
+            android:minEms="1"
+            android:clickable="true"
+            android:onClick="onClickAdaptabilityFactor"/>
         <ImageView
-            android:src="@drawable/abc_btn_check_to_on_mtrl_000"
+            android:src="@drawable/ic_action_help"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </GridLayout>
