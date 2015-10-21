@@ -9,4 +9,6 @@
     <string name="layout_project_properties_radio_button">RadioButtonLayout</string>
     <string name="layout_project_properties_checkbox_button">CheckBoxLayout</string>
     <string name="ok_String">OK</string>
+    <string name="title_activity_function_point_add_function">FunctionPointAddFunctionActivity
+    </string>
 </resources>

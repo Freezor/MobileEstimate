@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.example.oliverfries.cet_test.FunctionPointAddFunctionActivity"
+    android:columnCount="1">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Simple"
+        android:id="@+id/simpleTV"
+        android:longClickable="true"/>
+
+    <GridLayout
+        android:columnCount="3">
+        <ImageView
+            android:src="@drawable/ic_action_minus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="simpleDecrease"
+            android:layout_marginRight="20dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="0"
+            android:id="@+id/simpleCountTV"
+            android:longClickable="true"/>
+        <ImageView
+            android:src="@drawable/ic_action_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="simpleIncrease"
+            android:layout_marginLeft="20dp" />
+    </GridLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Meridian"
+        android:id="@+id/meridianTV"
+        android:longClickable="true"/>
+
+    <GridLayout
+        android:columnCount="3">
+        <ImageView
+            android:src="@drawable/ic_action_minus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="meridianDecrease"
+            android:layout_marginRight="20dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="0"
+            android:id="@+id/meridianCountTV"
+            android:longClickable="true"/>
+        <ImageView
+            android:src="@drawable/ic_action_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="meridianIncrease"
+            android:layout_marginLeft="20dp" />
+    </GridLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Complex"
+        android:id="@+id/complexTV"
+        android:longClickable="true"/>
+
+    <GridLayout
+        android:columnCount="3">
+        <ImageView
+            android:src="@drawable/ic_action_minus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="complexDecrease"
+            android:layout_marginRight="20dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="0"
+            android:id="@+id/complexCountTV"
+            android:longClickable="true"/>
+        <ImageView
+            android:src="@drawable/ic_action_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="complexIncrease"
+            android:layout_marginLeft="20dp" />
+    </GridLayout>
+
+
+</GridLayout>

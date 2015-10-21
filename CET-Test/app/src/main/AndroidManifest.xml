@@ -58,13 +58,25 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.oliverfries.cet_test.CreateNewProject" />
         </activity>
-        <activity android:name=".FunctionPointProjectActivity"
+        <activity
+            android:name=".FunctionPointProjectActivity"
             android:label="Function Point View"
             android:parentActivityName=".Projects_Overview" >
-        <!-- Parent activity meta-data to support 4.0 and lower -->
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.example.oliverfries.cet_test.Projects_Overview" />
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.oliverfries.cet_test.Projects_Overview" />
+        </activity>
+        <activity android:name=".FunctionPointAddFunctionActivity"
+            android:label="Function Point Value"
+            android:parentActivityName=".FunctionPointProjectActivity" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.oliverfries.cet_test.FunctionPointProjectActivity" />
         </activity>
     </application>
+
 </manifest>

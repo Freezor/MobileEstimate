@@ -32,7 +32,8 @@
             android:src="@drawable/ic_create"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#000000"/>
+            android:background="#000000"
+            android:onClick="addFunction"/>
 
 
         <TextView
@@ -53,7 +54,8 @@
             android:src="@drawable/ic_create"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#000000"/>
+            android:background="#000000"
+            android:onClick="addFunction"/>
 
 
         <TextView
@@ -74,7 +76,8 @@
             android:src="@drawable/ic_create"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#000000"/>
+            android:background="#000000"
+            android:onClick="addFunction"/>
 
 
         <TextView
@@ -95,7 +98,8 @@
             android:src="@drawable/ic_create"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#000000"/>
+            android:background="#000000"
+            android:onClick="addFunction"/>
 
 
         <TextView
@@ -116,7 +120,8 @@
             android:src="@drawable/ic_create"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#000000"/>
+            android:background="#000000"
+            android:onClick="addFunction"/>
     </GridLayout>
 
     <View
