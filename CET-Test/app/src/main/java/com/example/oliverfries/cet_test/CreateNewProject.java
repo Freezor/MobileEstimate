@@ -6,6 +6,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +16,7 @@ import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +24,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+
 
 public class CreateNewProject extends AppCompatActivity {
 
@@ -32,9 +38,15 @@ public class CreateNewProject extends AppCompatActivity {
 
     private EditText _projectNotesEditText;
 
+
+    private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Projects_Overview.getAppContext());
+
         setContentView(R.layout.activity_create_new_project);
         //getActionBar().setDisplayHomeAsUpEnabled(true);
         _newProject = new EstimationProject();
@@ -114,6 +126,21 @@ public class CreateNewProject extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        /*SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(_newProject);
+        prefsEditor.putString("NewCreatedProject", json);
+        prefsEditor.commit();*/
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt("A", 10);
+        editor.commit();
+        editor.apply();
+    }
+
     public void selectInfluencingFactors(View v) {
         Intent i = new Intent(CreateNewProject.this,InfluencingFactorsActivity.class);
         startActivity(i);
@@ -136,7 +163,9 @@ public class CreateNewProject extends AppCompatActivity {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
+                onBackPressed();
+                //sendProjectToIntent();
+                //NavUtils.navigateUpFromSameTask(this);
                 return true;
         }
         return super.onOptionsItemSelected(item);

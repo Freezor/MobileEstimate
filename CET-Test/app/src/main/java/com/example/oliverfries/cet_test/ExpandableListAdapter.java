@@ -49,7 +49,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         final String childText = (String) getChild(groupPosition, childPosition);
 
         String childLayout = _listLayoutChild.get(this._listDataHeader.get(groupPosition));
-
+        /*
+        ERROR: Changing the layout does not really work
         if(childLayout.equals(String.valueOf(R.string.layout_project_properties_radio_button)))
         {
             if (convertView == null) {
@@ -76,7 +77,18 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                     .findViewById(R.id.lblListItem);
 
             txtListChild.setText(childText);
+        }*/
+
+        if (convertView == null) {
+            LayoutInflater infalInflater = (LayoutInflater) this._context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = infalInflater.inflate(R.layout.radio_button_list_item, null);
         }
+
+        TextView txtListChild = (TextView) convertView
+                .findViewById(R.id.lblListItem);
+
+        txtListChild.setText(childText);
 
         return convertView;
     }

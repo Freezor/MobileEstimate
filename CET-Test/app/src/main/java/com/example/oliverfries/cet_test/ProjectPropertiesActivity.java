@@ -3,6 +3,9 @@ package com.example.oliverfries.cet_test;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ExpandableListView;
+import android.widget.ListView;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +33,7 @@ public class ProjectPropertiesActivity extends AppCompatActivity {
 
         // setting list adapter
         expListView.setAdapter(listAdapter);
+        expListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
     }
 
     /*

@@ -1,10 +1,14 @@
 package com.example.oliverfries.cet_test;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,9 +18,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -37,9 +44,18 @@ public class Projects_Overview extends AppCompatActivity
 
     private Toolbar toolbar;
 
+    private SharedPreferences sharedPreferences;
+
+    private static Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Projects_Overview.context = getApplicationContext();
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
         setContentView(R.layout.activity_projects__overview);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -50,7 +66,13 @@ public class Projects_Overview extends AppCompatActivity
         setListAdapter(projectsAdapter);
 
         getListView();
-
+        projectsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(Projects_Overview.this,FunctionPointProjectActivity.class);
+                startActivity(i);
+            }
+        });
         //TestCase
         for (int i = 0; i<10;i++)
         {
@@ -81,6 +103,10 @@ public class Projects_Overview extends AppCompatActivity
         projectsAdapter.notifyDataSetChanged();
     }
 
+    public static Context getAppContext() {
+        return Projects_Overview.context;
+    }
+
     protected ListView getListView() {
         if (projectsListView == null) {
             projectsListView = (ListView) findViewById(R.id.myProjectsList);
@@ -107,6 +133,23 @@ public class Projects_Overview extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.projects__overview, menu);
         return true;
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        retrieveData();
+    }
+
+    private void retrieveData() {
+        /*Gson gson = new Gson();
+        String json = sharedPreferences.getString("NewCreatedProject", "");
+        EstimationProject obj = gson.fromJson(json, EstimationProject.class);
+        projectsList.add(obj.get_projectName());
+        projectsAdapter.notifyDataSetChanged();*/
+        SharedPreferences sharedPref = this.getPreferences(MODE_PRIVATE);
+        long highScore = sharedPref.getInt("A", 0);
+        Log.e("AAA", String.valueOf(highScore));
     }
 
     @Override

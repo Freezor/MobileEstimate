@@ -11,6 +11,7 @@
         <activity
             android:name=".Projects_Overview"
             android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,14 +48,23 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.oliverfries.cet_test.InfluencingFactorsActivity" />
         </activity>
-        <activity android:name=".ProjectPropertiesActivity"
+        <activity
+            android:name=".ProjectPropertiesActivity"
             android:label="Project Properties"
             android:parentActivityName=".CreateNewProject" >
+
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.oliverfries.cet_test.CreateNewProject" />
         </activity>
+        <activity android:name=".FunctionPointProjectActivity"
+            android:label="Function Point View"
+            android:parentActivityName=".Projects_Overview" >
+        <!-- Parent activity meta-data to support 4.0 and lower -->
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.example.oliverfries.cet_test.Projects_Overview" />
+        </activity>
     </application>
-
 </manifest>
