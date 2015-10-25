@@ -10,4 +10,5 @@
     <color name="list_row_hover_end_color">#BBDEFB</color>
     <color name="creationDate">#2196F3</color>
     <color name="estimationType">#FF5722</color>
+    <color name="standardButtonColor">#2196F3</color>
 </resources>

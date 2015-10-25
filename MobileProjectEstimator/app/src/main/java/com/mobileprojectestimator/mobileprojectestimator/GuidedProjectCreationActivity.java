@@ -114,28 +114,199 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
+            switch(position)
+            {
+                case 0:
+                    return ProjectInfoFragment.newInstance(position);
+                case 1:
+                    return ProjectPropOneFragment.newInstance(position);
+                case 2:
+                    return ProjectPropTwoFragment.newInstance(position);
+                case 3:
+                    return ProjectPropThreeFragment.newInstance(position);
+                case 4:
+                    return ProjectCreationOverviewFragment.newInstance(position);
+                default:
+                    return PlaceholderFragment.newInstance(position + 1);
+            }
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 5;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "SECTION 1";
+                    return "Project Name and Description";
                 case 1:
-                    return "SECTION 2";
+                    return "Project Properties 1";
                 case 2:
-                    return "SECTION 3";
+                    return "Project Properties 2";
+                case 3:
+                    return "Project Properties 3";
             }
             return null;
+        }
+    }
+
+    public static class ProjectCreationOverviewFragment extends Fragment
+    {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        public static ProjectCreationOverviewFragment newInstance(int sectionNumber) {
+            ProjectCreationOverviewFragment fragment = new ProjectCreationOverviewFragment();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        public ProjectCreationOverviewFragment() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.project_creation_overview_fragment, container, false);
+            //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            return rootView;
+        }
+    }
+
+    public static class ProjectInfoFragment extends Fragment
+    {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        public static ProjectInfoFragment newInstance(int sectionNumber) {
+            ProjectInfoFragment fragment = new ProjectInfoFragment();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        public ProjectInfoFragment() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.project_info_fragment, container, false);
+            //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            return rootView;
+        }
+    }
+
+    public static class ProjectPropThreeFragment extends Fragment
+    {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        public static ProjectPropThreeFragment newInstance(int sectionNumber) {
+            ProjectPropThreeFragment fragment = new ProjectPropThreeFragment();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        public ProjectPropThreeFragment() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.project_prop_three_fragment, container, false);
+            return rootView;
+        }
+    }
+
+    public static class ProjectPropTwoFragment extends Fragment
+    {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        public static ProjectPropTwoFragment newInstance(int sectionNumber) {
+            ProjectPropTwoFragment fragment = new ProjectPropTwoFragment();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        public ProjectPropTwoFragment() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.project_prop_two_fragment, container, false);
+            return rootView;
+        }
+    }
+
+    public static class ProjectPropOneFragment extends Fragment
+    {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        public static ProjectPropOneFragment newInstance(int sectionNumber) {
+            ProjectPropOneFragment fragment = new ProjectPropOneFragment();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        public ProjectPropOneFragment() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.project_prop_one_fragment, container, false);
+            return rootView;
         }
     }
 
