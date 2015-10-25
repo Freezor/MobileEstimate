@@ -14,6 +14,9 @@ public class Project {
     private Bitmap image;
     private Date creationDate;
     private String estimationType;//TODO: change with db
+
+
+
     public Project(String title, Date creationDate,String estimationType) {
         this.Title = title;
         this.creationDate = creationDate;

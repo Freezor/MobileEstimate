@@ -1,5 +1,7 @@
 package com.mobileprojectestimator.mobileprojectestimator;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -8,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.view.MenuInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,6 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Util.ProjectListAdapter;
@@ -71,7 +75,7 @@ public class ProjectOverview extends AppCompatActivity
     private void loadProjects() {
         //TODO: This is only text method. Add Database access
         Date d = new Date();
-        Project p = new Project("Test",d, String.valueOf(R.string.functionPoint));
+        Project p = new Project("Test",d, getResources().getString(R.string.functionPoint));
         p.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.project));
         projectsList.add(p);
     }
@@ -88,8 +92,14 @@ public class ProjectOverview extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.project_overview, menu);
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.project_overview, menu);
+
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =(SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         return true;
     }
 
@@ -101,11 +111,11 @@ public class ProjectOverview extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_Search) {
+        /*if (id == R.id.action_Search) {
             return true;
         } else if (id == R.id.action_Sort) {
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
