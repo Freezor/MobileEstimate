@@ -1,7 +1,12 @@
 package com.mobileprojectestimator.mobileprojectestimator;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.app.PendingIntent;
 import android.app.SearchManager;
+import android.app.TaskStackBuilder;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -10,6 +15,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NotificationCompat;
 import android.view.MenuInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -26,6 +32,7 @@ import android.widget.SearchView;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Util.ProjectListAdapter;
 
+import java.sql.CallableStatement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -48,8 +55,8 @@ public class ProjectOverview extends AppCompatActivity
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(ProjectOverview.this, GuidedProjectCreationActivity.class);
+                startActivity(i);
             }
         });
 
@@ -75,7 +82,7 @@ public class ProjectOverview extends AppCompatActivity
     private void loadProjects() {
         //TODO: This is only text method. Add Database access
         Date d = new Date();
-        Project p = new Project("Test",d, getResources().getString(R.string.functionPoint));
+        Project p = new Project(this,"Test",d, getResources().getString(R.string.functionPoint));
         p.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.project));
         projectsList.add(p);
     }

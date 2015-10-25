@@ -9,4 +9,5 @@
     <dimen name="projectListTitle">27dp</dimen>
     <dimen name="estimationType">15dp</dimen>
     <dimen name="creationDate">13dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
 </resources>
