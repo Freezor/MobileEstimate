@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:fitsSystemWindows="true">
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
@@ -48,11 +51,12 @@
         android:layout_marginTop="20dp"
         android:textStyle="bold" />
 
-    <include layout="@layout/dotted_progress_bar" android:layout_gravity="center_horizontal|bottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="20dp"/>
-
     </LinearLayout>
-</ScrollView>
+    </ScrollView>
+
+    <include layout="@layout/dotted_progress_bar" android:layout_gravity="center_horizontal|bottom"
+    android:layout_width="wrap_content"
+    android:layout_height="39dp"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"/>
+</RelativeLayout>

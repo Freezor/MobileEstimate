@@ -2,9 +2,7 @@ package com.mobileprojectestimator.mobileprojectestimator.DataObjects;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Icon;
 
-import com.mobileprojectestimator.mobileprojectestimator.ProjectOverview;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.util.Date;
@@ -20,7 +18,16 @@ public class Project {
     private String estimationType;//TODO: change with db
     private InfluencingFactor influencingFactor;
     private Context context;
+    private ProjectProperties projectProperties;
 
+    /**
+     * Create a Project with already known title, creation Date and estimation Type
+     * Mostly for test purpose
+     * @param current
+     * @param title
+     * @param creationDate
+     * @param estimationType
+     */
     public Project(Context current, String title, Date creationDate, String estimationType) {
         this.Title = title;
         this.creationDate = creationDate;
@@ -30,12 +37,21 @@ public class Project {
 
     }
 
+    /**
+     * Create an empty project
+     * @param current
+     */
+    public Project(Context current) {
+        this.context = current;
+    }
+
     private void setInfluencingFactors()
     {
         if (estimationType.equals(context.getResources().getString(R.string.functionPoint)))
         {
             influencingFactor = new InfluencingFactor<FunctionPointFactor>();
         }
+        projectProperties = new ProjectProperties();
     }
 
 
@@ -70,5 +86,21 @@ public class Project {
 
     public void setEstimationType(String estimationType) {
         this.estimationType = estimationType;
+    }
+
+    public InfluencingFactor getInfluencingFactor() {
+        return influencingFactor;
+    }
+
+    public void setInfluencingFactor(InfluencingFactor influencingFactor) {
+        this.influencingFactor = influencingFactor;
+    }
+
+    public ProjectProperties getProjectProperties() {
+        return projectProperties;
+    }
+
+    public void setProjectProperties(ProjectProperties projectProperties) {
+        this.projectProperties = projectProperties;
     }
 }

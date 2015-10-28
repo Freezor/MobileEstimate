@@ -27,6 +27,7 @@
             android:name=".GuidedProjectCreationActivity"
             android:label="@string/title_activity_guided_project_creation"
             android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan"
             android:parentActivityName=".ProjectOverview" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->

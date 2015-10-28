@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -19,7 +21,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
+
+import java.util.ArrayList;
 
 public class GuidedProjectCreationActivity extends AppCompatActivity {
 
@@ -32,6 +41,11 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
+
+    /**
+     * The New Project that will be created
+     */
+    private Project projectNew;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -53,29 +67,24 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(GuidedProjectCreationActivity.this);
-                builder.setMessage(R.string.cancel_project_creation)
-                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                finish();
-                            }
-                        })
-                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // User cancelled the dialog
-                            }
-                        });
-                // Create the AlertDialog object and return it
-                builder.create();
-                builder.show();
+            public void onBackStackChanged() {
+                int stackHeight = getSupportFragmentManager().getBackStackEntryCount();
+                if (stackHeight > 0) { // if we have something on the stack (doesn't include the current shown fragment)
+                    getSupportActionBar().setHomeButtonEnabled(true);
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                } else {
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                    getSupportActionBar().setHomeButtonEnabled(false);
+                }
             }
+
         });
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        projectNew = new Project(this);
     }
 
 
@@ -91,13 +100,25 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_list_creation) {
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                AlertDialog.Builder builder = new AlertDialog.Builder(GuidedProjectCreationActivity.this);
+                builder.setMessage(R.string.cancel_project_creation)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                NavUtils.navigateUpFromSameTask(GuidedProjectCreationActivity.this);
+                            }
+                        })
+                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                            }
+                        });
+                // Create the AlertDialog object and return it
+                builder.create();
+                builder.show();
+                return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -151,6 +172,8 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
                     return "Project Properties 2";
                 case 3:
                     return "Project Properties 3";
+                case 4:
+                    return "Influencing Factors";
             }
             return null;
         }
@@ -214,8 +237,8 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.project_info_fragment, container, false);
-            //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            ImageView dot1 = (ImageView) rootView.findViewById(R.id.dot1);
+            dot1.setBackgroundResource(R.drawable.circle_blue);
             return rootView;
         }
     }
@@ -246,6 +269,14 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.project_prop_three_fragment, container, false);
+            ImageView dot1 = (ImageView) rootView.findViewById(R.id.dot1);
+            dot1.setBackgroundResource(R.drawable.circle_blue);
+            ImageView dot2 = (ImageView) rootView.findViewById(R.id.dot2);
+            dot2.setBackgroundResource(R.drawable.circle_blue);
+            ImageView dot3 = (ImageView) rootView.findViewById(R.id.dot3);
+            dot3.setBackgroundResource(R.drawable.circle_blue);
+            ImageView dot4 = (ImageView) rootView.findViewById(R.id.dot4);
+            dot4.setBackgroundResource(R.drawable.circle_blue);
             return rootView;
         }
     }
@@ -276,6 +307,12 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.project_prop_two_fragment, container, false);
+            ImageView dot1 = (ImageView) rootView.findViewById(R.id.dot1);
+            dot1.setBackgroundResource(R.drawable.circle_blue);
+            ImageView dot2 = (ImageView) rootView.findViewById(R.id.dot2);
+            dot2.setBackgroundResource(R.drawable.circle_blue);
+            ImageView dot3 = (ImageView) rootView.findViewById(R.id.dot3);
+            dot3.setBackgroundResource(R.drawable.circle_blue);
             return rootView;
         }
     }
@@ -306,6 +343,40 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.project_prop_one_fragment, container, false);
+            ImageView dot1 = (ImageView) rootView.findViewById(R.id.dot1);
+            dot1.setBackgroundResource(R.drawable.circle_blue);
+            ImageView dot2 = (ImageView) rootView.findViewById(R.id.dot2);
+            dot2.setBackgroundResource(R.drawable.circle_blue);
+
+            //TODO: Import Spinner Data from Database
+            /**
+             * Initialise the Spinner Data
+             */
+            ArrayList<String> marketItems = new ArrayList<String>();
+            marketItems.add("Inhouse");
+            marketItems.add("Customer");
+            marketItems.add("Anonymous Market");
+            ArrayAdapter<String> marketsAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(),android.R.layout.simple_spinner_dropdown_item, marketItems);
+            Spinner marketSpinner = (Spinner)rootView.findViewById(R.id.market);
+            marketSpinner.setAdapter(marketsAdapter);
+
+            ArrayList<String> developmentItems = new ArrayList<String>();
+            developmentItems.add("New Project");
+            developmentItems.add("Extension");
+            developmentItems.add("Research Project");
+            ArrayAdapter<String> developmentAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(),android.R.layout.simple_spinner_dropdown_item, developmentItems);
+            Spinner developmentSpinner = (Spinner)rootView.findViewById(R.id.developmentKind);
+            developmentSpinner.setAdapter(developmentAdapter);
+
+
+            ArrayList<String> processModelItems = new ArrayList<String>();
+            processModelItems.add("New Project");
+            processModelItems.add("Extension");
+            developmentItems.add("Research Project");
+            ArrayAdapter<String> processModelAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(),android.R.layout.simple_spinner_dropdown_item, processModelItems);
+            Spinner processModelSpinner = (Spinner)rootView.findViewById(R.id.processModel);
+            processModelSpinner.setAdapter(processModelAdapter);
+
             return rootView;
         }
     }
