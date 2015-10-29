@@ -11,12 +11,13 @@ import java.util.Date;
 /**
  * Created by Oliver Fries on 25.10.2015.
  */
-public class Project implements Serializable{
+public class Project implements Serializable {
 
     private String Title;
     private Bitmap image;
-    private Date creationDate;
-    private String estimationType;//TODO: change with db
+    private String creationDate;
+    private String projectDescription;
+    private String estimationMethod;//TODO: change with db
     private InfluencingFactor influencingFactor;
     private Context context;
     private ProjectProperties projectProperties;
@@ -24,34 +25,37 @@ public class Project implements Serializable{
     /**
      * Create a Project with already known title, creation Date and estimation Type
      * Mostly for test purpose
+     *
      * @param current
      * @param title
      * @param creationDate
-     * @param estimationType
+     * @param estimationMethod
      */
-    public Project(Context current, String title, Date creationDate, String estimationType) {
+    public Project(Context current, String title, String creationDate, String estimationMethod) {
         this.Title = title;
         this.creationDate = creationDate;
-        this.estimationType = estimationType;
+        this.estimationMethod = estimationMethod;
         this.context = current;
         setInfluencingFactors();
-
+        projectProperties = new ProjectProperties();
     }
 
     /**
      * Create an empty project
+     *
      * @param current
      */
     public Project(Context current) {
         this.context = current;
+        projectProperties = new ProjectProperties();
     }
 
-    public Context getContext(){return this.context;}
+    public Context getContext() {
+        return this.context;
+    }
 
-    private void setInfluencingFactors()
-    {
-        if (estimationType.equals(context.getResources().getString(R.string.functionPoint)))
-        {
+    private void setInfluencingFactors() {
+        if (estimationMethod.equals(context.getResources().getString(R.string.functionPoint))) {
             influencingFactor = new InfluencingFactor<FunctionPointFactor>();
         }
         projectProperties = new ProjectProperties();
@@ -66,8 +70,7 @@ public class Project implements Serializable{
         Title = title;
     }
 
-    public void setImage(Bitmap img)
-    {
+    public void setImage(Bitmap img) {
         this.image = img;
     }
 
@@ -75,20 +78,20 @@ public class Project implements Serializable{
         return image;
     }
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 
-    public String getEstimationType() {
-        return estimationType;
+    public String getEstimationMethod() {
+        return estimationMethod;
     }
 
-    public void setEstimationType(String estimationType) {
-        this.estimationType = estimationType;
+    public void setEstimationMethod(String estimationMethod) {
+        this.estimationMethod = estimationMethod;
     }
 
     public InfluencingFactor getInfluencingFactor() {
@@ -105,5 +108,13 @@ public class Project implements Serializable{
 
     public void setProjectProperties(ProjectProperties projectProperties) {
         this.projectProperties = projectProperties;
+    }
+
+    public String getProjectDescription() {
+        return projectDescription;
+    }
+
+    public void setProjectDescription(String projectDescription) {
+        this.projectDescription = projectDescription;
     }
 }

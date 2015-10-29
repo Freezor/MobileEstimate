@@ -9,6 +9,7 @@ public class ProjectProperties {
     private String processMethology;
     private String programmingLanguage;
     private String platform;
+    private String industrySector;
 
     public String getMarket() {
         return market;
@@ -48,5 +49,13 @@ public class ProjectProperties {
 
     public void setPlatform(String platform) {
         this.platform = platform;
+    }
+
+    public void setIndustrySector(String industrySector) {
+        this.industrySector = industrySector;
+    }
+
+    public String getIndustrySector() {
+        return industrySector;
     }
 }

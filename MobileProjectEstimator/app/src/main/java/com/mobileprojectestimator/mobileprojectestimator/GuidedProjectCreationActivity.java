@@ -2,7 +2,11 @@ package com.mobileprojectestimator.mobileprojectestimator;
 
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -13,17 +17,25 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -31,7 +43,9 @@ import android.widget.Toast;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class GuidedProjectCreationActivity extends AppCompatActivity {
 
@@ -62,11 +76,11 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
 
         projectNew = new Project(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarGuidedCreation);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),projectNew);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), projectNew);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -99,8 +113,7 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
         return true;
     }
 
-    private void cancelCreationDialog()
-    {
+    private void cancelCreationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(GuidedProjectCreationActivity.this);
         builder.setMessage(R.string.cancel_project_creation)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
@@ -150,24 +163,29 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
         public SectionsPagerAdapter(FragmentManager fm, Project proj) {
             super(fm);
             this.project = proj;
+            this.project.setTitle("");
+
+            Calendar c = Calendar.getInstance();
+            SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+            String formattedDate = df.format(c.getTime());
+            this.project.setCreationDate(formattedDate);
         }
 
         @Override
         public Fragment getItem(int position) {
-            switch(position)
-            {
+            switch (position) {
                 case 0:
-                    return ProjectInfoFragment.newInstance(position,this.project);
+                    return ProjectInfoFragment.newInstance(this.project);
                 case 1:
-                    return ProjectPropOneFragment.newInstance(position);
+                    return ProjectPropOneFragment.newInstance(this.project);
                 case 2:
-                    return ProjectPropTwoFragment.newInstance(position);
+                    return ProjectPropTwoFragment.newInstance(this.project);
                 case 3:
-                    return EstimationMethodFragment.newInstance(position);
+                    return EstimationMethodFragment.newInstance(this.project);
                 case 4:
-                    return InfluencingFactorFragment.newInstance(position);
+                    return InfluencingFactorFragment.newInstance(this.project);
                 case 5:
-                    return ProjectCreationOverviewFragment.newInstance(position);
+                    return ProjectCreationOverviewFragment.newInstance(this.project);
                 default:
                     return PlaceholderFragment.newInstance(position + 1);
             }
@@ -202,22 +220,21 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
         }
     }
 
-    public static class EstimationMethodFragment extends Fragment
-    {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
+    public static class EstimationMethodFragment extends Fragment {
+        private static Project project;
+        private static TextView chosenMethodTv;
+
         /**
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static EstimationMethodFragment newInstance(int sectionNumber) {
+        public static EstimationMethodFragment newInstance(Project proj) {
             EstimationMethodFragment fragment = new EstimationMethodFragment();
             Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
+            project = proj;
+            //Standard Estimation Method
+            project.setEstimationMethod("Function Point");
             return fragment;
         }
 
@@ -227,7 +244,7 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.estimation_method_fragment, container, false);
+            final View rootView = inflater.inflate(R.layout.estimation_method_fragment, container, false);
             ImageView dot1 = (ImageView) rootView.findViewById(R.id.dot1);
             dot1.setBackgroundResource(R.drawable.circle_blue);
             ImageView dot2 = (ImageView) rootView.findViewById(R.id.dot2);
@@ -236,30 +253,55 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
             dot3.setBackgroundResource(R.drawable.circle_blue);
             ImageView dot4 = (ImageView) rootView.findViewById(R.id.dot4);
             dot4.setBackgroundResource(R.drawable.circle_blue);
+
+            final RadioGroup estimationMethodRadioGroup = (RadioGroup) rootView.findViewById(R.id.estimationMethodRadioGroup);
+            estimationMethodRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
+
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    int selectedId = estimationMethodRadioGroup.getCheckedRadioButtonId();
+
+                    // find the radiobutton by returned id
+                    RadioButton estimatiionRB = (RadioButton) rootView.findViewById(selectedId);
+                    project.setEstimationMethod(estimatiionRB.getText().toString());
+                }
+            });
+
             return rootView;
         }
     }
-    
-    public static class ProjectCreationOverviewFragment extends Fragment
-    {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
+
+    public static class ProjectCreationOverviewFragment extends Fragment {
+        private static Project project;
+
+        public void onCreateOptionsMenu(Menu menu,MenuInflater inflater) {
+            // Do something that differs the Activity's menu here
+            super.onCreateOptionsMenu(menu, inflater);
+            MenuItem saveItem = menu.getItem(0);
+            saveItem.setVisible(true);
+            MenuItem listCreationItem = menu.getItem(1);
+            listCreationItem.setVisible(false);
+        }
+
         /**
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static ProjectCreationOverviewFragment newInstance(int sectionNumber) {
+        public static ProjectCreationOverviewFragment newInstance(Project proj) {
             ProjectCreationOverviewFragment fragment = new ProjectCreationOverviewFragment();
             Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            project = proj;
             fragment.setArguments(args);
             return fragment;
         }
 
         public ProjectCreationOverviewFragment() {
+        }
+
+        @Override
+        public void onCreate(@Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setHasOptionsMenu(true);
         }
 
         @Override
@@ -282,35 +324,27 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
 
             //Set Text for all items
             //TODO: get Values from the chosen values
-            RelativeLayout ll = (RelativeLayout)rootView.findViewById(R.id.projectNameValue);
-            TextView tv = (TextView)ll.findViewById(R.id.tvItemValue);
-            tv.setText("Test Name");
+            RelativeLayout ll = (RelativeLayout) rootView.findViewById(R.id.projectNameValue);
+            TextView tv = (TextView) ll.findViewById(R.id.tvItemValue);
+            tv.setText(project.getTitle());
 
             return rootView;
         }
     }
 
-    public static class ProjectInfoFragment extends Fragment
-    {
+    public static class ProjectInfoFragment extends Fragment {
         private static Project project;
 
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
         /**
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static ProjectInfoFragment newInstance(int sectionNumber, Project proj) {
+        public static ProjectInfoFragment newInstance(Project proj) {
             ProjectInfoFragment fragment = new ProjectInfoFragment();
             Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            //args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             project = proj;
-
-
             return fragment;
         }
 
@@ -321,29 +355,84 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.project_info_fragment, container, false);
+            if (project == null) {
+                project = new Project(getActivity());
+            }
             ImageView dot1 = (ImageView) rootView.findViewById(R.id.dot1);
             dot1.setBackgroundResource(R.drawable.circle_blue);
+
+            final EditText projectNameET = (EditText) rootView.findViewById(R.id.projectNameET);
+            projectNameET.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    project.setTitle(projectNameET.getText().toString());
+                }
+            });
+
+            final EditText projectDescription = (EditText) rootView.findViewById(R.id.projectDescriptionET);
+            projectDescription.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    project.setProjectDescription(projectNameET.getText().toString());
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+
+            Bitmap projectIcon = BitmapFactory.decodeResource(getResources(), R.drawable.project);
+            project.setImage(projectIcon);
+
+            Button changeProjectIconBtn = (Button) rootView.findViewById(R.id.changeProjectIcon);
+            changeProjectIconBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(project.getContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+                }
+            });
+
             return rootView;
         }
 
     }
 
-    public static class InfluencingFactorFragment extends Fragment
-    {
+    public static class InfluencingFactorFragment extends Fragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
          */
-        private static final String ARG_SECTION_NUMBER = "section_number";
+        private static Project project;
+        private static TextView estimationMethodTitelTV;
+
         /**
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static InfluencingFactorFragment newInstance(int sectionNumber) {
+        public static InfluencingFactorFragment newInstance(Project proj) {
             InfluencingFactorFragment fragment = new InfluencingFactorFragment();
             Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            project = proj;
             fragment.setArguments(args);
+            
+            //estimationMethodTitelTV.setText("You have chosen " + project.getEstimationMethod() + " as your Estimation Method.");
+            
             return fragment;
         }
 
@@ -365,6 +454,9 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
             ImageView dot5 = (ImageView) rootView.findViewById(R.id.dot5);
             dot5.setBackgroundResource(R.drawable.circle_blue);
 
+
+            estimationMethodTitelTV = (TextView) rootView.findViewById(R.id.textViewChosenEstimationMethod);
+
             //TODO: Import Spinner Data from Database
             /**
              * Initialise the Spinner Data
@@ -372,29 +464,25 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
             ArrayList<String> influencingFactorItems = new ArrayList<String>();
             influencingFactorItems.add("Small new Team");
             influencingFactorItems.add("Big Old Team");
-            ArrayAdapter<String> influencingFactorsAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(),android.R.layout.simple_spinner_dropdown_item, influencingFactorItems);
-            Spinner influencingFactorsAdapterSpinner = (Spinner)rootView.findViewById(R.id.influencingSet);
+            ArrayAdapter<String> influencingFactorsAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, influencingFactorItems);
+            Spinner influencingFactorsAdapterSpinner = (Spinner) rootView.findViewById(R.id.influencingSet);
             influencingFactorsAdapterSpinner.setAdapter(influencingFactorsAdapter);
             return rootView;
         }
     }
 
-    public static class ProjectPropTwoFragment extends Fragment
-    {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
+    public static class ProjectPropTwoFragment extends Fragment {
+        private static Project project;
+
         /**
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static ProjectPropTwoFragment newInstance(int sectionNumber) {
+        public static ProjectPropTwoFragment newInstance(Project proj) {
             ProjectPropTwoFragment fragment = new ProjectPropTwoFragment();
             Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
+            project = proj;
             return fragment;
         }
 
@@ -430,10 +518,23 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
             programmingLanguageItems.add("Prolog");
             programmingLanguageItems.add("Python");
             programmingLanguageItems.add("Scala");
-            ArrayAdapter<String> programmingLanguageAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(),android.R.layout.simple_spinner_dropdown_item, programmingLanguageItems);
-            Spinner programmingLanguageSpinner = (Spinner)rootView.findViewById(R.id.programmingLanguage);
+            ArrayAdapter<String> programmingLanguageAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, programmingLanguageItems);
+            final Spinner programmingLanguageSpinner = (Spinner) rootView.findViewById(R.id.programmingLanguage);
             programmingLanguageSpinner.setAdapter(programmingLanguageAdapter);
+            programmingLanguageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
+                @Override
+                public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                           int arg2, long arg3) {
+                    project.getProjectProperties().setProgrammingLanguage(programmingLanguageSpinner.getSelectedItem().toString());
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> arg0) {
+                    project.getProjectProperties().setProgrammingLanguage(programmingLanguageSpinner.getSelectedItem().toString());
+                }
+            });
 
             ArrayList<String> platformItems = new ArrayList<String>();
             platformItems.add("Android");
@@ -445,9 +546,23 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
             platformItems.add("Windows Phone");
             platformItems.add("Web Development");
             platformItems.add("Mac OS");
-            ArrayAdapter<String> platformAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(),android.R.layout.simple_spinner_dropdown_item, platformItems);
-            Spinner platformSpinner = (Spinner)rootView.findViewById(R.id.developmentPlatform);
+            ArrayAdapter<String> platformAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, platformItems);
+            final Spinner platformSpinner = (Spinner) rootView.findViewById(R.id.developmentPlatform);
             platformSpinner.setAdapter(platformAdapter);
+            platformSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                @Override
+                public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                           int arg2, long arg3) {
+                    project.getProjectProperties().setPlatform(platformSpinner.getSelectedItem().toString());
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> arg0) {
+                    project.getProjectProperties().setPlatform(platformSpinner.getSelectedItem().toString());
+                }
+            });
 
             ArrayList<String> industrySectorItems = new ArrayList<String>();
             industrySectorItems.add("Agriculture");
@@ -464,30 +579,41 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
             industrySectorItems.add("Music Production");
             industrySectorItems.add("Pharmaceutical Manufacturing");
             industrySectorItems.add("Education");
-            ArrayAdapter<String> industrySectorAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(),android.R.layout.simple_spinner_dropdown_item, industrySectorItems);
-            Spinner industrySectorSpinner = (Spinner)rootView.findViewById(R.id.industrySector);
+            ArrayAdapter<String> industrySectorAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, industrySectorItems);
+            final Spinner industrySectorSpinner = (Spinner) rootView.findViewById(R.id.industrySector);
             industrySectorSpinner.setAdapter(industrySectorAdapter);
+            industrySectorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                @Override
+                public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                           int arg2, long arg3) {
+                    project.getProjectProperties().setIndustrySector(industrySectorSpinner.getSelectedItem().toString());
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> arg0) {
+                    project.getProjectProperties().setIndustrySector(industrySectorSpinner.getSelectedItem().toString());
+                }
+            });
 
             return rootView;
         }
     }
 
-    public static class ProjectPropOneFragment extends Fragment
-    {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
+    public static class ProjectPropOneFragment extends Fragment {
+        private static Project project;
+
         /**
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static ProjectPropOneFragment newInstance(int sectionNumber) {
+        public static ProjectPropOneFragment newInstance(Project proj) {
             ProjectPropOneFragment fragment = new ProjectPropOneFragment();
             Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            //args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
+            project = proj;
             return fragment;
         }
 
@@ -511,26 +637,71 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
             marketItems.add("Inhouse");
             marketItems.add("Customer");
             marketItems.add("Anonymous Market");
-            ArrayAdapter<String> marketsAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(),android.R.layout.simple_spinner_dropdown_item, marketItems);
-            Spinner marketSpinner = (Spinner)rootView.findViewById(R.id.market);
+            ArrayAdapter<String> marketsAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, marketItems);
+            final Spinner marketSpinner = (Spinner) rootView.findViewById(R.id.market);
             marketSpinner.setAdapter(marketsAdapter);
+            marketSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                @Override
+                public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                           int arg2, long arg3) {
+                    project.getProjectProperties().setMarket(marketSpinner.getSelectedItem().toString());
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> arg0) {
+                    project.getProjectProperties().setMarket(marketSpinner.getSelectedItem().toString());
+                }
+            });
 
             ArrayList<String> developmentItems = new ArrayList<String>();
             developmentItems.add("New Project");
             developmentItems.add("Extension");
             developmentItems.add("Research Project");
-            ArrayAdapter<String> developmentAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(),android.R.layout.simple_spinner_dropdown_item, developmentItems);
-            Spinner developmentSpinner = (Spinner)rootView.findViewById(R.id.developmentKind);
+            ArrayAdapter<String> developmentAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, developmentItems);
+            final Spinner developmentSpinner = (Spinner) rootView.findViewById(R.id.developmentKind);
             developmentSpinner.setAdapter(developmentAdapter);
+            developmentSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
+                @Override
+                public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                           int arg2, long arg3) {
+                    project.getProjectProperties().setDevelopmentKind(developmentSpinner.getSelectedItem().toString());
 
-            ArrayList<String> processModelItems = new ArrayList<String>();
-            processModelItems.add("New Project");
-            processModelItems.add("Extension");
-            developmentItems.add("Research Project");
-            ArrayAdapter<String> processModelAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(),android.R.layout.simple_spinner_dropdown_item, processModelItems);
-            Spinner processModelSpinner = (Spinner)rootView.findViewById(R.id.processModel);
-            processModelSpinner.setAdapter(processModelAdapter);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> arg0) {
+                    project.getProjectProperties().setDevelopmentKind(developmentSpinner.getSelectedItem().toString());
+                }
+            });
+
+            ArrayList<String> processMethologyItems = new ArrayList<String>();
+            processMethologyItems.add("V-Model");
+            processMethologyItems.add("Scrum");
+            processMethologyItems.add("Waterfall");
+            processMethologyItems.add("Spiral");
+            processMethologyItems.add("Iterativ");
+            processMethologyItems.add("Prototyping");
+            ArrayAdapter<String> processModelAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, processMethologyItems);
+            final Spinner processMethologySpinner = (Spinner) rootView.findViewById(R.id.processModel);
+            processMethologySpinner.setAdapter(processModelAdapter);
+            processMethologySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                @Override
+                public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                           int arg2, long arg3) {
+                    project.getProjectProperties().setProcessMethology(processMethologySpinner.getSelectedItem().toString());
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> arg0) {
+                    project.getProjectProperties().setProcessMethology(processMethologySpinner.getSelectedItem().toString());
+                }
+            });
+            
             return rootView;
         }
     }
@@ -567,6 +738,11 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
+        }
+
+        @Override
+        public void onAttach(Context context) {
+            super.onAttach(context);
         }
     }
 }

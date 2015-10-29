@@ -72,7 +72,7 @@ public class ProjectOverview extends AppCompatActivity
         //Create and Load the projects
         loadProjects();
         projectsListView = (ListView) findViewById(R.id.projectsList);
-        projectsAdapter = new ProjectListAdapter(this,projectsList);
+        projectsAdapter = new ProjectListAdapter(this, projectsList);
         projectsListView.setAdapter(projectsAdapter);
     }
 
@@ -81,8 +81,7 @@ public class ProjectOverview extends AppCompatActivity
      */
     private void loadProjects() {
         //TODO: This is only text method. Add Database access
-        Date d = new Date();
-        Project p = new Project(this,"Test",d, getResources().getString(R.string.functionPoint));
+        Project p = new Project(this, "Test", "20.04.1989", getResources().getString(R.string.functionPoint));
         p.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.project));
         projectsList.add(p);
     }
@@ -105,7 +104,7 @@ public class ProjectOverview extends AppCompatActivity
 
         // Associate searchable configuration with the SearchView
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =(SearchView) menu.findItem(R.id.action_search).getActionView();
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         return true;
     }

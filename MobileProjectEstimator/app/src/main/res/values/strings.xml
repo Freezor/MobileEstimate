@@ -15,4 +15,5 @@
     <string name="cancel_project_creation">Do you really want to quit the creation Process? All changes will be lost.</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="action_save_project">Save Project</string>
 </resources>

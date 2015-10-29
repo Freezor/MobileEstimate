@@ -65,7 +65,7 @@ public class ProjectListAdapter extends BaseAdapter {
         // title
         title.setText(project.getTitle());
 
-        estimationType.setText(project.getEstimationType());
+        estimationType.setText(project.getEstimationMethod());
 
         creationDate.setText("Created: " + project.getCreationDate().toString());
 
