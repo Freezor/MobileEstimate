@@ -18,7 +18,9 @@
             android:text="For which market will the project developed?"
             android:id="@+id/textViewMarket"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
 
         <Spinner
             android:layout_width="match_parent"

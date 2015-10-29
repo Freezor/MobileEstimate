@@ -60,4 +60,15 @@
         android:layout_toRightOf="@+id/dot4"
         android:background="@drawable/circle_grey" >
     </ImageView>
+
+    <ImageView
+        android:id="@+id/dot6"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/dot5"
+        android:background="@drawable/circle_grey" >
+    </ImageView>
+
  </RelativeLayout>

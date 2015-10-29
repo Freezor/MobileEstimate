@@ -17,7 +17,17 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Influencing Factors"
                 android:id="@+id/textViewInfluencingFactorTitle"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="You have chosen METHOD"
+                android:id="@+id/textViewChosenEstimationMethod"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -25,13 +35,17 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Which set of influencing factors want you to use?"
                 android:id="@+id/textViewInfSet"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"/>
 
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/influencingSet"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:spinnerMode="dropdown"
+                android:textSize="15sp"/>
 
 
             <Button
@@ -44,7 +58,8 @@
                 android:theme="@style/Base.Widget.AppCompat.ActionButton"
                 android:textColor="#FFFFFF"
                 android:layout_marginTop="20dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                />
 
         </LinearLayout>
     </ScrollView>

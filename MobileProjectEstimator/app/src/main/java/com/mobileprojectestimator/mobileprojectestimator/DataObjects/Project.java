@@ -5,12 +5,13 @@ import android.graphics.Bitmap;
 
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Oliver Fries on 25.10.2015.
  */
-public class Project {
+public class Project implements Serializable{
 
     private String Title;
     private Bitmap image;
@@ -44,6 +45,8 @@ public class Project {
     public Project(Context current) {
         this.context = current;
     }
+
+    public Context getContext(){return this.context;}
 
     private void setInfluencingFactors()
     {

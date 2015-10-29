@@ -17,13 +17,17 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="What programming language will be used?"
             android:id="@+id/textViewProgrammingLanguage"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"/>
 
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/programmingLanguage"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:spinnerMode="dropdown"
+            android:textSize="15sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,14 +35,37 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="For what platform will be developed?"
             android:id="@+id/textViewPlatform"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"/>
 
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/developmentPlatform"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:spinnerMode="dropdown"
+            android:textSize="15sp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="In which industry sector will be the project established?"
+            android:id="@+id/textViewIndustrySector"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/industrySector"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:spinnerMode="dropdown"
+            android:textSize="15sp" />
 
     </LinearLayout>
     </ScrollView>
