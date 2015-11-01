@@ -21,13 +21,15 @@
             android:layout_marginTop="20dp"/>
 
         <Spinner
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:id="@+id/programmingLanguage"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:spinnerMode="dropdown"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            style="@style/spinner_style"
+            android:elevation="2dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -39,13 +41,15 @@
             android:layout_marginTop="20dp"/>
 
         <Spinner
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:id="@+id/developmentPlatform"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:spinnerMode="dropdown"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            style="@style/spinner_style"
+            android:elevation="2dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -59,13 +63,15 @@
             android:layout_marginRight="10dp"/>
 
         <Spinner
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:id="@+id/industrySector"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:spinnerMode="dropdown"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            style="@style/spinner_style"
+            android:elevation="2dp" />
 
     </LinearLayout>
     </ScrollView>

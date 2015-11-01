@@ -11,4 +11,6 @@
     <color name="creationDate">#2196F3</color>
     <color name="estimationType">#FF5722</color>
     <color name="standardButtonColor">#2196F3</color>
+    <color name="standardRowEven">#BBDEFB</color>
+    <color name="standardRowOdd">#2196F3</color>
 </resources>

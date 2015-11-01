@@ -1,13 +1,12 @@
 package com.mobileprojectestimator.mobileprojectestimator;
 
 import android.app.AlertDialog;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,7 +18,6 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,17 +29,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.ProjectCreationItem;
+import com.mobileprojectestimator.mobileprojectestimator.Util.GuidedCreationFragment;
+import com.mobileprojectestimator.mobileprojectestimator.Util.ProjectCreationListAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -85,6 +84,28 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                GuidedCreationFragment f = mSectionsPagerAdapter.updateItem(position);
+                f.onReloadViews(getLayoutInflater());
+                final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.detach(f);
+                ft.attach(f);
+                ft.commit();
+                //TODO: gug
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
@@ -182,7 +203,7 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
                     return ProjectPropTwoFragment.newInstance(this.project);
                 case 3:
                     return EstimationMethodFragment.newInstance(this.project);
-                case 4:
+                case 4: 
                     return InfluencingFactorFragment.newInstance(this.project);
                 case 5:
                     return ProjectCreationOverviewFragment.newInstance(this.project);
@@ -218,9 +239,28 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
             }
             return null;
         }
+
+        public GuidedCreationFragment updateItem(int position) {
+            switch (position) {
+                case 0:
+                    return ProjectInfoFragment.newInstance(this.project);
+                case 1:
+                    return ProjectPropOneFragment.newInstance(this.project);
+                case 2:
+                    return ProjectPropTwoFragment.newInstance(this.project);
+                case 3:
+                    return EstimationMethodFragment.newInstance(this.project);
+                case 4:
+                    return InfluencingFactorFragment.newInstance(this.project);
+                case 5:
+                    return ProjectCreationOverviewFragment.newInstance(this.project);
+                default:
+                    return PlaceholderFragment.newInstance(position + 1);
+            }
+        }
     }
 
-    public static class EstimationMethodFragment extends Fragment {
+    public static class EstimationMethodFragment extends GuidedCreationFragment {
         private static Project project;
         private static TextView chosenMethodTv;
 
@@ -269,10 +309,19 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
 
             return rootView;
         }
+
+
+        @Override
+        public void onReloadViews(LayoutInflater inflater) {
+
+        }
     }
 
-    public static class ProjectCreationOverviewFragment extends Fragment {
+    public static class ProjectCreationOverviewFragment extends GuidedCreationFragment {
         private static Project project;
+        private ListView projectCreationListView;
+        private ProjectCreationListAdapter projectCreationAdapter;
+        private ArrayList<ProjectCreationItem> creationItems;
 
         public void onCreateOptionsMenu(Menu menu,MenuInflater inflater) {
             // Do something that differs the Activity's menu here
@@ -282,6 +331,8 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
             MenuItem listCreationItem = menu.getItem(1);
             listCreationItem.setVisible(false);
         }
+
+
 
         /**
          * Returns a new instance of this fragment for the given section
@@ -308,31 +359,36 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.project_creation_overview_fragment, container, false);
-            //Set ProgressBar
-            ImageView dot1 = (ImageView) rootView.findViewById(R.id.dot1);
-            dot1.setBackgroundResource(R.drawable.circle_blue);
-            ImageView dot2 = (ImageView) rootView.findViewById(R.id.dot2);
-            dot2.setBackgroundResource(R.drawable.circle_blue);
-            ImageView dot3 = (ImageView) rootView.findViewById(R.id.dot3);
-            dot3.setBackgroundResource(R.drawable.circle_blue);
-            ImageView dot4 = (ImageView) rootView.findViewById(R.id.dot4);
-            dot4.setBackgroundResource(R.drawable.circle_blue);
-            ImageView dot5 = (ImageView) rootView.findViewById(R.id.dot5);
-            dot5.setBackgroundResource(R.drawable.circle_blue);
-            ImageView dot6 = (ImageView) rootView.findViewById(R.id.dot6);
-            dot6.setBackgroundResource(R.drawable.circle_blue);
 
             //Set Text for all items
             //TODO: get Values from the chosen values
-            RelativeLayout ll = (RelativeLayout) rootView.findViewById(R.id.projectNameValue);
-            TextView tv = (TextView) ll.findViewById(R.id.tvItemValue);
-            tv.setText(project.getTitle());
 
+            creationItems = new ArrayList<ProjectCreationItem>();
+            creationItems.add(new ProjectCreationItem("Project Name: ","Item Value"));
+            creationItems.add(new ProjectCreationItem("Project Description: ","Item Value"));
+            creationItems.add(new ProjectCreationItem("Project Icon: ","Item Value"));
+            creationItems.add(new ProjectCreationItem("Project Market: ","Item Value"));
+            creationItems.add(new ProjectCreationItem("Project Kind: ","Item Value"));
+            creationItems.add(new ProjectCreationItem("Project Model: ","Item Value"));
+            creationItems.add(new ProjectCreationItem("Process Model: ","Item Value"));
+            creationItems.add(new ProjectCreationItem("Programming Language: ","Item Value"));
+            creationItems.add(new ProjectCreationItem("Industry Sector: ","Item Value"));
+            creationItems.add(new ProjectCreationItem("Estimation Method: ","Item Value"));
+            creationItems.add(new ProjectCreationItem("Influencing Factor: ","Item Value"));
+
+            projectCreationListView = (ListView) rootView.findViewById(R.id.lvProjectCreation);
+            projectCreationAdapter = new ProjectCreationListAdapter(this, creationItems);
+            projectCreationListView.setAdapter(projectCreationAdapter);
             return rootView;
+        }
+
+        @Override
+        public void onReloadViews(LayoutInflater inflater) {
+
         }
     }
 
-    public static class ProjectInfoFragment extends Fragment {
+    public static class ProjectInfoFragment extends GuidedCreationFragment {
         private static Project project;
 
         /**
@@ -342,7 +398,6 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
         public static ProjectInfoFragment newInstance(Project proj) {
             ProjectInfoFragment fragment = new ProjectInfoFragment();
             Bundle args = new Bundle();
-            //args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             project = proj;
             return fragment;
@@ -411,16 +466,20 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
             return rootView;
         }
 
+        @Override
+        public void onReloadViews(LayoutInflater inflater) {
+
+        }
     }
 
-    public static class InfluencingFactorFragment extends Fragment {
+    public static class InfluencingFactorFragment extends GuidedCreationFragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
          */
         private static Project project;
         private static TextView estimationMethodTitelTV;
-
+        private static ViewGroup container;
         /**
          * Returns a new instance of this fragment for the given section
          * number.
@@ -430,9 +489,6 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
             Bundle args = new Bundle();
             project = proj;
             fragment.setArguments(args);
-            
-            //estimationMethodTitelTV.setText("You have chosen " + project.getEstimationMethod() + " as your Estimation Method.");
-            
             return fragment;
         }
 
@@ -442,6 +498,7 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+            this.container = container;
             View rootView = inflater.inflate(R.layout.influencing_factor_fragment, container, false);
             ImageView dot1 = (ImageView) rootView.findViewById(R.id.dot1);
             dot1.setBackgroundResource(R.drawable.circle_blue);
@@ -455,8 +512,8 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
             dot5.setBackgroundResource(R.drawable.circle_blue);
 
 
-            estimationMethodTitelTV = (TextView) rootView.findViewById(R.id.textViewChosenEstimationMethod);
-
+            //estimationMethodTitelTV = (TextView) rootView.findViewById(R.id.textViewChosenEstimationMethod);
+            //estimationMethodTitelTV.setText("You have chosen " + project.getEstimationMethod() + " as your Estimation Method.");
             //TODO: Import Spinner Data from Database
             /**
              * Initialise the Spinner Data
@@ -469,9 +526,17 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
             influencingFactorsAdapterSpinner.setAdapter(influencingFactorsAdapter);
             return rootView;
         }
+
+        @Override
+        public void onReloadViews(LayoutInflater inflater )
+        {
+            View rootView = inflater.inflate(R.layout.influencing_factor_fragment, container, false);
+            estimationMethodTitelTV = (TextView) rootView.findViewById(R.id.textViewChosenEstimationMethod);
+            estimationMethodTitelTV.setText("You have chosen " + project.getEstimationMethod() + " as your Estimation Method.");
+        }
     }
 
-    public static class ProjectPropTwoFragment extends Fragment {
+    public static class ProjectPropTwoFragment extends GuidedCreationFragment {
         private static Project project;
 
         /**
@@ -599,9 +664,14 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
 
             return rootView;
         }
+
+        @Override
+        public void onReloadViews(LayoutInflater inflater) {
+
+        }
     }
 
-    public static class ProjectPropOneFragment extends Fragment {
+    public static class ProjectPropOneFragment extends GuidedCreationFragment {
         private static Project project;
 
         /**
@@ -704,12 +774,17 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
             
             return rootView;
         }
+
+        @Override
+        public void onReloadViews(LayoutInflater inflater) {
+
+        }
     }
 
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    public static class PlaceholderFragment extends GuidedCreationFragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -743,6 +818,11 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
         @Override
         public void onAttach(Context context) {
             super.onAttach(context);
+        }
+
+        @Override
+        public void onReloadViews(LayoutInflater inflater) {
+
         }
     }
 }
