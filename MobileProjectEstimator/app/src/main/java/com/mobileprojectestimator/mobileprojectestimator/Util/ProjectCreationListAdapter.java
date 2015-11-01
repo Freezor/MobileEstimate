@@ -1,35 +1,27 @@
 package com.mobileprojectestimator.mobileprojectestimator.Util;
 
-import android.app.Fragment;
-import android.content.Context;
-import android.graphics.Color;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.ProjectCreationItem;
-import com.mobileprojectestimator.mobileprojectestimator.GuidedProjectCreationActivity;
+import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectCreationOverviewFragment;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.util.ArrayList;
-
-import static android.support.v7.widget.RecyclerView.*;
 
 /**
  * Created by Oliver Fries on 31.10.2015.
  */
 public class ProjectCreationListAdapter extends BaseAdapter {
 
-    private GuidedProjectCreationActivity.ProjectCreationOverviewFragment fragment;
+    private ProjectCreationOverviewFragment fragment;
     private ArrayList<ProjectCreationItem> creationItems;
     private LayoutInflater inflater;
 
-    public ProjectCreationListAdapter(GuidedProjectCreationActivity.ProjectCreationOverviewFragment projectCreationOverviewFragment, ArrayList<ProjectCreationItem> creationItems) {
+    public ProjectCreationListAdapter(ProjectCreationOverviewFragment projectCreationOverviewFragment, ArrayList<ProjectCreationItem> creationItems) {
         this.fragment = projectCreationOverviewFragment;
         this.creationItems = creationItems;
     }
