@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
@@ -35,6 +36,7 @@ public class ProjectOverview extends AppCompatActivity
     private ListView projectsListView;
     private ProjectListAdapter projectsAdapter;
     int FRAGMENT_REQUEST_CODE = 1000;
+    int PROJECT_VIEW_CODE = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,13 @@ public class ProjectOverview extends AppCompatActivity
         projectsListView = (ListView) findViewById(R.id.projectsList);
         projectsAdapter = new ProjectListAdapter(this, projectsList);
         projectsListView.setAdapter(projectsAdapter);
+        projectsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(ProjectOverview.this, FunctionPointProjectActivtiy.class);
+                startActivityForResult(i, PROJECT_VIEW_CODE);
+            }
+        });
     }
 
     /**
