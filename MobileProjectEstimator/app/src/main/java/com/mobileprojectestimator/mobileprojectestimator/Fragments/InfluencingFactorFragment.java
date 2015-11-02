@@ -5,10 +5,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
@@ -27,8 +30,9 @@ public class InfluencingFactorFragment extends GuidedCreationFragment {
     private TextView estimationMethodTitelTV;
     private ViewGroup container;
     private View rootView;
-
+    private ArrayList<String> influencingFactorItems;
     private String text;
+    private ArrayAdapter<String> influencingFactorsAdapter;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -70,46 +74,44 @@ public class InfluencingFactorFragment extends GuidedCreationFragment {
         estimationMethodTitelTV = (TextView) rootView.findViewById(R.id.textViewChosenEstimationMethod);
         estimationMethodTitelTV.setText(text);
 
-        //estimationMethodTitelTV = (TextView) rootView.findViewById(R.id.textViewChosenEstimationMethod);
-        //estimationMethodTitelTV.setText("You have chosen " + project.getEstimationMethod() + " as your Estimation Method.");
-        //TODO: Import Spinner Data from Database
-        /**
-         * Initialise the Spinner Data
-         */
-        ArrayList<String> influencingFactorItems = new ArrayList<String>();
-        influencingFactorItems.add("Small new Team");
-        influencingFactorItems.add("Big Old Team");
-        ArrayAdapter<String> influencingFactorsAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, influencingFactorItems);
-        Spinner influencingFactorsAdapterSpinner = (Spinner) rootView.findViewById(R.id.influencingSet);
-        influencingFactorsAdapterSpinner.setAdapter(influencingFactorsAdapter);
+        Button factorsetButton = (Button)rootView.findViewById(R.id.influencingFactorSetButton);
+        factorsetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(project.getContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+            }
+        });
         return rootView;
+    }
+
+    public ArrayList<String> getInfluencingFactorItems(){return influencingFactorItems;}
+
+    public ArrayAdapter<String> getInfluencingFactorsAdapter(){return influencingFactorsAdapter;}
+
+    public void setNewInfluencingFactorItems(ArrayList<String> items){
+        influencingFactorItems = new ArrayList<String>();
+        influencingFactorItems = items;
+        influencingFactorsAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, influencingFactorItems);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("INFO", "onResume");
     }
 
     @Override
     public void onPause() {
-        Log.d("INFO","onPause");
         super.onPause();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("INFO", "onDestroy");
     }
 
     @Override
     public void onReloadViews(String text)
     {
         this.text=text;
-       // estimationMethodTitelTV=(TextView) fragment.getView().findViewById(R.id.textViewChosenEstimationMethod);
-      //  estimationMethodTitelTV = (TextView) rootView.findViewById(R.id.textViewChosenEstimationMethod);
-       // estimationMethodTitelTV.setText("You have chosen " + project.getEstimationMethod() + " as your Estimation Method.");
- Log.d("INFO","onReloadViews");
     }
 }

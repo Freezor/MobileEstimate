@@ -1,5 +1,7 @@
 package com.mobileprojectestimator.mobileprojectestimator.Fragments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -38,6 +40,22 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment {
         return fragment;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch (item.getItemId()) {
+            case R.id.action_save_project:
+                Intent intent = new Intent();
+                intent.putExtra("DATA","Hai");
+                getActivity().setResult(Activity.RESULT_OK,intent);
+                getActivity().finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public void onCreateOptionsMenu(Menu menu,MenuInflater inflater) {
         // Do something that differs the Activity's menu here
         super.onCreateOptionsMenu(menu, inflater);
@@ -66,10 +84,10 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment {
         creationItems.add(new ProjectCreationItem("Project Description: ","Item Value"));
         creationItems.add(new ProjectCreationItem("Project Icon: ","Item Value"));
         creationItems.add(new ProjectCreationItem("Project Market: ","Item Value"));
-        creationItems.add(new ProjectCreationItem("Project Kind: ","Item Value"));
-        creationItems.add(new ProjectCreationItem("Project Model: ","Item Value"));
+        creationItems.add(new ProjectCreationItem("Development Kind: ","Item Value"));
         creationItems.add(new ProjectCreationItem("Process Model: ","Item Value"));
         creationItems.add(new ProjectCreationItem("Programming Language: ","Item Value"));
+        creationItems.add(new ProjectCreationItem("Platform: ","Item Value"));
         creationItems.add(new ProjectCreationItem("Industry Sector: ","Item Value"));
         creationItems.add(new ProjectCreationItem("Estimation Method: ", "Item Value"));
         creationItems.add(new ProjectCreationItem("Influencing Factor: ", "Item Value"));

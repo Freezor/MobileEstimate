@@ -4,7 +4,7 @@
     android:layout_margin="20dp">
 
     <TextView
-        android:layout_width="100dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Item Name: "
@@ -14,7 +14,7 @@
         android:layout_toStartOf="@+id/tvItemValue" />
 
     <TextView
-        android:layout_width="110dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Item Value"

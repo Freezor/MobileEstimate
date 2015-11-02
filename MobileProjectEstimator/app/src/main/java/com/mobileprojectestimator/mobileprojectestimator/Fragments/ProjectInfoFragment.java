@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
@@ -71,7 +72,7 @@ public class ProjectInfoFragment extends GuidedCreationFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                project.setProjectDescription(projectNameET.getText().toString());
+                project.setProjectDescription(projectDescription.getText().toString());
             }
 
             @Override
@@ -82,6 +83,10 @@ public class ProjectInfoFragment extends GuidedCreationFragment {
 
         Bitmap projectIcon = BitmapFactory.decodeResource(getResources(), R.drawable.project);
         project.setImage(projectIcon);
+        project.setIconName("Standard Project Icon");
+
+        TextView iconName = (TextView) rootView.findViewById(R.id.tvProjectImageName);
+        iconName.setText(project.getIconName());
 
         Button changeProjectIconBtn = (Button) rootView.findViewById(R.id.changeProjectIcon);
         changeProjectIconBtn.setOnClickListener(new View.OnClickListener() {

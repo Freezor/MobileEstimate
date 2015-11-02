@@ -15,6 +15,7 @@ public class Project implements Serializable {
 
     private String Title;
     private Bitmap image;
+    private String iconName;
     private String creationDate;
     private String projectDescription;
     private String estimationMethod;//TODO: change with db
@@ -55,9 +56,6 @@ public class Project implements Serializable {
     }
 
     private void setInfluencingFactors() {
-        if (estimationMethod.equals(context.getResources().getString(R.string.functionPoint))) {
-            influencingFactor = new InfluencingFactor<FunctionPointFactor>();
-        }
         projectProperties = new ProjectProperties();
     }
 
@@ -116,5 +114,13 @@ public class Project implements Serializable {
 
     public void setProjectDescription(String projectDescription) {
         this.projectDescription = projectDescription;
+    }
+
+    public String getIconName() {
+        return iconName;
+    }
+
+    public void setIconName(String iconName) {
+        this.iconName = iconName;
     }
 }

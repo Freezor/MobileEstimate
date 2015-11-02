@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="What process model will be used?"
+            android:text="What process methology will be used?"
             android:id="@+id/textViewProcessModel"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"/>

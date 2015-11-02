@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.view.MenuInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -43,6 +44,7 @@ public class ProjectOverview extends AppCompatActivity
     private List<Project> projectsList = new ArrayList<Project>();
     private ListView projectsListView;
     private ProjectListAdapter projectsAdapter;
+    int FRAGMENT_REQUEST_CODE = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +58,7 @@ public class ProjectOverview extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(ProjectOverview.this, GuidedProjectCreationActivity.class);
-                startActivity(i);
+                startActivityForResult(i, FRAGMENT_REQUEST_CODE);
             }
         });
 
@@ -109,6 +111,13 @@ public class ProjectOverview extends AppCompatActivity
         return true;
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == FRAGMENT_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Log.d("Info", data.getExtras().getString("DATA"));
+            }
+        }
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

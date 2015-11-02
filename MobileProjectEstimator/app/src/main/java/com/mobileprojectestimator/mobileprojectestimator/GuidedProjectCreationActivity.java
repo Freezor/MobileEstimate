@@ -1,7 +1,11 @@
 package com.mobileprojectestimator.mobileprojectestimator;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.media.Image;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,8 +17,19 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.FunctionPointFactor;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.EstimationMethodFragment;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedCreationFragment;
@@ -40,6 +55,8 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
+    private static int STRINGLENGTH = 12;
+
     private ArrayList<GuidedCreationFragment> guidedCreationFragmentsArrayList;
 
     /**
@@ -57,7 +74,7 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guided_project_creation);
 
-        guidedCreationFragmentsArrayList = new ArrayList<GuidedCreationFragment>();
+        guidedCreationFragmentsArrayList = new ArrayList<>();
         guidedCreationFragmentsArrayList.add(new ProjectInfoFragment());//Position 0
         guidedCreationFragmentsArrayList.add(new ProjectPropOneFragment());//Position 1
         guidedCreationFragmentsArrayList.add(new ProjectPropTwoFragment());//Position 2
@@ -69,6 +86,7 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarGuidedCreation);
         setSupportActionBar(toolbar);
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), projectNew);
@@ -86,13 +104,14 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 //Log.d("Info",guidedCreationFragmentsArrayList.get(position).toString()+" Position: "+position);
                if(guidedCreationFragmentsArrayList.get(position) instanceof InfluencingFactorFragment) {
-                   InfluencingFactorFragment f = (InfluencingFactorFragment) mSectionsPagerAdapter.instantiateItem(mViewPager,position);
-                   TextView t = (TextView) f.getView().findViewById(R.id.textViewChosenEstimationMethod);
-                   //t.setText(f.project.getEstimationMethod());
-                   //TODO: hier weiter arbeiten, ordentlichen Text einpflegen und für alle Fragments die Daten eintragen
-                   //TODO: nächster Schritt Projekt speichern und in Übersicht anzeigen. Start der Projekt Ansicht
-                   //TODO: Eintragung von Einflussfaktoren erst nach Auswahl der MEthode ermöglichen
-                   t.setText(projectNew.getEstimationMethod());
+                   updateInfluencingFactorFragment(position);
+
+               } else if(guidedCreationFragmentsArrayList.get(position) instanceof ProjectInfoFragment) {
+                   updateProjectInfoFragment(position);
+
+               } else if(guidedCreationFragmentsArrayList.get(position) instanceof ProjectCreationOverviewFragment) {
+                   updateProjectCreationOverviewFragment(position);
+
                }
                 //TODO: gug
             }
@@ -120,6 +139,248 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+    }
+
+    private void updateProjectCreationOverviewFragment(int position) {
+        final ProjectCreationOverviewFragment f = (ProjectCreationOverviewFragment) mSectionsPagerAdapter.instantiateItem(mViewPager, position);
+        ListView creationItemsListView = (ListView) f.getView().findViewById(R.id.lvProjectCreation);
+        //Set Project Name
+        final RelativeLayout rv0 = (RelativeLayout) creationItemsListView.getChildAt(0);
+        TextView projName = (TextView) rv0.findViewById(R.id.tvItemValue);
+        projName.setText(shorten(projectNew.getTitle(),STRINGLENGTH));
+        ImageView editName = (ImageView) rv0.findViewById(R.id.ivEditItem);
+        editName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(f.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+            }
+        });
+        //Set Project Description
+        final RelativeLayout rv1 = (RelativeLayout) creationItemsListView.getChildAt(1);
+        TextView projDescription = (TextView) rv1.findViewById(R.id.tvItemValue);
+        if(projectNew.getProjectDescription() != null)
+        {
+            projDescription.setText(shorten(projectNew.getProjectDescription(), STRINGLENGTH));
+        } else {
+            projDescription.setText("");
+        }
+        ImageView editDescription = (ImageView) rv1.findViewById(R.id.ivEditItem);
+        editDescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(f.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+            }
+        });
+        //Set Project Icon
+        final RelativeLayout rv2 = (RelativeLayout) creationItemsListView.getChildAt(2);
+        TextView iconName = (TextView) rv2.findViewById(R.id.tvItemValue);
+        iconName.setText(shorten(projectNew.getIconName(), STRINGLENGTH));
+        ImageView editIconName = (ImageView) rv2.findViewById(R.id.ivEditItem);
+        editIconName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(f.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+            }
+        });
+        //Set Project Market
+        final RelativeLayout rv3 = (RelativeLayout) creationItemsListView.getChildAt(3);
+        TextView projectMarket = (TextView) rv3.findViewById(R.id.tvItemValue);
+        projectMarket.setText(shorten(projectNew.getProjectProperties().getMarket(), STRINGLENGTH));
+        ImageView editProjectMarket = (ImageView) rv3.findViewById(R.id.ivEditItem);
+        editProjectMarket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(f.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+            }
+        });
+        //Set Project Development Kind
+        final RelativeLayout rv4 = (RelativeLayout) creationItemsListView.getChildAt(4);
+        TextView developmentKind = (TextView) rv4.findViewById(R.id.tvItemValue);
+        developmentKind.setText(shorten(projectNew.getProjectProperties().getDevelopmentKind(), STRINGLENGTH));
+        ImageView editDevelopmentKind = (ImageView) rv4.findViewById(R.id.ivEditItem);
+        editDevelopmentKind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(f.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+            }
+        });
+        //Set Process Methology
+        final RelativeLayout rv5 = (RelativeLayout) creationItemsListView.getChildAt(5);
+        TextView processModel = (TextView) rv5.findViewById(R.id.tvItemValue);
+        processModel.setText(shorten(projectNew.getProjectProperties().getProcessMethology(), STRINGLENGTH));
+        ImageView editProcessModel = (ImageView) rv5.findViewById(R.id.ivEditItem);
+        editProcessModel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(f.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+            }
+        });
+        //Set Programming Language
+        final RelativeLayout rv6 = (RelativeLayout) creationItemsListView.getChildAt(6);
+        TextView programmingLanguage = (TextView) rv6.findViewById(R.id.tvItemValue);
+        programmingLanguage.setText(shorten(projectNew.getProjectProperties().getProgrammingLanguage(), STRINGLENGTH));
+        ImageView editProgrammingLanguage = (ImageView) rv6.findViewById(R.id.ivEditItem);
+        editProgrammingLanguage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(f.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+            }
+        });
+        //Set Platform
+        final RelativeLayout rv7 = (RelativeLayout) creationItemsListView.getChildAt(7);
+        TextView platform = (TextView) rv7.findViewById(R.id.tvItemValue);
+        platform.setText(shorten(projectNew.getProjectProperties().getPlatform(), STRINGLENGTH));
+        ImageView editPlatform = (ImageView) rv7.findViewById(R.id.ivEditItem);
+        editPlatform.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(f.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+            }
+        });
+        //Set Industry Sector
+        final RelativeLayout rv8 = (RelativeLayout) creationItemsListView.getChildAt(8);
+        TextView industrySector = (TextView) rv8.findViewById(R.id.tvItemValue);
+        industrySector.setText(shorten(projectNew.getProjectProperties().getIndustrySector(), STRINGLENGTH));
+        ImageView editIndustrySector = (ImageView) rv8.findViewById(R.id.ivEditItem);
+        editIndustrySector.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(f.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+            }
+        });
+        //Set Estimation Method
+        final RelativeLayout rv9 = (RelativeLayout) creationItemsListView.getChildAt(9);
+        TextView estimationMethod = (TextView) rv9.findViewById(R.id.tvItemValue);
+        estimationMethod.setText(shorten(projectNew.getEstimationMethod(),STRINGLENGTH));
+        ImageView editEstimationMethod = (ImageView) rv9.findViewById(R.id.ivEditItem);
+        editEstimationMethod.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(f.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+            }
+        });
+        //Set Influence Factor Set
+        final RelativeLayout rv10 = (RelativeLayout) creationItemsListView.getChildAt(10);
+        TextView influenceFactor = (TextView) rv10.findViewById(R.id.tvItemValue);
+        //TODO: SET Influence Factor Name
+        influenceFactor.setText(shorten(projectNew.getInfluencingFactor().getName(),STRINGLENGTH));
+        ImageView editInfluenceFactor = (ImageView) rv10.findViewById(R.id.ivEditItem);
+        editInfluenceFactor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(f.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private String shorten(String text, int length) {
+        if(text.length() > length){
+
+            String s = text.substring(0,length);
+            s = s + "...";
+            return s;
+        } else {
+            return text;
+        }
+    }
+
+
+    private void updateProjectInfoFragment(int position) {
+        ProjectInfoFragment f = (ProjectInfoFragment) mSectionsPagerAdapter.instantiateItem(mViewPager, position);
+        EditText projectNameET = (EditText) f.getView().findViewById(R.id.projectNameET);
+        projectNameET.setText(projectNew.getTitle());
+        EditText projectDescriptionET = (EditText) f.getView().findViewById(R.id.projectDescriptionET);
+        projectDescriptionET.setText(projectNew.getProjectDescription());
+        ImageView projectIcon = (ImageView) f.getView().findViewById(R.id.projectIconIV);
+        projectIcon.setImageBitmap(projectNew.getImage());
+        TextView iconName = (TextView) f.getView().findViewById(R.id.tvProjectImageName);
+        iconName.setText(projectNew.getIconName());
+    }
+
+    private void updateInfluencingFactorFragment(int position) {
+        InfluencingFactorFragment f = (InfluencingFactorFragment) mSectionsPagerAdapter.instantiateItem(mViewPager,position);
+
+        TextView t = (TextView) f.getView().findViewById(R.id.textViewChosenEstimationMethod);
+        t.setText("You have chosen the " + projectNew.getEstimationMethod() + " Estimation Method.");
+
+        ArrayAdapter<String> influencingFactorsAdapter = new ArrayAdapter<String>(f.getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, loadInfluencingFactorsSetList());
+        final Spinner influencingFactorsAdapterSpinner = (Spinner)  f.getView().findViewById(R.id.influencingSet);
+        influencingFactorsAdapterSpinner.setAdapter(influencingFactorsAdapter);
+        influencingFactorsAdapterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                projectNew.setInfluencingFactor(loadInfluencingFactorsSet(projectNew.getEstimationMethod(), influencingFactorsAdapterSpinner.getSelectedItem().toString()));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        if (projectNew.getEstimationMethod().equals("")){
+            t.setText("You have chosen no Estimation Method.");
+        }
+
+    }
+
+    private InfluencingFactor loadInfluencingFactorsSet(String estimationMethod, String factor) {
+        InfluencingFactor influencingFactor;
+        if(estimationMethod.equals("Function Point")){
+            //TODO: Load Factor From Database
+            influencingFactor = new FunctionPointFactor();
+            //TODO: load Factor Set from database
+            influencingFactor.setName("Factor Set 1");
+            influencingFactor.getFactorItems().get(0).setChosenValue(2);
+            influencingFactor.getFactorItems().get(1).setChosenValue(2);
+            influencingFactor.getFactorItems().get(2).setChosenValue(2);
+
+            influencingFactor.getFactorItems().get(3).getSubFactorItemsList().get(0).setChosenValue(8);
+            influencingFactor.getFactorItems().get(3).getSubFactorItemsList().get(1).setChosenValue(2);
+            influencingFactor.getFactorItems().get(3).getSubFactorItemsList().get(2).setChosenValue(5);
+            influencingFactor.getFactorItems().get(3).getSubFactorItemsList().get(3).setChosenValue(1);
+
+            influencingFactor.getFactorItems().get(3).setChosenValue(0);
+            influencingFactor.getFactorItems().get(5).setChosenValue(3);
+            influencingFactor.getFactorItems().get(6).setChosenValue(5);
+
+        } else if(estimationMethod.equals("COCOMO")){
+            //TODO Create COCOMO Factor
+            influencingFactor = new FunctionPointFactor();
+            influencingFactor.setName("COCOMO");
+        } else if(estimationMethod.equals("COCOMO 2")){
+            //TODO Create COCOMO 2 Factor
+            influencingFactor = new FunctionPointFactor();
+            influencingFactor.setName("COCOMO 2");
+        }else{
+            influencingFactor = new FunctionPointFactor("No Influencing Factor Set Createt yet");
+        }
+
+        return influencingFactor;
+    }
+
+    private ArrayList<String> loadInfluencingFactorsSetList() {
+        ArrayList<String> influencingFactorItems;
+        influencingFactorItems = new ArrayList<>();
+
+        switch (projectNew.getEstimationMethod()) {
+            case "Function Point":
+
+                influencingFactorItems.add("Small new Team");
+                influencingFactorItems.add("Big Old Team");
+
+                break;
+            case "COCOMO":
+                influencingFactorItems.add("Cocomo");
+                break;
+            case "COCOMO 2":
+                influencingFactorItems.add("Cocomo 2");
+                break;
+            default:
+                influencingFactorItems.add("");
+                break;
+        }
+        return influencingFactorItems;
     }
 
 
@@ -184,7 +445,7 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
             this.project.setEstimationMethod("Function Point");//TODO: Standard Estimation Method anders setzen
 
             Calendar c = Calendar.getInstance();
-            SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
             String formattedDate = df.format(c.getTime());
             this.project.setCreationDate(formattedDate);
         }
