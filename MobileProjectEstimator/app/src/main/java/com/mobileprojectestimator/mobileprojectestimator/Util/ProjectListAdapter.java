@@ -3,7 +3,6 @@ package com.mobileprojectestimator.mobileprojectestimator.Util;
 /**
  * Created by Oliver Fries on 25.10.2015.
  */
-import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,6 +15,8 @@ import android.widget.TextView;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
+
+import java.util.List;
 
 public class ProjectListAdapter extends BaseAdapter {
     private Activity activity;

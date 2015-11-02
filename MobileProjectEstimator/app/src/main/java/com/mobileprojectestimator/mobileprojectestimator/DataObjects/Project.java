@@ -2,11 +2,14 @@ package com.mobileprojectestimator.mobileprojectestimator.DataObjects;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 
-import com.mobileprojectestimator.mobileprojectestimator.R;
+import com.google.gson.Gson;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
-import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by Oliver Fries on 25.10.2015.
@@ -19,8 +22,8 @@ public class Project implements Serializable {
     private String creationDate;
     private String projectDescription;
     private String estimationMethod;//TODO: change with db
-    private InfluencingFactor influencingFactor;
     private Context context;
+    private InfluencingFactor influencingFactor;
     private ProjectProperties projectProperties;
 
     /**
@@ -122,5 +125,42 @@ public class Project implements Serializable {
 
     public void setIconName(String iconName) {
         this.iconName = iconName;
+    }
+
+    public HashMap<String,String> toHashMap(){
+        HashMap<String,String> valuesMap = new HashMap<>();
+        Gson gson = new Gson();
+        String infFactors = gson.toJson(this.influencingFactor);
+        valuesMap.put("INFLUENCINGFACTORS",infFactors);
+        String properties = gson.toJson(this.projectProperties);
+        valuesMap.put("PROPERTIES",properties);
+
+        valuesMap.put("TITLE", Title);
+
+        Bitmap immagex = image;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        immagex.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] b = baos.toByteArray();
+        valuesMap.put("IMAGE", Base64.encodeToString(b, Base64.DEFAULT));
+
+        valuesMap.put("ICONNAME",iconName);
+        valuesMap.put("CREATIONDATE",creationDate);
+        valuesMap.put("PROJECTDESCRIPTION",projectDescription);
+        valuesMap.put("ESTIMATIONMETHOD",estimationMethod);
+
+        return valuesMap;
+    }
+
+    public void toObjectFromHashMap(HashMap<String,String> objectHash){
+        Gson gson = new Gson();
+        setInfluencingFactor(gson.fromJson(objectHash.get("INFLUENCINGFACTORS"), FunctionPointFactor.class));
+        setProjectProperties(gson.fromJson(objectHash.get("PROPERTIES"), ProjectProperties.class));
+        this.setTitle(objectHash.get("TITLE"));
+        this.setIconName(objectHash.get("ICONNAME"));
+        this.setCreationDate(objectHash.get("CREATIONDATE"));
+        this.setProjectDescription(objectHash.get("PROJECTDESCRIPTION"));
+        this.setEstimationMethod(objectHash.get("ESTIMATIONMETHOD"));
+        byte[] decodedByte = Base64.decode(objectHash.get("IMAGE"), 0);
+        this.setImage(BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length));
     }
 }

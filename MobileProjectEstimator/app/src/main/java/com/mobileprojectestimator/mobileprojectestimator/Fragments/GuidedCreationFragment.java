@@ -2,7 +2,6 @@ package com.mobileprojectestimator.mobileprojectestimator.Fragments;
 
 
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 

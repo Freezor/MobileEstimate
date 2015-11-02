@@ -1,41 +1,31 @@
 package com.mobileprojectestimator.mobileprojectestimator;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
-import android.app.PendingIntent;
 import android.app.SearchManager;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.NotificationCompat;
-import android.util.Log;
-import android.view.MenuInflater;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import com.google.gson.Gson;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Util.ProjectListAdapter;
 
-import java.sql.CallableStatement;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class ProjectOverview extends AppCompatActivity
@@ -114,10 +104,18 @@ public class ProjectOverview extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == FRAGMENT_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                Log.d("Info", data.getExtras().getString("DATA"));
+                HashMap<String, String> hashMap = (HashMap<String, String>)data.getSerializableExtra(this.getString(R.string.NewProjectIntentValueParam));
+                Project p = new Project(this);
+                p.toObjectFromHashMap(hashMap);
+                projectsList.add(p);
+                projectsAdapter = new ProjectListAdapter(this, projectsList);
+                projectsListView.setAdapter(projectsAdapter);
+                projectsAdapter.notifyDataSetChanged();
+                Log.d("Info", p.getTitle() + " wurde erstellt.");
             }
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

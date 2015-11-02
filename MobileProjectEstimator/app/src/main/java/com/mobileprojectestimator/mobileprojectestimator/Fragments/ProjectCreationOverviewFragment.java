@@ -11,13 +11,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.ProjectCreationItem;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 import com.mobileprojectestimator.mobileprojectestimator.Util.ProjectCreationListAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Oliver Fries on 01.11.2015.
@@ -27,6 +30,8 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment {
     private ListView projectCreationListView;
     private ProjectCreationListAdapter projectCreationAdapter;
     private ArrayList<ProjectCreationItem> creationItems;
+
+    private Gson gson;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -47,10 +52,16 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment {
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
             case R.id.action_save_project:
-                Intent intent = new Intent();
-                intent.putExtra("DATA","Hai");
-                getActivity().setResult(Activity.RESULT_OK,intent);
-                getActivity().finish();
+                if(project.getTitle().equals("") ||project.getTitle().isEmpty() ||project.getTitle() == null ){
+                    Toast.makeText(this.getActivity().getBaseContext(), "Please Insert a Project Name", Toast.LENGTH_SHORT).show();
+                } else
+                {
+                    Intent intent = new Intent();
+                    HashMap<String,String> projectHashMap = project.toHashMap();
+                    intent.putExtra(this.getString(R.string.NewProjectIntentValueParam),projectHashMap);
+                    getActivity().setResult(Activity.RESULT_OK, intent);
+                    getActivity().finish();
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -102,4 +113,5 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment {
     public void onReloadViews(String text) {
 
     }
+
 }

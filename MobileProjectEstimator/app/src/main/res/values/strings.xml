@@ -16,4 +16,5 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="action_save_project">Save Project</string>
+    <string name="NewProjectIntentValueParam">NEWPROJECT</string>
 </resources>
