@@ -1,4 +1,4 @@
-package com.mobileprojectestimator.mobileprojectestimator.Util;
+package com.mobileprojectestimator.mobileprojectestimator.Util.adapters;
 
 /**
  * Created by Oliver Fries on 25.10.2015.

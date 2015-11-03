@@ -8,15 +8,14 @@ import java.util.ArrayList;
 public abstract class InfluencingFactor {
 
     private String name;
-    private ArrayList<FactorItem> factorItems;
-
+    private ArrayList<FunctionPointFactorItem> functionPointFactorItems;
     public InfluencingFactor(){
-        factorItems = new ArrayList<>();
+        functionPointFactorItems = new ArrayList<>();
     }
 
     public InfluencingFactor(String name){
         this.name = name;
-        factorItems = new ArrayList<>();
+        functionPointFactorItems = new ArrayList<>();
     }
 
 
@@ -28,18 +27,19 @@ public abstract class InfluencingFactor {
         this.name = name;
     }
 
-    public ArrayList<FactorItem> getFactorItems() {
-        return factorItems;
+    public ArrayList<FunctionPointFactorItem> getFunctionPointFactorItems() {
+        return functionPointFactorItems;
     }
 
-    public void addFactorItem(FactorItem item)
+    public void addFactorItem(FunctionPointFactorItem item)
     {
-        factorItems.add(item);
+        functionPointFactorItems.add(item);
     }
 
-    public void setFactorItems(ArrayList<FactorItem> factorItems) {
-        this.factorItems = factorItems;
+    public void setFunctionPointFactorItems(ArrayList<FunctionPointFactorItem> functionPointFactorItems) {
+        this.functionPointFactorItems = functionPointFactorItems;
     }
 
     abstract void setFactorItems();
+
 }

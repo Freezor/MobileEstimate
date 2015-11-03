@@ -1,4 +1,4 @@
-package com.mobileprojectestimator.mobileprojectestimator.Util;
+package com.mobileprojectestimator.mobileprojectestimator.Util.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,30 +7,28 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.ProjectCreationItem;
-import com.mobileprojectestimator.mobileprojectestimator.Fragments.FunctionPointEstimationItem;
-import com.mobileprojectestimator.mobileprojectestimator.Fragments.FunctionPointMethodFragment;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectCreationOverviewFragment;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.util.ArrayList;
 
 /**
- * Created by Oliver Fries on 02.11.2015.
+ * Created by Oliver Fries on 31.10.2015.
  */
-public class FunctionPointEstimationListAdapter extends BaseAdapter {
+public class ProjectCreationListAdapter extends BaseAdapter {
 
-    private FunctionPointMethodFragment fragment;
-    private ArrayList<FunctionPointEstimationItem> fpEstimationItems;
+    private ProjectCreationOverviewFragment fragment;
+    private ArrayList<ProjectCreationItem> creationItems;
     private LayoutInflater inflater;
 
-    public FunctionPointEstimationListAdapter(FunctionPointMethodFragment projectCreationOverviewFragment, ArrayList<FunctionPointEstimationItem> fpEstimationItems) {
+    public ProjectCreationListAdapter(ProjectCreationOverviewFragment projectCreationOverviewFragment, ArrayList<ProjectCreationItem> creationItems) {
         this.fragment = projectCreationOverviewFragment;
-        this.fpEstimationItems = fpEstimationItems;
+        this.creationItems = creationItems;
     }
 
     @Override
     public int getCount() {
-        return fpEstimationItems.size();
+        return creationItems.size();
     }
 
     @Override
@@ -48,14 +46,14 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter {
         if (inflater == null)
             inflater = (LayoutInflater) fragment.getActivity().getLayoutInflater();
         if (convertView == null)
-            convertView = inflater.inflate(R.layout.function_point_estimation_list_item, null);
+            convertView = inflater.inflate(R.layout.project_list_creation_item, null);
 
-        TextView itemValueTv = (TextView) convertView.findViewById(R.id.tvValue);
-        TextView itemNameTv = (TextView) convertView.findViewById(R.id.tvEstimationCategory);
+        TextView itemValueTv = (TextView) convertView.findViewById(R.id.tvItemValue);
+        TextView itemDescriptionTv = (TextView) convertView.findViewById(R.id.tvItemDescription);
 
         // title
-        itemValueTv.setText(""+fpEstimationItems.get(position).getValue());
-        itemNameTv.setText(fpEstimationItems.get(position).getName());
+        itemValueTv.setText(creationItems.get(position).getValue());
+        itemDescriptionTv.setText(creationItems.get(position).getName());
 
 
         if (position % 2 == 1) {

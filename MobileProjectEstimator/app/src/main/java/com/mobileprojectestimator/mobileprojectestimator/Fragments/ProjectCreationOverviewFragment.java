@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.ProjectCreationItem;
 import com.mobileprojectestimator.mobileprojectestimator.R;
-import com.mobileprojectestimator.mobileprojectestimator.Util.ProjectCreationListAdapter;
+import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.ProjectCreationListAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;

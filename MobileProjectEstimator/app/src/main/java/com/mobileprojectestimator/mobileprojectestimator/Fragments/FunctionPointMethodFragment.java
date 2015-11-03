@@ -7,10 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.ProjectCreationItem;
 import com.mobileprojectestimator.mobileprojectestimator.R;
-import com.mobileprojectestimator.mobileprojectestimator.Util.FunctionPointEstimationListAdapter;
-import com.mobileprojectestimator.mobileprojectestimator.Util.ProjectCreationListAdapter;
+import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.FunctionPointEstimationListAdapter;
 
 import java.util.ArrayList;
 

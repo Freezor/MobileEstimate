@@ -19,20 +19,20 @@ public class FunctionPointFactor extends InfluencingFactor{
 
     @Override
     void setFactorItems() {
-        this.addFactorItem(new FactorItem("Integration into other applications", 0, 5));
-        this.addFactorItem(new FactorItem("Local Data Processing", 0, 5));
-        this.addFactorItem(new FactorItem("Transaction Rate", 0, 5));
+        this.addFactorItem(new FunctionPointFactorItem("Integration into other applications", 0, 5));
+        this.addFactorItem(new FunctionPointFactorItem("Local Data Processing", 0, 5));
+        this.addFactorItem(new FunctionPointFactorItem("Transaction Rate", 0, 5));
 
-        ArrayList<FactorItem> subItems = new ArrayList<>();
-        subItems.add(new FactorItem("Arithmetic Operation", 0, 10));
-        subItems.add(new FactorItem("Control Procedure", 0, 5));
-        subItems.add(new FactorItem("Exception Regulation", 0, 10));
-        subItems.add(new FactorItem("Logic", 0, 5));
-        this.addFactorItem(new FactorItem("Processing Logic", 0, 0, true, subItems));
+        ArrayList<FunctionPointFactorItem> subItems = new ArrayList<>();
+        subItems.add(new FunctionPointFactorItem("Arithmetic Operation", 0, 10));
+        subItems.add(new FunctionPointFactorItem("Control Procedure", 0, 5));
+        subItems.add(new FunctionPointFactorItem("Exception Regulation", 0, 10));
+        subItems.add(new FunctionPointFactorItem("Logic", 0, 5));
+        this.addFactorItem(new FunctionPointFactorItem("Processing Logic", 0, 0, true, subItems));
 
-        this.addFactorItem(new FactorItem("Reusability", 0, 5));
-        this.addFactorItem(new FactorItem("Stock Conversion", 0, 5));
-        this.addFactorItem(new FactorItem("Adaptability", 0, 5));
+        this.addFactorItem(new FunctionPointFactorItem("Reusability", 0, 5));
+        this.addFactorItem(new FunctionPointFactorItem("Stock Conversion", 0, 5));
+        this.addFactorItem(new FunctionPointFactorItem("Adaptability", 0, 5));
     }
 
 }

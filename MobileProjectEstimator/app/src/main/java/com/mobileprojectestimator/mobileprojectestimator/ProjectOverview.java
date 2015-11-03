@@ -1,5 +1,6 @@
 package com.mobileprojectestimator.mobileprojectestimator;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -21,9 +22,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
-import com.google.gson.Gson;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.FunctionPointFactor;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.FunctionPointFactorItem;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
-import com.mobileprojectestimator.mobileprojectestimator.Util.ProjectListAdapter;
+import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.ProjectListAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -71,8 +74,10 @@ public class ProjectOverview extends AppCompatActivity
         projectsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(ProjectOverview.this, FunctionPointProjectActivtiy.class);
-                startActivityForResult(i, PROJECT_VIEW_CODE);
+                Intent intent = new Intent(ProjectOverview.this, FunctionPointProjectActivtiy.class);
+                HashMap<String,String> projectHashMap = projectsList.get(position).toHashMap();
+                intent.putExtra(getString(R.string.NewProjectIntentValueParam), projectHashMap);
+                startActivityForResult(intent, PROJECT_VIEW_CODE);
             }
         });
     }
@@ -82,8 +87,32 @@ public class ProjectOverview extends AppCompatActivity
      */
     private void loadProjects() {
         //TODO: This is only text method. Add Database access
-        Project p = new Project(this, "Test", "20.04.1989", getResources().getString(R.string.functionPoint));
+        Project p = new Project(this, "Pizza Bestellung", "20.04.2013", getResources().getString(R.string.functionPoint));
         p.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.project));
+        FunctionPointFactor factor = new FunctionPointFactor();
+        factor.setFunctionPointFactorItems(new ArrayList<FunctionPointFactorItem>());
+        FunctionPointFactorItem f1 = new FunctionPointFactorItem("Integration into other applications", 0, 5);
+        f1.setChosenValue(0);
+        factor.addFactorItem(f1);
+        FunctionPointFactorItem f2 = new FunctionPointFactorItem("Local Data/Processing", 0, 5);
+        f2.setChosenValue(3);
+        factor.addFactorItem(f2);
+        FunctionPointFactorItem f3 = new FunctionPointFactorItem("Transaction Rate", 0, 5);
+        f3.setChosenValue(2);
+        factor.addFactorItem(f3);
+
+        factor.addFactorItem(new FunctionPointFactorItem("Processing Logic", 0, 5));
+
+        FunctionPointFactorItem f4 = new FunctionPointFactorItem("Reusability", 0, 5);
+        f4.setChosenValue(1);
+        factor.addFactorItem(f4);
+        FunctionPointFactorItem f5 = new FunctionPointFactorItem("Stock Conversion", 0, 5);
+        f5.setChosenValue(1);
+        factor.addFactorItem(f5);
+        FunctionPointFactorItem f6 = new FunctionPointFactorItem("Stock Conversion", 0, 5);
+        f6.setChosenValue(3);
+        factor.addFactorItem(f6);
+        p.setInfluencingFactor(factor);
         projectsList.add(p);
     }
 

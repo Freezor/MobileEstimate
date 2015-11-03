@@ -327,18 +327,18 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
             influencingFactor = new FunctionPointFactor();
             //TODO: load Factor Set from database
             influencingFactor.setName("Factor Set 1");
-            influencingFactor.getFactorItems().get(0).setChosenValue(2);
-            influencingFactor.getFactorItems().get(1).setChosenValue(2);
-            influencingFactor.getFactorItems().get(2).setChosenValue(2);
+            influencingFactor.getFunctionPointFactorItems().get(0).setChosenValue(2);
+            influencingFactor.getFunctionPointFactorItems().get(1).setChosenValue(2);
+            influencingFactor.getFunctionPointFactorItems().get(2).setChosenValue(2);
 
-            influencingFactor.getFactorItems().get(3).getSubFactorItemsList().get(0).setChosenValue(8);
-            influencingFactor.getFactorItems().get(3).getSubFactorItemsList().get(1).setChosenValue(2);
-            influencingFactor.getFactorItems().get(3).getSubFactorItemsList().get(2).setChosenValue(5);
-            influencingFactor.getFactorItems().get(3).getSubFactorItemsList().get(3).setChosenValue(1);
+            influencingFactor.getFunctionPointFactorItems().get(3).getSubFunctionPointFactorItemsList().get(0).setChosenValue(8);
+            influencingFactor.getFunctionPointFactorItems().get(3).getSubFunctionPointFactorItemsList().get(1).setChosenValue(2);
+            influencingFactor.getFunctionPointFactorItems().get(3).getSubFunctionPointFactorItemsList().get(2).setChosenValue(5);
+            influencingFactor.getFunctionPointFactorItems().get(3).getSubFunctionPointFactorItemsList().get(3).setChosenValue(1);
 
-            influencingFactor.getFactorItems().get(3).setChosenValue(0);
-            influencingFactor.getFactorItems().get(5).setChosenValue(3);
-            influencingFactor.getFactorItems().get(6).setChosenValue(5);
+            influencingFactor.getFunctionPointFactorItems().get(3).setChosenValue(0);
+            influencingFactor.getFunctionPointFactorItems().get(5).setChosenValue(3);
+            influencingFactor.getFunctionPointFactorItems().get(6).setChosenValue(5);
 
         } else if(estimationMethod.equals("COCOMO")){
             //TODO Create COCOMO Factor

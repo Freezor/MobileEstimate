@@ -5,36 +5,36 @@ import java.util.ArrayList;
 /**
  * Created by Oliver Fries on 02.11.2015.
  */
-public class FactorItem {
+public class FunctionPointFactorItem {
     private boolean hasSubItems;
     private String name;
     private int minValue;
     private int maxValue;
-    private ArrayList<FactorItem> subFactorItemsList;
+    private ArrayList<FunctionPointFactorItem> subFunctionPointFactorItemsList;
     private int chosenValue = 0;
 
-    public FactorItem(String name, int minValue, int maxValue, boolean hasSubItems) {
+    public FunctionPointFactorItem(String name, int minValue, int maxValue, boolean hasSubItems) {
         this.name = name;
         this.minValue = minValue;
         this.maxValue = maxValue;
         this.hasSubItems = hasSubItems;
         if(hasSubItems){
-            subFactorItemsList = new ArrayList<>();
+            subFunctionPointFactorItemsList = new ArrayList<>();
         }
     }
 
-    public FactorItem(String name, int minValue, int maxValue) {
+    public FunctionPointFactorItem(String name, int minValue, int maxValue) {
         this( name,  minValue,  maxValue,false);
     }
 
-    public FactorItem(String name, int minValue, int maxValue,boolean hasSubItems,ArrayList<FactorItem> subFactorItemsList) {
+    public FunctionPointFactorItem(String name, int minValue, int maxValue, boolean hasSubItems, ArrayList<FunctionPointFactorItem> subFunctionPointFactorItemsList) {
         this( name,  minValue,  maxValue, hasSubItems);
         if(hasSubItems){
-            this.subFactorItemsList = subFactorItemsList;
+            this.subFunctionPointFactorItemsList = subFunctionPointFactorItemsList;
         }
     }
 
-    public FactorItem() {
+    public FunctionPointFactorItem() {
     }
 
     public boolean isHasSubItems() {
@@ -69,18 +69,18 @@ public class FactorItem {
         this.maxValue = maxValue;
     }
 
-    public ArrayList<FactorItem> getSubFactorItemsList() {
+    public ArrayList<FunctionPointFactorItem> getSubFunctionPointFactorItemsList() {
         if(hasSubItems){
-            return subFactorItemsList;
+            return subFunctionPointFactorItemsList;
         } else {
             return null;
         }
 
     }
 
-    public void setSubFactorItemsList(ArrayList<FactorItem> subFactorItemsList) {
+    public void setSubFunctionPointFactorItemsList(ArrayList<FunctionPointFactorItem> subFunctionPointFactorItemsList) {
         if ( hasSubItems){
-            this.subFactorItemsList = subFactorItemsList;
+            this.subFunctionPointFactorItemsList = subFunctionPointFactorItemsList;
         } else {
 
         }

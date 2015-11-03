@@ -1,5 +1,6 @@
 package com.mobileprojectestimator.mobileprojectestimator;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -17,8 +19,10 @@ import com.mobileprojectestimator.mobileprojectestimator.Fragments.EstimationOve
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.FunctionPointInfluenceFactorFragment;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.FunctionPointMethodFragment;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedCreationFragment;
+import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.ProjectListAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FunctionPointProjectActivtiy extends AppCompatActivity {
 
@@ -47,6 +51,12 @@ public class FunctionPointProjectActivtiy extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Intent intent = getIntent();
+        HashMap<String, String> hashMap = (HashMap<String, String>)intent.getSerializableExtra(getString(R.string.NewProjectIntentValueParam));
+        project = new Project(this);
+        project.toObjectFromHashMap(hashMap);
+        Log.d("Info", project.getTitle() + " wurde geöffnet.");
 
         fragmentsList = new ArrayList<>();
         fragmentsList.add(new FunctionPointMethodFragment());//Position 0
