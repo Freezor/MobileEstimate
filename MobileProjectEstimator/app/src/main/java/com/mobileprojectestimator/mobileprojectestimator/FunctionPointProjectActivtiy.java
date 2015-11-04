@@ -1,5 +1,6 @@
 package com.mobileprojectestimator.mobileprojectestimator;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -44,19 +45,28 @@ public class FunctionPointProjectActivtiy extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_function_point_project_activtiy);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.function_point_toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        HashMap<String, String> hashMap = (HashMap<String, String>)intent.getSerializableExtra(getString(R.string.NewProjectIntentValueParam));
+        HashMap<String, String> hashMap = new HashMap<String,String>();
+        hashMap = (HashMap<String, String>)intent.getSerializableExtra(getString(R.string.NewProjectIntentValueParam));
         project = new Project(this);
-        project.toObjectFromHashMap(hashMap);
-        Log.d("Info", project.getTitle() + " wurde geöffnet.");
+        if(hashMap != null){
+            project.toObjectFromHashMap(hashMap);
+            Log.d("Info", project.getTitle() + " wurde geöffnet.");
+        }
 
         fragmentsList = new ArrayList<>();
         fragmentsList.add(new FunctionPointMethodFragment());//Position 0

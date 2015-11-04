@@ -1,5 +1,8 @@
 package com.mobileprojectestimator.mobileprojectestimator.Fragments;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,16 +41,17 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_function_point_project_activtiy, container, false);
-
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         functionPointEstimationItems = new ArrayList<FunctionPointEstimationItem>();
         functionPointEstimationItems.add(new FunctionPointEstimationItem("Input Data",0));
         functionPointEstimationItems.add(new FunctionPointEstimationItem("Requests ",0));
         functionPointEstimationItems.add(new FunctionPointEstimationItem("Output",0));
         functionPointEstimationItems.add(new FunctionPointEstimationItem("Dataset",0));
-        functionPointEstimationItems.add(new FunctionPointEstimationItem("Reference Data",0));
+        functionPointEstimationItems.add(new FunctionPointEstimationItem("Reference Data", 0));
+
 
         fpEstimationLisView = (ListView) rootView.findViewById(R.id.lv_function_point_estimation);
-        projectCreationAdapter = new FunctionPointEstimationListAdapter(this, functionPointEstimationItems);
+        projectCreationAdapter = new FunctionPointEstimationListAdapter(this, functionPointEstimationItems,getFragmentManager(),this.project );
         fpEstimationLisView.setAdapter(projectCreationAdapter);
 
         return rootView;

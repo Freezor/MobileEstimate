@@ -1,18 +1,23 @@
 package com.mobileprojectestimator.mobileprojectestimator.Util.adapters;
 
+import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.ProjectCreationItem;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.FunctionPointEstimationItem;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.FunctionPointMethodFragment;
-import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectCreationOverviewFragment;
+import com.mobileprojectestimator.mobileprojectestimator.FunctionPointEstimationValueActivity;
+import com.mobileprojectestimator.mobileprojectestimator.FunctionPointProjectActivtiy;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Oliver Fries on 02.11.2015.
@@ -22,10 +27,17 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter {
     private FunctionPointMethodFragment fragment;
     private ArrayList<FunctionPointEstimationItem> fpEstimationItems;
     private LayoutInflater inflater;
+    private Project project;
+    private String itemName;
 
-    public FunctionPointEstimationListAdapter(FunctionPointMethodFragment projectCreationOverviewFragment, ArrayList<FunctionPointEstimationItem> fpEstimationItems) {
+    FragmentManager fm;
+    private TextView itemNameTv;
+
+    public FunctionPointEstimationListAdapter(FunctionPointMethodFragment projectCreationOverviewFragment, ArrayList<FunctionPointEstimationItem> fpEstimationItems, FragmentManager fm, Project project) {
         this.fragment = projectCreationOverviewFragment;
         this.fpEstimationItems = fpEstimationItems;
+        this.fm = fm;
+        this.project = project;
     }
 
     @Override
@@ -51,12 +63,25 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.function_point_estimation_list_item, null);
 
         TextView itemValueTv = (TextView) convertView.findViewById(R.id.tvValue);
-        TextView itemNameTv = (TextView) convertView.findViewById(R.id.tvEstimationCategory);
+        itemNameTv = (TextView) convertView.findViewById(R.id.tvEstimationCategory);
 
         // title
+        itemName = fpEstimationItems.get(position).getName();
         itemValueTv.setText(""+fpEstimationItems.get(position).getValue());
-        itemNameTv.setText(fpEstimationItems.get(position).getName());
+        itemNameTv.setText(itemName);
 
+        ImageView editButton = (ImageView) convertView.findViewById(R.id.ivEditButton);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: Start Input Activity mit forResult
+                Intent intent = new Intent(v.getContext(), FunctionPointEstimationValueActivity.class);
+                intent.putExtra("TITLE", itemName);
+
+                intent.putExtra("NEWPROJECT", project.toHashMap());
+                fragment.startActivityForResult(intent, 1);
+            }
+        });
 
         if (position % 2 == 1) {
             //convertView.setBackgroundResource(R.color.standardRowOdd);// this set background color

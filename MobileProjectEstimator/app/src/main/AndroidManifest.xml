@@ -40,12 +40,24 @@
             android:name=".FunctionPointProjectActivtiy"
             android:label="@string/title_activity_function_point_project_activtiy"
             android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".ProjectOverview"
             android:windowSoftInputMode="adjustPan" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mobileprojectestimator.mobileprojectestimator.ProjectOverview" />
+        </activity>
+        <activity android:name=".FunctionPointEstimationValueActivity"
+            android:label="Estimation Value"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan"
+            android:parentActivityName=".FunctionPointProjectActivtiy" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mobileprojectestimator.mobileprojectestimator.FunctionPointProjectActivtiy" />
         </activity>
     </application>
 

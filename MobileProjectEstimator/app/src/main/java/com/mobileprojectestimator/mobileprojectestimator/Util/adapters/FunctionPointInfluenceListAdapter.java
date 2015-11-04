@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.FunctionPointFactorItem;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.FunctionPointEstimationItem;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.FunctionPointInfluenceFactorFragment;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.FunctionPointMethodFragment;
@@ -23,10 +24,12 @@ public class FunctionPointInfluenceListAdapter extends BaseAdapter {
     private FunctionPointInfluenceFactorFragment fragment;
     private ArrayList<FunctionPointFactorItem> fpInfluenceItems;
     private LayoutInflater inflater;
+    Project project;
 
-    public FunctionPointInfluenceListAdapter(FunctionPointInfluenceFactorFragment projectInfluenceFactorFragment, ArrayList<FunctionPointFactorItem> fpInfluenceItems) {
+    public FunctionPointInfluenceListAdapter(FunctionPointInfluenceFactorFragment projectInfluenceFactorFragment, ArrayList<FunctionPointFactorItem> fpInfluenceItems, Project project) {
         this.fragment = projectInfluenceFactorFragment;
         this.fpInfluenceItems = fpInfluenceItems;
+        this.project = project;
     }
 
     @Override

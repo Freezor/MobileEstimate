@@ -118,21 +118,6 @@ public class GuidedProjectCreationActivity extends AppCompatActivity {
             }
         });
 
-        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
-            @Override
-            public void onBackStackChanged() {
-                int stackHeight = getSupportFragmentManager().getBackStackEntryCount();
-                if (stackHeight > 0) { // if we have something on the stack (doesn't include the current shown fragment)
-                    getSupportActionBar().setHomeButtonEnabled(true);
-                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                } else {
-                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-                    getSupportActionBar().setHomeButtonEnabled(false);
-                }
-            }
-
-        });
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }

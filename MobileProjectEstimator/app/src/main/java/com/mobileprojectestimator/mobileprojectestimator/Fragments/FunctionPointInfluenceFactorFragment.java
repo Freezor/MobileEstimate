@@ -1,5 +1,8 @@
 package com.mobileprojectestimator.mobileprojectestimator.Fragments;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -44,12 +47,14 @@ public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFrag
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_function_point_influence_factor_activtiy, container, false);
 
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         functionPointFactor = new FunctionPointFactor();
         functionPointFactor.setFunctionPointFactorItems(project.getInfluencingFactor().getFunctionPointFactorItems());
 
 
         fpInfluenceListView = (ListView) rootView.findViewById(R.id.lvInfluenceFactors);
-        projectInfluenceListAdapter = new FunctionPointInfluenceListAdapter(this, functionPointFactor.getFunctionPointFactorItems());
+        projectInfluenceListAdapter = new FunctionPointInfluenceListAdapter(this, functionPointFactor.getFunctionPointFactorItems(),project);
         fpInfluenceListView.setAdapter(projectInfluenceListAdapter);
         fpInfluenceListView.setScrollbarFadingEnabled(false);
         return rootView;

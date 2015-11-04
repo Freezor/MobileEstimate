@@ -30,12 +30,12 @@
         android:text="10"
         android:id="@+id/tvValue"
         android:layout_alignBottom="@+id/tvHint"
-        android:layout_toStartOf="@+id/imageView2" />
+        android:layout_toStartOf="@+id/ivEditButton" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
+        android:id="@+id/ivEditButton"
         android:src="@drawable/ic_action_edit"
         android:layout_alignBottom="@+id/tvValue"
         android:layout_alignParentEnd="true" />
