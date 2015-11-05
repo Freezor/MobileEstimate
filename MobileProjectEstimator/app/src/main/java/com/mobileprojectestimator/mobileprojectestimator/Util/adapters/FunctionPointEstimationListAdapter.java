@@ -70,11 +70,12 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter {
         itemValueTv.setText(""+fpEstimationItems.get(position).getValue());
         itemNameTv.setText(itemName);
 
-        ImageView editButton = (ImageView) convertView.findViewById(R.id.ivEditButton);
+        //TODO: Button wird nicht für jedes Element einzeln gesetzt.
+        ImageView editButton = (ImageView) convertView.findViewById(R.id.ivEditButton);//TODO: Zugriff immer auf alle EditButtons. Es muss auf jedes Listelement zugegriffen werden.
+        //ImageView editButton = (ImageView) convertView.findViewById(R.id.ivEditButton);
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Start Input Activity mit forResult
                 Intent intent = new Intent(v.getContext(), FunctionPointEstimationValueActivity.class);
                 intent.putExtra("TITLE", itemName);
 
@@ -82,6 +83,8 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter {
                 fragment.startActivityForResult(intent, 1);
             }
         });
+
+        convertView.setTag(123);
 
         if (position % 2 == 1) {
             //convertView.setBackgroundResource(R.color.standardRowOdd);// this set background color
