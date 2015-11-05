@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">CET-Test</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="layout_project_properties_radio_button">RadioButtonLayout</string>
+    <string name="layout_project_properties_checkbox_button">CheckBoxLayout</string>
+    <string name="ok_String">OK</string>
+    <string name="title_activity_function_point_add_function">FunctionPointAddFunctionActivity
+    </string>
+</resources>

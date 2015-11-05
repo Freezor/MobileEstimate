@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:fitsSystemWindows="true">
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:fitsSystemWindows="true">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:hint="Enter a project Name"
+        android:id="@+id/projectNameET"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/projectDescriptionET"
+        android:hint="Enter a project description"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp" />
+
+    <ImageView
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:id="@+id/projectIconIV"
+        android:src="@drawable/project"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="ImageName"
+        android:id="@+id/tvProjectImageName"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="197dp"
+        android:layout_height="wrap_content"
+        android:text="Change Project Icon"
+        android:id="@+id/changeProjectIcon"
+        android:background="@color/standardButtonColor"
+        android:layout_gravity="center_horizontal"
+        android:theme="@style/Base.Widget.AppCompat.ActionButton"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="60dp"
+        android:textStyle="bold" />
+
+    </LinearLayout>
+    </ScrollView>
+
+    <include layout="@layout/dotted_progress_bar" android:layout_gravity="center_horizontal|bottom"
+    android:layout_width="wrap_content"
+    android:layout_height="39dp"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"/>
+</RelativeLayout>

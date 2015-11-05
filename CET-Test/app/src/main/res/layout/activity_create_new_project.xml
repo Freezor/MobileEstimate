@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:columnCount="1"
+    android:rowCount="14"
+    tools:context="com.example.oliverfries.cet_test.CreateNewProject">
+
+
+    <GridLayout
+        android:columnCount="2">
+        <ImageView
+            android:id="@+id/project_name_icon"
+            android:layout_alignLeft="@+id/project_name"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/abc_btn_radio_to_on_mtrl_015"
+            android:layout_marginTop="5dp" />
+
+        <EditText
+            android:id="@+id/project_name"
+            android:hint="Project Name"
+            android:inputType="textEmailAddress" />
+
+    </GridLayout>
+
+    <View
+        android:id="@+id/horizontal_line_3"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#000000"
+        android:layout_below="@+id/influencingFactorsTextView"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
+
+    <GridLayout
+        android:columnCount="2">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/project_properties_icon"
+            android:src="@drawable/abc_btn_radio_to_on_mtrl_015"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Project Properties"
+            android:id="@+id/projectPropertiesTextView"
+            android:clickable="true"
+            android:onClick="selectProjectProperties"
+            android:layout_marginTop="5dp" />
+    </GridLayout>
+
+    <View
+        android:id="@+id/horizontal_line_1"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#000000"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
+
+    <GridLayout
+        android:columnCount="2">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/estimation_method_icon"
+            android:src="@drawable/abc_btn_radio_to_on_mtrl_015"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Estimation Method"
+            android:id="@+id/estimationMethodTextView"
+            android:clickable="true"
+            android:onClick="selectEstimationMethod"
+            android:layout_marginTop="5dp" />
+
+    </GridLayout>
+
+    <View
+        android:id="@+id/horizontal_line_2"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#000000"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
+
+    <GridLayout
+        android:columnCount="2">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/influencing_factors_icon"
+            android:src="@drawable/abc_btn_radio_to_on_mtrl_015"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Influencing Factors"
+            android:id="@+id/influencingFactorsTextView"
+            android:clickable="true"
+            android:onClick="selectInfluencingFactors"
+            android:layout_marginTop="5dp" />
+    </GridLayout>
+
+
+    <View
+        android:id="@+id/horizontal_line_4"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#000000"
+        android:layout_below="@+id/projectPropertiesTextView"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
+
+    <GridLayout
+        android:columnCount="2">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/notes_icon"
+            android:src="@drawable/abc_btn_radio_to_on_mtrl_015"
+            android:layout_marginTop="5dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/project_note"
+            android:hint="Add Notes"/>
+    </GridLayout>
+
+
+</GridLayout>
