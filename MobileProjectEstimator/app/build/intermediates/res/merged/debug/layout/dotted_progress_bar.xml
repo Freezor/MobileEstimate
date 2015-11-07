@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/dotsL"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_gravity="center_horizontal|bottom">
+
+    <ImageView
+        android:id="@+id/dot1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/circle_grey">
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/dot2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/dot1"
+        android:background="@drawable/circle_grey" >
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/dot3"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/dot2"
+        android:background="@drawable/circle_grey" >
+    </ImageView>
+
+
+    <ImageView
+        android:id="@+id/dot4"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/dot3"
+        android:background="@drawable/circle_grey" >
+    </ImageView>
+
+
+    <ImageView
+        android:id="@+id/dot5"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/dot4"
+        android:background="@drawable/circle_grey" >
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/dot6"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/dot5"
+        android:background="@drawable/circle_grey" >
+    </ImageView>
+
+ </RelativeLayout><!-- From: file:/D:/Workspace/Bachelorarbeit/MobileITProjectCostEstimation/MobileProjectEstimator/app/src/main/res/layout/dotted_progress_bar.xml -->

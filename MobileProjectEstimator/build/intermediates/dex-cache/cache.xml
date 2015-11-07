@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="D:\Workspace\Bachelorarbeit\MobileITProjectCostEstimation\MobileProjectEstimator\gson-2.4\gson-2.4.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="0695b63d702f505b9b916e02272e3b6381bade7f">
+        <dex dex="D:\Workspace\Bachelorarbeit\MobileITProjectCostEstimation\MobileProjectEstimator\app\build\intermediates\pre-dexed\debug\gson-2.4-95ad35b5f0d0c4db4770946cab2484a935c656a7.jar" />
+    </item>
+
+</items>
