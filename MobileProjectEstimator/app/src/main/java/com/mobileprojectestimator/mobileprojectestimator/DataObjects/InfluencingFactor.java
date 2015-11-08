@@ -4,42 +4,50 @@ import java.util.ArrayList;
 
 /**
  * Created by Oliver Fries on 25.10.2015.
+ * <p/>
+ * Base Class for all influence factor sets
  */
-public abstract class InfluencingFactor {
+public abstract class InfluencingFactor
+{
 
     private String name;
-    private ArrayList<FunctionPointFactorItem> functionPointFactorItems;
-    public InfluencingFactor(){
-        functionPointFactorItems = new ArrayList<>();
-    }
+    private ArrayList<FunctionPointInfluenceFactorItem> functionPointInfluenceFactorItems;
 
-    public InfluencingFactor(String name){
-        this.name = name;
-        functionPointFactorItems = new ArrayList<>();
+    public InfluencingFactor()
+    {
+        functionPointInfluenceFactorItems = new ArrayList<>();
     }
 
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
     }
 
-    public ArrayList<FunctionPointFactorItem> getFunctionPointFactorItems() {
-        return functionPointFactorItems;
-    }
-
-    public void addFactorItem(FunctionPointFactorItem item)
+    public ArrayList<FunctionPointInfluenceFactorItem> getFunctionPointInfluenceFactorItems()
     {
-        functionPointFactorItems.add(item);
+        return functionPointInfluenceFactorItems;
     }
 
-    public void setFunctionPointFactorItems(ArrayList<FunctionPointFactorItem> functionPointFactorItems) {
-        this.functionPointFactorItems = functionPointFactorItems;
+    public void addFactorItem(FunctionPointInfluenceFactorItem item)
+    {
+        functionPointInfluenceFactorItems.add(item);
     }
 
+    public void setFunctionPointInfluenceFactorItems(ArrayList<FunctionPointInfluenceFactorItem> functionPointInfluenceFactorItems)
+    {
+        this.functionPointInfluenceFactorItems = functionPointInfluenceFactorItems;
+    }
+
+    /**
+     * Each Influence Factor class needs to implement this method, that all factors are set.
+     * This Method should be called in the constructor.
+     */
     abstract void setFactorItems();
 
 }

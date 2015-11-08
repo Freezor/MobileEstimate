@@ -13,7 +13,6 @@ import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.FunctionPointEstimationItem;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.FunctionPointMethodFragment;
 import com.mobileprojectestimator.mobileprojectestimator.FunctionPointEstimationValueActivity;
-import com.mobileprojectestimator.mobileprojectestimator.FunctionPointProjectActivtiy;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.util.ArrayList;
@@ -21,19 +20,42 @@ import java.util.HashMap;
 
 /**
  * Created by Oliver Fries on 02.11.2015.
+ * <p/>
+ * Adapter for the FUnction Point Estimation
  */
-public class FunctionPointEstimationListAdapter extends BaseAdapter {
+public class FunctionPointEstimationListAdapter extends BaseAdapter
+{
 
     private FunctionPointMethodFragment fragment;
+    /**
+     * array list for all items to estimate
+     */
     private ArrayList<FunctionPointEstimationItem> fpEstimationItems;
     private LayoutInflater inflater;
+    /**
+     * the project object
+     */
     private Project project;
+    /**
+     * Name of the item
+     */
     private String itemName;
 
+    /**
+     * local fragment manager
+     */
     FragmentManager fm;
-    private TextView itemNameTv;
 
-    public FunctionPointEstimationListAdapter(FunctionPointMethodFragment projectCreationOverviewFragment, ArrayList<FunctionPointEstimationItem> fpEstimationItems, FragmentManager fm, Project project) {
+    /**
+     * Standard constructor
+     *
+     * @param projectCreationOverviewFragment
+     * @param fpEstimationItems
+     * @param fm
+     * @param project
+     */
+    public FunctionPointEstimationListAdapter(FunctionPointMethodFragment projectCreationOverviewFragment, ArrayList<FunctionPointEstimationItem> fpEstimationItems, FragmentManager fm, Project project)
+    {
         this.fragment = projectCreationOverviewFragment;
         this.fpEstimationItems = fpEstimationItems;
         this.fm = fm;
@@ -41,41 +63,47 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter {
     }
 
     @Override
-    public int getCount() {
+    public int getCount()
+    {
         return fpEstimationItems.size();
     }
 
     @Override
-    public Object getItem(int position) {
+    public Object getItem(int position)
+    {
         return null;
     }
 
     @Override
-    public long getItemId(int position) {
+    public long getItemId(int position)
+    {
         return 0;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent)
+    {
         if (inflater == null)
-            inflater = (LayoutInflater) fragment.getActivity().getLayoutInflater();
+            inflater = fragment.getActivity().getLayoutInflater();
         if (convertView == null)
             convertView = inflater.inflate(R.layout.function_point_estimation_list_item, null);
 
         TextView itemValueTv = (TextView) convertView.findViewById(R.id.tvValue);
-        itemNameTv = (TextView) convertView.findViewById(R.id.tvEstimationCategory);
+        TextView itemNameTv = (TextView) convertView.findViewById(R.id.tvEstimationCategory);
 
         // title
         itemName = fpEstimationItems.get(position).getName();
-        itemValueTv.setText(""+fpEstimationItems.get(position).getValue());
+        itemValueTv.setText(String.format("%d", fpEstimationItems.get(position).getValue()));
         itemNameTv.setText(itemName);
 
         //TODO: Button wird nicht für jedes Element einzeln gesetzt.
         ImageView editButton = (ImageView) convertView.findViewById(R.id.ivEditButton);//TODO: Zugriff immer auf alle EditButtons. Es muss auf jedes Listelement zugegriffen werden.
         //ImageView editButton = (ImageView) convertView.findViewById(R.id.ivEditButton);
-        editButton.setOnClickListener(new View.OnClickListener() {
+        editButton.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 Intent intent = new Intent(v.getContext(), FunctionPointEstimationValueActivity.class);
                 intent.putExtra("TITLE", itemName);
 
@@ -86,11 +114,21 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter {
 
         convertView.setTag(123);
 
-        if (position % 2 == 1) {
-            //convertView.setBackgroundResource(R.color.standardRowOdd);// this set background color
-        } else {
+        setListViewBackgroundColor(position, convertView);
+        return convertView;
+    }
+
+    /**
+     * Set the Background for the list view
+     *
+     * @param position
+     * @param convertView
+     */
+    private void setListViewBackgroundColor(int position, View convertView)
+    {
+        if (position % 2 != 1)
+        {
             convertView.setBackgroundResource(R.color.standardRowEven);// this set background color
         }
-        return convertView;
     }
 }

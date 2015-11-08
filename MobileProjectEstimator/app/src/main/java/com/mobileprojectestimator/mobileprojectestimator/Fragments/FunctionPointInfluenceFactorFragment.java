@@ -1,18 +1,13 @@
 package com.mobileprojectestimator.mobileprojectestimator.Fragments;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.FunctionPointFactor;
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.FunctionPointFactorItem;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.FunctionPointInfluenceFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.FunctionPointInfluenceListAdapter;
@@ -24,7 +19,7 @@ import java.util.ArrayList;
  */
 public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFragment {
     private Project project;
-    private FunctionPointFactor functionPointFactor;
+    private FunctionPointInfluenceFactor functionPointInfluenceFactor;
     private ListView fpInfluenceListView;
     private FunctionPointInfluenceListAdapter projectInfluenceListAdapter;
     private ArrayList<Object> fragmentsList;
@@ -49,12 +44,12 @@ public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFrag
 
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        functionPointFactor = new FunctionPointFactor();
-        functionPointFactor.setFunctionPointFactorItems(project.getInfluencingFactor().getFunctionPointFactorItems());
+        functionPointInfluenceFactor = new FunctionPointInfluenceFactor();
+        functionPointInfluenceFactor.setFunctionPointInfluenceFactorItems(project.getInfluencingFactor().getFunctionPointInfluenceFactorItems());
 
 
         fpInfluenceListView = (ListView) rootView.findViewById(R.id.lvInfluenceFactors);
-        projectInfluenceListAdapter = new FunctionPointInfluenceListAdapter(this, functionPointFactor.getFunctionPointFactorItems(),project);
+        projectInfluenceListAdapter = new FunctionPointInfluenceListAdapter(this, functionPointInfluenceFactor.getFunctionPointInfluenceFactorItems(),project);
         fpInfluenceListView.setAdapter(projectInfluenceListAdapter);
         fpInfluenceListView.setScrollbarFadingEnabled(false);
         return rootView;

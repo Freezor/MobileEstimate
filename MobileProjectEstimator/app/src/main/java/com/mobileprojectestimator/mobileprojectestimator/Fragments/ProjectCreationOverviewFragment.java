@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.ProjectCreationItem;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.ProjectItemForCreation;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.ProjectCreationListAdapter;
 
@@ -29,7 +29,7 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment {
     private Project project;
     private ListView projectCreationListView;
     private ProjectCreationListAdapter projectCreationAdapter;
-    private ArrayList<ProjectCreationItem> creationItems;
+    private ArrayList<ProjectItemForCreation> creationItems;
 
     private Gson gson;
 
@@ -90,18 +90,18 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment {
         //Set Text for all items
         //TODO: get Values from the chosen values
 
-        creationItems = new ArrayList<ProjectCreationItem>();
-        creationItems.add(new ProjectCreationItem("Project Name: ","Item Value"));
-        creationItems.add(new ProjectCreationItem("Project Description: ","Item Value"));
-        creationItems.add(new ProjectCreationItem("Project Icon: ","Item Value"));
-        creationItems.add(new ProjectCreationItem("Project Market: ","Item Value"));
-        creationItems.add(new ProjectCreationItem("Development Kind: ","Item Value"));
-        creationItems.add(new ProjectCreationItem("Process Model: ","Item Value"));
-        creationItems.add(new ProjectCreationItem("Programming Language: ","Item Value"));
-        creationItems.add(new ProjectCreationItem("Platform: ","Item Value"));
-        creationItems.add(new ProjectCreationItem("Industry Sector: ","Item Value"));
-        creationItems.add(new ProjectCreationItem("Estimation Method: ", "Item Value"));
-        creationItems.add(new ProjectCreationItem("Influencing Factor: ", "Item Value"));
+        creationItems = new ArrayList<ProjectItemForCreation>();
+        creationItems.add(new ProjectItemForCreation("Project Name: ","Item Value"));
+        creationItems.add(new ProjectItemForCreation("Project Description: ","Item Value"));
+        creationItems.add(new ProjectItemForCreation("Project Icon: ","Item Value"));
+        creationItems.add(new ProjectItemForCreation("Project Market: ","Item Value"));
+        creationItems.add(new ProjectItemForCreation("Development Kind: ","Item Value"));
+        creationItems.add(new ProjectItemForCreation("Process Model: ","Item Value"));
+        creationItems.add(new ProjectItemForCreation("Programming Language: ","Item Value"));
+        creationItems.add(new ProjectItemForCreation("Platform: ","Item Value"));
+        creationItems.add(new ProjectItemForCreation("Industry Sector: ","Item Value"));
+        creationItems.add(new ProjectItemForCreation("Estimation Method: ", "Item Value"));
+        creationItems.add(new ProjectItemForCreation("Influencing Factor: ", "Item Value"));
 
         projectCreationListView = (ListView) rootView.findViewById(R.id.lvProjectCreation);
         projectCreationAdapter = new ProjectCreationListAdapter(this, creationItems);
