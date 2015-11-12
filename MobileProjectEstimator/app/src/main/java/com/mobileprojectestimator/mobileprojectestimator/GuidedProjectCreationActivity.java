@@ -1,11 +1,8 @@
 package com.mobileprojectestimator.mobileprojectestimator;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
@@ -24,7 +21,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.FunctionPointInfluenceFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.EstimationMethodFragment;
@@ -34,10 +30,9 @@ import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectCreati
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectInfoFragment;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectPropOneFragment;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectPropTwoFragment;
+import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.SectionsPagerAdapter;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class GuidedProjectCreationActivity extends AppCompatActivity
 {
@@ -54,7 +49,15 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
 
     private static int STRINGLENGTH = 12;
 
+    /**
+     * List with all Fragments in the creation dialog
+     */
     private ArrayList<GuidedCreationFragment> guidedCreationFragmentsArrayList;
+
+    /**
+     * List with all factor items the user can choose to the estimation method
+     */
+    private ArrayList<String> influencingFactorItems;
 
     /**
      * The New Project that will be created
@@ -72,7 +75,6 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guided_project_creation);
 
-        createFragmentsArrayList();
 
         projectNew = new Project(this);
 
@@ -82,6 +84,7 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), projectNew);
+        createFragmentsArrayList();
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -114,6 +117,7 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
 
     /**
      * When the View Pager is changed on new Fragment
+     *
      * @param position
      */
     private void onChangeViewPage(int position)
@@ -146,8 +150,12 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
         guidedCreationFragmentsArrayList.add(new EstimationMethodFragment());//Position 3
         guidedCreationFragmentsArrayList.add(new InfluencingFactorFragment());//Position 4
         guidedCreationFragmentsArrayList.add(new ProjectCreationOverviewFragment());//Position 5
+        mSectionsPagerAdapter.setFragmentList(guidedCreationFragmentsArrayList);
     }
 
+    /**
+     * @param position
+     */
     private void updateProjectCreationOverviewFragment(int position)
     {
         //TODO: Hier Refactoring weiterführen
@@ -293,7 +301,7 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
         final RelativeLayout rv10 = (RelativeLayout) creationItemsListView.getChildAt(10);
         TextView influenceFactor = (TextView) rv10.findViewById(R.id.tvItemValue);
         //TODO: SET Influence Factor Name
-        influenceFactor.setText(shorten(projectNew.getInfluencingFactor().getName(), STRINGLENGTH));
+        influenceFactor.setText(shorten(projectNew.getInfluencingFactor().getInfluenceFactorSetName(), STRINGLENGTH));
         ImageView editInfluenceFactor = (ImageView) rv10.findViewById(R.id.ivEditItem);
         editInfluenceFactor.setOnClickListener(new View.OnClickListener()
         {
@@ -305,6 +313,13 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
         });
     }
 
+    /**
+     * Shortens a string to a specific length and add "..."
+     *
+     * @param text
+     * @param length
+     * @return
+     */
     private String shorten(String text, int length)
     {
         if (text.length() > length)
@@ -320,6 +335,9 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
     }
 
 
+    /**
+     * @param position
+     */
     private void updateProjectInfoFragment(int position)
     {
         ProjectInfoFragment f = (ProjectInfoFragment) mSectionsPagerAdapter.instantiateItem(mViewPager, position);
@@ -333,6 +351,9 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
         iconName.setText(projectNew.getIconName());
     }
 
+    /**
+     * @param position
+     */
     private void updateInfluencingFactorFragment(int position)
     {
         InfluencingFactorFragment f = (InfluencingFactorFragment) mSectionsPagerAdapter.instantiateItem(mViewPager, position);
@@ -348,7 +369,7 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
-                projectNew.setInfluencingFactor(loadInfluencingFactorsSet(projectNew.getEstimationMethod()));
+                projectNew.setInfluencingFactor(loadInfluencingFactorsSet(projectNew.getEstimationMethod(), influencingFactorsAdapterSpinner.getItemAtPosition(position).toString()));
             }
 
             @Override
@@ -365,72 +386,139 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
 
     }
 
-    private InfluencingFactor loadInfluencingFactorsSet(String estimationMethod)
+    /**
+     * Load the chosen estimation method and adds it to the project
+     *
+     * @param estimationMethod
+     * @param itemName
+     * @return
+     */
+    private InfluencingFactor loadInfluencingFactorsSet(String estimationMethod, String itemName)
     {
+        //TODO: change when loading from database
         InfluencingFactor influencingFactor;
-        switch (estimationMethod)
+
+        if (estimationMethod.equals(getString(R.string.estimation_method_function_point)))
         {
-            case "Function Point":
-                //TODO: Load Factor From Database
-                influencingFactor = new FunctionPointInfluenceFactor();
-                //TODO: load Factor Set from database
-                influencingFactor.setName("Factor Set 1");
-                influencingFactor.getFunctionPointInfluenceFactorItems().get(0).setChosenValue(2);
-                influencingFactor.getFunctionPointInfluenceFactorItems().get(1).setChosenValue(2);
-                influencingFactor.getFunctionPointInfluenceFactorItems().get(2).setChosenValue(2);
-
-                influencingFactor.getFunctionPointInfluenceFactorItems().get(3).getSubFunctionPointInfluenceFactorItemsList().get(0).setChosenValue(8);
-                influencingFactor.getFunctionPointInfluenceFactorItems().get(3).getSubFunctionPointInfluenceFactorItemsList().get(1).setChosenValue(2);
-                influencingFactor.getFunctionPointInfluenceFactorItems().get(3).getSubFunctionPointInfluenceFactorItemsList().get(2).setChosenValue(5);
-                influencingFactor.getFunctionPointInfluenceFactorItems().get(3).getSubFunctionPointInfluenceFactorItemsList().get(3).setChosenValue(1);
-
-                influencingFactor.getFunctionPointInfluenceFactorItems().get(3).setChosenValue(0);
-                influencingFactor.getFunctionPointInfluenceFactorItems().get(5).setChosenValue(3);
-                influencingFactor.getFunctionPointInfluenceFactorItems().get(6).setChosenValue(5);
-
-                break;
-            case "COCOMO":
-                //TODO Create COCOMO Factor
-                influencingFactor = new FunctionPointInfluenceFactor();
-                influencingFactor.setName("COCOMO");
-                break;
-            case "COCOMO 2":
-                //TODO Create COCOMO 2 Factor
-                influencingFactor = new FunctionPointInfluenceFactor();
-                influencingFactor.setName("COCOMO 2");
-                break;
-            default:
-                influencingFactor = new FunctionPointInfluenceFactor("No Influencing Factor Set Createt yet");
-                break;
+            influencingFactor = loadFunctionPointInfluencingFactors(itemName);
+        } else if (estimationMethod.equals(getString(R.string.estimation_method_cocomo)))
+        {
+            influencingFactor = loadCocomoInfluencingFactors(itemName);
+        } else if (estimationMethod.equals(getString(R.string.estimation_method_cocomo_2)))
+        {
+            influencingFactor = loadCocomo2InfluencingFactors(itemName);
+        } else
+        {
+            influencingFactor = new InfluencingFactor(this,InfluencingFactor.FUNCTIONPOINTFACTORS);
+            influencingFactor.setName("No Influencing Factor Set Created yet");
         }
 
         return influencingFactor;
     }
 
+    /**
+     * The Factor set with the name will be loaded from the database
+     *
+     * @param itemName
+     * @return
+     */
+    private InfluencingFactor loadCocomo2InfluencingFactors(String itemName)
+    {
+        InfluencingFactor influencingFactor = new InfluencingFactor(this,InfluencingFactor.COCOMO2FACTORS);
+        influencingFactor.setName(itemName);
+        return influencingFactor;
+    }
+
+    /**
+     * The Factor set with the name will be loaded from the database
+     *
+     * @param itemName
+     * @return
+     */
+    private InfluencingFactor loadCocomoInfluencingFactors(String itemName)
+    {
+        InfluencingFactor influencingFactor = new InfluencingFactor(this,InfluencingFactor.COCOMO2FACTORS);
+        influencingFactor.setName(itemName);
+        return influencingFactor;
+    }
+
+    /**
+     * The Factor set with the name will be loaded from the database
+     *
+     * @param itemName
+     * @return
+     */
+    private InfluencingFactor loadFunctionPointInfluencingFactors(String itemName)
+    {
+        //TODO: Load Factor From Database
+        InfluencingFactor influencingFactor = new InfluencingFactor(this,InfluencingFactor.FUNCTIONPOINTFACTORS);
+        influencingFactor.setName(itemName);
+        influencingFactor.getInfluenceFactorItems().get(0).setChosenValue(2);
+        influencingFactor.getInfluenceFactorItems().get(1).setChosenValue(2);
+        influencingFactor.getInfluenceFactorItems().get(2).setChosenValue(2);
+
+        influencingFactor.getInfluenceFactorItems().get(3).getSubInfluenceFactorItemsList().get(0).setChosenValue(8);
+        influencingFactor.getInfluenceFactorItems().get(3).getSubInfluenceFactorItemsList().get(1).setChosenValue(2);
+        influencingFactor.getInfluenceFactorItems().get(3).getSubInfluenceFactorItemsList().get(2).setChosenValue(5);
+        influencingFactor.getInfluenceFactorItems().get(3).getSubInfluenceFactorItemsList().get(3).setChosenValue(1);
+
+        influencingFactor.getInfluenceFactorItems().get(3).setChosenValue(0);
+        influencingFactor.getInfluenceFactorItems().get(5).setChosenValue(3);
+        influencingFactor.getInfluenceFactorItems().get(6).setChosenValue(5);
+        return influencingFactor;
+    }
+
+    /**
+     * Load the influencing factor sets.
+     * This depends on the chosen estimation method
+     *
+     * @return
+     */
     private ArrayList<String> loadInfluencingFactorsSetList()
     {
-        ArrayList<String> influencingFactorItems;
         influencingFactorItems = new ArrayList<>();
 
-        switch (projectNew.getEstimationMethod())
+        if (projectNew.getEstimationMethod().equals(getString(R.string.estimation_method_function_point)))
         {
-            case "Function Point":
+            loadFunctionPointFactorSet();
 
-                influencingFactorItems.add("Small new Team");
-                influencingFactorItems.add("Big Old Team");
-
-                break;
-            case "COCOMO":
-                influencingFactorItems.add("Cocomo");
-                break;
-            case "COCOMO 2":
-                influencingFactorItems.add("Cocomo 2");
-                break;
-            default:
-                influencingFactorItems.add("");
-                break;
+        } else if (projectNew.getEstimationMethod().equals(getString(R.string.estimation_method_cocomo)))
+        {
+            loadCocomoFactorSet();
+        } else if (projectNew.getEstimationMethod().equals(getString(R.string.estimation_method_cocomo_2)))
+        {
+            loadCocomo2FactorSet();
+        } else
+        {
+            influencingFactorItems.add(getString(R.string.error_this_should_not_happen));
         }
         return influencingFactorItems;
+    }
+
+    /**
+     * load the COCOMO 2 influence factor set from the database
+     */
+    private void loadCocomo2FactorSet()
+    {
+        influencingFactorItems.add("Cocomo 2");
+    }
+
+    /**
+     * load the COCOMO influence factor set from the database
+     */
+    private void loadCocomoFactorSet()
+    {
+        influencingFactorItems.add("Cocomo");
+    }
+
+    /**
+     * load the function point influence factor set from the database
+     */
+    private void loadFunctionPointFactorSet()
+    {
+        //TODO: load Factor Set from DB
+        influencingFactorItems.add("Small new Team");
+        influencingFactorItems.add("Big Old Team");
     }
 
 
@@ -442,6 +530,9 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * Create and Show the Cancel Dialog when the user wants to exit the creation dialog
+     */
     private void cancelCreationDialog()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(GuidedProjectCreationActivity.this);
@@ -468,6 +559,7 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
     @Override
     public void onBackPressed()
     {
+        //TODO: fix Error
         //DO not Use. Will be done with cancelCreationDialog
         //super.onBackPressed();
         cancelCreationDialog();
@@ -489,64 +581,4 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
     }
 
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter
-    {
-
-        private Project project;
-
-        public SectionsPagerAdapter(FragmentManager fm, Project proj)
-        {
-            super(fm);
-            this.project = proj;
-            this.project.setTitle("");
-            this.project.setEstimationMethod("Function Point");//TODO: Standard Estimation Method anders setzen
-
-            Calendar c = Calendar.getInstance();
-            @SuppressLint("SimpleDateFormat") SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-            String formattedDate = df.format(c.getTime());
-            this.project.setCreationDate(formattedDate);
-        }
-
-        @Override
-        public Fragment getItem(int position)
-        {
-            GuidedCreationFragment f = guidedCreationFragmentsArrayList.get(position);
-            guidedCreationFragmentsArrayList.set(position, f.newInstance(this.project));
-            return f;
-        }
-
-        @Override
-        public int getCount()
-        {
-            // Show 6 total pages.
-            return guidedCreationFragmentsArrayList.size();
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position)
-        {
-            switch (position)
-            {
-                case 0:
-                    return "Project Name and Description";
-                case 1:
-                    return "Project Properties 1";
-                case 2:
-                    return "Project Properties 2";
-                case 3:
-                    return "Estimation Method";
-                case 4:
-                    return "Influencing Factors";
-                case 5:
-                    return "New Project Overview";
-            }
-            return null;
-        }
-
-
-    }
 }

@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
-
-import com.google.gson.Gson;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.io.ByteArrayOutputStream;
@@ -143,9 +141,18 @@ public class Project implements Serializable
         return influencingFactor;
     }
 
-    public void setInfluencingFactor(InfluencingFactor influencingFactor)
+    public void setInfluencingFactor(InfluencingFactor factor){
+        this.influencingFactor = factor;
+    }
+
+    public void setInfluencingFactor(HashMap<String, String> objectHash)
     {
-        this.influencingFactor = influencingFactor;
+        if(this.estimationMethod.equals(context.getString(R.string.estimation_method_function_point))){
+            this.influencingFactor.setValuesFromHashMap(objectHash,InfluencingFactor.FUNCTIONPOINTFACTORS);
+        } else if(this.estimationMethod.equals(context.getString(R.string.estimation_method_cocomo)))
+        {
+            this.influencingFactor.setValuesFromHashMap(objectHash,InfluencingFactor.COCOMOFACTORS);
+        }
     }
 
     public ProjectProperties getProjectProperties()
@@ -188,11 +195,8 @@ public class Project implements Serializable
         //TODO: change use of gson to hashmap
 
         HashMap<String, String> valuesMap = new HashMap<>();
-        Gson gson = new Gson();
-        String infFactors = gson.toJson(this.influencingFactor);
-        valuesMap.put(context.getString(R.string.project_hashmap_item_influencing_factors), infFactors);
-        String properties = gson.toJson(this.projectProperties);
-        valuesMap.put(context.getString(R.string.project_hashmap_item_properties), properties);
+        valuesMap.putAll(this.influencingFactor.toHashMap());
+        valuesMap.putAll(this.projectProperties.toHashMap());
 
         valuesMap.put(context.getString(R.string.project_hashmap_item_title), Title);
 
@@ -218,9 +222,6 @@ public class Project implements Serializable
     public void toObjectFromHashMap(HashMap<String, String> objectHash)
     {
         //TODO: change use of gson to hashmap
-        Gson gson = new Gson();
-        setInfluencingFactor(gson.fromJson(objectHash.get(context.getString(R.string.project_hashmap_item_influencing_factors)), FunctionPointInfluenceFactor.class));
-        setProjectProperties(gson.fromJson(objectHash.get(context.getString(R.string.project_hashmap_item_properties)), ProjectProperties.class));
         this.setTitle(objectHash.get(context.getString(R.string.project_hashmap_item_title)));
         this.setIconName(objectHash.get(context.getString(R.string.project_hashmap_item_iconname)));
         this.setCreationDate(objectHash.get(context.getString(R.string.project_hashmap_item_creation_date)));
@@ -228,5 +229,8 @@ public class Project implements Serializable
         this.setEstimationMethod(objectHash.get(context.getString(R.string.project_hashmap_item_estimation_method)));
         byte[] decodedByte = Base64.decode(objectHash.get(context.getString(R.string.project_hashmap_item_image)), 0);
         this.setImage(BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length));
+
+        setInfluencingFactor(objectHash);
+        //setProjectProperties(gson.fromJson(objectHash.get(context.getString(R.string.project_hashmap_item_properties)), ProjectProperties.class));
     }
 }

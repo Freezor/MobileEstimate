@@ -21,8 +21,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.FunctionPointInfluenceFactor;
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.FunctionPointInfluenceFactorItem;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.InfluenceFactorItem;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.ProjectListAdapter;
 
@@ -122,29 +122,21 @@ public class ProjectOverviewActivity extends AppCompatActivity
     {
         Project p = new Project(this, "Pizza Bestellung", "20.04.2013", getResources().getString(R.string.functionPoint));
         p.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.project));
-        FunctionPointInfluenceFactor factor = new FunctionPointInfluenceFactor();
-        factor.setFunctionPointInfluenceFactorItems(new ArrayList<FunctionPointInfluenceFactorItem>());
-        FunctionPointInfluenceFactorItem f1 = new FunctionPointInfluenceFactorItem("Integration into other applications", 0, 5);
-        f1.setChosenValue(0);
-        factor.addFactorItem(f1);
-        FunctionPointInfluenceFactorItem f2 = new FunctionPointInfluenceFactorItem("Local Data/Processing", 0, 5);
-        f2.setChosenValue(3);
-        factor.addFactorItem(f2);
-        FunctionPointInfluenceFactorItem f3 = new FunctionPointInfluenceFactorItem("Transaction Rate", 0, 5);
-        f3.setChosenValue(2);
-        factor.addFactorItem(f3);
+        InfluencingFactor factor = new InfluencingFactor(this,InfluencingFactor.FUNCTIONPOINTFACTORS);
+        factor.setName("Team Mates");
+        factor.getInfluenceFactorItems().get(0).setChosenValue(2);
+        factor.getInfluenceFactorItems().get(1).setChosenValue(2);
+        factor.getInfluenceFactorItems().get(2).setChosenValue(2);
 
-        factor.addFactorItem(new FunctionPointInfluenceFactorItem("Processing Logic", 0, 5));
+        factor.getInfluenceFactorItems().get(3).getSubInfluenceFactorItemsList().get(0).setChosenValue(8);
+        factor.getInfluenceFactorItems().get(3).getSubInfluenceFactorItemsList().get(1).setChosenValue(2);
+        factor.getInfluenceFactorItems().get(3).getSubInfluenceFactorItemsList().get(2).setChosenValue(5);
+        factor.getInfluenceFactorItems().get(3).getSubInfluenceFactorItemsList().get(3).setChosenValue(1);
 
-        FunctionPointInfluenceFactorItem f4 = new FunctionPointInfluenceFactorItem("Reusability", 0, 5);
-        f4.setChosenValue(1);
-        factor.addFactorItem(f4);
-        FunctionPointInfluenceFactorItem f5 = new FunctionPointInfluenceFactorItem("Stock Conversion", 0, 5);
-        f5.setChosenValue(1);
-        factor.addFactorItem(f5);
-        FunctionPointInfluenceFactorItem f6 = new FunctionPointInfluenceFactorItem("Stock Conversion", 0, 5);
-        f6.setChosenValue(3);
-        factor.addFactorItem(f6);
+        factor.getInfluenceFactorItems().get(3).setChosenValue(0);
+        factor.getInfluenceFactorItems().get(5).setChosenValue(3);
+        factor.getInfluenceFactorItems().get(6).setChosenValue(5);
+
         p.setInfluencingFactor(factor);
         projectsList.add(p);
     }

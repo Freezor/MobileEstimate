@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.FunctionPointInfluenceFactor;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.FunctionPointInfluenceListAdapter;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFragment {
     private Project project;
-    private FunctionPointInfluenceFactor functionPointInfluenceFactor;
+    private InfluencingFactor influencingFactor;
     private ListView fpInfluenceListView;
     private FunctionPointInfluenceListAdapter projectInfluenceListAdapter;
     private ArrayList<Object> fragmentsList;
@@ -44,12 +44,11 @@ public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFrag
 
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        functionPointInfluenceFactor = new FunctionPointInfluenceFactor();
-        functionPointInfluenceFactor.setFunctionPointInfluenceFactorItems(project.getInfluencingFactor().getFunctionPointInfluenceFactorItems());
+        influencingFactor = new InfluencingFactor(this.getContext(), InfluencingFactor.FUNCTIONPOINTFACTORS);
 
 
         fpInfluenceListView = (ListView) rootView.findViewById(R.id.lvInfluenceFactors);
-        projectInfluenceListAdapter = new FunctionPointInfluenceListAdapter(this, functionPointInfluenceFactor.getFunctionPointInfluenceFactorItems(),project);
+        projectInfluenceListAdapter = new FunctionPointInfluenceListAdapter(this, influencingFactor.getInfluenceFactorItems(),project);
         fpInfluenceListView.setAdapter(projectInfluenceListAdapter);
         fpInfluenceListView.setScrollbarFadingEnabled(false);
         return rootView;

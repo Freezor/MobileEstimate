@@ -48,4 +48,8 @@
     <string name="FRAGMENT_REQUEST_CODE">1002</string>
     <string name="msg_guided_project_creation_no_estimation_method">You have chosen no Estimation Method.</string>
     <string name="msg_guided_project_creation_chosen_estimation_method">You have chosen the %s Estimation Method.</string>
+    <string name="estimation_method_function_point">Function Point</string>
+    <string name="estimation_method_cocomo">COCOMO</string>
+    <string name="estimation_method_cocomo_2">COCOMO 2</string>
+    <string name="error_this_should_not_happen">THIS SHOULD NOT HAPPEN!</string>
 </resources>

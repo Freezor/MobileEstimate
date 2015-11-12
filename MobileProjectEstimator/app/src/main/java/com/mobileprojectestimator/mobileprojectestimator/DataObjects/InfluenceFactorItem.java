@@ -7,34 +7,15 @@ import java.util.ArrayList;
  *
  * Class for each influence factor item in a function point estimation project
  */
-public class FunctionPointInfluenceFactorItem
+public class InfluenceFactorItem
 {
     private boolean hasSubItems;
     private String name;
     private int minValue;
     private int maxValue;
-    private ArrayList<FunctionPointInfluenceFactorItem> subFunctionPointInfluenceFactorItemsList;
+    private ArrayList<InfluenceFactorItem> subInfluenceFactorItemsList;
     private int chosenValue = 0;
 
-    /**
-     * Creates and returns a copy of this {@code Object}. The default
-     * implementation returns a so-called "shallow" copy: It creates a new
-     * instance of the same class and then copies the field values (including
-     * object references) from this instance to the new instance. A "deep" copy,
-     * in contrast, would also recursively clone nested objects. A subclass that
-     * needs to implement this kind of cloning should call {@code super.clone()}
-     * to create the new instance and then create deep copies of the nested,
-     * mutable objects.
-     *
-     * @return a copy of this object.
-     * @throws CloneNotSupportedException if this object's class does not implement the {@code
-     *                                    Cloneable} interface.
-     */
-    @Override
-    protected Object clone() throws CloneNotSupportedException
-    {
-        return super.clone();
-    }
 
     /**
      * Standard constructor
@@ -43,7 +24,7 @@ public class FunctionPointInfluenceFactorItem
      * @param maxValue
      * @param hasSubItems
      */
-    public FunctionPointInfluenceFactorItem(String name, int minValue, int maxValue, boolean hasSubItems)
+    public InfluenceFactorItem(String name, int minValue, int maxValue, boolean hasSubItems)
     {
         this.name = name;
         this.minValue = minValue;
@@ -51,7 +32,7 @@ public class FunctionPointInfluenceFactorItem
         this.hasSubItems = hasSubItems;
         if (hasSubItems)
         {
-            subFunctionPointInfluenceFactorItemsList = new ArrayList<>();
+            subInfluenceFactorItemsList = new ArrayList<>();
         }
     }
 
@@ -61,7 +42,7 @@ public class FunctionPointInfluenceFactorItem
      * @param minValue
      * @param maxValue
      */
-    public FunctionPointInfluenceFactorItem(String name, int minValue, int maxValue)
+    public InfluenceFactorItem(String name, int minValue, int maxValue)
     {
         this(name, minValue, maxValue, false);
     }
@@ -72,14 +53,14 @@ public class FunctionPointInfluenceFactorItem
      * @param minValue
      * @param maxValue
      * @param hasSubItems
-     * @param subFunctionPointInfluenceFactorItemsList
+     * @param subInfluenceFactorItemsList
      */
-    public FunctionPointInfluenceFactorItem(String name, int minValue, int maxValue, boolean hasSubItems, ArrayList<FunctionPointInfluenceFactorItem> subFunctionPointInfluenceFactorItemsList)
+    public InfluenceFactorItem(String name, int minValue, int maxValue, boolean hasSubItems, ArrayList<InfluenceFactorItem> subInfluenceFactorItemsList)
     {
         this(name, minValue, maxValue, hasSubItems);
         if (hasSubItems)
         {
-            this.subFunctionPointInfluenceFactorItemsList = subFunctionPointInfluenceFactorItemsList;
+            this.subInfluenceFactorItemsList = subInfluenceFactorItemsList;
         }
     }
 
@@ -87,7 +68,7 @@ public class FunctionPointInfluenceFactorItem
      * Has the Factor Item subitems
      * @return
      */
-    public boolean isHasSubItems()
+    public boolean hasSubItems()
     {
         return hasSubItems;
     }
@@ -131,11 +112,11 @@ public class FunctionPointInfluenceFactorItem
         this.maxValue = maxValue;
     }
 
-    public ArrayList<FunctionPointInfluenceFactorItem> getSubFunctionPointInfluenceFactorItemsList()
+    public ArrayList<InfluenceFactorItem> getSubInfluenceFactorItemsList()
     {
         if (hasSubItems)
         {
-            return subFunctionPointInfluenceFactorItemsList;
+            return subInfluenceFactorItemsList;
         } else
         {
             return null;
@@ -143,11 +124,11 @@ public class FunctionPointInfluenceFactorItem
 
     }
 
-    public void setSubFunctionPointInfluenceFactorItemsList(ArrayList<FunctionPointInfluenceFactorItem> subFunctionPointInfluenceFactorItemsList)
+    public void setSubInfluenceFactorItemsList(ArrayList<InfluenceFactorItem> subInfluenceFactorItemsList)
     {
         if (hasSubItems)
         {
-            this.subFunctionPointInfluenceFactorItemsList = subFunctionPointInfluenceFactorItemsList;
+            this.subInfluenceFactorItemsList = subInfluenceFactorItemsList;
         }
     }
 

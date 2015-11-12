@@ -1,5 +1,8 @@
 package com.mobileprojectestimator.mobileprojectestimator.DataObjects;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Oliver Fries on 28.10.2015.
  * <p/>
@@ -90,5 +93,15 @@ public class ProjectProperties
     public String getIndustrySector()
     {
         return industrySector;
+    }
+
+    public Map<? extends String, ? extends String> toHashMap()
+    {
+        return null;
+    }
+
+    public boolean setPropertyValues(HashMap<String, String> objectMap)
+    {
+        return true;
     }
 }
