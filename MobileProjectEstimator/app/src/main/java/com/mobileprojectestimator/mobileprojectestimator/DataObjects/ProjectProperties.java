@@ -10,6 +10,14 @@ import java.util.Map;
  */
 public class ProjectProperties
 {
+    //Static String Variables for acessing values in HashMap
+    private static String MARKET_STRING = "MARKET";
+    private static String DEVELOPMENT_STRING = "DEVELOPMENT";
+    private static String PROCESSMETHGOLOGY_STRING = "PROCESSMETHGOLOGY";
+    private static String PROGRAMMINGLANGUAGE_STRING = "PROGRAMMINGLANGUAGE";
+    private static String PLATFORM_STRING = "PLATFORM";
+    private static String INDUSTRYSECTOR_STRING = "INDUSTRYSECTOR";
+
     /**
      * The market of the project
      */
@@ -95,13 +103,44 @@ public class ProjectProperties
         return industrySector;
     }
 
+    /**
+     * Generates a HashMap<String,String> with all Property Values
+     *
+     * @return
+     */
     public Map<? extends String, ? extends String> toHashMap()
     {
-        return null;
+        HashMap<String, String> objectHash = new HashMap<>();
+
+        objectHash.put(MARKET_STRING, this.market);
+        objectHash.put(DEVELOPMENT_STRING, this.developmentKind);
+        objectHash.put(PROCESSMETHGOLOGY_STRING, this.processMethology);
+        objectHash.put(PROGRAMMINGLANGUAGE_STRING, this.programmingLanguage);
+        objectHash.put(PLATFORM_STRING, this.platform);
+        objectHash.put(INDUSTRYSECTOR_STRING, this.industrySector);
+        return objectHash;
     }
 
+    /**
+     * Set all property values from the object hash. Returns false when something went wrong
+     *
+     * @param objectMap
+     * @return
+     */
     public boolean setPropertyValues(HashMap<String, String> objectMap)
     {
+        try
+        {
+            this.market = objectMap.get(MARKET_STRING);
+            this.developmentKind = objectMap.get(DEVELOPMENT_STRING);
+            this.processMethology = objectMap.get(PROCESSMETHGOLOGY_STRING);
+            this.programmingLanguage = objectMap.get(PROGRAMMINGLANGUAGE_STRING);
+            this.platform = objectMap.get(PLATFORM_STRING);
+            this.industrySector = objectMap.get(INDUSTRYSECTOR_STRING);
+        } catch (Exception e)
+        {
+            return false;
+        }
         return true;
     }
 }

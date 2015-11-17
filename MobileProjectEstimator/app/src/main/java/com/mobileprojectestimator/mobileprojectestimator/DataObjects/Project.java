@@ -231,6 +231,6 @@ public class Project implements Serializable
         this.setImage(BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length));
 
         setInfluencingFactor(objectHash);
-        //setProjectProperties(gson.fromJson(objectHash.get(context.getString(R.string.project_hashmap_item_properties)), ProjectProperties.class));
+        this.projectProperties.setPropertyValues(objectHash);
     }
 }
