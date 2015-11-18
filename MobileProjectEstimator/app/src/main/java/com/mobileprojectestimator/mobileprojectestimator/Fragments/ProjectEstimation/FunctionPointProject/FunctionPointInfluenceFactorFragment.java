@@ -1,4 +1,4 @@
-package com.mobileprojectestimator.mobileprojectestimator.Fragments;
+package com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.FunctionPointProject;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -9,19 +9,22 @@ import android.widget.ListView;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
+import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.EstimationOverviewFragment;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.FunctionPointInfluenceListAdapter;
 
 import java.util.ArrayList;
 
 /**
- * Created by Oliver Fries on 02.11.2015.
+ * Created by Oliver Fries on 02.11.2015, 15:38.
+ * Project: MobileProjectEstimator
  */
-public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFragment {
+public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFragment
+{
     private Project project;
-    private InfluencingFactor influencingFactor;
-    private ListView fpInfluenceListView;
-    private FunctionPointInfluenceListAdapter projectInfluenceListAdapter;
+    protected InfluencingFactor influencingFactor;
+    protected ListView fpInfluenceListView;
+    protected FunctionPointInfluenceListAdapter projectInfluenceListAdapter;
     private ArrayList<Object> fragmentsList;
 
     @Override
@@ -49,6 +52,7 @@ public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFrag
 
         fpInfluenceListView = (ListView) rootView.findViewById(R.id.lvInfluenceFactors);
         projectInfluenceListAdapter = new FunctionPointInfluenceListAdapter(this, influencingFactor.getInfluenceFactorItems(),project);
+        projectInfluenceListAdapter.updateChosenValues(getContext());
         fpInfluenceListView.setAdapter(projectInfluenceListAdapter);
         fpInfluenceListView.setScrollbarFadingEnabled(false);
         return rootView;

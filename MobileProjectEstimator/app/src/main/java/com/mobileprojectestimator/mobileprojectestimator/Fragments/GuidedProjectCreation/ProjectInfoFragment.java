@@ -1,4 +1,4 @@
-package com.mobileprojectestimator.mobileprojectestimator.Fragments;
+package com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,7 +18,8 @@ import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 /**
- * Created by Oliver Fries on 01.11.2015.
+ * Created by Oliver Fries on 01.11.2015, 16:23.
+ * Project: MobileProjectEstimator
  */
 public class ProjectInfoFragment extends GuidedCreationFragment {
     private Project project;

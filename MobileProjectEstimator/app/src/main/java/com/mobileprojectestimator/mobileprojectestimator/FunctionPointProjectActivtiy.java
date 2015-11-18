@@ -1,31 +1,28 @@
 package com.mobileprojectestimator.mobileprojectestimator;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
-import com.mobileprojectestimator.mobileprojectestimator.Fragments.EstimationOverviewFragment;
-import com.mobileprojectestimator.mobileprojectestimator.Fragments.FunctionPointInfluenceFactorFragment;
-import com.mobileprojectestimator.mobileprojectestimator.Fragments.FunctionPointMethodFragment;
-import com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedCreationFragment;
-import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.ProjectListAdapter;
+import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.EstimationOverviewFragment;
+import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.FunctionPointProject.FunctionPointInfluenceFactorFragment;
+import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.FunctionPointProject.FunctionPointMethodFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class FunctionPointProjectActivtiy extends AppCompatActivity {
+public class FunctionPointProjectActivtiy extends AppCompatActivity
+{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -45,13 +42,15 @@ public class FunctionPointProjectActivtiy extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
 
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_function_point_project_activtiy);
 
@@ -60,10 +59,11 @@ public class FunctionPointProjectActivtiy extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        HashMap<String, String> hashMap = new HashMap<String,String>();
-        hashMap = (HashMap<String, String>)intent.getSerializableExtra(getString(R.string.NewProjectIntentValueParam));
+        HashMap<String, String> hashMap = new HashMap<String, String>();
+        hashMap = (HashMap<String, String>) intent.getSerializableExtra(getString(R.string.NewProjectIntentValueParam));
         project = new Project(this);
-        if(hashMap != null){
+        if (hashMap != null)
+        {
             project.toObjectFromHashMap(hashMap);
             Log.d("Info", project.getTitle() + " wurde geöffnet.");
         }
@@ -74,7 +74,7 @@ public class FunctionPointProjectActivtiy extends AppCompatActivity {
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),this.project);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), this.project);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -88,21 +88,24 @@ public class FunctionPointProjectActivtiy extends AppCompatActivity {
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_function_point_project_activtiy, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_project_properties) {
+        if (id == R.id.action_project_properties)
+        {
             return true;
         }
 
@@ -114,31 +117,37 @@ public class FunctionPointProjectActivtiy extends AppCompatActivity {
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    public class SectionsPagerAdapter extends FragmentPagerAdapter
+    {
 
         private Project project;
 
-        public SectionsPagerAdapter(FragmentManager fm,Project p) {
+        public SectionsPagerAdapter(FragmentManager fm, Project p)
+        {
             super(fm);
             this.project = p;
         }
 
         @Override
-        public Fragment getItem(int position) {
+        public Fragment getItem(int position)
+        {
             EstimationOverviewFragment f = fragmentsList.get(position);
             fragmentsList.set(position, f.newInstance(this.project));
             return f;
         }
 
         @Override
-        public int getCount() {
+        public int getCount()
+        {
             // Show 3 total pages.
             return 2;
         }
 
         @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
+        public CharSequence getPageTitle(int position)
+        {
+            switch (position)
+            {
                 case 0:
                     return "Estimation";
                 case 1:

@@ -1,4 +1,4 @@
-package com.mobileprojectestimator.mobileprojectestimator.Fragments;
+package com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -17,26 +17,29 @@ import com.mobileprojectestimator.mobileprojectestimator.R;
 import java.util.ArrayList;
 
 /**
- * Created by Oliver Fries on 01.11.2015.
+ * Created by Oliver Fries on 01.11.2015, 15:53.
+ * Project: MobileProjectEstimator
  */
-public class InfluencingFactorFragment extends GuidedCreationFragment {
+public class InfluencingFactorFragment extends GuidedCreationFragment
+{
     /**
      * The fragment argument representing the section number for this
      * fragment.
      */
     public Project project;
-    private TextView estimationMethodTitelTV;
-    private ViewGroup container;
-    private View rootView;
+    protected TextView estimationMethodTitelTV;
+    protected View rootView;
     private ArrayList<String> influencingFactorItems;
     private String text;
     private ArrayAdapter<String> influencingFactorsAdapter;
+    protected ViewGroup container;
 
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public InfluencingFactorFragment newInstance(Project proj) {
+    public InfluencingFactorFragment newInstance(Project proj)
+    {
         InfluencingFactorFragment fragment = new InfluencingFactorFragment();
         Bundle args = new Bundle();
         project = proj;
@@ -46,16 +49,19 @@ public class InfluencingFactorFragment extends GuidedCreationFragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        Log.d("INFO", "onCreate");
+        //Log.d("INFO", "onCreate");
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         Log.d("INFO", "onCreateView");
+        //TODO: always load & safe inffactset
         this.container = container;
         rootView = inflater.inflate(R.layout.influencing_factor_fragment, container, false);
         ImageView dot1 = (ImageView) rootView.findViewById(R.id.dot1);
@@ -72,44 +78,56 @@ public class InfluencingFactorFragment extends GuidedCreationFragment {
         estimationMethodTitelTV = (TextView) rootView.findViewById(R.id.textViewChosenEstimationMethod);
         estimationMethodTitelTV.setText(text);
 
-        Button factorsetButton = (Button)rootView.findViewById(R.id.influencingFactorSetButton);
-        factorsetButton.setOnClickListener(new View.OnClickListener() {
+        Button factorsetButton = (Button) rootView.findViewById(R.id.influencingFactorSetButton);
+        factorsetButton.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 Toast.makeText(project.getContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
             }
         });
         return rootView;
     }
 
-    public ArrayList<String> getInfluencingFactorItems(){return influencingFactorItems;}
+    public ArrayList<String> getInfluencingFactorItems()
+    {
+        return influencingFactorItems;
+    }
 
-    public ArrayAdapter<String> getInfluencingFactorsAdapter(){return influencingFactorsAdapter;}
+    public ArrayAdapter<String> getInfluencingFactorsAdapter()
+    {
+        return influencingFactorsAdapter;
+    }
 
-    public void setNewInfluencingFactorItems(ArrayList<String> items){
+    public void setNewInfluencingFactorItems(ArrayList<String> items)
+    {
         influencingFactorItems = new ArrayList<String>();
         influencingFactorItems = items;
         influencingFactorsAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, influencingFactorItems);
     }
 
     @Override
-    public void onResume() {
+    public void onResume()
+    {
         super.onResume();
     }
 
     @Override
-    public void onPause() {
+    public void onPause()
+    {
         super.onPause();
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroy()
+    {
         super.onDestroy();
     }
 
     @Override
     public void onReloadViews(String text)
     {
-        this.text=text;
+        this.text = text;
     }
 }

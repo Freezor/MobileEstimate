@@ -10,13 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
-import com.mobileprojectestimator.mobileprojectestimator.Fragments.FunctionPointEstimationItem;
-import com.mobileprojectestimator.mobileprojectestimator.Fragments.FunctionPointMethodFragment;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.FunctionPointEstimationItem;
+import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.FunctionPointProject.FunctionPointMethodFragment;
 import com.mobileprojectestimator.mobileprojectestimator.FunctionPointEstimationValueActivity;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by Oliver Fries on 02.11.2015.

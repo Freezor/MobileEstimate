@@ -21,7 +21,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.InfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.ProjectListAdapter;
@@ -122,7 +121,7 @@ public class ProjectOverviewActivity extends AppCompatActivity
     {
         Project p = new Project(this, "Pizza Bestellung", "20.04.2013", getResources().getString(R.string.functionPoint));
         p.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.project));
-        InfluencingFactor factor = new InfluencingFactor(this,InfluencingFactor.FUNCTIONPOINTFACTORS);
+        InfluencingFactor factor = new InfluencingFactor(this, InfluencingFactor.FUNCTIONPOINTFACTORS);
         factor.setName("Team Mates");
         factor.getInfluenceFactorItems().get(0).setChosenValue(2);
         factor.getInfluenceFactorItems().get(1).setChosenValue(2);
