@@ -1,6 +1,8 @@
 package com.mobileprojectestimator.mobileprojectestimator.Util.adapters;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +11,7 @@ import android.widget.TextView;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.InfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
-import com.mobileprojectestimator.mobileprojectestimator.Fragments.FunctionPointInfluenceFactorFragment;
+import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.FunctionPointProject.FunctionPointInfluenceFactorFragment;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.util.ArrayList;
@@ -50,6 +52,72 @@ public class FunctionPointInfluenceListAdapter extends BaseAdapter
         this.fragment = projectInfluenceFactorFragment;
         this.fpInfluenceItems = fpInfluenceItems;
         this.project = project;
+    }
+
+    /**
+     * Updates all values from the Project values
+     * @param context
+     */
+    public void updateChosenValues(Context context)
+    {
+        try
+        {
+            for (InfluenceFactorItem item : fpInfluenceItems)
+            {
+                if (item.getName().equals(context.getString(R.string.function_point_influence_factor_item_integration)))
+                {
+                    item.setChosenValue(project.getInfluencingFactor().getFactorItemValue(context.getString(R.string.function_point_influence_factor_item_integration)));
+                } else if (item.getName().equals(context.getString(R.string.function_point_influence_factor_item_local_data)))
+                {
+                    item.setChosenValue(project.getInfluencingFactor().getFactorItemValue(context.getString(R.string.function_point_influence_factor_item_local_data)));
+                } else if (item.getName().equals(context.getString(R.string.function_point_influence_factor_item_transaction_rate)))
+                {
+                    item.setChosenValue(project.getInfluencingFactor().getFactorItemValue(context.getString(R.string.function_point_influence_factor_item_transaction_rate)));
+                } else if (item.getName().equals(context.getString(R.string.function_point_influence_factor_item_processing_logic)))
+                {
+                    try
+                    {
+                        String parentName = context.getString(R.string.function_point_influence_factor_item_processing_logic);
+                        String arithmetic = context.getString(R.string.function_point_influence_factor_item_arithmetic_operation);
+                        String controlProcedure = context.getString(R.string.function_point_influence_factor_item_control_procedure);
+                        String exceptionRegulation = context.getString(R.string.function_point_influence_factor_item_exception_regulation);
+                        String logic = context.getString(R.string.function_point_influence_factor_item_logic);
+
+                        boolean arithmeticBool = item.setSubItemChosenValue(project.getInfluencingFactor().getSubItemValue(parentName, arithmetic), arithmetic);
+                        boolean controlBool = item.setSubItemChosenValue(project.getInfluencingFactor().getSubItemValue(parentName, controlProcedure), controlProcedure);
+                        boolean exceptionBool = item.setSubItemChosenValue(project.getInfluencingFactor().getSubItemValue(parentName, exceptionRegulation), exceptionRegulation);
+                        boolean logicBool = item.setSubItemChosenValue(project.getInfluencingFactor().getSubItemValue(parentName, logic), logic);
+
+                        if (!arithmeticBool || !controlBool || !exceptionBool || !logicBool)
+                        {
+                            Log.d("ERROR", "FunctionPointInfluenceListAdapter.updateChosenValues(): Arithmetic = " + arithmeticBool);
+                            Log.d("ERROR", "FunctionPointInfluenceListAdapter.updateChosenValues(): Control = " + controlBool);
+                            Log.d("ERROR", "FunctionPointInfluenceListAdapter.updateChosenValues(): Exception = " + exceptionBool);
+                            Log.d("ERROR", "FunctionPointInfluenceListAdapter.updateChosenValues(): Logic = " + logicBool);
+                        }
+                    } catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+
+                } else if (item.getName().equals(context.getString(R.string.function_point_influence_factor_item_reusability)))
+                {
+                    item.setChosenValue(project.getInfluencingFactor().getFactorItemValue(context.getString(R.string.function_point_influence_factor_item_reusability)));
+                } else if (item.getName().equals(context.getString(R.string.function_point_influence_factor_item_stock_conversion)))
+                {
+                    item.setChosenValue(project.getInfluencingFactor().getFactorItemValue(context.getString(R.string.function_point_influence_factor_item_stock_conversion)));
+                } else if (item.getName().equals(context.getString(R.string.function_point_influence_factor_item_adaptability)))
+                {
+                    item.setChosenValue(project.getInfluencingFactor().getFactorItemValue(context.getString(R.string.function_point_influence_factor_item_adaptability)));
+                } else
+                {
+                    Log.d("ERROR", "FunctionPointInfluenceListAdapter.updateChosenValues(): THIS SHOULD NOT HAPPEN");
+                }
+            }
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -101,6 +169,7 @@ public class FunctionPointInfluenceListAdapter extends BaseAdapter
      * @param position
      * @param convertView
      */
+
     private void setListViewBackgroundColor(int position, View convertView)
     {
         if (position % 2 == 0)

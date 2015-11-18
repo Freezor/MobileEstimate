@@ -147,6 +147,9 @@ public class Project implements Serializable
 
     public void setInfluencingFactor(HashMap<String, String> objectHash)
     {
+        //Create new item with sample estimation method that the methods on the object work fine
+        this.influencingFactor = new InfluencingFactor(getContext(),InfluencingFactor.FUNCTIONPOINTFACTORS);
+        //Select the creation of the influencing factor on the estimation method
         if(this.estimationMethod.equals(context.getString(R.string.estimation_method_function_point))){
             this.influencingFactor.setValuesFromHashMap(objectHash,InfluencingFactor.FUNCTIONPOINTFACTORS);
         } else if(this.estimationMethod.equals(context.getString(R.string.estimation_method_cocomo)))

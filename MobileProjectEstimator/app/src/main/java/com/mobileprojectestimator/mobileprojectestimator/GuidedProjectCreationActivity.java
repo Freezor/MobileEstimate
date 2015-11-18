@@ -8,6 +8,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,16 +24,19 @@ import android.widget.Toast;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
-import com.mobileprojectestimator.mobileprojectestimator.Fragments.EstimationMethodFragment;
-import com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedCreationFragment;
-import com.mobileprojectestimator.mobileprojectestimator.Fragments.InfluencingFactorFragment;
-import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectCreationOverviewFragment;
-import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectInfoFragment;
-import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectPropOneFragment;
-import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectPropTwoFragment;
+import com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation.EstimationMethodFragment;
+import com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation.GuidedCreationFragment;
+import com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation.InfluencingFactorFragment;
+import com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation.ProjectCreationOverviewFragment;
+import com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation.ProjectInfoFragment;
+import com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation.ProjectPropOneFragment;
+import com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation.ProjectPropTwoFragment;
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.SectionsPagerAdapter;
 
 import java.util.ArrayList;
+
+import static com.mobileprojectestimator.mobileprojectestimator.R.id.ivEditItem;
+import static com.mobileprojectestimator.mobileprojectestimator.R.id.tvItemValue;
 
 public class GuidedProjectCreationActivity extends AppCompatActivity
 {
@@ -47,7 +51,10 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    private static int STRINGLENGTH = 12;
+    /**
+     * Constant int for the length where the string will be cut in shortenString()
+     */
+    public static int STRINGLENGTH = 12;
 
     /**
      * List with all Fragments in the creation dialog
@@ -68,6 +75,40 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    protected RelativeLayout sublayout;
+    private TextView projName;
+    protected ImageView editName;
+    protected ImageView editInfluenceFactor;
+    private TextView influenceFactor;
+    protected ImageView editEstimationMethod;
+    private TextView estimationMethod;
+    protected ImageView editIndustrySector;
+    private TextView industrySector;
+    private TextView projDescription;
+    private TextView platform;
+    protected ImageView editPlatform;
+    protected ImageView editProgrammingLanguage;
+    private TextView programmingLanguage;
+    protected ImageView editProcessModel;
+    private TextView processModel;
+    protected ImageView editDevelopmentKind;
+    private TextView developmentKind;
+    protected ImageView editProjectMarket;
+    private TextView projectMarket;
+    protected ImageView editIconName;
+    private TextView iconName;
+    protected ImageView editDescription;
+    private ProjectCreationOverviewFragment projectCreationOverviewFragment;
+    protected ListView creationItemsListView;
+    private ProjectInfoFragment projectInfoFragment;
+    private EditText projectNameET;
+    private EditText projectDescriptionET;
+    private ImageView projectIcon;
+    private TextView projInfoIconName;
+    private InfluencingFactorFragment influencingFactorFragment;
+    private TextView infFactorTextViewEstimationMethod;
+    private Spinner influencingFactorsAdapterSpinner;
+    private ArrayAdapter<String> influencingFactorsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -111,6 +152,7 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
             }
         });
 
+        //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
@@ -154,29 +196,283 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
     }
 
     /**
+     * Update the Overview Fragment
+     * Initialises the Overview View Items if they don´t exist
+     *
      * @param position
      */
     private void updateProjectCreationOverviewFragment(int position)
     {
-        //TODO: Hier Refactoring weiterführen
-        final ProjectCreationOverviewFragment f = (ProjectCreationOverviewFragment) mSectionsPagerAdapter.instantiateItem(mViewPager, position);
-        ListView creationItemsListView = (ListView) f.getView().findViewById(R.id.lvProjectCreation);
-        //Set Project Name
-        final RelativeLayout rv0 = (RelativeLayout) creationItemsListView.getChildAt(0);
-        TextView projName = (TextView) rv0.findViewById(R.id.tvItemValue);
-        projName.setText(shorten(projectNew.getTitle(), STRINGLENGTH));
-        ImageView editName = (ImageView) rv0.findViewById(R.id.ivEditItem);
-        editName.setOnClickListener(new View.OnClickListener()
+        if (this.projectCreationOverviewFragment != null)
         {
-            @Override
-            public void onClick(View v)
+            updateOvervieItemsValue();
+        } else
+        {
+            instanciateOverviewViewItems(position);
+        }
+    }
+
+    /**
+     * Create new instances of the Overview Items
+     * Should only be called once the guided Creation Dialog is opened
+     *
+     * @param position
+     */
+    private void instanciateOverviewViewItems(int position)
+    {
+        try
+        {
+
+
+            projectCreationOverviewFragment = (ProjectCreationOverviewFragment) mSectionsPagerAdapter.instantiateItem(mViewPager, position); //Not sure if this works, eventually extract to updateProjectCreationFragment
+            //noinspection ConstantConditions
+            creationItemsListView = (ListView) projectCreationOverviewFragment.getView().findViewById(R.id.lvProjectCreation);
+            //Set Project Name
+            sublayout = (RelativeLayout) creationItemsListView.getChildAt(0);
+            projName = (TextView) sublayout.findViewById(tvItemValue);
+            editName = (ImageView) sublayout.findViewById(ivEditItem);
+            editName.setOnClickListener(new View.OnClickListener()
             {
-                Toast.makeText(f.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
-            }
-        });
-        //Set Project Description
-        final RelativeLayout rv1 = (RelativeLayout) creationItemsListView.getChildAt(1);
-        TextView projDescription = (TextView) rv1.findViewById(R.id.tvItemValue);
+                @Override
+                public void onClick(View v)
+                {
+                    editProjectName();
+                }
+            });
+            //Set Project Description
+            sublayout = (RelativeLayout) creationItemsListView.getChildAt(1);
+            projDescription = (TextView) sublayout.findViewById(tvItemValue);
+            editDescription = (ImageView) sublayout.findViewById(ivEditItem);
+            editDescription.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    editDescription();
+                }
+            });
+            //Set Project Icon
+            sublayout = (RelativeLayout) creationItemsListView.getChildAt(2);
+            iconName = (TextView) sublayout.findViewById(tvItemValue);
+            editIconName = (ImageView) sublayout.findViewById(ivEditItem);
+            editIconName.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    editIcon();
+                }
+            });
+            //Set Project Market
+            sublayout = (RelativeLayout) creationItemsListView.getChildAt(3);
+            projectMarket = (TextView) sublayout.findViewById(tvItemValue);
+            editProjectMarket = (ImageView) sublayout.findViewById(ivEditItem);
+            editProjectMarket.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    editProjectMarket();
+                }
+            });
+            //Set Project Development Kind
+            sublayout = (RelativeLayout) creationItemsListView.getChildAt(4);
+            developmentKind = (TextView) sublayout.findViewById(tvItemValue);
+            editDevelopmentKind = (ImageView) sublayout.findViewById(ivEditItem);
+            editDevelopmentKind.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    editDevelopmentKind();
+                }
+            });
+            //Set Process Methology
+            sublayout = (RelativeLayout) creationItemsListView.getChildAt(5);
+            processModel = (TextView) sublayout.findViewById(tvItemValue);
+            editProcessModel = (ImageView) sublayout.findViewById(ivEditItem);
+            editProcessModel.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    editProcessMethology();
+                }
+            });
+            //Set Programming Language
+            sublayout = (RelativeLayout) creationItemsListView.getChildAt(6);
+            programmingLanguage = (TextView) sublayout.findViewById(tvItemValue);
+            editProgrammingLanguage = (ImageView) sublayout.findViewById(ivEditItem);
+            editProgrammingLanguage.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    editProgrammingLanguage();
+                }
+            });
+            //Set Platform
+            sublayout = (RelativeLayout) creationItemsListView.getChildAt(7);
+            platform = (TextView) sublayout.findViewById(tvItemValue);
+            editPlatform = (ImageView) sublayout.findViewById(ivEditItem);
+            editPlatform.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    editPlatform();
+                }
+            });
+            //Set Industry Sector
+            sublayout = (RelativeLayout) creationItemsListView.getChildAt(8);
+            industrySector = (TextView) sublayout.findViewById(tvItemValue);
+            editIndustrySector = (ImageView) sublayout.findViewById(ivEditItem);
+            editIndustrySector.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    editIndustrySector();
+                }
+            });
+            //Set Estimation Method
+            sublayout = (RelativeLayout) creationItemsListView.getChildAt(9);
+            estimationMethod = (TextView) sublayout.findViewById(tvItemValue);
+            editEstimationMethod = (ImageView) sublayout.findViewById(ivEditItem);
+            editEstimationMethod.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    editEstimationMethod();
+                }
+            });
+            //Set Influence Factor Set
+            sublayout = (RelativeLayout) creationItemsListView.getChildAt(10);
+            influenceFactor = (TextView) sublayout.findViewById(tvItemValue);
+            editInfluenceFactor = (ImageView) sublayout.findViewById(ivEditItem);
+            editInfluenceFactor.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    editInfluenceFactor();
+                }
+            });
+
+            //fill the items with the actual value
+            updateOvervieItemsValue();
+        } catch (Exception e)
+        {
+            Log.d("Error", "instanciateOverviewViewItems: " + e.toString());
+        }
+    }
+
+    /**
+     * Opens Dialoge to edit the Influence Factor
+     */
+    private void editInfluenceFactor()
+    {
+        //TODO: Create Dialog
+        Toast.makeText(projectCreationOverviewFragment.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Opens Dialoge to edit the Estimation Method
+     */
+    private void editEstimationMethod()
+    {
+        //TODO: Create Dialog
+        Toast.makeText(projectCreationOverviewFragment.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Opens Dialoge to edit the Industry Sector
+     */
+    private void editIndustrySector()
+    {
+        //TODO: Create Dialog
+        Toast.makeText(projectCreationOverviewFragment.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Opens Dialoge to edit the Platform
+     */
+    private void editPlatform()
+    {
+        //TODO: Create Dialog
+        Toast.makeText(projectCreationOverviewFragment.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Opens Dialoge to edit the Programming Language
+     */
+    private void editProgrammingLanguage()
+    {
+        //TODO: Create Dialog
+        Toast.makeText(projectCreationOverviewFragment.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Opens Dialoge to edit the Process Methology
+     */
+    private void editProcessMethology()
+    {
+        //TODO: Create Dialog
+        Toast.makeText(projectCreationOverviewFragment.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Opens Dialoge to edit the Development Kind
+     */
+    private void editDevelopmentKind()
+    {
+        //TODO: Create Dialog
+        Toast.makeText(projectCreationOverviewFragment.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Opens Dialoge to edit the Project Market
+     */
+    private void editProjectMarket()
+    {
+        //TODO: Create Dialog
+        Toast.makeText(projectCreationOverviewFragment.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Opens Dialoge to edit the Icon
+     */
+    private void editIcon()
+    {
+        //TODO: Create Dialog
+        Toast.makeText(projectCreationOverviewFragment.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Opens Dialoge to edit the Description
+     */
+    private void editDescription()
+    {
+        //TODO: Create Dialog
+        Toast.makeText(projectCreationOverviewFragment.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Opens Dialoge to edit the Name
+     */
+    private void editProjectName()
+    {
+        //TODO: Create Dialog
+        Toast.makeText(projectCreationOverviewFragment.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Update all View Items with the actual value the user selected
+     */
+    private void updateOvervieItemsValue()
+    {
+        projName.setText(shorten(projectNew.getTitle(), STRINGLENGTH));
         if (projectNew.getProjectDescription() != null)
         {
             projDescription.setText(shorten(projectNew.getProjectDescription(), STRINGLENGTH));
@@ -184,133 +480,16 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
         {
             projDescription.setText("");
         }
-        ImageView editDescription = (ImageView) rv1.findViewById(R.id.ivEditItem);
-        editDescription.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Toast.makeText(f.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
-            }
-        });
-        //Set Project Icon
-        final RelativeLayout rv2 = (RelativeLayout) creationItemsListView.getChildAt(2);
-        TextView iconName = (TextView) rv2.findViewById(R.id.tvItemValue);
         iconName.setText(shorten(projectNew.getIconName(), STRINGLENGTH));
-        ImageView editIconName = (ImageView) rv2.findViewById(R.id.ivEditItem);
-        editIconName.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Toast.makeText(f.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
-            }
-        });
-        //Set Project Market
-        final RelativeLayout rv3 = (RelativeLayout) creationItemsListView.getChildAt(3);
-        TextView projectMarket = (TextView) rv3.findViewById(R.id.tvItemValue);
         projectMarket.setText(shorten(projectNew.getProjectProperties().getMarket(), STRINGLENGTH));
-        ImageView editProjectMarket = (ImageView) rv3.findViewById(R.id.ivEditItem);
-        editProjectMarket.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Toast.makeText(f.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
-            }
-        });
-        //Set Project Development Kind
-        final RelativeLayout rv4 = (RelativeLayout) creationItemsListView.getChildAt(4);
-        TextView developmentKind = (TextView) rv4.findViewById(R.id.tvItemValue);
         developmentKind.setText(shorten(projectNew.getProjectProperties().getDevelopmentKind(), STRINGLENGTH));
-        ImageView editDevelopmentKind = (ImageView) rv4.findViewById(R.id.ivEditItem);
-        editDevelopmentKind.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Toast.makeText(f.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
-            }
-        });
-        //Set Process Methology
-        final RelativeLayout rv5 = (RelativeLayout) creationItemsListView.getChildAt(5);
-        TextView processModel = (TextView) rv5.findViewById(R.id.tvItemValue);
         processModel.setText(shorten(projectNew.getProjectProperties().getProcessMethology(), STRINGLENGTH));
-        ImageView editProcessModel = (ImageView) rv5.findViewById(R.id.ivEditItem);
-        editProcessModel.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Toast.makeText(f.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
-            }
-        });
-        //Set Programming Language
-        final RelativeLayout rv6 = (RelativeLayout) creationItemsListView.getChildAt(6);
-        TextView programmingLanguage = (TextView) rv6.findViewById(R.id.tvItemValue);
         programmingLanguage.setText(shorten(projectNew.getProjectProperties().getProgrammingLanguage(), STRINGLENGTH));
-        ImageView editProgrammingLanguage = (ImageView) rv6.findViewById(R.id.ivEditItem);
-        editProgrammingLanguage.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Toast.makeText(f.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
-            }
-        });
-        //Set Platform
-        final RelativeLayout rv7 = (RelativeLayout) creationItemsListView.getChildAt(7);
-        TextView platform = (TextView) rv7.findViewById(R.id.tvItemValue);
         platform.setText(shorten(projectNew.getProjectProperties().getPlatform(), STRINGLENGTH));
-        ImageView editPlatform = (ImageView) rv7.findViewById(R.id.ivEditItem);
-        editPlatform.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Toast.makeText(f.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
-            }
-        });
-        //Set Industry Sector
-        final RelativeLayout rv8 = (RelativeLayout) creationItemsListView.getChildAt(8);
-        TextView industrySector = (TextView) rv8.findViewById(R.id.tvItemValue);
         industrySector.setText(shorten(projectNew.getProjectProperties().getIndustrySector(), STRINGLENGTH));
-        ImageView editIndustrySector = (ImageView) rv8.findViewById(R.id.ivEditItem);
-        editIndustrySector.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Toast.makeText(f.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
-            }
-        });
-        //Set Estimation Method
-        final RelativeLayout rv9 = (RelativeLayout) creationItemsListView.getChildAt(9);
-        TextView estimationMethod = (TextView) rv9.findViewById(R.id.tvItemValue);
         estimationMethod.setText(shorten(projectNew.getEstimationMethod(), STRINGLENGTH));
-        ImageView editEstimationMethod = (ImageView) rv9.findViewById(R.id.ivEditItem);
-        editEstimationMethod.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Toast.makeText(f.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
-            }
-        });
-        //Set Influence Factor Set
-        final RelativeLayout rv10 = (RelativeLayout) creationItemsListView.getChildAt(10);
-        TextView influenceFactor = (TextView) rv10.findViewById(R.id.tvItemValue);
         //TODO: SET Influence Factor Name
         influenceFactor.setText(shorten(projectNew.getInfluencingFactor().getInfluenceFactorSetName(), STRINGLENGTH));
-        ImageView editInfluenceFactor = (ImageView) rv10.findViewById(R.id.ivEditItem);
-        editInfluenceFactor.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Toast.makeText(f.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     /**
@@ -324,7 +503,7 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
     {
         if (text.length() > length)
         {
-
+            //TODO: check if contains("\n") and shorten to oneline
             String s = text.substring(0, length);
             s = s + "...";
             return s;
@@ -336,19 +515,46 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
 
 
     /**
+     * Update the project Info Fragment
+     * Set the Values and initialise the Views
+     *
      * @param position
      */
     private void updateProjectInfoFragment(int position)
     {
-        ProjectInfoFragment f = (ProjectInfoFragment) mSectionsPagerAdapter.instantiateItem(mViewPager, position);
-        EditText projectNameET = (EditText) f.getView().findViewById(R.id.projectNameET);
+        if (projectInfoFragment == null)
+        {
+            initialiseProjectInfoFragment(position);
+        } else
+        {
+            setProjectInfoValues();
+        }
+    }
+
+    /**
+     * Set the actual values for the Project Info Fragment
+     */
+    private void setProjectInfoValues()
+    {
         projectNameET.setText(projectNew.getTitle());
-        EditText projectDescriptionET = (EditText) f.getView().findViewById(R.id.projectDescriptionET);
         projectDescriptionET.setText(projectNew.getProjectDescription());
-        ImageView projectIcon = (ImageView) f.getView().findViewById(R.id.projectIconIV);
         projectIcon.setImageBitmap(projectNew.getImage());
-        TextView iconName = (TextView) f.getView().findViewById(R.id.tvProjectImageName);
-        iconName.setText(projectNew.getIconName());
+        projInfoIconName.setText(projectNew.getIconName());
+    }
+
+    /**
+     * Init all Views of the Project Info Fragment
+     *
+     * @param position
+     */
+    private void initialiseProjectInfoFragment(int position)
+    {
+        projectInfoFragment = (ProjectInfoFragment) mSectionsPagerAdapter.instantiateItem(mViewPager, position);
+        projectNameET = (EditText) projectInfoFragment.getView().findViewById(R.id.projectNameET);
+        projectDescriptionET = (EditText) projectInfoFragment.getView().findViewById(R.id.projectDescriptionET);
+        projectIcon = (ImageView) projectInfoFragment.getView().findViewById(R.id.projectIconIV);
+        projInfoIconName = (TextView) projectInfoFragment.getView().findViewById(R.id.tvProjectImageName);
+        setProjectInfoValues();
     }
 
     /**
@@ -356,13 +562,28 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
      */
     private void updateInfluencingFactorFragment(int position)
     {
-        InfluencingFactorFragment f = (InfluencingFactorFragment) mSectionsPagerAdapter.instantiateItem(mViewPager, position);
+        if (influencingFactorFragment == null)
+        {
+            initialiseInfluencingFactorFragment(position);
+        } else
+        {
+            infFactorTextViewEstimationMethod.setText(String.format(getString(R.string.msg_guided_project_creation_chosen_estimation_method), new Object[]{projectNew.getEstimationMethod()}));
+        }
+    }
 
-        TextView t = (TextView) f.getView().findViewById(R.id.textViewChosenEstimationMethod);
-        t.setText(String.format(getString(R.string.msg_guided_project_creation_chosen_estimation_method), new Object[]{projectNew.getEstimationMethod()}));
+    /**
+     * Initialises the Factor Set Fragment View Elements
+     *
+     * @param position
+     */
+    private void initialiseInfluencingFactorFragment(int position)
+    {
+        influencingFactorFragment = (InfluencingFactorFragment) mSectionsPagerAdapter.instantiateItem(mViewPager, position);
 
-        ArrayAdapter<String> influencingFactorsAdapter = new ArrayAdapter<>(f.getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, loadInfluencingFactorsSetList());
-        final Spinner influencingFactorsAdapterSpinner = (Spinner) f.getView().findViewById(R.id.influencingSet);
+        infFactorTextViewEstimationMethod = (TextView) influencingFactorFragment.getView().findViewById(R.id.textViewChosenEstimationMethod);
+
+        influencingFactorsAdapter = new ArrayAdapter<>(influencingFactorFragment.getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, loadInfluencingFactorsSetList());
+        influencingFactorsAdapterSpinner = (Spinner) influencingFactorFragment.getView().findViewById(R.id.influencingSet);
         influencingFactorsAdapterSpinner.setAdapter(influencingFactorsAdapter);
         influencingFactorsAdapterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
@@ -381,9 +602,8 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
 
         if (projectNew.getEstimationMethod().equals(""))
         {
-            t.setText(R.string.msg_guided_project_creation_no_estimation_method);
+            infFactorTextViewEstimationMethod.setText(R.string.msg_guided_project_creation_no_estimation_method);
         }
-
     }
 
     /**
@@ -409,7 +629,7 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
             influencingFactor = loadCocomo2InfluencingFactors(itemName);
         } else
         {
-            influencingFactor = new InfluencingFactor(this,InfluencingFactor.FUNCTIONPOINTFACTORS);
+            influencingFactor = new InfluencingFactor(this, InfluencingFactor.FUNCTIONPOINTFACTORS);
             influencingFactor.setName("No Influencing Factor Set Created yet");
         }
 
@@ -424,7 +644,7 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
      */
     private InfluencingFactor loadCocomo2InfluencingFactors(String itemName)
     {
-        InfluencingFactor influencingFactor = new InfluencingFactor(this,InfluencingFactor.COCOMO2FACTORS);
+        InfluencingFactor influencingFactor = new InfluencingFactor(this, InfluencingFactor.COCOMO2FACTORS);
         influencingFactor.setName(itemName);
         return influencingFactor;
     }
@@ -437,7 +657,7 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
      */
     private InfluencingFactor loadCocomoInfluencingFactors(String itemName)
     {
-        InfluencingFactor influencingFactor = new InfluencingFactor(this,InfluencingFactor.COCOMO2FACTORS);
+        InfluencingFactor influencingFactor = new InfluencingFactor(this, InfluencingFactor.COCOMO2FACTORS);
         influencingFactor.setName(itemName);
         return influencingFactor;
     }
@@ -451,7 +671,7 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
     private InfluencingFactor loadFunctionPointInfluencingFactors(String itemName)
     {
         //TODO: Load Factor From Database
-        InfluencingFactor influencingFactor = new InfluencingFactor(this,InfluencingFactor.FUNCTIONPOINTFACTORS);
+        InfluencingFactor influencingFactor = new InfluencingFactor(this, InfluencingFactor.FUNCTIONPOINTFACTORS);
         influencingFactor.setName(itemName);
         influencingFactor.getInfluenceFactorItems().get(0).setChosenValue(2);
         influencingFactor.getInfluenceFactorItems().get(1).setChosenValue(2);

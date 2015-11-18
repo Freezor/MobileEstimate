@@ -1,4 +1,4 @@
-package com.mobileprojectestimator.mobileprojectestimator.Fragments;
+package com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,17 +7,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 /**
- * Created by Oliver Fries on 01.11.2015.
+ * Created by Oliver Fries on 01.11.2015, 15:36.
+ * Project: MobileProjectEstimator
  */
 public class EstimationMethodFragment extends GuidedCreationFragment {
     private Project project;
-    private TextView chosenMethodTv;
 
     /**
      * Returns a new instance of this fragment for the given section

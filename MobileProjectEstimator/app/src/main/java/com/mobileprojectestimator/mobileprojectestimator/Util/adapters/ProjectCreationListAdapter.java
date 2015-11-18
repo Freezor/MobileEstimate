@@ -7,7 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.ProjectItemForCreation;
-import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectCreationOverviewFragment;
+import com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation.ProjectCreationOverviewFragment;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.util.ArrayList;

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Oliver Fries on 02.11.2015.
- *
+ * <p/>
  * Class for each influence factor item in a function point estimation project
  */
 public class InfluenceFactorItem
@@ -19,6 +19,7 @@ public class InfluenceFactorItem
 
     /**
      * Standard constructor
+     *
      * @param name
      * @param minValue
      * @param maxValue
@@ -38,6 +39,7 @@ public class InfluenceFactorItem
 
     /**
      * create item with no sub items
+     *
      * @param name
      * @param minValue
      * @param maxValue
@@ -49,6 +51,7 @@ public class InfluenceFactorItem
 
     /**
      * Influence Factor Item with already created list of subitems
+     *
      * @param name
      * @param minValue
      * @param maxValue
@@ -66,6 +69,7 @@ public class InfluenceFactorItem
 
     /**
      * Has the Factor Item subitems
+     *
      * @return
      */
     public boolean hasSubItems()
@@ -80,6 +84,7 @@ public class InfluenceFactorItem
 
     /**
      * Get the name of this influence factor item
+     *
      * @return
      */
     public String getName()
@@ -140,5 +145,25 @@ public class InfluenceFactorItem
     public void setChosenValue(int chosenValue)
     {
         this.chosenValue = chosenValue;
+    }
+
+    /**
+     * Set the chosen value for the subitem. returns false if item does not exist
+     *
+     * @param chosenValue
+     * @param subItemName
+     * @return
+     */
+    public boolean setSubItemChosenValue(int chosenValue, String subItemName)
+    {
+        for (InfluenceFactorItem item : subInfluenceFactorItemsList)
+        {
+            if (item.getName().equals(subItemName))
+            {
+                item.setChosenValue(chosenValue);
+                return true;
+            }
+        }
+        return false;
     }
 }

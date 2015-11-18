@@ -1,4 +1,4 @@
-package com.mobileprojectestimator.mobileprojectestimator.Fragments;
+package com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation;
 
 
 import android.support.v4.app.Fragment;

@@ -24,6 +24,7 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
     private int mediumValue = 0;
     private int complexValue = 0;
     private TextView valueComplex;
+    protected String title;
     private Project project;
 
     @Override
@@ -35,25 +36,26 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
     @Override
     public void onBackPressed()
     {
-        closeActivtiy();
+        closeActivity();
         super.onBackPressed();
     }
 
-    private void closeActivtiy()
+    /**
+     * Put the Results of this activity in the extras and finishes this activity
+     */
+    private void closeActivity()
     {
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("RESULT", 42);
         returnIntent.putExtra(getString(R.string.NewProjectIntentValueParam), project.toHashMap());
         setResult(1, returnIntent);
         finish();
-        return;
     }
 
     public boolean onOptionsItemSelected(MenuItem menuItem)
     {
         if (menuItem.getItemId() == android.R.id.home)
         {
-            closeActivtiy();
+            closeActivity();
         }
         return super.onOptionsItemSelected(menuItem);
     }
@@ -65,7 +67,7 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
         setContentView(R.layout.activity_function_point_estimation_value);
 
         Intent intent = getIntent();
-        String title = intent.getStringExtra("TITLE");
+        title = intent.getStringExtra("TITLE");
         HashMap<String, String> hashMap = (HashMap<String, String>) intent.getSerializableExtra("NEWPROJECT");
         project = new Project(this);
         if (!hashMap.isEmpty())
@@ -83,7 +85,84 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
         TextView description = (TextView) findViewById(R.id.tvFpEstimationDescription);
         description.setMovementMethod(new ScrollingMovementMethod());
 
-        //Init Simple Cat
+        initSimpleCat();
+
+        initMediumCat();
+
+        initComplexCat();
+    }
+
+    /**
+     * initialise the views for the complex category
+     */
+    private void initComplexCat()
+    {
+        RelativeLayout layoutComplexEstimation = (RelativeLayout) findViewById(R.id.i_complex_value);
+        valueComplex = (TextView) layoutComplexEstimation.findViewById(R.id.tvValue);
+        valueComplex.setText(String.format("%d", complexValue));
+        ImageView decreaseButtonComplexCat = (ImageView) layoutComplexEstimation.findViewById(R.id.ivLeft);
+        decreaseButtonComplexCat.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (complexValue > 0)
+                {
+                    complexValue--;
+                    valueComplex.setText(String.format("%d", complexValue));
+                }
+            }
+        });
+        ImageView increaseButtonComplexCat = (ImageView) layoutComplexEstimation.findViewById(R.id.ivRight);
+        increaseButtonComplexCat.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                complexValue++;
+                valueComplex.setText(String.format("%d", complexValue));
+            }
+        });
+    }
+
+    /**
+     * initialise the views for the medium category
+     */
+    private void initMediumCat()
+    {
+        RelativeLayout layoutMediumEstimation = (RelativeLayout) findViewById(R.id.i_medium_value);
+        valueMedium = (TextView) layoutMediumEstimation.findViewById(R.id.tvValue);
+        valueMedium.setText(String.format("%d", mediumValue));
+        ImageView decreaseButtonMediumCat = (ImageView) layoutMediumEstimation.findViewById(R.id.ivLeft);
+        decreaseButtonMediumCat.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (mediumValue > 0)
+                {
+                    mediumValue--;
+                    valueMedium.setText(String.format("%d", mediumValue));
+                }
+            }
+        });
+        ImageView increaseButtonMediumCat = (ImageView) layoutMediumEstimation.findViewById(R.id.ivRight);
+        increaseButtonMediumCat.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                mediumValue++;
+                valueMedium.setText(String.format("%d", mediumValue));
+            }
+        });
+    }
+
+    /**
+     * initialise the views for the simple category
+     */
+    private void initSimpleCat()
+    {
         RelativeLayout layoutSimpleEstimation = (RelativeLayout) findViewById(R.id.i_simple_value);
         valueSimple = (TextView) layoutSimpleEstimation.findViewById(R.id.tvValue);
         valueSimple.setText(String.format("%d", simpleValue));
@@ -108,62 +187,6 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
             {
                 simpleValue++;
                 valueSimple.setText(String.format("%d", simpleValue));
-            }
-        });
-
-        //Init Medium Cat
-        RelativeLayout layoutMediumEstimation = (RelativeLayout) findViewById(R.id.i_medium_value);
-        valueMedium = (TextView) layoutMediumEstimation.findViewById(R.id.tvValue);
-        valueMedium.setText(mediumValue + "");
-        ImageView decreaseButtonMediumCat = (ImageView) layoutMediumEstimation.findViewById(R.id.ivLeft);
-        decreaseButtonMediumCat.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if (mediumValue > 0)
-                {
-                    mediumValue--;
-                    valueMedium.setText(mediumValue + "");
-                }
-            }
-        });
-        ImageView increaseButtonMediumCat = (ImageView) layoutMediumEstimation.findViewById(R.id.ivRight);
-        increaseButtonMediumCat.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                mediumValue++;
-                valueMedium.setText(mediumValue + "");
-            }
-        });
-
-        //Init Complex Cat
-        RelativeLayout layoutComplexEstimation = (RelativeLayout) findViewById(R.id.i_complex_value);
-        valueComplex = (TextView) layoutComplexEstimation.findViewById(R.id.tvValue);
-        valueComplex.setText(complexValue + "");
-        ImageView decreaseButtonComplexCat = (ImageView) layoutComplexEstimation.findViewById(R.id.ivLeft);
-        decreaseButtonComplexCat.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if (complexValue > 0)
-                {
-                    complexValue--;
-                    valueComplex.setText(complexValue + "");
-                }
-            }
-        });
-        ImageView increaseButtonComplexCat = (ImageView) layoutComplexEstimation.findViewById(R.id.ivRight);
-        increaseButtonComplexCat.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                complexValue++;
-                valueComplex.setText(complexValue + "");
             }
         });
     }
