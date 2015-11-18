@@ -16,7 +16,8 @@ import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.FunctionP
 import java.util.ArrayList;
 
 /**
- * Created by Oliver Fries on 02.11.2015.
+ * Created by Oliver Fries on 02.11.2015, 14:57.
+ * Project: MobileProjectEstimator
  */
 public class FunctionPointMethodFragment extends EstimationOverviewFragment
 {

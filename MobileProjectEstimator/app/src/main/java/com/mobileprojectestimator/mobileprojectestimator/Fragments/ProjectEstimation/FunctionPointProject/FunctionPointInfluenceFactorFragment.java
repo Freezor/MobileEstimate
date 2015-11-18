@@ -28,11 +28,13 @@ public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFrag
     private ArrayList<Object> fragmentsList;
 
     @Override
-    public void onReloadViews(String text) {
+    public void onReloadViews(String text)
+    {
     }
 
     @Override
-    public EstimationOverviewFragment newInstance(Project p) {
+    public EstimationOverviewFragment newInstance(Project p)
+    {
         FunctionPointInfluenceFactorFragment fragment = new FunctionPointInfluenceFactorFragment();
         Bundle args = new Bundle();
         project = p;
@@ -42,16 +44,16 @@ public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFrag
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         View rootView = inflater.inflate(R.layout.fragment_function_point_influence_factor_activtiy, container, false);
 
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         influencingFactor = new InfluencingFactor(this.getContext(), InfluencingFactor.FUNCTIONPOINTFACTORS);
 
-
         fpInfluenceListView = (ListView) rootView.findViewById(R.id.lvInfluenceFactors);
-        projectInfluenceListAdapter = new FunctionPointInfluenceListAdapter(this, influencingFactor.getInfluenceFactorItems(),project);
+        projectInfluenceListAdapter = new FunctionPointInfluenceListAdapter(this, influencingFactor.getInfluenceFactorItems(), project);
         projectInfluenceListAdapter.updateChosenValues(getContext());
         fpInfluenceListView.setAdapter(projectInfluenceListAdapter);
         fpInfluenceListView.setScrollbarFadingEnabled(false);
