@@ -10,8 +10,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointItem;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 
 import java.util.HashMap;
 
@@ -26,6 +28,7 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
     private TextView valueComplex;
     protected String title;
     private Project project;
+    private FunctionPointItem item;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -37,7 +40,6 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
     public void onBackPressed()
     {
         closeActivity();
-        super.onBackPressed();
     }
 
     /**
@@ -45,10 +47,18 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
      */
     private void closeActivity()
     {
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra(getString(R.string.NewProjectIntentValueParam), project.toHashMap());
-        setResult(1, returnIntent);
-        finish();
+        if (this.project.updateEstimationItem(title, item))
+        {
+
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra(getString(R.string.NewProjectIntentValueParam), project.toHashMap());
+            setResult(1, returnIntent);
+            finish();
+            super.onBackPressed();
+        } else
+        {
+            Toast.makeText(this, "ERROR: Estimation Item does not exist", Toast.LENGTH_LONG).show();
+        }
     }
 
     public boolean onOptionsItemSelected(MenuItem menuItem)
@@ -68,12 +78,14 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
 
         Intent intent = getIntent();
         title = intent.getStringExtra("TITLE");
+
         HashMap<String, String> hashMap = (HashMap<String, String>) intent.getSerializableExtra("NEWPROJECT");
         project = new Project(this);
         if (!hashMap.isEmpty())
         {
             project.toObjectFromHashMap(hashMap);
         }
+        item = (FunctionPointItem) project.getEstimationItemByName(this.title);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarFunctionPointEstimation);
         toolbar.setTitle(title);
@@ -108,6 +120,7 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
             {
                 if (complexValue > 0)
                 {
+                    item.updateItem(2, false);
                     complexValue--;
                     valueComplex.setText(String.format("%d", complexValue));
                 }
@@ -119,6 +132,7 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                item.updateItem(2, true);
                 complexValue++;
                 valueComplex.setText(String.format("%d", complexValue));
             }
@@ -141,6 +155,7 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
             {
                 if (mediumValue > 0)
                 {
+                    item.updateItem(1, false);
                     mediumValue--;
                     valueMedium.setText(String.format("%d", mediumValue));
                 }
@@ -152,6 +167,7 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                item.updateItem(1, true);
                 mediumValue++;
                 valueMedium.setText(String.format("%d", mediumValue));
             }
@@ -174,6 +190,7 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
             {
                 if (simpleValue > 0)
                 {
+                    item.updateItem(0, false);
                     simpleValue--;
                     valueSimple.setText(String.format("%d", simpleValue));
                 }
@@ -185,6 +202,7 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                item.updateItem(0, true);
                 simpleValue++;
                 valueSimple.setText(String.format("%d", simpleValue));
             }

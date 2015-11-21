@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.EstimationOverviewFragment;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.FunctionPointProject.FunctionPointInfluenceFactorFragment;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.FunctionPointProject.FunctionPointMethodFragment;
@@ -44,13 +44,29 @@ public class FunctionPointProjectActivtiy extends AppCompatActivity
 
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
+        Log.d("INFO","FunctionPointProjectActivity: onActivityResult");
         super.onActivityResult(requestCode, resultCode, data);
 
     }
 
     @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState)
+    {
+        Log.d("INFO","FunctionPointProjectActivity: onRestoreInstanceState");
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    protected void onRestart()
+    {
+        Log.d("INFO","FunctionPointProjectActivity: onRestart");
+        super.onRestart();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        Log.d("INFO","FunctionPointProjectActivity: onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_function_point_project_activtiy);
 

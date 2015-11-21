@@ -1,4 +1,4 @@
-package com.mobileprojectestimator.mobileprojectestimator.DataObjects;
+package com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items;
 
 import java.util.ArrayList;
 

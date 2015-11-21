@@ -1,4 +1,4 @@
-package com.mobileprojectestimator.mobileprojectestimator.DataObjects;
+package com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 
 import java.util.HashMap;
 import java.util.Map;

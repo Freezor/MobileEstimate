@@ -1,13 +1,17 @@
-package com.mobileprojectestimator.mobileprojectestimator.DataObjects;
+package com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.EstimationItem;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointItem;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -55,6 +59,8 @@ public class Project implements Serializable
     private InfluencingFactor influencingFactor;
     private ProjectProperties projectProperties;
 
+    private ArrayList<EstimationItem> estimationItems;
+
     /**
      * Create a Project with already known title, creation Date and estimation Type
      * Mostly for test purpose
@@ -72,6 +78,47 @@ public class Project implements Serializable
         this.context = current;
         setInfluencingFactors();
         projectProperties = new ProjectProperties();
+        initialiseEstimationItems(estimationMethod);
+    }
+
+    private void initialiseEstimationItems(String estimationMethod)
+    {
+        if (estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
+        {
+            this.estimationItems = new ArrayList<>();
+            this.estimationItems.add(new FunctionPointItem((context.getString(R.string.function_point_estimation_input_data)), 3, 4, 6));
+            this.estimationItems.add(new FunctionPointItem((context.getString(R.string.function_point_estimation_requests)), 3, 4, 6));
+            this.estimationItems.add(new FunctionPointItem((context.getString(R.string.function_point_estimation_output)), 4, 5, 7));
+            this.estimationItems.add(new FunctionPointItem((context.getString(R.string.function_point_estimation_dataset)), 7, 10, 15));
+            this.estimationItems.add(new FunctionPointItem((context.getString(R.string.function_point_estimation_reference_data)), 5, 7, 10));
+        } else if (estimationMethod.equals(context.getString(R.string.estimation_method_cocomo)))
+        {
+            this.estimationItems = new ArrayList<>();
+        }
+    }
+
+    /**
+     * Returns the estimation item at the position in the array list
+     * @param index
+     * @return
+     */
+    public EstimationItem getEstimationItemByIndex(int index)
+    {
+        return this.estimationItems.get(index);
+    }
+
+    /**
+     * Returns the estimation item whith equal name
+     * @param name
+     * @return
+     */
+    public EstimationItem getEstimationItemByName(String name){
+        for (EstimationItem item: estimationItems){
+            if (item.getItemName().equals(name)){
+                return item;
+            }
+        }
+        return null;
     }
 
     /**
@@ -141,20 +188,22 @@ public class Project implements Serializable
         return influencingFactor;
     }
 
-    public void setInfluencingFactor(InfluencingFactor factor){
+    public void setInfluencingFactor(InfluencingFactor factor)
+    {
         this.influencingFactor = factor;
     }
 
     public void setInfluencingFactor(HashMap<String, String> objectHash)
     {
         //Create new item with sample estimation method that the methods on the object work fine
-        this.influencingFactor = new InfluencingFactor(getContext(),InfluencingFactor.FUNCTIONPOINTFACTORS);
+        this.influencingFactor = new InfluencingFactor(getContext(), InfluencingFactor.FUNCTIONPOINTFACTORS);
         //Select the creation of the influencing factor on the estimation method
-        if(this.estimationMethod.equals(context.getString(R.string.estimation_method_function_point))){
-            this.influencingFactor.setValuesFromHashMap(objectHash,InfluencingFactor.FUNCTIONPOINTFACTORS);
-        } else if(this.estimationMethod.equals(context.getString(R.string.estimation_method_cocomo)))
+        if (this.estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
         {
-            this.influencingFactor.setValuesFromHashMap(objectHash,InfluencingFactor.COCOMOFACTORS);
+            this.influencingFactor.setValuesFromHashMap(objectHash, InfluencingFactor.FUNCTIONPOINTFACTORS);
+        } else if (this.estimationMethod.equals(context.getString(R.string.estimation_method_cocomo)))
+        {
+            this.influencingFactor.setValuesFromHashMap(objectHash, InfluencingFactor.COCOMOFACTORS);
         }
     }
 
@@ -235,5 +284,18 @@ public class Project implements Serializable
 
         setInfluencingFactor(objectHash);
         this.projectProperties.setPropertyValues(objectHash);
+
+        initialiseEstimationItems(this.estimationMethod);
+    }
+
+    public boolean updateEstimationItem(String title, FunctionPointItem item)
+    {
+        for(EstimationItem estimationItem: estimationItems){
+            if(estimationItem.getItemName().equals(title)){
+                estimationItems.set(estimationItems.indexOf(estimationItem),item);
+                return true;
+            }
+        }
+        return false;
     }
 }

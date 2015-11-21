@@ -2,7 +2,7 @@ package com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstim
 
 import android.support.v4.app.Fragment;
 
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 
 /**
  * Created by Oliver Fries on 02.11.2015, 15:37.

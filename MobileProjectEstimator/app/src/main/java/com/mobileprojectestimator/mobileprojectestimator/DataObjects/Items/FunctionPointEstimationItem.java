@@ -1,4 +1,4 @@
-package com.mobileprojectestimator.mobileprojectestimator.DataObjects;
+package com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items;
 
 /**
  * Created by Oliver Fries on 02.11.2015, 15:37.

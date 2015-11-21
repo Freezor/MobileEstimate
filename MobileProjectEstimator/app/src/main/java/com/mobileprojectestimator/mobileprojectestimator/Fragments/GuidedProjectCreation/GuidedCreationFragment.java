@@ -3,7 +3,7 @@ package com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjec
 
 import android.support.v4.app.Fragment;
 
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 
 /**
  * Created by Oliver Fries on 01.11.2015.

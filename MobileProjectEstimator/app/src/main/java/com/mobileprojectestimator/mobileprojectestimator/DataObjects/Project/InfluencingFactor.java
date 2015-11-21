@@ -1,7 +1,8 @@
-package com.mobileprojectestimator.mobileprojectestimator.DataObjects;
+package com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 
 import android.content.Context;
 
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.InfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.util.ArrayList;
