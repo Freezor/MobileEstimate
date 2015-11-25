@@ -13,8 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.ProjectItemForCreation;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.ProjectCreationListAdapter;
 
@@ -27,11 +27,10 @@ import java.util.HashMap;
  */
 public class ProjectCreationOverviewFragment extends GuidedCreationFragment
 {
-    private Project project;
     protected ListView projectCreationListView;
     protected ProjectCreationListAdapter projectCreationAdapter;
     protected ArrayList<ProjectItemForCreation> creationItems;
-
+    private Project project;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -93,9 +92,10 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
                              Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.project_creation_overview_fragment, container, false);
-        if(this.project == null){
+        if (this.project == null)
+        {
 
-            creationItems = new ArrayList<ProjectItemForCreation>();
+            creationItems = new ArrayList<>();
             creationItems.add(new ProjectItemForCreation("Project Name: ", "ERROR"));
             creationItems.add(new ProjectItemForCreation("Project Description: ", "ERROR"));
             creationItems.add(new ProjectItemForCreation("Project Icon: ", "ERROR"));
@@ -107,12 +107,13 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
             creationItems.add(new ProjectItemForCreation("Industry Sector: ", "ERROR"));
             creationItems.add(new ProjectItemForCreation("Estimation Method: ", "ERROR"));
             creationItems.add(new ProjectItemForCreation("Influencing Factor: ", "ERROR"));
-        } else {
-            creationItems = new ArrayList<ProjectItemForCreation>();
+        } else
+        {
+            creationItems = new ArrayList<>();
             creationItems.add(new ProjectItemForCreation("Project Name: ", this.project.getTitle()));
             creationItems.add(new ProjectItemForCreation("Project Description: ", this.project.getProjectDescription()));
             creationItems.add(new ProjectItemForCreation("Project Icon: ", this.project.getIconName()));
-            creationItems.add(new ProjectItemForCreation("Project Market: ",this.project.getProjectProperties().getMarket() ));
+            creationItems.add(new ProjectItemForCreation("Project Market: ", this.project.getProjectProperties().getMarket()));
             creationItems.add(new ProjectItemForCreation("Development Kind: ", this.project.getProjectProperties().getDevelopmentKind()));
             creationItems.add(new ProjectItemForCreation("Process Methology: ", this.project.getProjectProperties().getProcessMethology()));
             creationItems.add(new ProjectItemForCreation("Programming Language: ", this.project.getProjectProperties().getProgrammingLanguage()));

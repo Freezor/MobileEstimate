@@ -7,40 +7,37 @@ package com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Esti
  * Items for the function Point Estimation
  * Only items available per definition are simple, medium and compley
  */
-public class FunctionPointCategoryItem
+class FunctionPointCategoryItem
 {
     /**
      * Simple Item
      */
-    public static String CATEGORISATIONSIMPLE = "simple";
+    public static final String CATEGORISATIONSIMPLE = "simple";
     /**
      * Medium Item
      */
-    public static String CATEGORISATIONMEDIUM = "medium";
+    public static final String CATEGORISATIONMEDIUM = "medium";
     /**
      * Complex Item
      */
-    public static String CATEGORISATIONCOMPLEX = "complex";
+    public static final String CATEGORISATIONCOMPLEX = "complex";
 
     /**
      * The Category of the actual item. Must Contain one of the above static Strings
      */
-    private String categorisation;
-
+    private final String categorisation;
+    /**
+     * The Weight for this item. Can only be initialised and not altered later
+     */
+    private final int weight;
     /**
      * total Number of Items in this category
      */
     private int totalItemCount;
-
     /**
      * Weighted Value of this Category = totalItemCount * weight
      */
     private int sumOfCategory;
-
-    /**
-     * The Weight for this item. Can only be initialised and not altered later
-     */
-    private int weight;
 
     /**
      * Standard Constructor for function point items

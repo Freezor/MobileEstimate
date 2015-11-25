@@ -32,19 +32,16 @@ public class FunctionPointProjectActivtiy extends AppCompatActivity
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
+    @SuppressWarnings("FieldCanBeLocal")
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ArrayList<EstimationOverviewFragment> fragmentsList;
 
+    @SuppressWarnings("FieldCanBeLocal")
     private Project project;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    private ViewPager mViewPager;
 
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        Log.d("INFO","FunctionPointProjectActivity: onActivityResult");
+        Log.d("INFO", "FunctionPointProjectActivity: onActivityResult");
         super.onActivityResult(requestCode, resultCode, data);
 
     }
@@ -52,31 +49,37 @@ public class FunctionPointProjectActivtiy extends AppCompatActivity
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState)
     {
-        Log.d("INFO","FunctionPointProjectActivity: onRestoreInstanceState");
+        Log.d("INFO", "FunctionPointProjectActivity: onRestoreInstanceState");
         super.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override
     protected void onRestart()
     {
-        Log.d("INFO","FunctionPointProjectActivity: onRestart");
+        Log.d("INFO", "FunctionPointProjectActivity: onRestart");
         super.onRestart();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        Log.d("INFO","FunctionPointProjectActivity: onCreate");
+        Log.d("INFO", "FunctionPointProjectActivity: onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_function_point_project_activtiy);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.function_point_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        try
+        {
+            Toolbar toolbar = (Toolbar) findViewById(R.id.function_point_toolbar);
+            setSupportActionBar(toolbar);
+            //noinspection ConstantConditions
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
         Intent intent = getIntent();
-        HashMap<String, String> hashMap = new HashMap<String, String>();
-        hashMap = (HashMap<String, String>) intent.getSerializableExtra(getString(R.string.NewProjectIntentValueParam));
+        HashMap<String, String> hashMap = (HashMap<String, String>) intent.getSerializableExtra(getString(R.string.NewProjectIntentValueParam));
         project = new Project(this);
         if (hashMap != null)
         {
@@ -93,7 +96,10 @@ public class FunctionPointProjectActivtiy extends AppCompatActivity
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), this.project);
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        /*
+      The {@link ViewPager} that will host the section contents.
+     */
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -136,7 +142,7 @@ public class FunctionPointProjectActivtiy extends AppCompatActivity
     public class SectionsPagerAdapter extends FragmentPagerAdapter
     {
 
-        private Project project;
+        private final Project project;
 
         public SectionsPagerAdapter(FragmentManager fm, Project p)
         {

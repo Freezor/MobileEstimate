@@ -1,63 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mobileprojectestimator.mobileprojectestimator" >
+<manifest
+    package="com.mobileprojectestimator.mobileprojectestimator"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".ProjectOverviewActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.SEARCH" />
+                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.SEARCH"/>
+                <action android:name="android.intent.action.VIEW"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
 
             <meta-data
                 android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
+                android:resource="@xml/searchable"/>
         </activity>
         <activity
             android:name=".GuidedProjectCreationActivity"
             android:label="@string/title_activity_guided_project_creation"
             android:parentActivityName=".ProjectOverviewActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan" >
+            android:windowSoftInputMode="adjustPan">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ProjectOverviewActivity" />
+                android:value=".ProjectOverviewActivity"/>
         </activity>
         <activity
             android:name=".FunctionPointProjectActivtiy"
             android:label="@string/title_activity_function_point_project_activtiy"
-            android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".ProjectOverviewActivity"
-            android:windowSoftInputMode="adjustPan" >
-
-            <!-- Parent activity meta-data to support 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ProjectOverviewActivity" />
-        </activity>
-        <activity android:name=".FunctionPointEstimationValueActivity"
-            android:label="Estimation Value"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan"
-            android:parentActivityName=".FunctionPointProjectActivtiy" >
+            android:windowSoftInputMode="adjustPan">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mobileprojectestimator.mobileprojectestimator.FunctionPointProjectActivtiy" />
+                android:value=".ProjectOverviewActivity"/>
+        </activity>
+        <activity
+            android:name=".FunctionPointEstimationValueActivity"
+            android:label="Estimation Value"
+            android:parentActivityName=".FunctionPointProjectActivtiy"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mobileprojectestimator.mobileprojectestimator.FunctionPointProjectActivtiy"/>
         </activity>
     </application>
 

@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.FunctionPointEstimationItem;
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.RowViewHolder;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.FunctionPointProject.FunctionPointMethodFragment;
 import com.mobileprojectestimator.mobileprojectestimator.FunctionPointEstimationValueActivity;
 import com.mobileprojectestimator.mobileprojectestimator.R;
@@ -27,22 +27,21 @@ import java.util.HashMap;
 public class FunctionPointEstimationListAdapter extends BaseAdapter
 {
 
-    private FunctionPointMethodFragment fragment;
-    /**
-     * array list for all items to estimate
-     */
-    private ArrayList<FunctionPointEstimationItem> fpEstimationItems;
-    private LayoutInflater inflater;
-    private HashMap<Integer, RowViewHolder> rowViewHolderHashMap;
-    /**
-     * the project object
-     */
-    private Project project;
-
     /**
      * local fragment manager
      */
-    FragmentManager fm;
+    final FragmentManager fm;
+    private final FunctionPointMethodFragment fragment;
+    /**
+     * array list for all items to estimate
+     */
+    private final ArrayList<FunctionPointEstimationItem> fpEstimationItems;
+    private final HashMap<Integer, RowViewHolder> rowViewHolderHashMap;
+    /**
+     * the project object
+     */
+    private final Project project;
+    private LayoutInflater inflater;
 
     /**
      * Standard constructor
@@ -105,7 +104,7 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter
             {
                 Intent intent = new Intent(v.getContext(), FunctionPointEstimationValueActivity.class);
                 intent.putExtra("TITLE", rowViewHolderHashMap.get(position).item.getName());
-
+                //TODO: Error: Fehler bei Umwandlung durch den zweiten Aufruf der Methode
                 intent.putExtra("NEWPROJECT", project.toHashMap());
                 fragment.startActivityForResult(intent, 1);
             }

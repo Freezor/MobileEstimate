@@ -6,9 +6,11 @@ import android.support.v4.app.Fragment;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 
 /**
- * Created by Oliver Fries on 01.11.2015.
+ * Created by Oliver Fries on 01.11.2015, 17:47.
+ * Project: MobileProjectEstimator
  */
-public abstract class GuidedCreationFragment extends Fragment {
+public abstract class GuidedCreationFragment extends Fragment
+{
     public abstract void onReloadViews(String text);
 
     public abstract GuidedCreationFragment newInstance(Project p);

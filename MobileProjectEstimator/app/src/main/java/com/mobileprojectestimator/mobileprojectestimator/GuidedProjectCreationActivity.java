@@ -42,6 +42,23 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
 {
 
     /**
+     * Constant int for the length where the string will be cut in shortenString()
+     */
+    public static final int STRINGLENGTH = 12;
+    protected RelativeLayout sublayout;
+    protected ImageView editName;
+    protected ImageView editInfluenceFactor;
+    protected ImageView editEstimationMethod;
+    protected ImageView editIndustrySector;
+    protected ImageView editPlatform;
+    protected ImageView editProgrammingLanguage;
+    protected ImageView editProcessModel;
+    protected ImageView editDevelopmentKind;
+    protected ImageView editProjectMarket;
+    protected ImageView editIconName;
+    protected ImageView editDescription;
+    protected ListView creationItemsListView;
+    /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
      * {@link FragmentPagerAdapter} derivative, which will keep every
@@ -50,56 +67,34 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * Constant int for the length where the string will be cut in shortenString()
-     */
-    public static int STRINGLENGTH = 12;
-
     /**
      * List with all Fragments in the creation dialog
      */
     private ArrayList<GuidedCreationFragment> guidedCreationFragmentsArrayList;
-
     /**
      * List with all factor items the user can choose to the estimation method
      */
     private ArrayList<String> influencingFactorItems;
-
     /**
      * The New Project that will be created
      */
     private Project projectNew;
-
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    protected RelativeLayout sublayout;
     private TextView projName;
-    protected ImageView editName;
-    protected ImageView editInfluenceFactor;
     private TextView influenceFactor;
-    protected ImageView editEstimationMethod;
     private TextView estimationMethod;
-    protected ImageView editIndustrySector;
     private TextView industrySector;
     private TextView projDescription;
     private TextView platform;
-    protected ImageView editPlatform;
-    protected ImageView editProgrammingLanguage;
     private TextView programmingLanguage;
-    protected ImageView editProcessModel;
     private TextView processModel;
-    protected ImageView editDevelopmentKind;
     private TextView developmentKind;
-    protected ImageView editProjectMarket;
     private TextView projectMarket;
-    protected ImageView editIconName;
     private TextView iconName;
-    protected ImageView editDescription;
     private ProjectCreationOverviewFragment projectCreationOverviewFragment;
-    protected ListView creationItemsListView;
     private ProjectInfoFragment projectInfoFragment;
     private EditText projectNameET;
     private EditText projectDescriptionET;
@@ -108,7 +103,6 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
     private InfluencingFactorFragment influencingFactorFragment;
     private TextView infFactorTextViewEstimationMethod;
     private Spinner influencingFactorsAdapterSpinner;
-    private ArrayAdapter<String> influencingFactorsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -549,12 +543,19 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
      */
     private void initialiseProjectInfoFragment(int position)
     {
-        projectInfoFragment = (ProjectInfoFragment) mSectionsPagerAdapter.instantiateItem(mViewPager, position);
-        projectNameET = (EditText) projectInfoFragment.getView().findViewById(R.id.projectNameET);
-        projectDescriptionET = (EditText) projectInfoFragment.getView().findViewById(R.id.projectDescriptionET);
-        projectIcon = (ImageView) projectInfoFragment.getView().findViewById(R.id.projectIconIV);
-        projInfoIconName = (TextView) projectInfoFragment.getView().findViewById(R.id.tvProjectImageName);
-        setProjectInfoValues();
+        try
+        {
+            projectInfoFragment = (ProjectInfoFragment) mSectionsPagerAdapter.instantiateItem(mViewPager, position);
+            //noinspection ConstantConditions
+            projectNameET = (EditText) projectInfoFragment.getView().findViewById(R.id.projectNameET);
+            projectDescriptionET = (EditText) projectInfoFragment.getView().findViewById(R.id.projectDescriptionET);
+            projectIcon = (ImageView) projectInfoFragment.getView().findViewById(R.id.projectIconIV);
+            projInfoIconName = (TextView) projectInfoFragment.getView().findViewById(R.id.tvProjectImageName);
+            setProjectInfoValues();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -578,31 +579,38 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
      */
     private void initialiseInfluencingFactorFragment(int position)
     {
-        influencingFactorFragment = (InfluencingFactorFragment) mSectionsPagerAdapter.instantiateItem(mViewPager, position);
-
-        infFactorTextViewEstimationMethod = (TextView) influencingFactorFragment.getView().findViewById(R.id.textViewChosenEstimationMethod);
-
-        influencingFactorsAdapter = new ArrayAdapter<>(influencingFactorFragment.getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, loadInfluencingFactorsSetList());
-        influencingFactorsAdapterSpinner = (Spinner) influencingFactorFragment.getView().findViewById(R.id.influencingSet);
-        influencingFactorsAdapterSpinner.setAdapter(influencingFactorsAdapter);
-        influencingFactorsAdapterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        try
         {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            influencingFactorFragment = (InfluencingFactorFragment) mSectionsPagerAdapter.instantiateItem(mViewPager, position);
+
+            //noinspection ConstantConditions
+            infFactorTextViewEstimationMethod = (TextView) influencingFactorFragment.getView().findViewById(R.id.textViewChosenEstimationMethod);
+
+            ArrayAdapter<String> influencingFactorsAdapter = new ArrayAdapter<>(influencingFactorFragment.getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, loadInfluencingFactorsSetList());
+            influencingFactorsAdapterSpinner = (Spinner) influencingFactorFragment.getView().findViewById(R.id.influencingSet);
+            influencingFactorsAdapterSpinner.setAdapter(influencingFactorsAdapter);
+            influencingFactorsAdapterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
             {
-                projectNew.setInfluencingFactor(loadInfluencingFactorsSet(projectNew.getEstimationMethod(), influencingFactorsAdapterSpinner.getItemAtPosition(position).toString()));
-            }
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+                {
+                    projectNew.setInfluencingFactor(loadInfluencingFactorsSet(projectNew.getEstimationMethod(), influencingFactorsAdapterSpinner.getItemAtPosition(position).toString()));
+                }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent)
+                @Override
+                public void onNothingSelected(AdapterView<?> parent)
+                {
+
+                }
+            });
+
+            if (projectNew.getEstimationMethod().equals(""))
             {
-
+                infFactorTextViewEstimationMethod.setText(R.string.msg_guided_project_creation_no_estimation_method);
             }
-        });
-
-        if (projectNew.getEstimationMethod().equals(""))
+        } catch (Exception e)
         {
-            infFactorTextViewEstimationMethod.setText(R.string.msg_guided_project_creation_no_estimation_method);
+            e.printStackTrace();
         }
     }
 

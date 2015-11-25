@@ -13,7 +13,7 @@ public abstract class EstimationItem
         return itemName;
     }
 
-    public void setItemName(String itemName)
+    void setItemName(String itemName)
     {
         this.itemName = itemName;
     }

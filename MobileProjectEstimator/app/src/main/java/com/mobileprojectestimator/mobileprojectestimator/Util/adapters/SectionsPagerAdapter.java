@@ -19,7 +19,7 @@ import java.util.Calendar;
 public class SectionsPagerAdapter extends FragmentPagerAdapter
 {
 
-    private Project project;
+    private final Project project;
     private ArrayList<GuidedCreationFragment> guidedCreationFragmentsArrayList;
 
     public SectionsPagerAdapter(FragmentManager fm, Project proj)

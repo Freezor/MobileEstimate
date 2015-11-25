@@ -23,11 +23,11 @@ public class ProjectCreationListAdapter extends BaseAdapter
     /**
      * The fragment ist used for the location, where the items will be displayed. This is needed for accessing the layout information
      */
-    private ProjectCreationOverviewFragment fragment;
+    private final ProjectCreationOverviewFragment fragment;
     /**
      * Array List with all items that will be shown
      */
-    private ArrayList<ProjectItemForCreation> creationItems;
+    private final ArrayList<ProjectItemForCreation> creationItems;
     /**
      * The inflater for accessing the layout
      */

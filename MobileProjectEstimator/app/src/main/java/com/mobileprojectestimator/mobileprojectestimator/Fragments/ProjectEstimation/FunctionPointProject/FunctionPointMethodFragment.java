@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.FunctionPointEstimationItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.EstimationOverviewFragment;
@@ -27,15 +28,12 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
     private Project project;
     private ArrayList<FunctionPointEstimationItem> functionPointEstimationItems;
     private FunctionPointEstimationListAdapter projectCreationAdapter;
+    @SuppressWarnings("FieldCanBeLocal")
     private ListView fpEstimationLisView;
 
     @Override
-    public void onReloadViews(String text) {
-        Log.d("INFO", "FunctionPointMethodFragment: onReloadViews");
-    }
-
-    @Override
-    public EstimationOverviewFragment newInstance(Project p) {
+    public EstimationOverviewFragment newInstance(Project p)
+    {
         FunctionPointMethodFragment fragment = new FunctionPointMethodFragment();
         Bundle args = new Bundle();
         project = p;
@@ -44,20 +42,25 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         Log.d("INFO", "FunctionPointMethodFragment: onCreateViews");
         View rootView = inflater.inflate(R.layout.fragment_function_point_project_activtiy, container, false);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        functionPointEstimationItems = new ArrayList<FunctionPointEstimationItem>();
-        functionPointEstimationItems.add(new FunctionPointEstimationItem(getContext().getString(R.string.function_point_estimation_input_data),0));
-        functionPointEstimationItems.add(new FunctionPointEstimationItem(getContext().getString(R.string.function_point_estimation_requests),0));
-        functionPointEstimationItems.add(new FunctionPointEstimationItem(getContext().getString(R.string.function_point_estimation_output),0));
-        functionPointEstimationItems.add(new FunctionPointEstimationItem(getContext().getString(R.string.function_point_estimation_dataset),0));
-        functionPointEstimationItems.add(new FunctionPointEstimationItem(getContext().getString(R.string.function_point_estimation_reference_data), 0));
-
+        functionPointEstimationItems = new ArrayList<>();
+        String inputData = getContext().getString(R.string.function_point_estimation_input_data);
+        functionPointEstimationItems.add(new FunctionPointEstimationItem(inputData, this.project.getEstimationItemSum(inputData)));
+        String request = getContext().getString(R.string.function_point_estimation_requests);
+        functionPointEstimationItems.add(new FunctionPointEstimationItem(request, this.project.getEstimationItemSum(request)));
+        String output = getContext().getString(R.string.function_point_estimation_output);
+        functionPointEstimationItems.add(new FunctionPointEstimationItem(output, this.project.getEstimationItemSum(output)));
+        String dataset = getContext().getString(R.string.function_point_estimation_dataset);
+        functionPointEstimationItems.add(new FunctionPointEstimationItem(dataset, this.project.getEstimationItemSum(dataset)));
+        String referenceData = getContext().getString(R.string.function_point_estimation_reference_data);
+        functionPointEstimationItems.add(new FunctionPointEstimationItem(referenceData, this.project.getEstimationItemSum(referenceData)));
 
         fpEstimationLisView = (ListView) rootView.findViewById(R.id.lv_function_point_estimation);
-        projectCreationAdapter = new FunctionPointEstimationListAdapter(this, functionPointEstimationItems,getFragmentManager(),this.project );
+        projectCreationAdapter = new FunctionPointEstimationListAdapter(this, functionPointEstimationItems, getFragmentManager(), this.project);
         fpEstimationLisView.setAdapter(projectCreationAdapter);
 
         return rootView;
@@ -74,9 +77,27 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         Log.d("INFO", "FunctionPointMethodFragment: onActivtiyResult");
-        HashMap<String, String> hashMap = (HashMap<String, String>) data.getSerializableExtra(this.getString(R.string.NewProjectIntentValueParam));
-        this.project.toObjectFromHashMap(hashMap);
+        try
+        {
+            HashMap<String, String> hashMap = (HashMap<String, String>) data.getSerializableExtra(this.getString(R.string.NewProjectIntentValueParam));
+            this.project.toObjectFromHashMap(hashMap);
+            updateEstimationItems();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void updateEstimationItems()
+    {
+        for (FunctionPointEstimationItem item : functionPointEstimationItems)
+        {
+            FunctionPointItem pItem = this.project.getFunctionPointEstimationItemByName(item.getName());
+            //item.
+            //TODO: hier ansetzen
+        }
+        projectCreationAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -88,7 +109,8 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
 
     @Override
     public void onPause()
-    {Log.d("INFO", "FunctionPointMethodFragment: onPause");
+    {
+        Log.d("INFO", "FunctionPointMethodFragment: onPause");
         super.onPause();
     }
 }

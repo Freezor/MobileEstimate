@@ -41,12 +41,11 @@ public class InfluenceFactorItem
      * create item with no sub items
      *
      * @param name
-     * @param minValue
      * @param maxValue
      */
-    public InfluenceFactorItem(String name, int minValue, int maxValue)
+    public InfluenceFactorItem(String name, int maxValue)
     {
-        this(name, minValue, maxValue, false);
+        this(name, 0, maxValue, false);
     }
 
     /**

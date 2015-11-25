@@ -1,7 +1,9 @@
 package com.mobileprojectestimator.mobileprojectestimator.Util.adapters;
 
 /**
- * Created by Oliver Fries on 25.10.2015.
+ * Created by Oliver Fries on 25.10.2015, 17:46.
+ * Project: MobileProjectEstimator
+ * Adapter for the projects
  */
 
 import android.app.Activity;

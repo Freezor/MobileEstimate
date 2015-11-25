@@ -15,14 +15,16 @@ import com.mobileprojectestimator.mobileprojectestimator.R;
  * Created by Oliver Fries on 01.11.2015, 15:36.
  * Project: MobileProjectEstimator
  */
-public class EstimationMethodFragment extends GuidedCreationFragment {
+public class EstimationMethodFragment extends GuidedCreationFragment
+{
     private Project project;
 
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public  EstimationMethodFragment newInstance(Project proj) {
+    public EstimationMethodFragment newInstance(Project proj)
+    {
         EstimationMethodFragment fragment = new EstimationMethodFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -32,7 +34,8 @@ public class EstimationMethodFragment extends GuidedCreationFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         final View rootView = inflater.inflate(R.layout.estimation_method_fragment, container, false);
         ImageView dot1 = (ImageView) rootView.findViewById(R.id.dot1);
         dot1.setBackgroundResource(R.drawable.circle_blue);
@@ -44,10 +47,12 @@ public class EstimationMethodFragment extends GuidedCreationFragment {
         dot4.setBackgroundResource(R.drawable.circle_blue);
 
         final RadioGroup estimationMethodRadioGroup = (RadioGroup) rootView.findViewById(R.id.estimationMethodRadioGroup);
-        estimationMethodRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        estimationMethodRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
 
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
+            public void onCheckedChanged(RadioGroup group, int checkedId)
+            {
                 int selectedId = estimationMethodRadioGroup.getCheckedRadioButtonId();
 
                 // find the radiobutton by returned id
@@ -60,7 +65,8 @@ public class EstimationMethodFragment extends GuidedCreationFragment {
     }
 
     @Override
-    public void onReloadViews(String text) {
+    public void onReloadViews(String text)
+    {
 
     }
 }

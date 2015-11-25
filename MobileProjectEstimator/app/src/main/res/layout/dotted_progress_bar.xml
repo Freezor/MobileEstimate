@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     android:id="@+id/dotsL"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:layout_centerHorizontal="true"
+    android:layout_gravity="center_horizontal|bottom"
     android:layout_marginBottom="5dp"
     android:layout_marginTop="5dp"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_gravity="center_horizontal|bottom">
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/dot1"
@@ -26,7 +26,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/dot1"
-        android:background="@drawable/circle_grey" >
+        android:background="@drawable/circle_grey">
     </ImageView>
 
     <ImageView
@@ -36,7 +36,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/dot2"
-        android:background="@drawable/circle_grey" >
+        android:background="@drawable/circle_grey">
     </ImageView>
 
 
@@ -47,7 +47,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/dot3"
-        android:background="@drawable/circle_grey" >
+        android:background="@drawable/circle_grey">
     </ImageView>
 
 
@@ -58,7 +58,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/dot4"
-        android:background="@drawable/circle_grey" >
+        android:background="@drawable/circle_grey">
     </ImageView>
 
     <ImageView
@@ -68,7 +68,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/dot5"
-        android:background="@drawable/circle_grey" >
+        android:background="@drawable/circle_grey">
     </ImageView>
 
- </RelativeLayout>
+</RelativeLayout>

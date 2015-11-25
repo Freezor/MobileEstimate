@@ -21,34 +21,6 @@ import java.util.HashMap;
  */
 public class Project implements Serializable
 {
-    /**
-     * Constructs a new instance of {@code Object}.
-     */
-    public Project()
-    {
-        super();
-    }
-
-    /**
-     * Creates and returns a copy of this {@code Object}. The default
-     * implementation returns a so-called "shallow" copy: It creates a new
-     * instance of the same class and then copies the field values (including
-     * object references) from this instance to the new instance. A "deep" copy,
-     * in contrast, would also recursively clone nested objects. A subclass that
-     * needs to implement this kind of cloning should call {@code super.clone()}
-     * to create the new instance and then create deep copies of the nested,
-     * mutable objects.
-     *
-     * @return a copy of this object.
-     * @throws CloneNotSupportedException if this object's class does not implement the {@code
-     *                                    Cloneable} interface.
-     */
-    @Override
-    protected Object clone() throws CloneNotSupportedException
-    {
-        return super.clone();
-    }
-
     private String Title;
     private Bitmap image;
     private String iconName;
@@ -58,8 +30,15 @@ public class Project implements Serializable
     private Context context;
     private InfluencingFactor influencingFactor;
     private ProjectProperties projectProperties;
-
     private ArrayList<EstimationItem> estimationItems;
+
+    /**
+     * Constructs a new instance of {@code Object}.
+     */
+    public Project()
+    {
+        super();
+    }
 
     /**
      * Create a Project with already known title, creation Date and estimation Type
@@ -81,6 +60,17 @@ public class Project implements Serializable
         initialiseEstimationItems(estimationMethod);
     }
 
+    /**
+     * Create an empty project
+     *
+     * @param current
+     */
+    public Project(Context current)
+    {
+        this.context = current;
+        projectProperties = new ProjectProperties();
+    }
+
     private void initialiseEstimationItems(String estimationMethod)
     {
         if (estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
@@ -99,6 +89,7 @@ public class Project implements Serializable
 
     /**
      * Returns the estimation item at the position in the array list
+     *
      * @param index
      * @return
      */
@@ -109,27 +100,25 @@ public class Project implements Serializable
 
     /**
      * Returns the estimation item whith equal name
+     *
      * @param name
      * @return
      */
-    public EstimationItem getEstimationItemByName(String name){
-        for (EstimationItem item: estimationItems){
-            if (item.getItemName().equals(name)){
+    public EstimationItem getEstimationItemByName(String name)
+    {
+        for (EstimationItem item : estimationItems)
+        {
+            if (item.getItemName().equals(name))
+            {
                 return item;
             }
         }
         return null;
     }
 
-    /**
-     * Create an empty project
-     *
-     * @param current
-     */
-    public Project(Context current)
+    public FunctionPointItem getFunctionPointEstimationItemByName(String name)
     {
-        this.context = current;
-        projectProperties = new ProjectProperties();
+        return (FunctionPointItem) getEstimationItemByName(name);
     }
 
     public Context getContext()
@@ -153,14 +142,14 @@ public class Project implements Serializable
         Title = title;
     }
 
-    public void setImage(Bitmap img)
-    {
-        this.image = img;
-    }
-
     public Bitmap getImage()
     {
         return image;
+    }
+
+    public void setImage(Bitmap img)
+    {
+        this.image = img;
     }
 
     public String getCreationDate()
@@ -188,11 +177,6 @@ public class Project implements Serializable
         return influencingFactor;
     }
 
-    public void setInfluencingFactor(InfluencingFactor factor)
-    {
-        this.influencingFactor = factor;
-    }
-
     public void setInfluencingFactor(HashMap<String, String> objectHash)
     {
         //Create new item with sample estimation method that the methods on the object work fine
@@ -205,6 +189,11 @@ public class Project implements Serializable
         {
             this.influencingFactor.setValuesFromHashMap(objectHash, InfluencingFactor.COCOMOFACTORS);
         }
+    }
+
+    public void setInfluencingFactor(InfluencingFactor factor)
+    {
+        this.influencingFactor = factor;
     }
 
     public ProjectProperties getProjectProperties()
@@ -290,12 +279,38 @@ public class Project implements Serializable
 
     public boolean updateEstimationItem(String title, FunctionPointItem item)
     {
-        for(EstimationItem estimationItem: estimationItems){
-            if(estimationItem.getItemName().equals(title)){
-                estimationItems.set(estimationItems.indexOf(estimationItem),item);
+        for (EstimationItem estimationItem : estimationItems)
+        {
+            if (estimationItem.getItemName().equals(title))
+            {
+                estimationItems.set(estimationItems.indexOf(estimationItem), item);
                 return true;
             }
         }
         return false;
+    }
+
+    public int getEstimationItemSum(String title)
+    {
+        for (EstimationItem estimationItem : estimationItems)
+        {
+            if (estimationItem.getItemName().equals(title))
+            {
+                if (estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
+                {
+                    FunctionPointItem item = (FunctionPointItem) estimationItem;
+                    return item.getTotalAmount();
+                } else
+                {
+                    return -1;
+                }
+            }
+        }
+        return 0;
+    }
+
+    public ArrayList<EstimationItem> getEstimationItems()
+    {
+        return estimationItems;
     }
 }

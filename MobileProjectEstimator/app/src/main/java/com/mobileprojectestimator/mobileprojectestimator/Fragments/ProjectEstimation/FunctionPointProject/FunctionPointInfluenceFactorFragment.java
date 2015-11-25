@@ -21,10 +21,10 @@ import java.util.ArrayList;
  */
 public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFragment
 {
-    private Project project;
     protected InfluencingFactor influencingFactor;
     protected ListView fpInfluenceListView;
     protected FunctionPointInfluenceListAdapter projectInfluenceListAdapter;
+    private Project project;
     private ArrayList<Object> fragmentsList;
 
     @Override

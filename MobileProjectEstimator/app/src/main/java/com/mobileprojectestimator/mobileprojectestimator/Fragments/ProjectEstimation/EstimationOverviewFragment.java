@@ -8,8 +8,7 @@ import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Pro
  * Created by Oliver Fries on 02.11.2015, 15:37.
  * Project: MobileProjectEstimator
  */
-public abstract class EstimationOverviewFragment extends Fragment {
-    public abstract void onReloadViews(String text);
-
+public abstract class EstimationOverviewFragment extends Fragment
+{
     public abstract EstimationOverviewFragment newInstance(Project p);
 }

@@ -24,21 +24,21 @@ import java.util.ArrayList;
 public class FunctionPointInfluenceListAdapter extends BaseAdapter
 {
     /**
+     * The Project object, where we get the information from
+     */
+    final Project project;
+    /**
      * The fragment, where the adapter is used
      */
-    private FunctionPointInfluenceFactorFragment fragment;
+    private final FunctionPointInfluenceFactorFragment fragment;
     /**
      * Array List with all influence factor items
      */
-    private ArrayList<InfluenceFactorItem> fpInfluenceItems;
+    private final ArrayList<InfluenceFactorItem> fpInfluenceItems;
     /**
      * The Inflater object
      */
     private LayoutInflater inflater;
-    /**
-     * The Project object, where we get the information from
-     */
-    Project project;
 
     /**
      * Standard constructor
@@ -56,6 +56,7 @@ public class FunctionPointInfluenceListAdapter extends BaseAdapter
 
     /**
      * Updates all values from the Project values
+     *
      * @param context
      */
     public void updateChosenValues(Context context)

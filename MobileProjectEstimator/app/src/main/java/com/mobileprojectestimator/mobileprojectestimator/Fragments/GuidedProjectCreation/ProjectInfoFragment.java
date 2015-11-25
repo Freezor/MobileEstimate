@@ -21,14 +21,16 @@ import com.mobileprojectestimator.mobileprojectestimator.R;
  * Created by Oliver Fries on 01.11.2015, 16:23.
  * Project: MobileProjectEstimator
  */
-public class ProjectInfoFragment extends GuidedCreationFragment {
+public class ProjectInfoFragment extends GuidedCreationFragment
+{
     private Project project;
 
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public ProjectInfoFragment newInstance(Project proj) {
+    public ProjectInfoFragment newInstance(Project proj)
+    {
         ProjectInfoFragment fragment = new ProjectInfoFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -38,46 +40,56 @@ public class ProjectInfoFragment extends GuidedCreationFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         View rootView = inflater.inflate(R.layout.project_info_fragment, container, false);
-        if (project == null) {
+        if (project == null)
+        {
             project = new Project(getActivity());
         }
         ImageView dot1 = (ImageView) rootView.findViewById(R.id.dot1);
         dot1.setBackgroundResource(R.drawable.circle_blue);
 
         final EditText projectNameET = (EditText) rootView.findViewById(R.id.projectNameET);
-        projectNameET.addTextChangedListener(new TextWatcher() {
+        projectNameET.addTextChangedListener(new TextWatcher()
+        {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
 
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(Editable s)
+            {
                 project.setTitle(projectNameET.getText().toString());
             }
         });
 
         final EditText projectDescription = (EditText) rootView.findViewById(R.id.projectDescriptionET);
-        projectDescription.addTextChangedListener(new TextWatcher() {
+        projectDescription.addTextChangedListener(new TextWatcher()
+        {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
                 project.setProjectDescription(projectDescription.getText().toString());
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(Editable s)
+            {
 
             }
         });
@@ -90,9 +102,11 @@ public class ProjectInfoFragment extends GuidedCreationFragment {
         iconName.setText(project.getIconName());
 
         Button changeProjectIconBtn = (Button) rootView.findViewById(R.id.changeProjectIcon);
-        changeProjectIconBtn.setOnClickListener(new View.OnClickListener() {
+        changeProjectIconBtn.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 Toast.makeText(project.getContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
             }
         });
@@ -101,7 +115,8 @@ public class ProjectInfoFragment extends GuidedCreationFragment {
     }
 
     @Override
-    public void onReloadViews(String text) {
+    public void onReloadViews(String text)
+    {
 
     }
 }

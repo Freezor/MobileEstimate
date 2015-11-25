@@ -1,81 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:fitsSystemWindows="true">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:orientation="vertical" android:layout_width="match_parent"
-            android:layout_height="match_parent" android:fitsSystemWindows="true">
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:fitsSystemWindows="true"
+                      android:orientation="vertical">
 
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Influencing Factors"
                 android:id="@+id/textViewInfluencingFactorTitle"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"/>
-
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="You have chosen METHOD"
-                android:id="@+id/textViewChosenEstimationMethod"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
+                android:text="@string/project_creation_influence_factor_title"
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+            <TextView
+                android:id="@+id/textViewChosenEstimationMethod"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:textColor="@color/estimationType" />
+                android:layout_marginTop="20dp"
+                android:text="@string/influence_factor_chosen_method_hint"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/estimationType"/>
 
             <TextView
+                android:id="@+id/textViewInfSet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Which set of influencing factors want you to use?"
-                android:id="@+id/textViewInfSet"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/influence_factor_question_text"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
 
             <Spinner
+                android:id="@+id/influencingSet"
+                style="@style/spinner_style"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/influencingSet"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
+                android:elevation="2dp"
                 android:spinnerMode="dropdown"
-                android:textSize="15sp"
-                style="@style/spinner_style"
-                android:elevation="2dp"/>
+                android:textSize="15sp"/>
 
 
             <Button
+                android:id="@+id/influencingFactorSetButton"
                 android:layout_width="247dp"
                 android:layout_height="wrap_content"
-                android:text="New Influencing Factor set"
-                android:id="@+id/influencingFactorSetButton"
-                android:background="@color/standardButtonColor"
                 android:layout_gravity="center_horizontal"
-                android:theme="@style/Base.Widget.AppCompat.ActionButton"
-                android:textColor="#FFFFFF"
-                android:layout_marginTop="20dp"
                 android:layout_marginBottom="60dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/standardButtonColor"
+                android:text="@string/influence_factor_set_button"
+                android:textColor="#FFFFFF"
                 android:textStyle="bold"
+                android:theme="@style/Base.Widget.AppCompat.ActionButton"
                 />
 
         </LinearLayout>
     </ScrollView>
 
-    <include layout="@layout/dotted_progress_bar" android:layout_gravity="center_horizontal|bottom"
+    <include
+        layout="@layout/dotted_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="39dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal|bottom"/>
 
 </RelativeLayout>

@@ -19,11 +19,10 @@ public class InfluencingFactor
     public static final int FUNCTIONPOINTFACTORS = 1;
     public static final int COCOMOFACTORS = 2;
     public static final int COCOMO2FACTORS = 3;
-
+    private final int influencingFactorId;
+    private final Context context;
     private String name;
     private ArrayList<InfluenceFactorItem> influenceFactorItems;
-    private int influencingFactorId;
-    private Context context;
 
     public InfluencingFactor(Context current, int influencingFactorId)
     {
@@ -210,20 +209,20 @@ public class InfluencingFactor
      */
     public void setFunctionPointInfluenceFactorItems()
     {
-        this.addFactorItem(new InfluenceFactorItem(context.getString(R.string.function_point_influence_factor_item_integration), 0, 5));
-        this.addFactorItem(new InfluenceFactorItem(context.getString(R.string.function_point_influence_factor_item_local_data), 0, 5));
-        this.addFactorItem(new InfluenceFactorItem(context.getString(R.string.function_point_influence_factor_item_transaction_rate), 0, 5));
+        this.addFactorItem(new InfluenceFactorItem(context.getString(R.string.function_point_influence_factor_item_integration), 5));
+        this.addFactorItem(new InfluenceFactorItem(context.getString(R.string.function_point_influence_factor_item_local_data), 5));
+        this.addFactorItem(new InfluenceFactorItem(context.getString(R.string.function_point_influence_factor_item_transaction_rate), 5));
 
         ArrayList<InfluenceFactorItem> subItems = new ArrayList<>();
-        subItems.add(new InfluenceFactorItem(context.getString(R.string.function_point_influence_factor_item_arithmetic_operation), 0, 10));
-        subItems.add(new InfluenceFactorItem(context.getString(R.string.function_point_influence_factor_item_control_procedure), 0, 5));
-        subItems.add(new InfluenceFactorItem(context.getString(R.string.function_point_influence_factor_item_exception_regulation), 0, 10));
-        subItems.add(new InfluenceFactorItem(context.getString(R.string.function_point_influence_factor_item_logic), 0, 5));
+        subItems.add(new InfluenceFactorItem(context.getString(R.string.function_point_influence_factor_item_arithmetic_operation), 10));
+        subItems.add(new InfluenceFactorItem(context.getString(R.string.function_point_influence_factor_item_control_procedure), 5));
+        subItems.add(new InfluenceFactorItem(context.getString(R.string.function_point_influence_factor_item_exception_regulation), 10));
+        subItems.add(new InfluenceFactorItem(context.getString(R.string.function_point_influence_factor_item_logic), 5));
         this.addFactorItem(new InfluenceFactorItem(context.getString(R.string.function_point_influence_factor_item_processing_logic), 0, 0, true, subItems));
 
-        this.addFactorItem(new InfluenceFactorItem(context.getString(R.string.function_point_influence_factor_item_reusability), 0, 5));
-        this.addFactorItem(new InfluenceFactorItem(context.getString(R.string.function_point_influence_factor_item_stock_conversion), 0, 5));
-        this.addFactorItem(new InfluenceFactorItem(context.getString(R.string.function_point_influence_factor_item_adaptability), 0, 5));
+        this.addFactorItem(new InfluenceFactorItem(context.getString(R.string.function_point_influence_factor_item_reusability), 5));
+        this.addFactorItem(new InfluenceFactorItem(context.getString(R.string.function_point_influence_factor_item_stock_conversion), 5));
+        this.addFactorItem(new InfluenceFactorItem(context.getString(R.string.function_point_influence_factor_item_adaptability), 5));
     }
 
     /**
@@ -259,16 +258,17 @@ public class InfluencingFactor
      * @param estimationMethod
      * @return
      */
-    public boolean setValuesFromHashMap(HashMap<String, String> map, int estimationMethod)
+    public void setValuesFromHashMap(HashMap<String, String> map, int estimationMethod)
     {
         influenceFactorItems = new ArrayList<>();
         switch (estimationMethod)
         {
             case FUNCTIONPOINTFACTORS:
                 setFunctionPointInfluenceFactorItems();
-                return setFunctionPointInfluenceFactorValues(map);
+                setFunctionPointInfluenceFactorValues(map);
+                break;
             default:
-                return false;
+                break;
         }
     }
 

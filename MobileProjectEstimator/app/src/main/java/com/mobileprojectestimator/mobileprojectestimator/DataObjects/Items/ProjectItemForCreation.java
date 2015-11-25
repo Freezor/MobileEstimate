@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 
 /**
  * Created by Oliver Fries on 31.10.2015.
- *
+ * <p/>
  * Item for create a new project
  */
 public class ProjectItemForCreation
@@ -24,6 +24,7 @@ public class ProjectItemForCreation
 
     /**
      * Standard Constructor
+     *
      * @param name
      * @param standardValue
      */

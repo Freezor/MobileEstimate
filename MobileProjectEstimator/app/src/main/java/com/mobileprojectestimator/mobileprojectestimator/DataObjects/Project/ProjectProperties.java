@@ -11,12 +11,12 @@ import java.util.Map;
 public class ProjectProperties
 {
     //Static String Variables for acessing values in HashMap
-    private static String MARKET_STRING = "MARKET";
-    private static String DEVELOPMENT_STRING = "DEVELOPMENT";
-    private static String PROCESSMETHGOLOGY_STRING = "PROCESSMETHGOLOGY";
-    private static String PROGRAMMINGLANGUAGE_STRING = "PROGRAMMINGLANGUAGE";
-    private static String PLATFORM_STRING = "PLATFORM";
-    private static String INDUSTRYSECTOR_STRING = "INDUSTRYSECTOR";
+    private static final String MARKET_STRING = "MARKET";
+    private static final String DEVELOPMENT_STRING = "DEVELOPMENT";
+    private static final String PROCESSMETHGOLOGY_STRING = "PROCESSMETHGOLOGY";
+    private static final String PROGRAMMINGLANGUAGE_STRING = "PROGRAMMINGLANGUAGE";
+    private static final String PLATFORM_STRING = "PLATFORM";
+    private static final String INDUSTRYSECTOR_STRING = "INDUSTRYSECTOR";
 
     /**
      * The market of the project
@@ -93,14 +93,14 @@ public class ProjectProperties
         this.platform = platform;
     }
 
-    public void setIndustrySector(String industrySector)
-    {
-        this.industrySector = industrySector;
-    }
-
     public String getIndustrySector()
     {
         return industrySector;
+    }
+
+    public void setIndustrySector(String industrySector)
+    {
+        this.industrySector = industrySector;
     }
 
     /**
@@ -127,7 +127,7 @@ public class ProjectProperties
      * @param objectMap
      * @return
      */
-    public boolean setPropertyValues(HashMap<String, String> objectMap)
+    public void setPropertyValues(HashMap<String, String> objectMap)
     {
         try
         {
@@ -139,8 +139,7 @@ public class ProjectProperties
             this.industrySector = objectMap.get(INDUSTRYSECTOR_STRING);
         } catch (Exception e)
         {
-            return false;
+            e.printStackTrace();
         }
-        return true;
     }
 }

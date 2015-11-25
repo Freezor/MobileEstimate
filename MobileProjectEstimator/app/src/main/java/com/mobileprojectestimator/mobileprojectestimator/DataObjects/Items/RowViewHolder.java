@@ -3,8 +3,6 @@ package com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.FunctionPointEstimationItem;
-
 /**
  * Created by Oliver Fries on 18.11.2015, 16:00.
  * Project: MobileProjectEstimator

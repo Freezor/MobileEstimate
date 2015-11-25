@@ -2,24 +2,38 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item android:id="@+id/nav_project_information" android:icon="@android:drawable/ic_menu_agenda"
-            android:title="Project Information" />
-        <item android:id="@+id/nav_project_analysis" android:icon="@android:drawable/ic_menu_view"
-            android:title="Project Analysis" />
-        <item android:id="@+id/nav_my_projects" android:icon="@android:drawable/ic_menu_slideshow"
-            android:title="My Projects" />
-        <item android:id="@+id/nav_influencing_factors" android:icon="@android:drawable/ic_menu_manage"
-            android:title="Influencing Factors"/>
+        <item
+            android:id="@+id/nav_project_information"
+            android:icon="@android:drawable/ic_menu_agenda"
+            android:title="@string/project_information"/>
+        <item
+            android:id="@+id/nav_project_analysis"
+            android:icon="@android:drawable/ic_menu_view"
+            android:title="@string/project_analysis"/>
+        <item
+            android:id="@+id/nav_my_projects"
+            android:icon="@android:drawable/ic_menu_slideshow"
+            android:title="@string/my_projects"/>
+        <item
+            android:id="@+id/nav_influencing_factors"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="@string/influencing_factors"/>
     </group>
 
     <item android:title="">
         <menu>
-            <item android:id="@+id/nav_export" android:icon="@android:drawable/ic_menu_share"
-                android:title="Export" />
-            <item android:id="@+id/nav_help" android:icon="@android:drawable/ic_menu_help"
-                android:title="Help" />
-            <item android:id="@+id/nav_settings" android:icon="@android:drawable/ic_menu_preferences"
-                android:title="Settings" />
+            <item
+                android:id="@+id/nav_export"
+                android:icon="@android:drawable/ic_menu_share"
+                android:title="@string/export"/>
+            <item
+                android:id="@+id/nav_help"
+                android:icon="@android:drawable/ic_menu_help"
+                android:title="@string/help"/>
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@android:drawable/ic_menu_preferences"
+                android:title="@string/settings"/>
         </menu>
     </item>
 

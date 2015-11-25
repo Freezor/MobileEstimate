@@ -36,7 +36,7 @@ public class ProjectOverviewActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
 {
 
-    private List<Project> projectsList = new ArrayList<>();
+    private final List<Project> projectsList = new ArrayList<>();
     private ListView projectsListView;
     private ProjectListAdapter projectsAdapter;
 

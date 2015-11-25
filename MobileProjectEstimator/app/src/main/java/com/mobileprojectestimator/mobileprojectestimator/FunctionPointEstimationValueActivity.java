@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,26 +21,29 @@ import java.util.HashMap;
 public class FunctionPointEstimationValueActivity extends AppCompatActivity
 {
 
+    protected String title;
     private int simpleValue = 0;
     private TextView valueSimple;
     private TextView valueMedium;
     private int mediumValue = 0;
     private int complexValue = 0;
     private TextView valueComplex;
-    protected String title;
     private Project project;
     private FunctionPointItem item;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
+        Log.d("INFO", "FunctionPointEstimationValueActivity: onActivityResult");
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     public void onBackPressed()
     {
+        Log.d("INFO", "FunctionPointEstimationValueActivity: onBackPressed");
         closeActivity();
+        super.onBackPressed();
     }
 
     /**
@@ -54,7 +58,6 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
             returnIntent.putExtra(getString(R.string.NewProjectIntentValueParam), project.toHashMap());
             setResult(1, returnIntent);
             finish();
-            super.onBackPressed();
         } else
         {
             Toast.makeText(this, "ERROR: Estimation Item does not exist", Toast.LENGTH_LONG).show();
@@ -63,9 +66,11 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
 
     public boolean onOptionsItemSelected(MenuItem menuItem)
     {
+        Log.d("INFO", "FunctionPointEstimationValueActivity: onOptionsItemSelected");
         if (menuItem.getItemId() == android.R.id.home)
         {
             closeActivity();
+            return true;
         }
         return super.onOptionsItemSelected(menuItem);
     }
@@ -73,6 +78,7 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        Log.d("INFO", "FunctionPointEstimationValueActivity: onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_function_point_estimation_value);
 
@@ -87,12 +93,19 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
         }
         item = (FunctionPointItem) project.getEstimationItemByName(this.title);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarFunctionPointEstimation);
-        toolbar.setTitle(title);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        try
+        {
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarFunctionPointEstimation);
+            toolbar.setTitle(title);
+            setSupportActionBar(toolbar);
+            //noinspection ConstantConditions
+            getSupportActionBar().setDisplayShowTitleEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
         TextView description = (TextView) findViewById(R.id.tvFpEstimationDescription);
         description.setMovementMethod(new ScrollingMovementMethod());
