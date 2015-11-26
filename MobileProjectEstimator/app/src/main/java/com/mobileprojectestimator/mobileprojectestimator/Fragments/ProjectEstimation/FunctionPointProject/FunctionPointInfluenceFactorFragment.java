@@ -28,11 +28,6 @@ public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFrag
     private ArrayList<Object> fragmentsList;
 
     @Override
-    public void onReloadViews(String text)
-    {
-    }
-
-    @Override
     public EstimationOverviewFragment newInstance(Project p)
     {
         FunctionPointInfluenceFactorFragment fragment = new FunctionPointInfluenceFactorFragment();

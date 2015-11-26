@@ -93,9 +93,7 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
     {
         for (FunctionPointEstimationItem item : functionPointEstimationItems)
         {
-            FunctionPointItem pItem = this.project.getFunctionPointEstimationItemByName(item.getName());
-            //item.
-            //TODO: hier ansetzen
+            this.project.updateFunctionPointItem(item);
         }
         projectCreationAdapter.notifyDataSetChanged();
     }

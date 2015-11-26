@@ -7,6 +7,7 @@ import android.util.Base64;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.EstimationItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointItem;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.FunctionPointEstimationItem;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.io.ByteArrayOutputStream;
@@ -312,5 +313,11 @@ public class Project implements Serializable
     public ArrayList<EstimationItem> getEstimationItems()
     {
         return estimationItems;
+    }
+
+    public void updateFunctionPointItem(FunctionPointEstimationItem item)
+    {
+        FunctionPointItem fpItem = getFunctionPointEstimationItemByName(item.getName());
+        fpItem.updateItem(0,item.getComplex());
     }
 }

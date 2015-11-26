@@ -6,6 +6,7 @@ package com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items;
  */
 public class FunctionPointEstimationItem
 {
+    //TODO: zusammenfügen mit FunctionPointItem
     private String name;
     private int value;
     private int simple;

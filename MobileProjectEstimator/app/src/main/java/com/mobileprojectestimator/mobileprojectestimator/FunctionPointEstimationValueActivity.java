@@ -133,7 +133,7 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
             {
                 if (complexValue > 0)
                 {
-                    item.updateItem(2, false);
+                    item.raiseItem(2, false);
                     complexValue--;
                     valueComplex.setText(String.format("%d", complexValue));
                 }
@@ -145,7 +145,7 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                item.updateItem(2, true);
+                item.raiseItem(2, true);
                 complexValue++;
                 valueComplex.setText(String.format("%d", complexValue));
             }
@@ -168,7 +168,7 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
             {
                 if (mediumValue > 0)
                 {
-                    item.updateItem(1, false);
+                    item.raiseItem(1, false);
                     mediumValue--;
                     valueMedium.setText(String.format("%d", mediumValue));
                 }
@@ -180,7 +180,7 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                item.updateItem(1, true);
+                item.raiseItem(1, true);
                 mediumValue++;
                 valueMedium.setText(String.format("%d", mediumValue));
             }
@@ -203,7 +203,7 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
             {
                 if (simpleValue > 0)
                 {
-                    item.updateItem(0, false);
+                    item.raiseItem(0, false);
                     simpleValue--;
                     valueSimple.setText(String.format("%d", simpleValue));
                 }
@@ -215,7 +215,7 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                item.updateItem(0, true);
+                item.raiseItem(0, true);
                 simpleValue++;
                 valueSimple.setText(String.format("%d", simpleValue));
             }

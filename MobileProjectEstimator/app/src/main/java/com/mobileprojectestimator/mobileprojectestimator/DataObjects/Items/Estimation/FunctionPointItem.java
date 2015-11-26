@@ -8,6 +8,7 @@ import java.util.ArrayList;
  */
 public class FunctionPointItem extends EstimationItem
 {
+    //TODO: zusammenfügen mit FunctionPointEstimationItem
     private int totalAmount;
 
     private ArrayList<FunctionPointCategoryItem> functionPointCategoryItems;
@@ -91,7 +92,7 @@ public class FunctionPointItem extends EstimationItem
      * @param index
      * @param raiseValue
      */
-    public void updateItem(int index, boolean raiseValue)
+    public void raiseItem(int index, boolean raiseValue)
     {
         if (raiseValue)
         {
@@ -100,5 +101,10 @@ public class FunctionPointItem extends EstimationItem
         {
             functionPointCategoryItems.get(index).subtractItem();
         }
+    }
+
+    public void updateItem(int index, int value)
+    {
+        functionPointCategoryItems.get(index).setSumOfCategory(value);
     }
 }
