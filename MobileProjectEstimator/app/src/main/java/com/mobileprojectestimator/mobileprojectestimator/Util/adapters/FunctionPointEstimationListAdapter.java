@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.FunctionPointEstimationItem;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.RowViewHolder;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.FunctionPointProject.FunctionPointMethodFragment;
@@ -35,7 +35,7 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter
     /**
      * array list for all items to estimate
      */
-    private final ArrayList<FunctionPointEstimationItem> fpEstimationItems;
+    private final ArrayList<FunctionPointItem> fpEstimationItems;
     private final HashMap<Integer, RowViewHolder> rowViewHolderHashMap;
     /**
      * the project object
@@ -51,7 +51,7 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter
      * @param fm
      * @param project
      */
-    public FunctionPointEstimationListAdapter(FunctionPointMethodFragment projectCreationOverviewFragment, ArrayList<FunctionPointEstimationItem> fpEstimationItems, FragmentManager fm, Project project)
+    public FunctionPointEstimationListAdapter(FunctionPointMethodFragment projectCreationOverviewFragment, ArrayList<FunctionPointItem> fpEstimationItems, FragmentManager fm, Project project)
     {
         this.fragment = projectCreationOverviewFragment;
         this.fpEstimationItems = fpEstimationItems;
@@ -91,8 +91,8 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter
         holder.itemNameTv = (TextView) convertView.findViewById(R.id.tvEstimationCategory);
 
         holder.item = fpEstimationItems.get(position);
-        holder.itemValueTv.setText(String.format("%d", fpEstimationItems.get(position).getValue()));
-        holder.itemNameTv.setText(holder.item.getName());
+        holder.itemValueTv.setText(String.format("%d", fpEstimationItems.get(position).getTotalAmount()));
+        holder.itemNameTv.setText(holder.item.getItemName());
 
         //TODO: Button wird nicht für jedes Element einzeln gesetzt.
         holder.editButton = (ImageView) convertView.findViewById(R.id.ivEditButton);//TODO: Zugriff immer auf alle EditButtons. Es muss auf jedes Listelement zugegriffen werden.
@@ -103,7 +103,7 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter
             public void onClick(View v)
             {
                 Intent intent = new Intent(v.getContext(), FunctionPointEstimationValueActivity.class);
-                intent.putExtra("TITLE", rowViewHolderHashMap.get(position).item.getName());
+                intent.putExtra("TITLE", rowViewHolderHashMap.get(position).item.getItemName());
                 //TODO: Error: Fehler bei Umwandlung durch den zweiten Aufruf der Methode
                 intent.putExtra("NEWPROJECT", project.toHashMap());
                 fragment.startActivityForResult(intent, 1);

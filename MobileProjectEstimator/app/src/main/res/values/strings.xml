@@ -104,4 +104,7 @@
     <string name="function_point_estimation_evaluated_total_points">Evaluated Function Points: 0</string>
     <string name="function_point_estimation_evaluated_person_days">Evaluated Person Days: 0</string>
     <string name="function_point_estimation_calculate_person_days_button">Calculate Person Days</string>
+    <string name="project_hash_suffix_simple">_SIMPLE</string>
+    <string name="project_hash_suffix_medium">_MEDIUM</string>
+    <string name="project_hash_suffix_complex">_COMPLEX</string>
 </resources>

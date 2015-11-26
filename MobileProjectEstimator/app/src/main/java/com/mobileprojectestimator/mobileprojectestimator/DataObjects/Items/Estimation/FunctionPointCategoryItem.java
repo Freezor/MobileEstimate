@@ -7,7 +7,7 @@ package com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Esti
  * Items for the function Point Estimation
  * Only items available per definition are simple, medium and compley
  */
-class FunctionPointCategoryItem
+public class FunctionPointCategoryItem
 {
     /**
      * Simple Item

@@ -6,14 +6,15 @@ import android.graphics.BitmapFactory;
 import android.util.Base64;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.EstimationItem;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointCategoryItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointItem;
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.FunctionPointEstimationItem;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Oliver Fries on 25.10.2015.
@@ -242,9 +243,9 @@ public class Project implements Serializable
 
         valuesMap.put(context.getString(R.string.project_hashmap_item_title), Title);
 
-        Bitmap immagex = image;
+        Bitmap imaged = image;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        immagex.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        imaged.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] b = baos.toByteArray();
         valuesMap.put(context.getString(R.string.project_hashmap_item_image), Base64.encodeToString(b, Base64.DEFAULT));
 
@@ -253,6 +254,28 @@ public class Project implements Serializable
         valuesMap.put(context.getString(R.string.project_hashmap_item_description), projectDescription);
         valuesMap.put(context.getString(R.string.project_hashmap_item_estimation_method), estimationMethod);
 
+        valuesMap.putAll(estimationItemsToHashMap());
+
+        return valuesMap;
+    }
+
+    private Map<? extends String, ? extends String> estimationItemsToHashMap()
+    {
+        HashMap<String, String> valuesMap = new HashMap<>();
+
+        if (this.estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
+        {
+            for (EstimationItem item : estimationItems)
+            {
+                FunctionPointItem fpItem = (FunctionPointItem) item;
+                valuesMap.put(String.format("%s%s", fpItem.getItemName(), context.getString(R.string.project_hash_suffix_simple)), String.valueOf(fpItem.getItemTotalAmountOfIndex(0)));
+                valuesMap.put(String.format("%s%s", fpItem.getItemName(), context.getString(R.string.project_hash_suffix_medium)), String.valueOf(fpItem.getItemTotalAmountOfIndex(1)));
+                valuesMap.put(String.format("%s%s", fpItem.getItemName(), context.getString(R.string.project_hash_suffix_complex)), String.valueOf(fpItem.getItemTotalAmountOfIndex(2)));
+            }
+        } else
+        {
+
+        }
         return valuesMap;
     }
 
@@ -276,6 +299,29 @@ public class Project implements Serializable
         this.projectProperties.setPropertyValues(objectHash);
 
         initialiseEstimationItems(this.estimationMethod);
+
+        //setEstimationItemsValue(objectHash);
+    }
+
+    private void setEstimationItemsValue(HashMap<String, String> objectHash)
+    {
+        if (this.estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
+        {
+            for (EstimationItem item : estimationItems)
+            {
+                FunctionPointItem fpItem = (FunctionPointItem) item;
+                String simple = objectHash.get(String.format("%s%s", item.getItemName(), context.getString(R.string.project_hash_suffix_simple)));
+                fpItem.getFunctionPointCategoryItems().get(0).setTotalItemCount(Integer.valueOf(simple));
+                String medium = objectHash.get(String.format("%s%s", item.getItemName(), context.getString(R.string.project_hash_suffix_medium)));
+                fpItem.getFunctionPointCategoryItems().get(1).setTotalItemCount(Integer.valueOf(medium));
+                String complex = objectHash.get(String.format("%s%s", item.getItemName(), context.getString(R.string.project_hash_suffix_complex)));
+                fpItem.getFunctionPointCategoryItems().get(2).setTotalItemCount(Integer.valueOf(complex));
+                estimationItems.add(estimationItems.indexOf(item),fpItem);
+            }
+        } else
+        {
+
+        }
     }
 
     public boolean updateEstimationItem(String title, FunctionPointItem item)
@@ -315,9 +361,36 @@ public class Project implements Serializable
         return estimationItems;
     }
 
-    public void updateFunctionPointItem(FunctionPointEstimationItem item)
+    public void updateFunctionPointItem(FunctionPointItem item)
     {
-        FunctionPointItem fpItem = getFunctionPointEstimationItemByName(item.getName());
-        fpItem.updateItem(0,item.getComplex());
+        ArrayList<FunctionPointCategoryItem> category = item.getFunctionPointCategoryItems();
+        FunctionPointItem fpItem = getFunctionPointEstimationItemByName(item.getItemName());
+        fpItem.updateItem(0, category.get(0).getTotalItemCount());
+        fpItem.updateItem(1, category.get(1).getTotalItemCount());
+        fpItem.updateItem(2, category.get(2).getTotalItemCount());
+    }
+
+    public ArrayList<FunctionPointItem> getFunctionPointItems()
+    {
+        if (estimationItems == null)
+        {
+            initialiseEstimationItems(this.estimationMethod);
+        }
+
+        ArrayList<FunctionPointItem> items = new ArrayList<>();
+        for (EstimationItem item : estimationItems)
+        {
+            items.add((FunctionPointItem) item);
+        }
+
+        return (items);
+    }
+
+    public void updateFunctionPointItem(String itemName, Integer simple, Integer medium, Integer complex)
+    {
+        FunctionPointItem fpItem = getFunctionPointEstimationItemByName(itemName);
+        fpItem.updateItem(0, simple);
+        fpItem.updateItem(1, medium);
+        fpItem.updateItem(2, complex);
     }
 }

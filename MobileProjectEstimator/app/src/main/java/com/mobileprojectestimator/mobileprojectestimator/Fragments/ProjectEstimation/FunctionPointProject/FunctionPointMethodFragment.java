@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointItem;
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.FunctionPointEstimationItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.EstimationOverviewFragment;
 import com.mobileprojectestimator.mobileprojectestimator.R;
@@ -26,7 +25,7 @@ import java.util.HashMap;
 public class FunctionPointMethodFragment extends EstimationOverviewFragment
 {
     private Project project;
-    private ArrayList<FunctionPointEstimationItem> functionPointEstimationItems;
+    private ArrayList<FunctionPointItem> functionPointEstimationItems;
     private FunctionPointEstimationListAdapter projectCreationAdapter;
     @SuppressWarnings("FieldCanBeLocal")
     private ListView fpEstimationLisView;
@@ -47,17 +46,7 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
         Log.d("INFO", "FunctionPointMethodFragment: onCreateViews");
         View rootView = inflater.inflate(R.layout.fragment_function_point_project_activtiy, container, false);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        functionPointEstimationItems = new ArrayList<>();
-        String inputData = getContext().getString(R.string.function_point_estimation_input_data);
-        functionPointEstimationItems.add(new FunctionPointEstimationItem(inputData, this.project.getEstimationItemSum(inputData)));
-        String request = getContext().getString(R.string.function_point_estimation_requests);
-        functionPointEstimationItems.add(new FunctionPointEstimationItem(request, this.project.getEstimationItemSum(request)));
-        String output = getContext().getString(R.string.function_point_estimation_output);
-        functionPointEstimationItems.add(new FunctionPointEstimationItem(output, this.project.getEstimationItemSum(output)));
-        String dataset = getContext().getString(R.string.function_point_estimation_dataset);
-        functionPointEstimationItems.add(new FunctionPointEstimationItem(dataset, this.project.getEstimationItemSum(dataset)));
-        String referenceData = getContext().getString(R.string.function_point_estimation_reference_data);
-        functionPointEstimationItems.add(new FunctionPointEstimationItem(referenceData, this.project.getEstimationItemSum(referenceData)));
+        functionPointEstimationItems = this.project.getFunctionPointItems();
 
         fpEstimationLisView = (ListView) rootView.findViewById(R.id.lv_function_point_estimation);
         projectCreationAdapter = new FunctionPointEstimationListAdapter(this, functionPointEstimationItems, getFragmentManager(), this.project);
@@ -81,7 +70,7 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
         {
             HashMap<String, String> hashMap = (HashMap<String, String>) data.getSerializableExtra(this.getString(R.string.NewProjectIntentValueParam));
             this.project.toObjectFromHashMap(hashMap);
-            updateEstimationItems();
+            updateEstimationItems(hashMap);
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -89,11 +78,11 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void updateEstimationItems()
+    private void updateEstimationItems(HashMap<String,String> hashMap)
     {
-        for (FunctionPointEstimationItem item : functionPointEstimationItems)
+        for (FunctionPointItem item : functionPointEstimationItems)
         {
-            this.project.updateFunctionPointItem(item);
+            this.project.updateFunctionPointItem(item.getItemName(),Integer.valueOf(hashMap.get(item.getItemName() + getContext().getString(R.string.project_hash_suffix_simple))),Integer.valueOf(hashMap.get(item.getItemName()+getContext().getString(R.string.project_hash_suffix_medium))),Integer.valueOf(hashMap.get(item.getItemName()+getContext().getString(R.string.project_hash_suffix_complex))));
         }
         projectCreationAdapter.notifyDataSetChanged();
     }

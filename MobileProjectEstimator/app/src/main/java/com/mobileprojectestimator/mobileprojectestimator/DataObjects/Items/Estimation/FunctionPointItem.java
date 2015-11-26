@@ -105,6 +105,11 @@ public class FunctionPointItem extends EstimationItem
 
     public void updateItem(int index, int value)
     {
-        functionPointCategoryItems.get(index).setSumOfCategory(value);
+        functionPointCategoryItems.get(index).setTotalItemCount(value);
+    }
+
+    public int getItemTotalAmountOfIndex(int index)
+    {
+        return functionPointCategoryItems.get(index).getTotalItemCount();
     }
 }

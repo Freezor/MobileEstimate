@@ -53,7 +53,7 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
     {
         if (this.project.updateEstimationItem(title, item))
         {
-
+            this.project.updateFunctionPointItem(item);
             Intent returnIntent = new Intent();
             returnIntent.putExtra(getString(R.string.NewProjectIntentValueParam), project.toHashMap());
             setResult(1, returnIntent);
