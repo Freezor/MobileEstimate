@@ -316,7 +316,7 @@ public class Project implements Serializable
                 fpItem.getFunctionPointCategoryItems().get(1).setTotalItemCount(Integer.valueOf(medium));
                 String complex = objectHash.get(String.format("%s%s", item.getItemName(), context.getString(R.string.project_hash_suffix_complex)));
                 fpItem.getFunctionPointCategoryItems().get(2).setTotalItemCount(Integer.valueOf(complex));
-                estimationItems.add(estimationItems.indexOf(item),fpItem);
+                estimationItems.add(estimationItems.indexOf(item), fpItem);
             }
         } else
         {
@@ -361,6 +361,10 @@ public class Project implements Serializable
         return estimationItems;
     }
 
+    /**
+     * Update the total Amount of an Item
+     * @param item
+     */
     public void updateFunctionPointItem(FunctionPointItem item)
     {
         ArrayList<FunctionPointCategoryItem> category = item.getFunctionPointCategoryItems();
@@ -370,8 +374,13 @@ public class Project implements Serializable
         fpItem.updateItem(2, category.get(2).getTotalItemCount());
     }
 
+    /**
+     * get the list with all estimation Itrems
+     * @return
+     */
     public ArrayList<FunctionPointItem> getFunctionPointItems()
     {
+        refreshItems();
         if (estimationItems == null)
         {
             initialiseEstimationItems(this.estimationMethod);
@@ -386,11 +395,41 @@ public class Project implements Serializable
         return (items);
     }
 
+    private void refreshItems()
+    {
+        for (EstimationItem item: this.estimationItems){
+            item.refresh();
+        }
+    }
+
+    /**
+     * Update an functionPointEstimationItems value of simple medium and complex total amount
+     * @param itemName
+     * @param simple
+     * @param medium
+     * @param complex
+     */
     public void updateFunctionPointItem(String itemName, Integer simple, Integer medium, Integer complex)
     {
         FunctionPointItem fpItem = getFunctionPointEstimationItemByName(itemName);
         fpItem.updateItem(0, simple);
         fpItem.updateItem(1, medium);
         fpItem.updateItem(2, complex);
+        this.estimationItems.add(getEstimationItemIndex(itemName),fpItem);
+    }
+
+    /**
+     * Get the Index of an estimation Item by its Name
+     * @param itemName
+     * @return
+     */
+    private int getEstimationItemIndex(String itemName)
+    {
+        for(EstimationItem _item : estimationItems)
+        {
+            if(_item.getItemName().equals(itemName))
+                return estimationItems.indexOf(_item);
+        }
+        return -1;
     }
 }

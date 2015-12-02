@@ -112,4 +112,14 @@ public class FunctionPointItem extends EstimationItem
     {
         return functionPointCategoryItems.get(index).getTotalItemCount();
     }
+
+    @Override
+    public void refresh()
+    {
+        this.totalAmount = 0;
+        for(FunctionPointCategoryItem item: functionPointCategoryItems){
+            item.setSumOfCategory(item.getWeight()*item.getTotalItemCount());
+            this.totalAmount += item.getSumOfCategory();
+        }
+    }
 }

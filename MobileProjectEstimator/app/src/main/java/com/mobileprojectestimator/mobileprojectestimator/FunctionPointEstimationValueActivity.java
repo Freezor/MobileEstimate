@@ -93,6 +93,10 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
         }
         item = (FunctionPointItem) project.getEstimationItemByName(this.title);
 
+        simpleValue = Integer.valueOf(hashMap.get(title+"_SIMPLE"));
+        mediumValue = Integer.valueOf(hashMap.get(title+"_MEDIUM"));
+        complexValue = Integer.valueOf(hashMap.get(title + "_COMPLEX"));
+
         try
         {
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarFunctionPointEstimation);

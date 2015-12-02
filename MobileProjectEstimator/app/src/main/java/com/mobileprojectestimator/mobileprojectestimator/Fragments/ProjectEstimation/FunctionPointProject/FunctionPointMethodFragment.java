@@ -78,13 +78,21 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    /**
+     * Update all estimation Items that exist in the hashMap
+     * @param hashMap
+     */
     private void updateEstimationItems(HashMap<String,String> hashMap)
     {
         for (FunctionPointItem item : functionPointEstimationItems)
         {
             this.project.updateFunctionPointItem(item.getItemName(),Integer.valueOf(hashMap.get(item.getItemName() + getContext().getString(R.string.project_hash_suffix_simple))),Integer.valueOf(hashMap.get(item.getItemName()+getContext().getString(R.string.project_hash_suffix_medium))),Integer.valueOf(hashMap.get(item.getItemName()+getContext().getString(R.string.project_hash_suffix_complex))));
         }
+        functionPointEstimationItems = this.project.getFunctionPointItems();
+        projectCreationAdapter.updateProject(this.project);
         projectCreationAdapter.notifyDataSetChanged();
+        fpEstimationLisView.invalidateViews();
+        fpEstimationLisView.refreshDrawableState();
     }
 
     @Override

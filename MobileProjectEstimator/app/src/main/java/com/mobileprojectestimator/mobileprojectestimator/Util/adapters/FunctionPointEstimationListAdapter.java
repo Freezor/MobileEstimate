@@ -40,7 +40,7 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter
     /**
      * the project object
      */
-    private final Project project;
+    private Project project;
     private LayoutInflater inflater;
 
     /**
@@ -58,6 +58,11 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter
         this.fm = fm;
         this.project = project;
         rowViewHolderHashMap = new HashMap<>();
+    }
+
+    public void updateProject(Project p)
+    {
+        this.project = p;
     }
 
     @Override

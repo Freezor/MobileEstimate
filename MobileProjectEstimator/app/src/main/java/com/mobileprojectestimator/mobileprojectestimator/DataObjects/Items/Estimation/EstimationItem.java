@@ -17,4 +17,6 @@ public abstract class EstimationItem
     {
         this.itemName = itemName;
     }
+
+    public abstract void refresh();
 }
