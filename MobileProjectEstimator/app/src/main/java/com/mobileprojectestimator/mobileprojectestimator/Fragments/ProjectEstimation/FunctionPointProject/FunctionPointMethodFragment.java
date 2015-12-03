@@ -88,6 +88,7 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
         {
             this.project.updateFunctionPointItem(item.getItemName(),Integer.valueOf(hashMap.get(item.getItemName() + getContext().getString(R.string.project_hash_suffix_simple))),Integer.valueOf(hashMap.get(item.getItemName()+getContext().getString(R.string.project_hash_suffix_medium))),Integer.valueOf(hashMap.get(item.getItemName()+getContext().getString(R.string.project_hash_suffix_complex))));
         }
+        //TODO: Bisherige Werte werden gelöscht. Muss noch abgefangen werden
         functionPointEstimationItems = this.project.getFunctionPointItems();
         projectCreationAdapter.updateProject(this.project);
         projectCreationAdapter.notifyDataSetChanged();
