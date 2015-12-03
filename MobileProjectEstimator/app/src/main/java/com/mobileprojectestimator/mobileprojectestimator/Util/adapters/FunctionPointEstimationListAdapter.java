@@ -35,7 +35,7 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter
     /**
      * array list for all items to estimate
      */
-    private final ArrayList<FunctionPointItem> fpEstimationItems;
+    private ArrayList<FunctionPointItem> fpEstimationItems;
     private final HashMap<Integer, RowViewHolder> rowViewHolderHashMap;
     /**
      * the project object
@@ -63,6 +63,7 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter
     public void updateProject(Project p)
     {
         this.project = p;
+        this.fpEstimationItems = p.getFunctionPointItems();
     }
 
     @Override

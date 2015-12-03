@@ -73,7 +73,7 @@ public class Project implements Serializable
         projectProperties = new ProjectProperties();
     }
 
-    private void initialiseEstimationItems(String estimationMethod)
+    public void initialiseEstimationItems(String estimationMethod)
     {
         if (estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
         {
@@ -353,11 +353,12 @@ public class Project implements Serializable
                 }
             }
         }
-        return 0;
+        return -1;
     }
 
     public ArrayList<EstimationItem> getEstimationItems()
     {
+        refreshItems();
         return estimationItems;
     }
 
@@ -415,7 +416,7 @@ public class Project implements Serializable
         fpItem.updateItem(0, simple);
         fpItem.updateItem(1, medium);
         fpItem.updateItem(2, complex);
-        this.estimationItems.add(getEstimationItemIndex(itemName),fpItem);
+        this.estimationItems.set(getEstimationItemIndex(itemName),fpItem);
     }
 
     /**

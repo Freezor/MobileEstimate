@@ -59,6 +59,8 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
                     Toast.makeText(this.getActivity().getBaseContext(), "Please Insert a Project Name", Toast.LENGTH_SHORT).show();
                 } else
                 {
+                    this.project.initialiseEstimationItems(this.project.getEstimationMethod());
+
                     Intent intent = new Intent();
                     HashMap<String, String> projectHashMap = project.toHashMap();
                     intent.putExtra(this.getString(R.string.NewProjectIntentValueParam), projectHashMap);

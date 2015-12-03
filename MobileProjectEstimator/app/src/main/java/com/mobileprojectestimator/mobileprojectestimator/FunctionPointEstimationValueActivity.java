@@ -51,6 +51,8 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
      */
     private void closeActivity()
     {
+
+        Log.d("INFO", "FunctionPointEstimationValueActivity: closeActivtiy");
         if (this.project.updateEstimationItem(title, item))
         {
             this.project.updateFunctionPointItem(item);
@@ -96,6 +98,8 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
         simpleValue = Integer.valueOf(hashMap.get(title+"_SIMPLE"));
         mediumValue = Integer.valueOf(hashMap.get(title+"_MEDIUM"));
         complexValue = Integer.valueOf(hashMap.get(title + "_COMPLEX"));
+
+        item.updateItems(simpleValue,mediumValue,complexValue);
 
         try
         {

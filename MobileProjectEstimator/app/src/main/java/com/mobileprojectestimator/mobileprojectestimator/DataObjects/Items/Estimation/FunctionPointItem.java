@@ -40,6 +40,7 @@ public class FunctionPointItem extends EstimationItem
      */
     private void calculateTotalAmount()
     {
+        totalAmount = 0;
         for (FunctionPointCategoryItem item : functionPointCategoryItems)
         {
             totalAmount += item.getSumOfCategory();
@@ -121,5 +122,17 @@ public class FunctionPointItem extends EstimationItem
             item.setSumOfCategory(item.getWeight()*item.getTotalItemCount());
             this.totalAmount += item.getSumOfCategory();
         }
+    }
+
+    /**
+     * Update all category SUm of all the items of this item
+     * @param simpleValue
+     * @param mediumValue
+     * @param complexValue
+     */
+    public void updateItems(int simpleValue, int mediumValue, int complexValue) {
+        functionPointCategoryItems.get(0).setTotalItemCount(simpleValue);
+        functionPointCategoryItems.get(1).setTotalItemCount(mediumValue);
+        functionPointCategoryItems.get(2).setTotalItemCount(complexValue);
     }
 }
