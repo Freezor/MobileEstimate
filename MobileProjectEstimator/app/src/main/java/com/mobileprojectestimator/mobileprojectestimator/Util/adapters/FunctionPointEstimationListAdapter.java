@@ -64,6 +64,7 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter
     {
         this.project = p;
         this.fpEstimationItems = p.getFunctionPointItems();
+
     }
 
     @Override
@@ -111,6 +112,7 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter
                 Intent intent = new Intent(v.getContext(), FunctionPointEstimationValueActivity.class);
                 intent.putExtra("TITLE", rowViewHolderHashMap.get(position).item.getItemName());
                 //TODO: Error: Fehler bei Umwandlung durch den zweiten Aufruf der Methode
+                //TODO: Richtiger Total Amount wird hier noch mitgeliefert
                 intent.putExtra("NEWPROJECT", project.toHashMap());
                 fragment.startActivityForResult(intent, 1);
             }

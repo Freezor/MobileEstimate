@@ -107,4 +107,5 @@
     <string name="project_hash_suffix_simple">_SIMPLE</string>
     <string name="project_hash_suffix_medium">_MEDIUM</string>
     <string name="project_hash_suffix_complex">_COMPLEX</string>
+    <string name="project_hash_suffix_total_amount">_TOTAL_AMOUNT</string>
 </resources>

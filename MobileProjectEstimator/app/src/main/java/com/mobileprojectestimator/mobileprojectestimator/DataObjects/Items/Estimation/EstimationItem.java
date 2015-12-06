@@ -1,5 +1,7 @@
 package com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation;
 
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
+
 /**
  * Created by Oliver Fries on 21.11.2015, 11:53.
  * Project: MobileProjectEstimator
@@ -19,4 +21,5 @@ public abstract class EstimationItem
     }
 
     public abstract void refresh();
+
 }

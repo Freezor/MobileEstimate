@@ -267,10 +267,12 @@ public class Project implements Serializable
         {
             for (EstimationItem item : estimationItems)
             {
+                //TODO: Total Amount in Hashmap umwandeln und wieder zurück
                 FunctionPointItem fpItem = (FunctionPointItem) item;
                 valuesMap.put(String.format("%s%s", fpItem.getItemName(), context.getString(R.string.project_hash_suffix_simple)), String.valueOf(fpItem.getItemTotalAmountOfIndex(0)));
                 valuesMap.put(String.format("%s%s", fpItem.getItemName(), context.getString(R.string.project_hash_suffix_medium)), String.valueOf(fpItem.getItemTotalAmountOfIndex(1)));
                 valuesMap.put(String.format("%s%s", fpItem.getItemName(), context.getString(R.string.project_hash_suffix_complex)), String.valueOf(fpItem.getItemTotalAmountOfIndex(2)));
+                valuesMap.put(String.format("%s%s",fpItem.getItemName(), context.getString(R.string.project_hash_suffix_total_amount)),String.valueOf(fpItem.getTotalAmount()));
             }
         } else
         {
@@ -286,7 +288,6 @@ public class Project implements Serializable
      */
     public void toObjectFromHashMap(HashMap<String, String> objectHash)
     {
-        //TODO: change use of gson to hashmap
         this.setTitle(objectHash.get(context.getString(R.string.project_hashmap_item_title)));
         this.setIconName(objectHash.get(context.getString(R.string.project_hashmap_item_iconname)));
         this.setCreationDate(objectHash.get(context.getString(R.string.project_hashmap_item_creation_date)));
@@ -316,6 +317,8 @@ public class Project implements Serializable
                 fpItem.getFunctionPointCategoryItems().get(1).setTotalItemCount(Integer.valueOf(medium));
                 String complex = objectHash.get(String.format("%s%s", item.getItemName(), context.getString(R.string.project_hash_suffix_complex)));
                 fpItem.getFunctionPointCategoryItems().get(2).setTotalItemCount(Integer.valueOf(complex));
+                String totalAmount = objectHash.get(String.format("%s%s",fpItem.getItemName(), context.getString(R.string.project_hash_suffix_total_amount)));
+                fpItem.setTotalAmount(Integer.valueOf(totalAmount));
                 estimationItems.add(estimationItems.indexOf(item), fpItem);
             }
         } else
@@ -330,6 +333,7 @@ public class Project implements Serializable
         {
             if (estimationItem.getItemName().equals(title))
             {
+                //TODO: letz geändertes Project Estimation Item ist hier wieder 0
                 estimationItems.set(estimationItems.indexOf(estimationItem), item);
                 return true;
             }
