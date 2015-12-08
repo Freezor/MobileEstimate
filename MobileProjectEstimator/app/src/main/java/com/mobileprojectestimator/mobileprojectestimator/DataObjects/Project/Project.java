@@ -33,6 +33,8 @@ public class Project implements Serializable
     private InfluencingFactor influencingFactor;
     private ProjectProperties projectProperties;
     private ArrayList<EstimationItem> estimationItems;
+    private int sumOfInfluences;
+    private double influenceFactorRating;
 
     /**
      * Constructs a new instance of {@code Object}.
@@ -301,13 +303,15 @@ public class Project implements Serializable
 
         initialiseEstimationItems(this.estimationMethod);
 
-        //setEstimationItemsValue(objectHash);
+        setEstimationItemsValue(objectHash);
     }
 
     private void setEstimationItemsValue(HashMap<String, String> objectHash)
     {
         if (this.estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
         {
+            //zwischenschritt neue arraylist erstellen und die alte damit ersetzen, da sonst nur werte in die arralist eingefügt werden
+            ArrayList<EstimationItem> estimationItemsNew = new ArrayList<>();
             for (EstimationItem item : estimationItems)
             {
                 FunctionPointItem fpItem = (FunctionPointItem) item;
@@ -319,8 +323,9 @@ public class Project implements Serializable
                 fpItem.getFunctionPointCategoryItems().get(2).setTotalItemCount(Integer.valueOf(complex));
                 String totalAmount = objectHash.get(String.format("%s%s",fpItem.getItemName(), context.getString(R.string.project_hash_suffix_total_amount)));
                 fpItem.setTotalAmount(Integer.valueOf(totalAmount));
-                estimationItems.add(estimationItems.indexOf(item), fpItem);
+                estimationItemsNew.add(fpItem);
             }
+            estimationItems = estimationItemsNew;
         } else
         {
 
@@ -436,5 +441,28 @@ public class Project implements Serializable
                 return estimationItems.indexOf(_item);
         }
         return -1;
+    }
+
+    public int getSumOfInfluences()
+    {
+        sumOfInfluences = 0;
+
+        if (this.estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
+        {
+            sumOfInfluences = this.influencingFactor.getSumOfInfluences();
+        }
+
+        return sumOfInfluences;
+    }
+
+    public double getFactorInfluenceRating() {
+        influenceFactorRating = 0;
+
+        if (this.estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
+        {
+            influenceFactorRating = this.influencingFactor.getFactorInfluenceRating();
+        }
+
+        return influenceFactorRating;
     }
 }

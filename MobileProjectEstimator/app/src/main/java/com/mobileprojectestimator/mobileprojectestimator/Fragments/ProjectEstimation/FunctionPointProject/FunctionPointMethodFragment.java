@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
@@ -28,7 +29,9 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
     private ArrayList<FunctionPointItem> functionPointEstimationItems;
     private FunctionPointEstimationListAdapter projectCreationAdapter;
     @SuppressWarnings("FieldCanBeLocal")
-    private ListView fpEstimationLisView;
+    private ListView fpEstimationListView;
+    private TextView totalPoints;
+    private TextView evaluatedFunctionPoints;
 
     @Override
     public EstimationOverviewFragment newInstance(Project p)
@@ -48,9 +51,15 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         functionPointEstimationItems = this.project.getFunctionPointItems();
 
-        fpEstimationLisView = (ListView) rootView.findViewById(R.id.lv_function_point_estimation);
+        totalPoints = (TextView) rootView.findViewById(R.id.totalPointsTextView);
+        totalPoints.setText(String.format("%s %d", getContext().getString(R.string.function_point_estimation_total_points), getTotalPoints()));
+
+        evaluatedFunctionPoints = (TextView) rootView.findViewById(R.id.evaluatedFunctionPointsTextView);
+        evaluatedFunctionPoints.setText(String.format("%s %d", getContext().getString(R.string.function_point_estimation_evaluated_total_points), getEvaluatedPoints()));
+
+        fpEstimationListView = (ListView) rootView.findViewById(R.id.lv_function_point_estimation);
         projectCreationAdapter = new FunctionPointEstimationListAdapter(this, functionPointEstimationItems, getFragmentManager(), this.project);
-        fpEstimationLisView.setAdapter(projectCreationAdapter);
+        fpEstimationListView.setAdapter(projectCreationAdapter);
 
         return rootView;
     }
@@ -71,6 +80,7 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
             HashMap<String, String> hashMap = (HashMap<String, String>) data.getSerializableExtra(this.getString(R.string.NewProjectIntentValueParam));
             this.project.toObjectFromHashMap(hashMap);
             updateEstimationItems(hashMap);
+            totalPoints.setText(String.format("%s %d", getContext().getString(R.string.function_point_estimation_total_points), getTotalPoints()));
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -92,8 +102,8 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
         functionPointEstimationItems = this.project.getFunctionPointItems();
         projectCreationAdapter.updateProject(this.project);
         projectCreationAdapter.notifyDataSetChanged();
-        fpEstimationLisView.invalidateViews();
-        fpEstimationLisView.refreshDrawableState();
+        fpEstimationListView.invalidateViews();
+        fpEstimationListView.refreshDrawableState();
     }
 
     @Override
@@ -108,5 +118,20 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
     {
         Log.d("INFO", "FunctionPointMethodFragment: onPause");
         super.onPause();
+    }
+
+    public int getTotalPoints()
+    {
+        int totalPoints = 0;
+        for (FunctionPointItem item : this.project.getFunctionPointItems())
+        {
+            totalPoints += item.getTotalAmount();
+        }
+        return totalPoints;
+    }
+
+    public int getEvaluatedPoints()
+    {
+        return 0;
     }
 }

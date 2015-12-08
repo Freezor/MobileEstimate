@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
@@ -26,6 +27,8 @@ public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFrag
     protected FunctionPointInfluenceListAdapter projectInfluenceListAdapter;
     private Project project;
     private ArrayList<Object> fragmentsList;
+    private TextView sumOfInfluences;
+    private TextView factorInfluenceRating;
 
     @Override
     public EstimationOverviewFragment newInstance(Project p)
@@ -52,6 +55,13 @@ public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFrag
         projectInfluenceListAdapter.updateChosenValues(getContext());
         fpInfluenceListView.setAdapter(projectInfluenceListAdapter);
         fpInfluenceListView.setScrollbarFadingEnabled(false);
+
+        sumOfInfluences = (TextView) rootView.findViewById(R.id.tvSumOfInfluences);
+        sumOfInfluences.setText(getContext().getString(R.string.function_point_sum_of_influences)+" "+this.project.getSumOfInfluences());
+
+        factorInfluenceRating = (TextView) rootView.findViewById(R.id.tvFactorInfluenceRating);
+        factorInfluenceRating.setText(getContext().getString(R.string.function_point_influence_rating)+" "+this.project.getFactorInfluenceRating());
+
         return rootView;
     }
 }

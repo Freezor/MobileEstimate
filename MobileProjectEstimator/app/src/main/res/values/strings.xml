@@ -68,8 +68,8 @@
     <string name="function_point_estimation_sample_value">999</string>
     <string name="nav_header_project_name_hint">Project Name</string>
     <string name="nav_header_user">User: testuser</string>
-    <string name="function_point_sum_of_influences">Sum of Influences: 0</string>
-    <string name="function_point_influence_rating">Factor Influence Rating: 0</string>
+    <string name="function_point_sum_of_influences">Sum of Influences: </string>
+    <string name="function_point_influence_rating">Factor Influence Rating: </string>
     <string name="function_point_change_factor_set_button">Change Factor Set</string>
     <string name="project_creation_influence_factor_title">Influencing Factors</string>
     <string name="influence_factor_chosen_method_hint">You have chosen METHOD</string>
@@ -100,9 +100,9 @@
     <string name="cocomo">COCOMO</string>
     <string name="cocomo2">COCOMO 2</string>
     <string name="function_point">Function Point</string>
-    <string name="function_point_estimation_total_points">Total Points: 0</string>
-    <string name="function_point_estimation_evaluated_total_points">Evaluated Function Points: 0</string>
-    <string name="function_point_estimation_evaluated_person_days">Evaluated Person Days: 0</string>
+    <string name="function_point_estimation_total_points">Total Points: </string>
+    <string name="function_point_estimation_evaluated_total_points">Evaluated Function Points: </string>
+    <string name="function_point_estimation_evaluated_person_days">Evaluated Person Days: </string>
     <string name="function_point_estimation_calculate_person_days_button">Calculate Person Days</string>
     <string name="project_hash_suffix_simple">_SIMPLE</string>
     <string name="project_hash_suffix_medium">_MEDIUM</string>

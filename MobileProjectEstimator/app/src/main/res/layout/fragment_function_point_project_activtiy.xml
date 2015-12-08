@@ -17,7 +17,7 @@
         android:layout_marginTop="5dp"/>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/totalPointsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/lv_function_point_estimation"
@@ -27,20 +27,20 @@
         android:textAppearance="?android:attr/textAppearanceLarge"/>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/evaluatedFunctionPointsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/totalPointsTextView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:text="@string/function_point_estimation_evaluated_total_points"
         android:textAppearance="?android:attr/textAppearanceLarge"/>
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/evaluatedPersonDaysTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView3"
+        android:layout_below="@+id/evaluatedFunctionPointsTextView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:text="@string/function_point_estimation_evaluated_person_days"
@@ -50,7 +50,7 @@
         android:id="@+id/button"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView4"
+        android:layout_below="@+id/evaluatedPersonDaysTextView"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
