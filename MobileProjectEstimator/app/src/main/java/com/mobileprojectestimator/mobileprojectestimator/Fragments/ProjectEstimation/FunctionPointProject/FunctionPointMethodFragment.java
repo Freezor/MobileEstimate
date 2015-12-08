@@ -32,6 +32,7 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
     private ListView fpEstimationListView;
     private TextView totalPoints;
     private TextView evaluatedFunctionPoints;
+    private TextView evaluatedPersonDays;
 
     @Override
     public EstimationOverviewFragment newInstance(Project p)
@@ -55,7 +56,10 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
         totalPoints.setText(String.format("%s %d", getContext().getString(R.string.function_point_estimation_total_points), getTotalPoints()));
 
         evaluatedFunctionPoints = (TextView) rootView.findViewById(R.id.evaluatedFunctionPointsTextView);
-        evaluatedFunctionPoints.setText(String.format("%s %d", getContext().getString(R.string.function_point_estimation_evaluated_total_points), getEvaluatedPoints()));
+        evaluatedFunctionPoints.setText(String.format("%s %s", getContext().getString(R.string.function_point_estimation_evaluated_total_points), getEvaluatedPoints()));
+
+        evaluatedPersonDays = (TextView) rootView.findViewById(R.id.evaluatedPersonDaysTextView);
+        evaluatedPersonDays.setText(String.format("%s %d", getContext().getString(R.string.function_point_estimation_evaluated_person_days), this.project.getEvaluatedPersonDays()));
 
         fpEstimationListView = (ListView) rootView.findViewById(R.id.lv_function_point_estimation);
         projectCreationAdapter = new FunctionPointEstimationListAdapter(this, functionPointEstimationItems, getFragmentManager(), this.project);
@@ -81,6 +85,7 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
             this.project.toObjectFromHashMap(hashMap);
             updateEstimationItems(hashMap);
             totalPoints.setText(String.format("%s %d", getContext().getString(R.string.function_point_estimation_total_points), getTotalPoints()));
+            evaluatedFunctionPoints.setText(String.format("%s %s", getContext().getString(R.string.function_point_estimation_evaluated_total_points), getEvaluatedPoints()));
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -130,8 +135,10 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
         return totalPoints;
     }
 
-    public int getEvaluatedPoints()
+    public double getEvaluatedPoints()
     {
-        return 0;
+        double erg = (double)getTotalPoints() * this.project.getFactorInfluenceRating();
+        erg = (double)Math.round(erg * 10000d) / 10000d;
+        return erg;
     }
 }

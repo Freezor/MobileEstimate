@@ -4,10 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,6 +19,7 @@ import android.widget.Toast;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
+import com.mobileprojectestimator.mobileprojectestimator.Util.InputFilterMinMax;
 
 import java.util.HashMap;
 
@@ -23,11 +28,11 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
 
     protected String title;
     private int simpleValue = 0;
-    private TextView valueSimple;
-    private TextView valueMedium;
+    private EditText valueSimple;
+    private EditText valueMedium;
     private int mediumValue = 0;
     private int complexValue = 0;
-    private TextView valueComplex;
+    private EditText valueComplex;
     private Project project;
     private FunctionPointItem item;
 
@@ -132,8 +137,32 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
     private void initComplexCat()
     {
         RelativeLayout layoutComplexEstimation = (RelativeLayout) findViewById(R.id.i_complex_value);
-        valueComplex = (TextView) layoutComplexEstimation.findViewById(R.id.tvValue);
+        valueComplex = (EditText) layoutComplexEstimation.findViewById(R.id.tvValue);
         valueComplex.setText(String.format("%d", complexValue));
+        valueComplex.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String value = valueComplex.getText().toString();
+                if (value.contains(".")) {
+                    value.replace(".", "");
+                }
+                if (value.startsWith("0")) {
+                    value = value.substring(1);
+                }
+                complexValue = Integer.parseInt(value);
+                //TODO: Error = Fehler wenn im edit text gelöscht wird. fehler wenn erstes Element "."
+            }
+        });
         ImageView decreaseButtonComplexCat = (ImageView) layoutComplexEstimation.findViewById(R.id.ivLeft);
         decreaseButtonComplexCat.setOnClickListener(new View.OnClickListener()
         {
@@ -167,7 +196,7 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
     private void initMediumCat()
     {
         RelativeLayout layoutMediumEstimation = (RelativeLayout) findViewById(R.id.i_medium_value);
-        valueMedium = (TextView) layoutMediumEstimation.findViewById(R.id.tvValue);
+        valueMedium = (EditText) layoutMediumEstimation.findViewById(R.id.tvValue);
         valueMedium.setText(String.format("%d", mediumValue));
         ImageView decreaseButtonMediumCat = (ImageView) layoutMediumEstimation.findViewById(R.id.ivLeft);
         decreaseButtonMediumCat.setOnClickListener(new View.OnClickListener()
@@ -202,7 +231,7 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
     private void initSimpleCat()
     {
         RelativeLayout layoutSimpleEstimation = (RelativeLayout) findViewById(R.id.i_simple_value);
-        valueSimple = (TextView) layoutSimpleEstimation.findViewById(R.id.tvValue);
+        valueSimple = (EditText) layoutSimpleEstimation.findViewById(R.id.tvValue);
         valueSimple.setText(String.format("%d", simpleValue));
         ImageView decreaseButtonSimpleCat = (ImageView) layoutSimpleEstimation.findViewById(R.id.ivLeft);
         decreaseButtonSimpleCat.setOnClickListener(new View.OnClickListener()
@@ -230,4 +259,5 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
             }
         });
     }
+
 }

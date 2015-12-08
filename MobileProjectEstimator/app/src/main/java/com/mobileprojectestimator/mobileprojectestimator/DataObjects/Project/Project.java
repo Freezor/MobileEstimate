@@ -35,6 +35,7 @@ public class Project implements Serializable
     private ArrayList<EstimationItem> estimationItems;
     private int sumOfInfluences;
     private double influenceFactorRating;
+    private int evaluatedPersonDays = 0;
 
     /**
      * Constructs a new instance of {@code Object}.
@@ -464,5 +465,9 @@ public class Project implements Serializable
         }
 
         return influenceFactorRating;
+    }
+
+    public int getEvaluatedPersonDays() {
+        return evaluatedPersonDays;
     }
 }
