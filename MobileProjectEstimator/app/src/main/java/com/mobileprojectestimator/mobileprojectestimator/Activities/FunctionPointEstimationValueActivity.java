@@ -1,4 +1,4 @@
-package com.mobileprojectestimator.mobileprojectestimator;
+package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
+import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.util.HashMap;
 

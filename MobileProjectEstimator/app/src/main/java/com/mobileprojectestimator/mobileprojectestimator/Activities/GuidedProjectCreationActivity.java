@@ -1,4 +1,4 @@
-package com.mobileprojectestimator.mobileprojectestimator;
+package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -31,6 +31,7 @@ import com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProject
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation.ProjectInfoFragment;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation.ProjectPropOneFragment;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation.ProjectPropTwoFragment;
+import com.mobileprojectestimator.mobileprojectestimator.R;
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.SectionsPagerAdapter;
 
 import java.util.ArrayList;

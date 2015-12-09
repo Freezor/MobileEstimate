@@ -1,4 +1,4 @@
-package com.mobileprojectestimator.mobileprojectestimator;
+package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.preference.PreferenceFragment;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
+
+import com.mobileprojectestimator.mobileprojectestimator.R;
 
 /**
  * Created by Oliver Fries on 09.12.2015, 10:38.

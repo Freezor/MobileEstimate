@@ -1,4 +1,4 @@
-package com.mobileprojectestimator.mobileprojectestimator;
+package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
+import com.mobileprojectestimator.mobileprojectestimator.R;
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.ProjectListAdapter;
 
 import java.util.ArrayList;
@@ -250,6 +251,7 @@ public class ProjectOverviewActivity extends AppCompatActivity
 
         String title = item.getTitle().toString();
 
+        Intent i;
         if (title.equals((getString(R.string.project_analysis))))
         {
 
@@ -264,10 +266,11 @@ public class ProjectOverviewActivity extends AppCompatActivity
 
         } else if (title.equals((getString(R.string.help))))
         {
-
+            i = new Intent(this, HelpActivity.class);
+            startActivity(i);
         } else if (title.equals((getString(R.string.settings))))
         {
-            Intent i = new Intent(this, SettingsActivity.class);
+            i = new Intent(this, SettingsActivity.class);
             startActivityForResult(i, Integer.parseInt((getString(R.string.RESULT_SETTINGS_REQUEST_CODE))));
         }
 

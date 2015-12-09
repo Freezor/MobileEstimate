@@ -128,4 +128,8 @@
     <string name="pref_key_user_password">pref_key_user_password</string>
     <string name="pref_key_send_crash_report">pref_key_send_crash_report</string>
     <string name="user_name_error">Username: NOT SET</string>
+    <string name="title_activity_help_and_feedback"><![CDATA[Help & Feedback]]></string>
+    <string name="hel_activity_article_headline">Article</string>
+    <string name="help_activity_search_all_articles">Search All Articles</string>
+    <string name="help_activity_feedback">Feedback</string>
 </resources>

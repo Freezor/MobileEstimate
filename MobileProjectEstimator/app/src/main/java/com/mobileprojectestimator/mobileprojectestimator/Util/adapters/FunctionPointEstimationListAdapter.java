@@ -13,7 +13,7 @@ import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estim
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.RowViewHolder;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.FunctionPointProject.FunctionPointMethodFragment;
-import com.mobileprojectestimator.mobileprojectestimator.FunctionPointEstimationValueActivity;
+import com.mobileprojectestimator.mobileprojectestimator.Activities.FunctionPointEstimationValueActivity;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.util.ArrayList;
