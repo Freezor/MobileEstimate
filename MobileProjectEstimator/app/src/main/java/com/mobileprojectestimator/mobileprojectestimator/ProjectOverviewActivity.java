@@ -3,8 +3,10 @@ package com.mobileprojectestimator.mobileprojectestimator;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,6 +15,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,6 +23,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
@@ -36,11 +40,10 @@ public class ProjectOverviewActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
 {
 
-    private static final int RESULT_SETTINGS = 1002;
-
     private final List<Project> projectsList = new ArrayList<>();
     private ListView projectsListView;
     private ProjectListAdapter projectsAdapter;
+    private TextView navigationDrawerUserNameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -70,6 +73,14 @@ public class ProjectOverviewActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View header = navigationView.getHeaderView(0);
+        navigationDrawerUserNameTextView = (TextView) header.findViewById(R.id.userName);
+
+        //Load previous data from preferences
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        String userName = sharedPref.getString(getString(R.string.pref_key_user_name), "");
+        navigationDrawerUserNameTextView.setText(userName);
 
         //Create and Load the projects
         loadProjects();
@@ -180,6 +191,10 @@ public class ProjectOverviewActivity extends AppCompatActivity
                 //TODO: Check if result is null
                 getDataFromProjectCreationProcess(data);
             }
+        } else if (requestCode == Integer.parseInt((getString(R.string.RESULT_SETTINGS_REQUEST_CODE)))){
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+            String userName = sharedPref.getString(getString(R.string.pref_key_user_name), "");
+            navigationDrawerUserNameTextView.setText(userName);
         }
     }
 
@@ -241,7 +256,7 @@ public class ProjectOverviewActivity extends AppCompatActivity
         } else if (title.equals((getString(R.string.settings))))
         {
             Intent i = new Intent(this, SettingsActivity.class);
-            startActivityForResult(i, RESULT_SETTINGS);
+            startActivityForResult(i, Integer.parseInt((getString(R.string.RESULT_SETTINGS_REQUEST_CODE))));
         }
 
 
