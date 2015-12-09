@@ -3,17 +3,14 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_project_information"
-            android:icon="@android:drawable/ic_menu_agenda"
-            android:title="@string/project_information"/>
+            android:id="@+id/nav_my_projects"
+            android:icon="@android:drawable/ic_menu_slideshow"
+            android:title="@string/my_projects"/>
         <item
             android:id="@+id/nav_project_analysis"
             android:icon="@android:drawable/ic_menu_view"
             android:title="@string/project_analysis"/>
-        <item
-            android:id="@+id/nav_my_projects"
-            android:icon="@android:drawable/ic_menu_slideshow"
-            android:title="@string/my_projects"/>
+
         <item
             android:id="@+id/nav_influencing_factors"
             android:icon="@android:drawable/ic_menu_manage"

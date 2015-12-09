@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/pref_user_info_title"
+        android:key="pref_key_user_info_settings">
+        <EditTextPreference
+            android:title="@string/pref_user_name_title"
+            android:summary="@string/pref_user_name_summary"
+            android:key="pref_key_user_name"/>
+        <EditTextPreference
+            android:title="@string/pref_user_password_title"
+            android:summary="@string/pref_password_summary"
+            android:key="pref_key_user_password"
+            android:inputType="textPassword"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_update_settings"
+        android:key="pref_key_update_settings">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="pref_key_send_crash_report"
+            android:summary="@string/pref_send_report_summary"
+            android:title="@string/pref_send_report" >
+        </CheckBoxPreference>
+
+        <ListPreference
+            android:key="pref_sync_frequency"
+            android:entries="@array/pref_sync_frequency_array"
+            android:summary="@string/pref_sync_frequency_summary"
+            android:entryValues="@array/pref_sync_frequency_values"
+            android:title="@string/pref_sync_frequency" />
+    </PreferenceCategory>
+</PreferenceScreen>

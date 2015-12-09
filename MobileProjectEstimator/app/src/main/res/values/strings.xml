@@ -108,4 +108,18 @@
     <string name="project_hash_suffix_medium">_MEDIUM</string>
     <string name="project_hash_suffix_complex">_COMPLEX</string>
     <string name="project_hash_suffix_total_amount">_TOTAL_AMOUNT</string>
+    <string name="pref_user_info_title">USER INFORMATION</string>
+    <string name="pref_user_name_summary">Set username</string>
+    <string name="pref_password_summary">Set password</string>
+    <string name="pref_user_name_title">Name</string>
+    <string name="pref_user_password_title">Password</string>
+    <string name="pref_update_settings">UPDATE SETTINGS</string>
+    <string name="pref_send_report_summary">Helps to fix bugs</string>
+    <string name="pref_send_report">Send crash reports</string>
+    <string name="pref_sync_frequency_summary">Set the synchronisation frequency</string>
+    <string name="pref_sync_frequency">Synchronisation</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_settings">Settings</string>
 </resources>

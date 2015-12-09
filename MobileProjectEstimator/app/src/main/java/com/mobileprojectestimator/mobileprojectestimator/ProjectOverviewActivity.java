@@ -36,6 +36,8 @@ public class ProjectOverviewActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
 {
 
+    private static final int RESULT_SETTINGS = 1002;
+
     private final List<Project> projectsList = new ArrayList<>();
     private ListView projectsListView;
     private ProjectListAdapter projectsAdapter;
@@ -44,6 +46,8 @@ public class ProjectOverviewActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_project_overview);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -109,7 +113,7 @@ public class ProjectOverviewActivity extends AppCompatActivity
      */
     private void loadProjects()
     {
-        //TODO: Add Database access for loading projects
+        //TODO: Add Database access for loading projectss
         generateTestProject();
     }
 
@@ -204,13 +208,6 @@ public class ProjectOverviewActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        switch (id)
-        {
-            case R.id.nav_project_information:
-                break;
-            default:
-                break;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -223,6 +220,31 @@ public class ProjectOverviewActivity extends AppCompatActivity
         //TODO: Change to new drawer menu functions
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        String title = item.getTitle().toString();
+
+        if (title.equals((getString(R.string.project_analysis))))
+        {
+
+        } else if (title.equals((getString(R.string.my_projects))))
+        {
+
+        } else if (title.equals((getString(R.string.influencing_factors))))
+        {
+
+        } else if (title.equals((getString(R.string.export))))
+        {
+
+        } else if (title.equals((getString(R.string.help))))
+        {
+
+        } else if (title.equals((getString(R.string.settings))))
+        {
+            Intent i = new Intent(this, SettingsActivity.class);
+            startActivityForResult(i, RESULT_SETTINGS);
+        }
+
+
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

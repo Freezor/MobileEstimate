@@ -62,6 +62,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mobileprojectestimator.mobileprojectestimator.FunctionPointProjectActivtiy"/>
         </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".ProjectOverviewActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ProjectOverviewActivity"/>
+        </activity>
     </application>
 
 </manifest>
