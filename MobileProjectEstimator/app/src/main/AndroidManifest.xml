@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.mobileprojectestimator.mobileprojectestimator"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+    package="com.mobileprojectestimator.mobileprojectestimator"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"
@@ -73,11 +74,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activities.ProjectOverviewActivity"/>
         </activity>
-        <activity android:name=".Activities.HelpActivity"
-                  android:label="@string/title_activity_help_and_feedback"
-                  android:parentActivityName=".Activities.ProjectOverviewActivity"
-                  android:theme="@style/AppTheme.NoActionBar"
-                  android:windowSoftInputMode="adjustPan">
+        <activity
+            android:name=".Activities.HelpActivity"
+            android:label="@string/title_activity_help_and_feedback"
+            android:parentActivityName=".Activities.ProjectOverviewActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.ProjectOverviewActivity"/>
+        </activity>
+        <activity
+            android:name=".Activities.ExportProjectActivity"
+            android:label="@string/title_activity_export_project"
+            android:parentActivityName=".Activities.ProjectOverviewActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data

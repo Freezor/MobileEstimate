@@ -132,4 +132,10 @@
     <string name="hel_activity_article_headline">Article</string>
     <string name="help_activity_search_all_articles">Search All Articles</string>
     <string name="help_activity_feedback">Feedback</string>
+    <string name="title_activity_export_project">Export</string>
+    <string name="export_excel">Export Excel</string>
+    <string name="export_pdf">Export PDF</string>
+    <string name="export_settings">Settings</string>
+    <string name="export_choose_project">Choose a project</string>
+    <string name="ProjectsNameList">LISTWITHPROJECTNAMES</string>
 </resources>

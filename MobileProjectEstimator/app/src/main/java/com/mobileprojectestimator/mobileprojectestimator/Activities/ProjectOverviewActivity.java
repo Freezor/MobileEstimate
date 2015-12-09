@@ -263,7 +263,9 @@ public class ProjectOverviewActivity extends AppCompatActivity
 
         } else if (title.equals((getString(R.string.export))))
         {
-
+            i = new Intent(this, ExportProjectActivity.class);
+            i.putExtra(getString(R.string.ProjectsNameList), projectsAdapter.getProjectNamesList());
+            startActivity(i);
         } else if (title.equals((getString(R.string.help))))
         {
             i = new Intent(this, HelpActivity.class);

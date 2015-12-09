@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -35,6 +36,16 @@ public class ProjectListAdapter extends BaseAdapter
      * The layout that the adapter can access  the layout
      */
     private LayoutInflater inflater;
+
+    public ArrayList<String> getProjectNamesList()
+    {
+        ArrayList<String> names = new ArrayList<String>();
+        for(Project p:this.projectsList){
+            names.add(p.getTitle());
+        }
+        return names;
+    }
+
     /**
      * Project List with all projects that will be displayed
      */
