@@ -11,12 +11,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="@string/function_point_estimation_sample_value"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:digits="0123456789"
         android:inputType="numberDecimal"
-        android:maxLines="1"
         android:maxLength="5"
-        android:numeric="decimal" />
+        android:maxLines="1"
+        android:numeric="decimal"
+        android:text="@string/function_point_estimation_sample_value"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
 
     <ImageView
         android:id="@+id/ivLeft"

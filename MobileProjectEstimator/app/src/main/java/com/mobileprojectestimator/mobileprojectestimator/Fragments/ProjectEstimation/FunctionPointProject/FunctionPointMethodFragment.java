@@ -95,13 +95,14 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
 
     /**
      * Update all estimation Items that exist in the hashMap
+     *
      * @param hashMap
      */
-    private void updateEstimationItems(HashMap<String,String> hashMap)
+    private void updateEstimationItems(HashMap<String, String> hashMap)
     {
         for (FunctionPointItem item : functionPointEstimationItems)
         {
-            this.project.updateFunctionPointItem(item.getItemName(),Integer.valueOf(hashMap.get(item.getItemName() + getContext().getString(R.string.project_hash_suffix_simple))),Integer.valueOf(hashMap.get(item.getItemName()+getContext().getString(R.string.project_hash_suffix_medium))),Integer.valueOf(hashMap.get(item.getItemName()+getContext().getString(R.string.project_hash_suffix_complex))));
+            this.project.updateFunctionPointItem(item.getItemName(), Integer.valueOf(hashMap.get(item.getItemName() + getContext().getString(R.string.project_hash_suffix_simple))), Integer.valueOf(hashMap.get(item.getItemName() + getContext().getString(R.string.project_hash_suffix_medium))), Integer.valueOf(hashMap.get(item.getItemName() + getContext().getString(R.string.project_hash_suffix_complex))));
         }
         //TODO: Bisherige Werte werden gelöscht. Muss noch abgefangen werden
         functionPointEstimationItems = this.project.getFunctionPointItems();
@@ -125,6 +126,11 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
         super.onPause();
     }
 
+    /**
+     * Calculate the total function points
+     *
+     * @return
+     */
     public int getTotalPoints()
     {
         int totalPoints = 0;
@@ -135,10 +141,16 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
         return totalPoints;
     }
 
+    /**
+     * calculate the evaluated points
+     * TotalPoints * InfluenceFactors
+     *
+     * @return
+     */
     public double getEvaluatedPoints()
     {
-        double erg = (double)getTotalPoints() * this.project.getFactorInfluenceRating();
-        erg = (double)Math.round(erg * 10000d) / 10000d;
+        double erg = (double) getTotalPoints() * this.project.getFactorInfluenceRating();
+        erg = (double) Math.round(erg * 10000d) / 10000d;
         return erg;
     }
 }

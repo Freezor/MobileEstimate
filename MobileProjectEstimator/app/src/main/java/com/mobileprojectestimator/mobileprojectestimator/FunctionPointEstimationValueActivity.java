@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
-import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -19,7 +18,6 @@ import android.widget.Toast;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
-import com.mobileprojectestimator.mobileprojectestimator.Util.InputFilterMinMax;
 
 import java.util.HashMap;
 
@@ -101,11 +99,11 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
         }
         item = (FunctionPointItem) project.getEstimationItemByName(this.title);
 
-        simpleValue = Integer.valueOf(hashMap.get(title+"_SIMPLE"));
-        mediumValue = Integer.valueOf(hashMap.get(title+"_MEDIUM"));
+        simpleValue = Integer.valueOf(hashMap.get(title + "_SIMPLE"));
+        mediumValue = Integer.valueOf(hashMap.get(title + "_MEDIUM"));
         complexValue = Integer.valueOf(hashMap.get(title + "_COMPLEX"));
 
-        item.updateItems(simpleValue,mediumValue,complexValue);
+        item.updateItems(simpleValue, mediumValue, complexValue);
 
         try
         {
@@ -139,28 +137,26 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
         RelativeLayout layoutComplexEstimation = (RelativeLayout) findViewById(R.id.i_complex_value);
         valueComplex = (EditText) layoutComplexEstimation.findViewById(R.id.tvValue);
         valueComplex.setText(String.format("%d", complexValue));
-        valueComplex.addTextChangedListener(new TextWatcher() {
+        valueComplex.addTextChangedListener(new TextWatcher()
+        {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
 
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(Editable s)
+            {
                 String value = valueComplex.getText().toString();
-                if (value.contains(".")) {
-                    value.replace(".", "");
-                }
-                if (value.startsWith("0")) {
-                    value = value.substring(1);
-                }
                 complexValue = Integer.parseInt(value);
-                //TODO: Error = Fehler wenn im edit text gelöscht wird. fehler wenn erstes Element "."
+                item.setValue(2, complexValue);
             }
         });
         ImageView decreaseButtonComplexCat = (ImageView) layoutComplexEstimation.findViewById(R.id.ivLeft);
@@ -198,6 +194,28 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
         RelativeLayout layoutMediumEstimation = (RelativeLayout) findViewById(R.id.i_medium_value);
         valueMedium = (EditText) layoutMediumEstimation.findViewById(R.id.tvValue);
         valueMedium.setText(String.format("%d", mediumValue));
+        valueMedium.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                String value = valueMedium.getText().toString();
+                mediumValue = Integer.parseInt(value);
+                item.setValue(1, mediumValue);
+            }
+        });
         ImageView decreaseButtonMediumCat = (ImageView) layoutMediumEstimation.findViewById(R.id.ivLeft);
         decreaseButtonMediumCat.setOnClickListener(new View.OnClickListener()
         {
@@ -233,6 +251,28 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
         RelativeLayout layoutSimpleEstimation = (RelativeLayout) findViewById(R.id.i_simple_value);
         valueSimple = (EditText) layoutSimpleEstimation.findViewById(R.id.tvValue);
         valueSimple.setText(String.format("%d", simpleValue));
+        valueSimple.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                String value = valueSimple.getText().toString();
+                simpleValue = Integer.parseInt(value);
+                item.setValue(0, simpleValue);
+            }
+        });
         ImageView decreaseButtonSimpleCat = (ImageView) layoutSimpleEstimation.findViewById(R.id.ivLeft);
         decreaseButtonSimpleCat.setOnClickListener(new View.OnClickListener()
         {

@@ -1,7 +1,5 @@
 package com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation;
 
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
-
 import java.util.ArrayList;
 
 /**
@@ -120,21 +118,35 @@ public class FunctionPointItem extends EstimationItem
     public void refresh()
     {
         this.totalAmount = 0;
-        for(FunctionPointCategoryItem item: functionPointCategoryItems){
-            item.setSumOfCategory(item.getWeight()*item.getTotalItemCount());
+        for (FunctionPointCategoryItem item : functionPointCategoryItems)
+        {
+            item.setSumOfCategory(item.getWeight() * item.getTotalItemCount());
             this.totalAmount += item.getSumOfCategory();
         }
     }
 
     /**
      * Update all category SUm of all the items of this item
+     *
      * @param simpleValue
      * @param mediumValue
      * @param complexValue
      */
-    public void updateItems(int simpleValue, int mediumValue, int complexValue) {
+    public void updateItems(int simpleValue, int mediumValue, int complexValue)
+    {
         functionPointCategoryItems.get(0).setTotalItemCount(simpleValue);
         functionPointCategoryItems.get(1).setTotalItemCount(mediumValue);
         functionPointCategoryItems.get(2).setTotalItemCount(complexValue);
+    }
+
+    /**
+     * Set the item count of an estimation item at the array index
+     *
+     * @param index
+     * @param value
+     */
+    public void setValue(int index, int value)
+    {
+        functionPointCategoryItems.get(index).setTotalItemCount(value);
     }
 }

@@ -275,7 +275,7 @@ public class Project implements Serializable
                 valuesMap.put(String.format("%s%s", fpItem.getItemName(), context.getString(R.string.project_hash_suffix_simple)), String.valueOf(fpItem.getItemTotalAmountOfIndex(0)));
                 valuesMap.put(String.format("%s%s", fpItem.getItemName(), context.getString(R.string.project_hash_suffix_medium)), String.valueOf(fpItem.getItemTotalAmountOfIndex(1)));
                 valuesMap.put(String.format("%s%s", fpItem.getItemName(), context.getString(R.string.project_hash_suffix_complex)), String.valueOf(fpItem.getItemTotalAmountOfIndex(2)));
-                valuesMap.put(String.format("%s%s",fpItem.getItemName(), context.getString(R.string.project_hash_suffix_total_amount)),String.valueOf(fpItem.getTotalAmount()));
+                valuesMap.put(String.format("%s%s", fpItem.getItemName(), context.getString(R.string.project_hash_suffix_total_amount)), String.valueOf(fpItem.getTotalAmount()));
             }
         } else
         {
@@ -307,6 +307,11 @@ public class Project implements Serializable
         setEstimationItemsValue(objectHash);
     }
 
+    /**
+     * Set all saved estimation item values from the hash map
+     *
+     * @param objectHash
+     */
     private void setEstimationItemsValue(HashMap<String, String> objectHash)
     {
         if (this.estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
@@ -322,7 +327,7 @@ public class Project implements Serializable
                 fpItem.getFunctionPointCategoryItems().get(1).setTotalItemCount(Integer.valueOf(medium));
                 String complex = objectHash.get(String.format("%s%s", item.getItemName(), context.getString(R.string.project_hash_suffix_complex)));
                 fpItem.getFunctionPointCategoryItems().get(2).setTotalItemCount(Integer.valueOf(complex));
-                String totalAmount = objectHash.get(String.format("%s%s",fpItem.getItemName(), context.getString(R.string.project_hash_suffix_total_amount)));
+                String totalAmount = objectHash.get(String.format("%s%s", fpItem.getItemName(), context.getString(R.string.project_hash_suffix_total_amount)));
                 fpItem.setTotalAmount(Integer.valueOf(totalAmount));
                 estimationItemsNew.add(fpItem);
             }
@@ -333,13 +338,19 @@ public class Project implements Serializable
         }
     }
 
+    /**
+     * update a specific estimation item
+     *
+     * @param title
+     * @param item
+     * @return
+     */
     public boolean updateEstimationItem(String title, FunctionPointItem item)
     {
         for (EstimationItem estimationItem : estimationItems)
         {
             if (estimationItem.getItemName().equals(title))
             {
-                //TODO: letz geändertes Project Estimation Item ist hier wieder 0
                 estimationItems.set(estimationItems.indexOf(estimationItem), item);
                 return true;
             }
@@ -347,6 +358,12 @@ public class Project implements Serializable
         return false;
     }
 
+    /**
+     * Returns the sum of an estimation item category
+     *
+     * @param title
+     * @return
+     */
     public int getEstimationItemSum(String title)
     {
         for (EstimationItem estimationItem : estimationItems)
@@ -366,6 +383,11 @@ public class Project implements Serializable
         return -1;
     }
 
+    /**
+     * Returns the complete estimation item list after refreshing all items
+     *
+     * @return
+     */
     public ArrayList<EstimationItem> getEstimationItems()
     {
         refreshItems();
@@ -374,6 +396,7 @@ public class Project implements Serializable
 
     /**
      * Update the total Amount of an Item
+     *
      * @param item
      */
     public void updateFunctionPointItem(FunctionPointItem item)
@@ -387,6 +410,7 @@ public class Project implements Serializable
 
     /**
      * get the list with all estimation Itrems
+     *
      * @return
      */
     public ArrayList<FunctionPointItem> getFunctionPointItems()
@@ -406,15 +430,20 @@ public class Project implements Serializable
         return (items);
     }
 
+    /**
+     * Calls item.refresh for each estimation item
+     */
     private void refreshItems()
     {
-        for (EstimationItem item: this.estimationItems){
+        for (EstimationItem item : this.estimationItems)
+        {
             item.refresh();
         }
     }
 
     /**
      * Update an functionPointEstimationItems value of simple medium and complex total amount
+     *
      * @param itemName
      * @param simple
      * @param medium
@@ -426,24 +455,30 @@ public class Project implements Serializable
         fpItem.updateItem(0, simple);
         fpItem.updateItem(1, medium);
         fpItem.updateItem(2, complex);
-        this.estimationItems.set(getEstimationItemIndex(itemName),fpItem);
+        this.estimationItems.set(getEstimationItemIndex(itemName), fpItem);
     }
 
     /**
      * Get the Index of an estimation Item by its Name
+     *
      * @param itemName
      * @return
      */
     private int getEstimationItemIndex(String itemName)
     {
-        for(EstimationItem _item : estimationItems)
+        for (EstimationItem _item : estimationItems)
         {
-            if(_item.getItemName().equals(itemName))
+            if (_item.getItemName().equals(itemName))
                 return estimationItems.indexOf(_item);
         }
         return -1;
     }
 
+    /**
+     * Returns the sum of all influences
+     *
+     * @return
+     */
     public int getSumOfInfluences()
     {
         sumOfInfluences = 0;
@@ -456,7 +491,13 @@ public class Project implements Serializable
         return sumOfInfluences;
     }
 
-    public double getFactorInfluenceRating() {
+    /**
+     * Returns the calculated influence rating of all influences
+     *
+     * @return
+     */
+    public double getFactorInfluenceRating()
+    {
         influenceFactorRating = 0;
 
         if (this.estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
@@ -467,7 +508,13 @@ public class Project implements Serializable
         return influenceFactorRating;
     }
 
-    public int getEvaluatedPersonDays() {
+    /**
+     * evaluate the person Days for this project
+     *
+     * @return
+     */
+    public int getEvaluatedPersonDays()
+    {
         return evaluatedPersonDays;
     }
 }
