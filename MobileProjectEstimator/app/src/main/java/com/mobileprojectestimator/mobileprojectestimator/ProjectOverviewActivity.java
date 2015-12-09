@@ -15,7 +15,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -80,7 +79,13 @@ public class ProjectOverviewActivity extends AppCompatActivity
         //Load previous data from preferences
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         String userName = sharedPref.getString(getString(R.string.pref_key_user_name), "");
-        navigationDrawerUserNameTextView.setText(userName);
+        if (userName.isEmpty() || userName.equals(""))
+        {
+            navigationDrawerUserNameTextView.setText(R.string.user_name_error);
+        } else
+        {
+            navigationDrawerUserNameTextView.setText(userName);
+        }
 
         //Create and Load the projects
         loadProjects();
@@ -191,10 +196,17 @@ public class ProjectOverviewActivity extends AppCompatActivity
                 //TODO: Check if result is null
                 getDataFromProjectCreationProcess(data);
             }
-        } else if (requestCode == Integer.parseInt((getString(R.string.RESULT_SETTINGS_REQUEST_CODE)))){
+        } else if (requestCode == Integer.parseInt((getString(R.string.RESULT_SETTINGS_REQUEST_CODE))))
+        {
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
             String userName = sharedPref.getString(getString(R.string.pref_key_user_name), "");
-            navigationDrawerUserNameTextView.setText(userName);
+            if (userName.isEmpty() || userName.equals(""))
+            {
+                navigationDrawerUserNameTextView.setText(R.string.user_name_error);
+            } else
+            {
+                navigationDrawerUserNameTextView.setText(userName);
+            }
         }
     }
 
