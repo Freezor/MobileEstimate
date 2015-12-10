@@ -260,7 +260,8 @@ public class ProjectOverviewActivity extends AppCompatActivity
 
         } else if (title.equals((getString(R.string.influencing_factors))))
         {
-
+            i = new Intent(this, InfluenceFactorsActivity.class);
+            startActivityForResult(i, Integer.parseInt(getString(R.string.INFLUENCEFACTORACTIVITYREQUESTCODE)));
         } else if (title.equals((getString(R.string.export))))
         {
             i = new Intent(this, ExportProjectActivity.class);

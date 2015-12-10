@@ -138,4 +138,6 @@
     <string name="export_settings">Settings</string>
     <string name="export_choose_project">Choose a project</string>
     <string name="ProjectsNameList">LISTWITHPROJECTNAMES</string>
+    <string name="title_activity_influence_factors">Influencing Factors</string>
+    <string name="INFLUENCEFACTORACTIVITYREQUESTCODE">1006</string>
 </resources>

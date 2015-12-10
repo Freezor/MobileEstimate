@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.mobileprojectestimator.mobileprojectestimator.Activities.InfluenceFactorsActivity">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Estimation Method Name"
+        android:id="@+id/tvEstimationMethodName"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/estimationType"/>
+
+    <ListView
+        android:id="@+id/lvInfluenceFactors"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:scrollbarThumbVertical="@drawable/scrollbar_orange"
+        android:layout_below="@+id/influenceFactorSetSpinner"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/tvSumOfInfluences"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/function_point_sum_of_influences"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_marginTop="28dp"
+        android:layout_below="@+id/lvInfluenceFactors"
+        android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/influenceFactorSetSpinner"
+        android:layout_below="@+id/tvEstimationMethodName"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/tvEstimationMethodName" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivEditInfluenceFactor"
+        android:src="@drawable/ic_action_edit"
+        android:layout_below="@+id/tvEstimationMethodName"
+        android:layout_toEndOf="@+id/influenceFactorSetSpinner" />
+
+</RelativeLayout>
