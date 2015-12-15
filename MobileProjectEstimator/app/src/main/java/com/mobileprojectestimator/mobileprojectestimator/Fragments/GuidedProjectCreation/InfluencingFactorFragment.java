@@ -53,7 +53,7 @@ public class InfluencingFactorFragment extends GuidedCreationFragment
     {
         super.onCreate(savedInstanceState);
         Log.d("INFO", "InfluencingFactorFragment: onCreate");
-
+        initDatabase();
     }
 
     @Override
@@ -87,6 +87,7 @@ public class InfluencingFactorFragment extends GuidedCreationFragment
                 Toast.makeText(project.getContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
             }
         });
+
         return rootView;
     }
 

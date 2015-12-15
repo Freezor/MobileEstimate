@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Database.DatabaseInfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation.EstimationMethodFragment;
@@ -33,7 +34,10 @@ import com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProject
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation.ProjectPropTwoFragment;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.SectionsPagerAdapter;
+import com.mobileprojectestimator.mobileprojectestimator.Util.database.DataBaseHelper;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static com.mobileprojectestimator.mobileprojectestimator.R.id.ivEditItem;
@@ -104,6 +108,8 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
     private InfluencingFactorFragment influencingFactorFragment;
     private TextView infFactorTextViewEstimationMethod;
     private Spinner influencingFactorsAdapterSpinner;
+    private DataBaseHelper databaseHelper;
+    private ArrayList<DatabaseInfluenceFactorItem> dbInfluenceFactorItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -149,7 +155,7 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
 
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        initDatabase();
     }
 
     /**
@@ -567,6 +573,7 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
         if (influencingFactorFragment == null)
         {
             initialiseInfluencingFactorFragment(position);
+            infFactorTextViewEstimationMethod.setText(String.format(getString(R.string.msg_guided_project_creation_chosen_estimation_method), new Object[]{projectNew.getEstimationMethod()}));
         } else
         {
             infFactorTextViewEstimationMethod.setText(String.format(getString(R.string.msg_guided_project_creation_chosen_estimation_method), new Object[]{projectNew.getEstimationMethod()}));
@@ -707,49 +714,19 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
     {
         influencingFactorItems = new ArrayList<>();
 
-        if (projectNew.getEstimationMethod().equals(getString(R.string.estimation_method_function_point)))
-        {
-            loadFunctionPointFactorSet();
+        int estimationMethodDbId = databaseHelper.getEstimationMethodId(projectNew.getEstimationMethod());
+        dbInfluenceFactorItems = databaseHelper.getInfluenceFactorItems(estimationMethodDbId);
 
-        } else if (projectNew.getEstimationMethod().equals(getString(R.string.estimation_method_cocomo)))
-        {
-            loadCocomoFactorSet();
-        } else if (projectNew.getEstimationMethod().equals(getString(R.string.estimation_method_cocomo_2)))
-        {
-            loadCocomo2FactorSet();
-        } else
-        {
+
+        if(!dbInfluenceFactorItems.isEmpty()){
+            for(DatabaseInfluenceFactorItem item:dbInfluenceFactorItems){
+                influencingFactorItems.add(item.get_name());
+            }
+        } else {
             influencingFactorItems.add(getString(R.string.error_this_should_not_happen));
         }
         return influencingFactorItems;
     }
-
-    /**
-     * load the COCOMO 2 influence factor set from the database
-     */
-    private void loadCocomo2FactorSet()
-    {
-        influencingFactorItems.add("Cocomo 2");
-    }
-
-    /**
-     * load the COCOMO influence factor set from the database
-     */
-    private void loadCocomoFactorSet()
-    {
-        influencingFactorItems.add("Cocomo");
-    }
-
-    /**
-     * load the function point influence factor set from the database
-     */
-    private void loadFunctionPointFactorSet()
-    {
-        //TODO: load Factor Set from DB
-        influencingFactorItems.add("Small new Team");
-        influencingFactorItems.add("Big Old Team");
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -757,6 +734,40 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_guided_project_creation, menu);
         return true;
+    }
+
+
+    /**
+     * Initialise the Database Helper class and loads the database
+     */
+    private void initDatabase()
+    {
+        Log.d("Info", "Database Initialisation");
+        databaseHelper = new DataBaseHelper(this);
+
+        try
+        {
+
+            databaseHelper.createDataBase();
+
+        } catch (IOException ioe)
+        {
+
+            throw new Error("Unable to create database");
+
+        }
+
+        try
+        {
+
+            databaseHelper.openDataBase();
+
+        } catch (SQLException sqle)
+        {
+            Log.d("ERROR",sqle.toString());
+        }
+
+        databaseHelper.logDatabaseInformation();
     }
 
     /**

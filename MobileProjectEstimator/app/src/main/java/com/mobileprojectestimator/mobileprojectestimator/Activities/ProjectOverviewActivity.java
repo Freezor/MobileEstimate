@@ -109,8 +109,6 @@ public class ProjectOverviewActivity extends AppCompatActivity
 
         initDatabase();
 
-        ArrayList<DatabaseInfluenceFactorItem> test = databaseHelper.getFunctionPointInfluenceFactorItems();
-        test.get(0);
     }
 
     /**

@@ -272,12 +272,13 @@ public class DataBaseHelper extends SQLiteOpenHelper
      * ATTENTION: This returns only items with the id. For getting an item with the value you need to select from the estimation method influence factor table with the influence_factor_id
      *
      * @return
+     * @param estimationId
      */
-    public ArrayList<DatabaseInfluenceFactorItem> getFunctionPointInfluenceFactorItems()
+    public ArrayList<DatabaseInfluenceFactorItem> getInfluenceFactorItems(int estimationId)
     {
         ArrayList<DatabaseInfluenceFactorItem> influenceFactorItems = new ArrayList<>();
 
-        String selectQuery = "SELECT * FROM \"InfluenceFactors\" WHERE estimation_method_id = 101;";
+        String selectQuery = String.format("SELECT * FROM \"InfluenceFactors\" WHERE estimation_method_id = %d;", estimationId);
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -317,4 +318,18 @@ public class DataBaseHelper extends SQLiteOpenHelper
     }
 
 
+    public int getEstimationMethodId(String estimationMethod)
+    {
+        String query = String.format("SELECT _id FROM EstimationMethod WHERE name = '%s';", estimationMethod);
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor c = db.rawQuery(query, null);
+
+        if (c != null)
+            c.moveToFirst();
+
+        int estimationId = c.getInt(c.getColumnIndex("_id"));
+
+        return estimationId;
+    }
 }
