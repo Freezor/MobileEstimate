@@ -57,10 +57,10 @@ public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFrag
         fpInfluenceListView.setScrollbarFadingEnabled(false);
 
         sumOfInfluences = (TextView) rootView.findViewById(R.id.tvSumOfInfluences);
-        sumOfInfluences.setText(getContext().getString(R.string.function_point_sum_of_influences)+" "+this.project.getSumOfInfluences());
+        sumOfInfluences.setText(String.format("%s %d", getContext().getString(R.string.function_point_sum_of_influences), this.project.getSumOfInfluences()));
 
         factorInfluenceRating = (TextView) rootView.findViewById(R.id.tvFactorInfluenceRating);
-        factorInfluenceRating.setText(getContext().getString(R.string.function_point_influence_rating)+" "+this.project.getFactorInfluenceRating());
+        factorInfluenceRating.setText(String.format("%s %s", getContext().getString(R.string.function_point_influence_rating), this.project.getFactorInfluenceRating()));
 
         return rootView;
     }

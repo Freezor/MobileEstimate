@@ -28,7 +28,10 @@ import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Inf
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.ProjectListAdapter;
+import com.mobileprojectestimator.mobileprojectestimator.Util.database.DataBaseHelper;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,6 +47,7 @@ public class ProjectOverviewActivity extends AppCompatActivity
     private ListView projectsListView;
     private ProjectListAdapter projectsAdapter;
     private TextView navigationDrawerUserNameTextView;
+    private DataBaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -101,6 +105,41 @@ public class ProjectOverviewActivity extends AppCompatActivity
                 onClickProject(position);
             }
         });
+
+        initDatabase();
+    }
+
+    /**
+     * Initialise the Database Helper class and loads the database
+     */
+    private void initDatabase()
+    {
+        Log.d("Info", "Database Initialisation");
+        databaseHelper = new DataBaseHelper(this);
+
+        try
+        {
+
+            databaseHelper.createDataBase();
+
+        } catch (IOException ioe)
+        {
+
+            throw new Error("Unable to create database");
+
+        }
+
+        try
+        {
+
+            databaseHelper.openDataBase();
+
+        } catch (SQLException sqle)
+        {
+            Log.d("ERROR",sqle.toString());
+        }
+
+        databaseHelper.logDatabaseInformation();
     }
 
     /**

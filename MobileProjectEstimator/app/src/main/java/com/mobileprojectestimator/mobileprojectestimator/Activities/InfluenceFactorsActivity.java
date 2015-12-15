@@ -1,8 +1,8 @@
 package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -13,10 +13,12 @@ import android.widget.TextView;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.R;
+import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.FunctionPointInfluenceListAdapter;
 
 import java.util.ArrayList;
 
-public class InfluenceFactorsActivity extends AppCompatActivity {
+public class InfluenceFactorsActivity extends AppCompatActivity
+{
 
     private TextView estimationMethodName;
     private Spinner influenceFactorSetSpinner;
@@ -33,9 +35,11 @@ public class InfluenceFactorsActivity extends AppCompatActivity {
     private String selectedEstimationMethod;
 
     private int totalSumOfInfluences;
+    private InfluenceListAdapter influenceListAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_influence_factors);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarInfluenceFactorActivity);
@@ -44,9 +48,11 @@ public class InfluenceFactorsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.addNewInfluenceFactor);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        floatingActionButton.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 onClickCreateNewInfluenceFactor();
             }
         });
@@ -69,10 +75,18 @@ public class InfluenceFactorsActivity extends AppCompatActivity {
     private void loadInfluenceFactor(String factorName)
     {
         //TODO: load factor set from database
+        if (estimationMethodName.equals(getString(R.string.estimation_method_function_point)))
+        {
+            influenceListAdapter = new InfluenceListAdapter(this, influencingFactor.getInfluenceFactorItems());
+            influenceFactorItemsLust.setAdapter(influenceListAdapter);
+            influenceFactorItemsLust.setScrollbarFadingEnabled(false);
+        }
     }
 
-    private void loadInfluenceFactorNames() {
-        if (estimationMethodsList.isEmpty()){
+    private void loadInfluenceFactorNames()
+    {
+        if (estimationMethodsList.isEmpty())
+        {
             loadEstimationMethods();
         }
 
@@ -90,7 +104,8 @@ public class InfluenceFactorsActivity extends AppCompatActivity {
         influenceFactorSetSpinner.setAdapter(dataAdapter);
     }
 
-    private void loadEstimationMethods() {
+    private void loadEstimationMethods()
+    {
         //TODO: Load from database
         estimationMethodsList = new ArrayList<>();
         estimationMethodsList.add("Function Point");
