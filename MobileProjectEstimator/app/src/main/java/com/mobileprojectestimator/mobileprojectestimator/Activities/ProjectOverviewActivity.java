@@ -24,6 +24,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Database.DatabaseInfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
@@ -107,6 +108,9 @@ public class ProjectOverviewActivity extends AppCompatActivity
         });
 
         initDatabase();
+
+        ArrayList<DatabaseInfluenceFactorItem> test = databaseHelper.getFunctionPointInfluenceFactorItems();
+        test.get(0);
     }
 
     /**

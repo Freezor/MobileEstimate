@@ -1,16 +1,22 @@
 package com.mobileprojectestimator.mobileprojectestimator.Util.database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Database.DatabaseInfluenceFactorItem;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Created by Oliver Fries on 15.12.2015, 11:33.
@@ -28,6 +34,9 @@ public class DataBaseHelper extends SQLiteOpenHelper
      */
     private static String DB_NAME = "projectEstimationDatabase";
 
+    /**
+     * The database Object
+     */
     private SQLiteDatabase projectEstimationDataBase;
 
     private final Context context;
@@ -156,6 +165,9 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     }
 
+    /**
+     * @throws IOException
+     */
     public void createDataBase() throws IOException
     {
         boolean dbExist = checkDataBase();
@@ -191,6 +203,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
      */
     public void logDatabaseInformation()
     {
+        checkDatabaseCreation();
         Log.d("Info", String.format("Database Name: %s", DB_NAME));
         Log.d("Info", String.format("Database Version: %s", projectEstimationDataBase.getVersion()));
     }
@@ -218,5 +231,90 @@ public class DataBaseHelper extends SQLiteOpenHelper
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
+
     }
+
+    /**
+     * Check if database exists
+     */
+    private void checkDatabaseCreation()
+    {
+        try
+        {
+            String destPath = "/data/data/com.mobileprojectestimator.mobileprojectestimator/databases/(...your db...)";
+
+            File f = new File(destPath);
+            File c = new File("/data/data/com.mobileprojectestimator.mobileprojectestimator/databases/");
+
+            // ---if directory doesn't exist then create it---
+            if (!c.exists())
+            {
+                c.mkdir();
+            }
+
+            // ---if db file doesn't exist then create it---
+            if (!f.exists())
+            {
+                copyDataBase();
+            }
+        } catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    //~~~~SQL Queries Start here~~~~\\
+
+    /**
+     * Query to return all Influence Factors for the estimation Method.
+     * ATTENTION: This returns only items with the id. For getting an item with the value you need to select from the estimation method influence factor table with the influence_factor_id
+     *
+     * @return
+     */
+    public ArrayList<DatabaseInfluenceFactorItem> getFunctionPointInfluenceFactorItems()
+    {
+        ArrayList<DatabaseInfluenceFactorItem> influenceFactorItems = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM \"InfluenceFactors\" WHERE estimation_method_id = 101;";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst())
+        {
+            do
+            {
+                DatabaseInfluenceFactorItem databaseInfluenceFactorItem = new DatabaseInfluenceFactorItem();
+                databaseInfluenceFactorItem.set_id(c.getInt((c.getColumnIndex("_id"))));
+                databaseInfluenceFactorItem.set_name(c.getString(c.getColumnIndex("name")));
+                databaseInfluenceFactorItem.set_estimationMethodId(c.getInt((c.getColumnIndex("estimation_method_id"))));
+                databaseInfluenceFactorItem.set_influenceFactorId(c.getInt((c.getColumnIndex("influence_factor_id"))));
+                influenceFactorItems.add(databaseInfluenceFactorItem);
+            } while (c.moveToNext());
+        }
+        db.close();
+        return influenceFactorItems;
+    }
+
+    /**
+     * Log all table names of the database
+     */
+    public void logAllTableNames()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT name FROM sqlite_master  WHERE type='table'", null);
+        if (c.moveToFirst())
+        {
+            while (!c.isAfterLast())
+            {
+                Log.d("INFO", "Table Name => " + c.getString(0));
+                c.moveToNext();
+            }
+        }
+        db.close();
+    }
+
+
 }
