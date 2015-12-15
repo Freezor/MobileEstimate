@@ -1,11 +1,15 @@
-package com.mobileprojectestimator.mobileprojectestimator.Activities;
+package com.mobileprojectestimator.mobileprojectestimator.Util.adapters;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
+import com.mobileprojectestimator.mobileprojectestimator.Activities.InfluenceFactorsActivity;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.InfluenceFactorItem;
+import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.util.ArrayList;
 
@@ -17,6 +21,7 @@ public class InfluenceListAdapter extends BaseAdapter
 {
     private InfluenceFactorsActivity influenceFactorsActivity;
     private ArrayList<InfluenceFactorItem> influenceFactorItems;
+    private LayoutInflater inflater;
 
     public InfluenceListAdapter(InfluenceFactorsActivity influenceFactorsActivity, ArrayList<InfluenceFactorItem> influenceFactorItems)
     {
@@ -32,7 +37,7 @@ public class InfluenceListAdapter extends BaseAdapter
     @Override
     public int getCount()
     {
-        return 0;
+        return influenceFactorItems.size();
     }
 
     /**
@@ -81,6 +86,43 @@ public class InfluenceListAdapter extends BaseAdapter
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        return null;
+        if (inflater == null)
+            inflater = influenceFactorsActivity.getLayoutInflater();
+        if (convertView == null)
+            convertView = inflater.inflate(R.layout.function_point_influence_factor_list_item, null);
+
+        TextView itemNameTv = (TextView) convertView.findViewById(R.id.tvInfluenceName);
+        TextView itemValueTv = (TextView) convertView.findViewById(R.id.tvInfluenceValue);
+
+        if (influenceFactorItems.get(position).getChosenValue() >= 0)
+        {
+            itemValueTv.setText(String.format("%d", influenceFactorItems.get(position).getChosenValue()));
+        } else
+        {
+            itemValueTv.setText(R.string.factor_value_standard_value);
+        }
+        itemNameTv.setText(influenceFactorItems.get(position).getName());
+
+
+        setListViewBackgroundColor(position, convertView);
+        return convertView;
+    }
+
+    /**
+     * Set the Background for the list view
+     *
+     * @param position
+     * @param convertView
+     */
+
+    private void setListViewBackgroundColor(int position, View convertView)
+    {
+        if (position % 2 == 0)
+        {
+            convertView.setBackgroundResource(R.color.standardRowEven);
+        } else
+        {
+            convertView.setBackgroundColor(Color.TRANSPARENT);
+        }
     }
 }

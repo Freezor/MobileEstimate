@@ -686,21 +686,38 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
      */
     private InfluencingFactor loadFunctionPointInfluencingFactors(String itemName)
     {
-        //TODO: Load Factor From Database
         InfluencingFactor influencingFactor = new InfluencingFactor(this, InfluencingFactor.FUNCTIONPOINTFACTORS);
         influencingFactor.setName(itemName);
-        influencingFactor.getInfluenceFactorItems().get(0).setChosenValue(2);
-        influencingFactor.getInfluenceFactorItems().get(1).setChosenValue(2);
-        influencingFactor.getInfluenceFactorItems().get(2).setChosenValue(2);
 
-        influencingFactor.getInfluenceFactorItems().get(3).getSubInfluenceFactorItemsList().get(0).setChosenValue(8);
-        influencingFactor.getInfluenceFactorItems().get(3).getSubInfluenceFactorItemsList().get(1).setChosenValue(2);
-        influencingFactor.getInfluenceFactorItems().get(3).getSubInfluenceFactorItemsList().get(2).setChosenValue(5);
-        influencingFactor.getInfluenceFactorItems().get(3).getSubInfluenceFactorItemsList().get(3).setChosenValue(1);
+        int itemId = 0;
 
-        influencingFactor.getInfluenceFactorItems().get(3).setChosenValue(0);
-        influencingFactor.getInfluenceFactorItems().get(5).setChosenValue(3);
-        influencingFactor.getInfluenceFactorItems().get(6).setChosenValue(5);
+        for (DatabaseInfluenceFactorItem item : dbInfluenceFactorItems)
+        {
+            if (item.get_name().equals(itemName))
+            {
+                itemId = item.get_influenceFactorId();
+            }
+        }
+
+        if (itemId == 0)
+        {
+            Log.d("ERROR", String.format("Item ID not found for: %s", itemName));
+        }
+
+        ArrayList<Integer> influenceFactorValues = databaseHelper.loadFunctionPointInfluenceValues(itemId);
+
+        influencingFactor.getInfluenceFactorItems().get(0).setChosenValue(influenceFactorValues.get(0));
+        influencingFactor.getInfluenceFactorItems().get(1).setChosenValue(influenceFactorValues.get(1));
+        influencingFactor.getInfluenceFactorItems().get(2).setChosenValue(influenceFactorValues.get(2));
+
+        influencingFactor.getInfluenceFactorItems().get(3).getSubInfluenceFactorItemsList().get(0).setChosenValue(influenceFactorValues.get(3));
+        influencingFactor.getInfluenceFactorItems().get(3).getSubInfluenceFactorItemsList().get(1).setChosenValue(influenceFactorValues.get(4));
+        influencingFactor.getInfluenceFactorItems().get(3).getSubInfluenceFactorItemsList().get(2).setChosenValue(influenceFactorValues.get(5));
+        influencingFactor.getInfluenceFactorItems().get(3).getSubInfluenceFactorItemsList().get(3).setChosenValue(influenceFactorValues.get(6));
+
+        influencingFactor.getInfluenceFactorItems().get(3).setChosenValue(influenceFactorValues.get(7));
+        influencingFactor.getInfluenceFactorItems().get(5).setChosenValue(influenceFactorValues.get(8));
+
         return influencingFactor;
     }
 
@@ -718,11 +735,14 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
         dbInfluenceFactorItems = databaseHelper.getInfluenceFactorItems(estimationMethodDbId);
 
 
-        if(!dbInfluenceFactorItems.isEmpty()){
-            for(DatabaseInfluenceFactorItem item:dbInfluenceFactorItems){
+        if (!dbInfluenceFactorItems.isEmpty())
+        {
+            for (DatabaseInfluenceFactorItem item : dbInfluenceFactorItems)
+            {
                 influencingFactorItems.add(item.get_name());
             }
-        } else {
+        } else
+        {
             influencingFactorItems.add(getString(R.string.error_this_should_not_happen));
         }
         return influencingFactorItems;
@@ -764,7 +784,7 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
 
         } catch (SQLException sqle)
         {
-            Log.d("ERROR",sqle.toString());
+            Log.d("ERROR", sqle.toString());
         }
 
         databaseHelper.logDatabaseInformation();

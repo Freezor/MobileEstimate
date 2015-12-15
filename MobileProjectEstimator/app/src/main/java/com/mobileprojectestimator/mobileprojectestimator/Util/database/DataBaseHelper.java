@@ -332,4 +332,56 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
         return estimationId;
     }
+
+    public ArrayList<Integer> loadFunctionPointInfluenceValues(int itemId)
+    {
+        ArrayList<Integer> influenceFactorValues = new ArrayList<>();
+
+        String selectQuery = String.format("SELECT * FROM FunctionPointInfluenceFactor WHERE _id = %d;", itemId);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c != null)
+            c.moveToFirst();
+
+        influenceFactorValues.add(c.getInt(c.getColumnIndex("Integration")));
+        influenceFactorValues.add(c.getInt(c.getColumnIndex("LocalDataProcessing")));
+        influenceFactorValues.add(c.getInt(c.getColumnIndex("TransactionRate")));
+        influenceFactorValues.add(c.getInt(c.getColumnIndex("ArithmeticOperation")));
+        influenceFactorValues.add(c.getInt(c.getColumnIndex("ControlProcedure")));
+        influenceFactorValues.add(c.getInt(c.getColumnIndex("ExceptionalRule")));
+        influenceFactorValues.add(c.getInt(c.getColumnIndex("Logic")));
+        influenceFactorValues.add(c.getInt(c.getColumnIndex("Reusability")));
+        influenceFactorValues.add(c.getInt(c.getColumnIndex("StockConversion")));
+        influenceFactorValues.add(c.getInt(c.getColumnIndex("Adaptability")));
+
+        db.close();
+        return influenceFactorValues;
+    }
+
+    /**
+     * Returns a string ArrayList with all available Estimation Methods
+     * @return
+     */
+    public ArrayList<String> getEstimationMethodNames()
+    {
+        ArrayList<String> estimationMethodNames = new ArrayList<>();
+
+        String selectQuery = "SELECT name FROM EstimationMethod;";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst())
+        {
+            do
+            {
+                estimationMethodNames.add(c.getString(c.getColumnIndex("name")));
+            } while (c.moveToNext());
+        }
+        db.close();
+
+        return estimationMethodNames;
+    }
 }

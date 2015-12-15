@@ -274,6 +274,25 @@ public class InfluencingFactor
         }
     }
 
+    public void setFunctionPointValuesFromArrayList(ArrayList<Integer> values)
+    {
+        influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_integration))).setChosenValue(values.get(0));
+        influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_local_data))).setChosenValue(values.get(1));
+        influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_transaction_rate))).setChosenValue(values.get(2));
+
+        int processingLogicPosition = findItemPosition(context.getString(R.string.function_point_influence_factor_item_processing_logic));
+        //Set SubItems
+        influenceFactorItems.get(processingLogicPosition).getSubInfluenceFactorItemsList().get(0).setChosenValue(values.get(3));
+        influenceFactorItems.get(processingLogicPosition).getSubInfluenceFactorItemsList().get(1).setChosenValue(values.get(4));
+        influenceFactorItems.get(processingLogicPosition).getSubInfluenceFactorItemsList().get(2).setChosenValue(values.get(5));
+        influenceFactorItems.get(processingLogicPosition).getSubInfluenceFactorItemsList().get(3).setChosenValue(values.get(6));
+
+        influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_reusability))).setChosenValue(values.get(7));
+        influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_stock_conversion))).setChosenValue(values.get(8));
+        influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_adaptability))).setChosenValue(values.get(9));
+
+    }
+
     private boolean setFunctionPointInfluenceFactorValues(HashMap<String, String> map)
     {
         try
@@ -314,7 +333,8 @@ public class InfluencingFactor
         return sumOfInfluences;
     }
 
-    private int getFunctionPointInfluenceSum() {
+    private int getFunctionPointInfluenceSum()
+    {
         influenceItemSum = 0;
 
         influenceItemSum += influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_integration))).getChosenValue();
@@ -325,14 +345,15 @@ public class InfluencingFactor
         influenceItemSum += influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_adaptability))).getChosenValue();
 
         ArrayList<InfluenceFactorItem> subitems = influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_processing_logic))).getSubInfluenceFactorItemsList();
-        influenceItemSum +=  subitems.get(0).getChosenValue();
-        influenceItemSum +=  subitems.get(1).getChosenValue();
-        influenceItemSum +=  subitems.get(2).getChosenValue();
-        influenceItemSum +=  subitems.get(3).getChosenValue();
+        influenceItemSum += subitems.get(0).getChosenValue();
+        influenceItemSum += subitems.get(1).getChosenValue();
+        influenceItemSum += subitems.get(2).getChosenValue();
+        influenceItemSum += subitems.get(3).getChosenValue();
         return influenceItemSum;
     }
 
-    public double getFactorInfluenceRating() {
+    public double getFactorInfluenceRating()
+    {
         double influenceSum = (double) getFunctionPointInfluenceSum();
 
         double erg = influenceSum / 100.0;

@@ -1,50 +1,58 @@
 package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Database.DatabaseInfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.R;
-import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.FunctionPointInfluenceListAdapter;
+import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.InfluenceListAdapter;
 
 import java.util.ArrayList;
 
-public class InfluenceFactorsActivity extends AppCompatActivity
+public class InfluenceFactorsActivity extends DatabaseActivity
 {
 
     private TextView estimationMethodName;
     private Spinner influenceFactorSetSpinner;
     private ImageView editinfluenceFactorSet;
     private TextView sumOfInfluences;
-    private ListView influenceFactorItemsLust;
+    private ListView influenceFactorItemsList;
 
     private ArrayList<String> estimationMethodsList;
 
     private InfluencingFactor influencingFactor;
 
-    private ArrayList<String> influenceFactorSetNames;
+    private ArrayList<DatabaseInfluenceFactorItem> dbInfluenceFactorItems;
 
     private String selectedEstimationMethod;
 
     private int totalSumOfInfluences;
     private InfluenceListAdapter influenceListAdapter;
+    private ArrayList<String> influenceFactorNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        initDatabase();
+
         setContentView(R.layout.activity_influence_factors);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarInfluenceFactorActivity);
         setSupportActionBar(toolbar);
 
+        //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.addNewInfluenceFactor);
@@ -62,24 +70,59 @@ public class InfluenceFactorsActivity extends AppCompatActivity
         influenceFactorSetSpinner = (Spinner) influenceFactorContent.findViewById(R.id.influenceFactorSetSpinner);
         editinfluenceFactorSet = (ImageView) influenceFactorContent.findViewById(R.id.ivEditInfluenceFactor);
         sumOfInfluences = (TextView) influenceFactorContent.findViewById(R.id.tvSumOfInfluences);
-        influenceFactorItemsLust = (ListView) influenceFactorContent.findViewById(R.id.lvInfluenceFactors);
+        influenceFactorItemsList = (ListView) influenceFactorContent.findViewById(R.id.lvInfluenceFactors);
 
         loadEstimationMethods();
 
         loadInfluenceFactorNames();
 
-        loadInfluenceFactor(influenceFactorSetNames.get(0).toString());
+        loadInfluenceFactor(influenceFactorNames.get(0));
 
+        estimationMethodName.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
+                final CharSequence[] items = estimationMethodsList.toArray(new CharSequence[estimationMethodsList.size()]);
+                builder.setTitle("Choose an estimation Method")
+                        .setItems(items, new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                selectedEstimationMethod = estimationMethodsList.get(which);
+                                estimationMethodName.setText(selectedEstimationMethod);
+                                loadInfluenceFactorNames();
+                                loadInfluenceFactor(influenceFactorNames.get(0));
+                            }
+                        });
+
+                // create alert dialog
+                AlertDialog alertDialog = builder.create();
+
+                // show it
+                alertDialog.show();
+            }
+        });
     }
+
 
     private void loadInfluenceFactor(String factorName)
     {
-        //TODO: load factor set from database
-        if (estimationMethodName.equals(getString(R.string.estimation_method_function_point)))
+        if (selectedEstimationMethod.equals(getString(R.string.estimation_method_function_point)))
         {
+            influencingFactor = new InfluencingFactor(this, InfluencingFactor.FUNCTIONPOINTFACTORS);
+            for (DatabaseInfluenceFactorItem item: dbInfluenceFactorItems)
+            {
+                if(item.get_name().equals(factorName)){
+                    ArrayList<Integer> factorValues = databaseHelper.loadFunctionPointInfluenceValues(item.get_influenceFactorId());
+                    influencingFactor.setFunctionPointValuesFromArrayList(factorValues);
+                    break;
+                }
+            }
             influenceListAdapter = new InfluenceListAdapter(this, influencingFactor.getInfluenceFactorItems());
-            influenceFactorItemsLust.setAdapter(influenceListAdapter);
-            influenceFactorItemsLust.setScrollbarFadingEnabled(false);
+            influenceFactorItemsList.setAdapter(influenceListAdapter);
+            influenceFactorItemsList.setScrollbarFadingEnabled(false);
         }
     }
 
@@ -89,30 +132,43 @@ public class InfluenceFactorsActivity extends AppCompatActivity
         {
             loadEstimationMethods();
         }
+        dbInfluenceFactorItems = databaseHelper.getInfluenceFactorItems(databaseHelper.getEstimationMethodId(selectedEstimationMethod));
 
-        //TODO: load names from database
-
-        influenceFactorSetNames = new ArrayList<>();
-        influenceFactorSetNames.add("Big old team");
-        influenceFactorSetNames.add("Young new team");
+        influenceFactorNames = new ArrayList<>();
+        for (DatabaseInfluenceFactorItem item : dbInfluenceFactorItems)
+        {
+            influenceFactorNames.add(item.get_name());
+        }
 
         //Set Factors to spinner
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, influenceFactorSetNames);
+                android.R.layout.simple_spinner_item, influenceFactorNames);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         influenceFactorSetSpinner.setAdapter(dataAdapter);
+        influenceFactorSetSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                loadInfluenceFactor(influenceFactorNames.get(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
+            }
+        });
     }
 
+    /**
+     * Load the estimation methods and set the first method to the selected one
+     */
     private void loadEstimationMethods()
     {
-        //TODO: Load from database
-        estimationMethodsList = new ArrayList<>();
-        estimationMethodsList.add("Function Point");
-        estimationMethodsList.add("COCOMO");
-        estimationMethodsList.add("COCOMO 2");
-
-        selectedEstimationMethod = estimationMethodsList.get(0).toString();
+        estimationMethodsList = databaseHelper.getEstimationMethodNames();
+        selectedEstimationMethod = estimationMethodsList.get(0);
         estimationMethodName.setText(selectedEstimationMethod);
     }
 
