@@ -3,6 +3,7 @@ package com.mobileprojectestimator.mobileprojectestimator.Activities;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -10,7 +11,6 @@ import android.widget.TextView;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.R;
-import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.InfluenceListAdapter;
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.NewInfluenceFactorListAdapter;
 
 import java.util.ArrayList;
@@ -48,6 +48,7 @@ public class CreateNewInfluenceFactorActivity extends DatabaseActivity
         if (isNewFactor)
         {
             toolbar.setTitle("New Factor");
+            oldFactorName = "";
         } else
         {
             toolbar.setTitle("Edit Factor");
@@ -68,6 +69,48 @@ public class CreateNewInfluenceFactorActivity extends DatabaseActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_create_new_influence_factor, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch(item.getItemId()) {
+            case R.id.action_save_influence_factor:
+                saveFactorToDatabase();
+                finish();
+                break;
+            case R.id.action_delete_influence_factor:
+                // another startActivity, this is for item with id "menu_item2"
+                break;
+            case R.id.action_create_new_influence_factor:
+                // another startActivity, this is for item with id "menu_item2"
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+        return true;
+    }
+
+    private void saveFactorToDatabase()
+    {
+        View v;
+        EditText etValue;
+        TextView name;
+        int value= 0;
+        for (int i = 0; i < factorItemsListView.getCount(); i++) {
+            v = factorItemsListView.getChildAt(i);
+            etValue = (EditText) v.findViewById(R.id.tvInfluenceValue);
+            name = (TextView) v.findViewById(R.id.tvInfluenceName);
+            value = Integer.parseInt(influenceListAdapter.checkInputSize(String.valueOf(etValue.getText()),name.getText().toString()));
+            influencingFactor.setChosenValueOfItem(value,name.getText().toString());
+        }
+        if(oldFactorName.isEmpty() || oldFactorName.equals(""))
+        {
+            databaseHelper.createNewInfluenceFactor(selectedEstimationMethod,influencingFactor);
+        } else {
+            databaseHelper.updateExistingInfluenceFactor(selectedEstimationMethod,oldFactorName,influencingFactor);
+        }
     }
 
     /**

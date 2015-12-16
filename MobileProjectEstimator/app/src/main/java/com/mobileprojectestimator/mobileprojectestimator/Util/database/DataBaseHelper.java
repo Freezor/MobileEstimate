@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Database.DatabaseInfluenceFactorItem;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -403,5 +404,15 @@ public class DataBaseHelper extends SQLiteOpenHelper
         int factorItemId = c.getInt(c.getColumnIndex("influence_factor_id"));
 
         return factorItemId;
+    }
+
+    public void createNewInfluenceFactor(String selectedEstimationMethod, InfluencingFactor influencingFactor)
+    {
+
+    }
+
+    public void updateExistingInfluenceFactor(String selectedEstimationMethod, String oldFactorName, InfluencingFactor influencingFactor)
+    {
+
     }
 }

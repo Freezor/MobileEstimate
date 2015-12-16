@@ -1,10 +1,14 @@
 package com.mobileprojectestimator.mobileprojectestimator.Util.adapters;
 
 import android.graphics.Color;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,9 +28,10 @@ public class NewInfluenceFactorListAdapter extends BaseAdapter
     private ArrayList<InfluenceFactorItem> influenceFactorItems;
     private LayoutInflater inflater;
     private TextView itemNameTv;
-    private TextView itemValueTv;
+    private EditText itemValueEt;
     private ImageView editFactorIv;
     private ArrayList<String> factorNameArrayList;
+    private String val;
 
     public NewInfluenceFactorListAdapter(CreateNewInfluenceFactorActivity influenceFactorsActivity, ArrayList<InfluenceFactorItem> influenceFactorItems)
     {
@@ -127,14 +132,80 @@ public class NewInfluenceFactorListAdapter extends BaseAdapter
             convertView = inflater.inflate(R.layout.function_point_influence_factorset_list_item, null);
 
         itemNameTv = (TextView) convertView.findViewById(R.id.tvInfluenceName);
-        itemValueTv = (TextView) convertView.findViewById(R.id.tvInfluenceValue);
-        editFactorIv = (ImageView) convertView.findViewById(R.id.ivEditFactor);
+        itemValueEt = (EditText) convertView.findViewById(R.id.tvInfluenceValue);
 
-        itemValueTv.setText(String.format("%d", loadInfluenceFactorChosenValue(factorNameArrayList.get(position))));
+        itemValueEt.setText(String.format("%d", loadInfluenceFactorChosenValue(factorNameArrayList.get(position))));
         itemNameTv.setText(factorNameArrayList.get(position));
+
+        itemValueEt.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                //TODO: Abfrage und AKtualisierung der Werte das im Rahmen von Min / Max
+                //val = checkInputSize(itemValueEt.getText().toString(), itemNameTv.getText().toString());
+                //Log.d("INFO", "Factor: " + itemNameTv.getText().toString() + " Value: " + val);
+
+            }
+        });
 
         setListViewBackgroundColor(position, convertView);
         return convertView;
+    }
+
+    /**
+     *
+     * @param value
+     * @param itemName
+     * @return
+     */
+    public String checkInputSize(String value, String itemName)
+    {
+        int val = Integer.parseInt(value);
+        for (InfluenceFactorItem item : influenceFactorItems)
+        {
+            if (item.hasSubItems())
+            {
+                for (InfluenceFactorItem subitem : item.getSubInfluenceFactorItemsList())
+                {
+                    if (subitem.getName().equals(itemName))
+                    {
+                        if(val >= subitem.getMinValue() && val <= subitem.getMaxValue()){
+                            return String.valueOf(val);
+                        } else if(val >subitem.getMaxValue()){
+                            return String.valueOf(val);
+                        } else{
+                            return String.valueOf(subitem.getMinValue());
+                        }
+                    }
+                }
+            } else
+            {
+                if (item.getName().equals(itemName))
+                {
+                    if(val >= item.getMinValue() && val <= item.getMaxValue()){
+                        return String.valueOf(val);
+                    } else if(val >item.getMaxValue()){
+                        return String.valueOf(val);
+                    } else{
+                        return String.valueOf(item.getMinValue());
+                    }
+                }
+            }
+        }
+        return String.valueOf(val);
     }
 
     /**

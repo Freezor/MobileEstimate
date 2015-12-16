@@ -394,4 +394,34 @@ public class InfluencingFactor
 
         return erg;
     }
+
+    /**
+     * Search all items and subitems for the itemName and set the chosen value
+     * @param value
+     * @param itemName
+     */
+    public void setChosenValueOfItem(int value, String itemName)
+    {
+        for (InfluenceFactorItem item : influenceFactorItems)
+        {
+            if (item.hasSubItems())
+            {
+                for (InfluenceFactorItem subitem : item.getSubInfluenceFactorItemsList())
+                {
+                    if (subitem.getName().equals(itemName))
+                    {
+                        subitem.setChosenValue(value);
+                        break;
+                    }
+                }
+            } else
+            {
+                if (item.getName().equals(itemName))
+                {
+                    item.setChosenValue(value);
+                    break;
+                }
+            }
+        }
+    }
 }
