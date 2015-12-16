@@ -384,4 +384,24 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
         return estimationMethodNames;
     }
+
+    /**
+     * Returns the influence factor id for the factor name in the parameter
+     * @param factorName
+     * @return
+     */
+    public int getFactorItemId(String factorName)
+    {
+        String query = String.format("SELECT influence_factor_id FROM InfluenceFactors where name = '%s'", factorName);
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor c = db.rawQuery(query, null);
+
+        if (c != null)
+            c.moveToFirst();
+
+        int factorItemId = c.getInt(c.getColumnIndex("influence_factor_id"));
+
+        return factorItemId;
+    }
 }

@@ -5,26 +5,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mobileprojectestimator.mobileprojectestimator.Activities.InfluenceFactorsActivity;
+import com.mobileprojectestimator.mobileprojectestimator.Activities.CreateNewInfluenceFactorActivity;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.InfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.util.ArrayList;
 
 /**
- * Created by Oliver Fries on 10.12.2015, 16:59.
+ * Created by Oliver Fries on 16.12.2015, 11:58.
  * Project: MobileProjectEstimator
  */
-public class InfluenceListAdapter extends BaseAdapter
+public class NewInfluenceFactorListAdapter extends BaseAdapter
 {
-    private InfluenceFactorsActivity influenceFactorsActivity;
+    private CreateNewInfluenceFactorActivity influenceFactorsActivity;
     private ArrayList<InfluenceFactorItem> influenceFactorItems;
     private LayoutInflater inflater;
+    private TextView itemNameTv;
+    private TextView itemValueTv;
+    private ImageView editFactorIv;
     private ArrayList<String> factorNameArrayList;
 
-    public InfluenceListAdapter(InfluenceFactorsActivity influenceFactorsActivity, ArrayList<InfluenceFactorItem> influenceFactorItems)
+    public NewInfluenceFactorListAdapter(CreateNewInfluenceFactorActivity influenceFactorsActivity, ArrayList<InfluenceFactorItem> influenceFactorItems)
     {
         this.influenceFactorsActivity = influenceFactorsActivity;
         this.influenceFactorItems = influenceFactorItems;
@@ -120,49 +124,17 @@ public class InfluenceListAdapter extends BaseAdapter
         if (inflater == null)
             inflater = influenceFactorsActivity.getLayoutInflater();
         if (convertView == null)
-            convertView = inflater.inflate(R.layout.function_point_influence_factor_list_item, null);
+            convertView = inflater.inflate(R.layout.function_point_influence_factorset_list_item, null);
 
-        TextView itemNameTv = (TextView) convertView.findViewById(R.id.tvInfluenceName);
-        TextView itemValueTv = (TextView) convertView.findViewById(R.id.tvInfluenceValue);
+        itemNameTv = (TextView) convertView.findViewById(R.id.tvInfluenceName);
+        itemValueTv = (TextView) convertView.findViewById(R.id.tvInfluenceValue);
+        editFactorIv = (ImageView) convertView.findViewById(R.id.ivEditFactor);
 
         itemValueTv.setText(String.format("%d", loadInfluenceFactorChosenValue(factorNameArrayList.get(position))));
-
         itemNameTv.setText(factorNameArrayList.get(position));
-
 
         setListViewBackgroundColor(position, convertView);
         return convertView;
-    }
-
-    /**
-     * Set the Background for the list view
-     *
-     * @param position
-     * @param convertView
-     */
-
-    private void setListViewBackgroundColor(int position, View convertView)
-    {
-        if (position % 2 == 0)
-        {
-            convertView.setBackgroundResource(R.color.standardRowEven);
-        } else
-        {
-            convertView.setBackgroundColor(Color.TRANSPARENT);
-        }
-    }
-
-    /**
-     * Returns the sum of all influences
-     * @return
-     */
-    public int getSumOfInfluences()
-    {
-        int sum = 0;
-        for (InfluenceFactorItem item : influenceFactorItems){
-            sum += item.getChosenValue();
-        }
-        return sum;
     }
 
     /**
@@ -195,5 +167,38 @@ public class InfluenceListAdapter extends BaseAdapter
             }
         }
         return value;
+    }
+
+    /**
+     * Set the Background for the list view
+     *
+     * @param position
+     * @param convertView
+     */
+
+    private void setListViewBackgroundColor(int position, View convertView)
+    {
+        if (position % 2 == 0)
+        {
+            convertView.setBackgroundResource(R.color.standardRowEven);
+        } else
+        {
+            convertView.setBackgroundColor(Color.TRANSPARENT);
+        }
+    }
+
+    /**
+     * Returns the sum of all influences
+     *
+     * @return
+     */
+    public int getSumOfInfluences()
+    {
+        int sum = 0;
+        for (InfluenceFactorItem item : influenceFactorItems)
+        {
+            sum += item.getChosenValue();
+        }
+        return sum;
     }
 }

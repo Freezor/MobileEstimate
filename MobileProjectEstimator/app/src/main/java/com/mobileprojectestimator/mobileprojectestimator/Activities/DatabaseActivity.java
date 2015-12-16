@@ -11,9 +11,14 @@ import java.sql.SQLException;
 /**
  * Created by Oliver Fries on 15.12.2015, 18:31.
  * Project: MobileProjectEstimator
+ * Extends AppCompatActivity
+ *  For all Activities that need access to the database
  */
 public class DatabaseActivity extends AppCompatActivity
 {
+    /**
+     * The Database Helper Object for sending queries to the database
+     */
     protected DataBaseHelper databaseHelper;
 
     /**

@@ -16,8 +16,17 @@ import java.util.Map;
  */
 public class InfluencingFactor
 {
+    /**
+     * The ID for Function Point
+     */
     public static final int FUNCTIONPOINTFACTORS = 1;
+    /**
+     * The ID for COCOMO
+     */
     public static final int COCOMOFACTORS = 2;
+    /**
+     * The ID for COCOMO 2
+     */
     public static final int COCOMO2FACTORS = 3;
     private final int influencingFactorId;
     private final Context context;
@@ -26,6 +35,11 @@ public class InfluencingFactor
     private int sumOfInfluences;
     private int influenceItemSum;
 
+    /**
+     *
+     * @param current
+     * @param influencingFactorId
+     */
     public InfluencingFactor(Context current, int influencingFactorId)
     {
         this.context = current;
@@ -274,6 +288,11 @@ public class InfluencingFactor
         }
     }
 
+    /**
+     * Set the chosen values for an influence factor
+     * Needed for initialisation from the database
+     * @param values
+     */
     public void setFunctionPointValuesFromArrayList(ArrayList<Integer> values)
     {
         influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_integration))).setChosenValue(values.get(0));
@@ -293,6 +312,11 @@ public class InfluencingFactor
 
     }
 
+    /**
+     * Create the Influence Factors from the Hash Map for Funciton Point
+     * @param map
+     * @return
+     */
     private boolean setFunctionPointInfluenceFactorValues(HashMap<String, String> map)
     {
         try
@@ -316,6 +340,10 @@ public class InfluencingFactor
         return true;
     }
 
+    /**
+     * Returns the sum of all influences regardless of the estimation Method
+     * @return
+     */
     public int getSumOfInfluences()
     {
         switch (influencingFactorId)
@@ -333,6 +361,11 @@ public class InfluencingFactor
         return sumOfInfluences;
     }
 
+    /**
+     * Returns the evaluated sum of all influence factor Items
+     * Use only in Function Point Method Influence Factor
+     * @return
+     */
     private int getFunctionPointInfluenceSum()
     {
         influenceItemSum = 0;

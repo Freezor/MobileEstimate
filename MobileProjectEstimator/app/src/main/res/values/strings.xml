@@ -140,4 +140,13 @@
     <string name="ProjectsNameList">LISTWITHPROJECTNAMES</string>
     <string name="title_activity_influence_factors">Influencing Factors</string>
     <string name="INFLUENCEFACTORACTIVITYREQUESTCODE">1006</string>
+    <string name="title_activity_create_new_influence_factor">New Factor</string>
+    <string name="action_save_factor">Save</string>
+    <string name="action_delete_factor">Delete Factor from database</string>
+    <string name="action_create_new_factor">Create New Factor</string>
+    <string name="hint_factor_name">Factor Name</string>
+    <string name="new_influence_factor_request_code">31246</string>
+    <string name="ISNEWFACTOR">ISNEWFACTOR</string>
+    <string name="NEWFACTORESTIMATIONMETHOD">ESTIMATIONMETHOD</string>
+    <string name="NEWFACTORINFLUENCESETNAME">INFLUENCEFACTORNAME</string>
 </resources>

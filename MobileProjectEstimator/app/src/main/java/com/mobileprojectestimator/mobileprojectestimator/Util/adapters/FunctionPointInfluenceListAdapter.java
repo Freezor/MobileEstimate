@@ -39,6 +39,7 @@ public class FunctionPointInfluenceListAdapter extends BaseAdapter
      * The Inflater object
      */
     private LayoutInflater inflater;
+    private ArrayList<String> factorNameArrayList;
 
     /**
      * Standard constructor
@@ -52,6 +53,26 @@ public class FunctionPointInfluenceListAdapter extends BaseAdapter
         this.fragment = projectInfluenceFactorFragment;
         this.fpInfluenceItems = fpInfluenceItems;
         this.project = project;
+
+        initFactorArrayList();
+    }
+
+    private void initFactorArrayList()
+    {
+        factorNameArrayList = new ArrayList<String>();
+        for (InfluenceFactorItem item : fpInfluenceItems)
+        {
+            if (item.hasSubItems())
+            {
+                for (InfluenceFactorItem subitems : item.getSubInfluenceFactorItemsList())
+                {
+                    factorNameArrayList.add(subitems.getName());
+                }
+            } else
+            {
+                factorNameArrayList.add(item.getName());
+            }
+        }
     }
 
     /**
@@ -124,7 +145,18 @@ public class FunctionPointInfluenceListAdapter extends BaseAdapter
     @Override
     public int getCount()
     {
-        return fpInfluenceItems.size();
+        int sum = 0;
+        for (InfluenceFactorItem item : fpInfluenceItems)
+        {
+            if (item.hasSubItems())
+            {
+                sum += item.getSubInfluenceFactorItemsList().size();
+            } else
+            {
+                sum += 1;
+            }
+        }
+        return sum;
     }
 
     @Override
@@ -150,14 +182,10 @@ public class FunctionPointInfluenceListAdapter extends BaseAdapter
         TextView itemNameTv = (TextView) convertView.findViewById(R.id.tvInfluenceName);
         TextView itemValueTv = (TextView) convertView.findViewById(R.id.tvInfluenceValue);
 
-        if (fpInfluenceItems.get(position).getChosenValue() >= 0)
-        {
-            itemValueTv.setText(String.format("%d", fpInfluenceItems.get(position).getChosenValue()));
-        } else
-        {
-            itemValueTv.setText(R.string.factor_value_standard_value);
-        }
-        itemNameTv.setText(fpInfluenceItems.get(position).getName());
+
+        itemValueTv.setText(String.format("%d", loadInfluenceFactorChosenValue(factorNameArrayList.get(position))));
+
+        itemNameTv.setText(factorNameArrayList.get(position));
 
 
         setListViewBackgroundColor(position, convertView);
@@ -180,6 +208,38 @@ public class FunctionPointInfluenceListAdapter extends BaseAdapter
         {
             convertView.setBackgroundColor(Color.TRANSPARENT);
         }
+    }
+
+    /**
+     * Load the influence Factor items and sets an item for each subitem
+     * @param factorName
+     * @return
+     */
+    private int loadInfluenceFactorChosenValue(String factorName)
+    {
+        int value = 0;
+        for (InfluenceFactorItem item : fpInfluenceItems)
+        {
+            if (item.hasSubItems())
+            {
+                for (InfluenceFactorItem subitems : item.getSubInfluenceFactorItemsList())
+                {
+                    if (subitems.getName().equals(factorName))
+                    {
+                        value = subitems.getChosenValue();
+                        break;
+                    }
+                }
+            } else
+            {
+                if (item.getName().equals(factorName))
+                {
+                    value = item.getChosenValue();
+                    break;
+                }
+            }
+        }
+        return value;
     }
 }
 

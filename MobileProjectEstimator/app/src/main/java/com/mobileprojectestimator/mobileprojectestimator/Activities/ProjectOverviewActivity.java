@@ -40,7 +40,7 @@ import java.util.List;
 /**
  * Activtiy for the Overview of all projects
  */
-public class ProjectOverviewActivity extends AppCompatActivity
+public class ProjectOverviewActivity extends DatabaseActivity
         implements NavigationView.OnNavigationItemSelectedListener
 {
 
@@ -109,39 +109,6 @@ public class ProjectOverviewActivity extends AppCompatActivity
 
         initDatabase();
 
-    }
-
-    /**
-     * Initialise the Database Helper class and loads the database
-     */
-    private void initDatabase()
-    {
-        Log.d("Info", "Database Initialisation");
-        databaseHelper = new DataBaseHelper(this);
-
-        try
-        {
-
-            databaseHelper.createDataBase();
-
-        } catch (IOException ioe)
-        {
-
-            throw new Error("Unable to create database");
-
-        }
-
-        try
-        {
-
-            databaseHelper.openDataBase();
-
-        } catch (SQLException sqle)
-        {
-            Log.d("ERROR",sqle.toString());
-        }
-
-        databaseHelper.logDatabaseInformation();
     }
 
     /**

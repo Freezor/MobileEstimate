@@ -2,6 +2,7 @@ package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
@@ -83,7 +84,7 @@ public class InfluenceFactorsActivity extends DatabaseActivity
             @Override
             public void onClick(View v)
             {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(InfluenceFactorsActivity.this);
                 final CharSequence[] items = estimationMethodsList.toArray(new CharSequence[estimationMethodsList.size()]);
                 builder.setTitle("Choose an estimation Method")
                         .setItems(items, new DialogInterface.OnClickListener()
@@ -104,9 +105,26 @@ public class InfluenceFactorsActivity extends DatabaseActivity
                 alertDialog.show();
             }
         });
+
+        editinfluenceFactorSet.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent i = new Intent(InfluenceFactorsActivity.this, CreateNewInfluenceFactorActivity.class);
+                i.putExtra(getString(R.string.ISNEWFACTOR),false);
+                i.putExtra(getString(R.string.NEWFACTORESTIMATIONMETHOD),selectedEstimationMethod);
+                i.putExtra(getString(R.string.NEWFACTORINFLUENCESETNAME),influenceFactorNames.get(influenceFactorSetSpinner.getSelectedItemPosition()));
+                startActivityForResult(i, Integer.parseInt(getString(R.string.new_influence_factor_request_code)));
+            }
+        });
     }
 
 
+    /**
+     * Loads the influence factors from the database
+     * @param factorName
+     */
     private void loadInfluenceFactor(String factorName)
     {
         if (selectedEstimationMethod.equals(getString(R.string.estimation_method_function_point)))
@@ -123,9 +141,21 @@ public class InfluenceFactorsActivity extends DatabaseActivity
             influenceListAdapter = new InfluenceListAdapter(this, influencingFactor.getInfluenceFactorItems());
             influenceFactorItemsList.setAdapter(influenceListAdapter);
             influenceFactorItemsList.setScrollbarFadingEnabled(false);
+            updateSumOfInfluences();
         }
     }
 
+    /**
+     * Update the Influence Sum TextView with the sum of all Influence Factors
+     */
+    private void updateSumOfInfluences()
+    {
+        sumOfInfluences.setText(String.format("%s %d", getString(R.string.function_point_sum_of_influences), influenceListAdapter.getSumOfInfluences()));
+    }
+
+    /**
+     * Load the names of all Influence Factors for the selected Estimation Method and fill the Spinner
+     */
     private void loadInfluenceFactorNames()
     {
         if (estimationMethodsList.isEmpty())
@@ -172,8 +202,14 @@ public class InfluenceFactorsActivity extends DatabaseActivity
         estimationMethodName.setText(selectedEstimationMethod);
     }
 
+    /**
+     * Open the Activity for creating a new Influence Factor
+     */
     private void onClickCreateNewInfluenceFactor()
     {
-        //TODO: start new influence Factor activity
+        Intent i = new Intent(InfluenceFactorsActivity.this, CreateNewInfluenceFactorActivity.class);
+        i.putExtra(getString(R.string.ISNEWFACTOR),true);
+        i.putExtra(getString(R.string.NEWFACTORESTIMATIONMETHOD),selectedEstimationMethod);
+        startActivityForResult(i, Integer.parseInt(getString(R.string.new_influence_factor_request_code)));
     }
 }
