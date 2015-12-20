@@ -31,6 +31,11 @@ public class InfluencingFactor
     private final int influencingFactorId;
     private final Context context;
     private String name;
+
+    public void setInfluenceFactorItems(ArrayList<InfluenceFactorItem> influenceFactorItems) {
+        this.influenceFactorItems = influenceFactorItems;
+    }
+
     private ArrayList<InfluenceFactorItem> influenceFactorItems;
     private int sumOfInfluences;
     private int influenceItemSum;

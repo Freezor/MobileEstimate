@@ -1,5 +1,6 @@
 package com.mobileprojectestimator.mobileprojectestimator.Util.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,7 +9,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Database.DatabaseInfluenceFactorItem;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.InfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
+import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,6 +21,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Oliver Fries on 15.12.2015, 11:33.
@@ -75,7 +79,9 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
             //By calling this method and empty database will be created into the default system path
             //of your application so we are gonna be able to overwrite that database with our database.
-            this.getReadableDatabase();
+
+            //TODO: This throws error here
+            //this.getWritableDatabase();
 
             try
             {
@@ -103,7 +109,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         try
         {
             String myPath = DB_PATH + DB_NAME;
-            checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+            checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
 
         } catch (SQLiteException e)
         {
@@ -131,7 +137,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     {
         //Open the database
         String myPath = DB_PATH + DB_NAME;
-        projectEstimationDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+        projectEstimationDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
     }
 
     /**
@@ -242,7 +248,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     {
         try
         {
-            String destPath = "/data/data/com.mobileprojectestimator.mobileprojectestimator/databases/(...your db...)";
+            String destPath = "/data/data/com.mobileprojectestimator.mobileprojectestimator/databases/"+DB_NAME;
 
             File f = new File(destPath);
             File c = new File("/data/data/com.mobileprojectestimator.mobileprojectestimator/databases/");
@@ -279,7 +285,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     {
         ArrayList<DatabaseInfluenceFactorItem> influenceFactorItems = new ArrayList<>();
 
-        String selectQuery = String.format("SELECT * FROM \"InfluenceFactors\" WHERE estimation_method_id = %d;", estimationId);
+        String selectQuery = String.format("SELECT * FROM \"InfluenceFactors\" WHERE estimation_method_id = %d ORDER BY lower(name) ASC;", estimationId);
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -408,6 +414,56 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     public void createNewInfluenceFactor(String selectedEstimationMethod, InfluencingFactor influencingFactor)
     {
+        int influenceFactorDatabaseId = 0;
+        int estimationMethodId = 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        if(selectedEstimationMethod.equals(context.getString(R.string.function_point))){
+            ArrayList<InfluenceFactorItem> items = influencingFactor.getInfluenceFactorItems();
+            int integration = items.get(0).getChosenValue();
+            int localData = items.get(1).getChosenValue();
+            int transactionRate = items.get(2).getChosenValue();
+            int arithmetic = items.get(3).getSubInfluenceFactorItemsList().get(0).getChosenValue();
+            int control = items.get(3).getSubInfluenceFactorItemsList().get(1).getChosenValue();
+            int exceptional = items.get(3).getSubInfluenceFactorItemsList().get(2).getChosenValue();
+            int logic = items.get(3).getSubInfluenceFactorItemsList().get(3).getChosenValue();
+            int reusability = items.get(4).getChosenValue();
+            int stockConversion = items.get(5).getChosenValue();
+            int adaptability = items.get(6).getChosenValue();
+
+
+            String selectCreatedIdQuery = "SELECT _id FROM FunctionPointInfluenceFactor ORDER BY _id DESC LIMIT 1;";
+            Cursor c =db.rawQuery(selectCreatedIdQuery, null);
+            if (c != null)
+                c.moveToFirst();
+
+            influenceFactorDatabaseId = c.getInt(c.getColumnIndex("_id"));
+            influenceFactorDatabaseId++;
+
+            ContentValues insertValues = new ContentValues();
+            insertValues.put("_id", influenceFactorDatabaseId);
+            insertValues.put("Integration", integration);
+            insertValues.put("LocalDataProcessing", localData);
+            insertValues.put("TransactionRate", transactionRate);
+            insertValues.put("ArithmeticOperation", arithmetic);
+            insertValues.put("ControlProcedure", control);
+            insertValues.put("ExceptionalRule", exceptional);
+            insertValues.put("Logic", logic);
+            insertValues.put("Reusability", reusability);
+            insertValues.put("StockConversion", stockConversion);
+            insertValues.put("Adaptability", adaptability);
+            db.insert("FunctionPointInfluenceFactor",null,insertValues);
+
+            estimationMethodId = getEstimationMethodId(selectedEstimationMethod);
+        }
+
+        ContentValues insertInfluenceValues = new ContentValues();
+        insertInfluenceValues.put("name", influencingFactor.getInfluenceFactorSetName());
+        insertInfluenceValues.put("estimation_method_id", estimationMethodId);
+        insertInfluenceValues.put("influence_factor_id", influenceFactorDatabaseId);
+        db.insert("InfluenceFactors",null,insertInfluenceValues);
+
+        db.close();
 
     }
 

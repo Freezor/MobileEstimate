@@ -17,6 +17,7 @@ import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Influ
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Oliver Fries on 16.12.2015, 11:58.
@@ -29,9 +30,8 @@ public class NewInfluenceFactorListAdapter extends BaseAdapter
     private LayoutInflater inflater;
     private TextView itemNameTv;
     private EditText itemValueEt;
-    private ImageView editFactorIv;
     private ArrayList<String> factorNameArrayList;
-    private String val;
+    private HashMap<String, String> textValues = new HashMap<String, String>();
 
     public NewInfluenceFactorListAdapter(CreateNewInfluenceFactorActivity influenceFactorsActivity, ArrayList<InfluenceFactorItem> influenceFactorItems)
     {
@@ -126,43 +126,54 @@ public class NewInfluenceFactorListAdapter extends BaseAdapter
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
+        boolean convertViewWasNull = false;
         if (inflater == null)
             inflater = influenceFactorsActivity.getLayoutInflater();
-        if (convertView == null)
+        if (convertView == null) {
             convertView = inflater.inflate(R.layout.function_point_influence_factorset_list_item, null);
-
+            convertViewWasNull = true;
+        }
         itemNameTv = (TextView) convertView.findViewById(R.id.tvInfluenceName);
         itemValueEt = (EditText) convertView.findViewById(R.id.tvInfluenceValue);
 
+        Log.d("INFO", "Set Text for item value: name=  " + factorNameArrayList.get(position) +" value = "+loadInfluenceFactorChosenValue(factorNameArrayList.get(position)));
         itemValueEt.setText(String.format("%d", loadInfluenceFactorChosenValue(factorNameArrayList.get(position))));
         itemNameTv.setText(factorNameArrayList.get(position));
 
-        itemValueEt.addTextChangedListener(new TextWatcher()
-        {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after)
-            {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count)
-            {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s)
-            {
-                //TODO: Abfrage und AKtualisierung der Werte das im Rahmen von Min / Max
-                //val = checkInputSize(itemValueEt.getText().toString(), itemNameTv.getText().toString());
-                //Log.d("INFO", "Factor: " + itemNameTv.getText().toString() + " Value: " + val);
-
-            }
-        });
+        if(convertViewWasNull){
+            itemValueEt.addTextChangedListener(new GenericTextWatcher(itemValueEt));
+            Log.d("INFO", "Create New Text Change Listener for: " + factorNameArrayList.get(position));
+        }
+        Log.d("INFO","ITEM VALUE TAG: " + factorNameArrayList.get(position));
+        itemValueEt.setTag(factorNameArrayList.get(position));
 
         setListViewBackgroundColor(position, convertView);
         return convertView;
+    }
+
+    private void updateItemChosenValue(String itemName, int val) {
+        Log.d("INFO","update chosen value for: " + itemName + "with: " + val);
+        for (InfluenceFactorItem item : influenceFactorItems)
+        {
+            if (item.hasSubItems())
+            {
+                for (InfluenceFactorItem subitem : item.getSubInfluenceFactorItemsList())
+                {
+                    if (subitem.getName().equals(itemName))
+                    {
+                        Log.d("INFO","Found in subitem " + subitem.getName() + "; pre value = " + subitem.getChosenValue());
+                        subitem.setChosenValue(val);
+                    }
+                }
+            } else
+            {
+                if (item.getName().equals(itemName))
+                {
+                    Log.d("INFO","Found in subitem " + item.getName() + "; pre value = " + item.getChosenValue());
+                    item.setChosenValue(val);
+                }
+            }
+        }
     }
 
     /**
@@ -173,6 +184,9 @@ public class NewInfluenceFactorListAdapter extends BaseAdapter
      */
     public String checkInputSize(String value, String itemName)
     {
+        if(value == null || value.isEmpty() || value.equals("")){
+            value = "0";
+        }
         int val = Integer.parseInt(value);
         for (InfluenceFactorItem item : influenceFactorItems)
         {
@@ -216,6 +230,7 @@ public class NewInfluenceFactorListAdapter extends BaseAdapter
     private int loadInfluenceFactorChosenValue(String factorName)
     {
         int value = 0;
+        Log.d("INFO","Load Influence Factor Value for " + factorName);
         for (InfluenceFactorItem item : influenceFactorItems)
         {
             if (item.hasSubItems())
@@ -224,6 +239,7 @@ public class NewInfluenceFactorListAdapter extends BaseAdapter
                 {
                     if (subitems.getName().equals(factorName))
                     {
+                        Log.d("INFO","Found in subitem " + subitems.getName()+ " with value = "+subitems.getChosenValue());
                         value = subitems.getChosenValue();
                         break;
                     }
@@ -232,11 +248,13 @@ public class NewInfluenceFactorListAdapter extends BaseAdapter
             {
                 if (item.getName().equals(factorName))
                 {
+                    Log.d("INFO","Found in item " + item.getName()+ " with value = "+item.getChosenValue());
                     value = item.getChosenValue();
                     break;
                 }
             }
         }
+        Log.d("INFO","Return Value for " + factorName+ "value = "+value);
         return value;
     }
 
@@ -271,5 +289,36 @@ public class NewInfluenceFactorListAdapter extends BaseAdapter
             sum += item.getChosenValue();
         }
         return sum;
+    }
+
+    public ArrayList<InfluenceFactorItem> getInfluenceFactorItems()
+    {
+        for(String influenceName : factorNameArrayList){
+            String value = textValues.get(influenceName);
+            value = checkInputSize(value,influenceName);
+            updateItemChosenValue(influenceName, Integer.parseInt(value));
+        }
+        return influenceFactorItems;
+    }
+
+    private class GenericTextWatcher implements TextWatcher{
+
+        private View view;
+        private GenericTextWatcher(View view) {
+            this.view = view;
+        }
+
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+        public void afterTextChanged(Editable editable) {
+            //save the value for the given tag :
+            Log.d("INFO", "Update Text values: Tag= " + view.getTag().toString() + " Value = " + editable.toString());
+            String tag = view.getTag().toString();
+            String value = editable.toString();
+            NewInfluenceFactorListAdapter.this.textValues.put(tag, value);
+            int checkedVal = Integer.parseInt(checkInputSize(value, tag));
+            NewInfluenceFactorListAdapter.this.updateItemChosenValue(tag, checkedVal);
+        }
     }
 }

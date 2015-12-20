@@ -1,7 +1,9 @@
 package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -98,18 +100,25 @@ public class CreateNewInfluenceFactorActivity extends DatabaseActivity
         EditText etValue;
         TextView name;
         int value= 0;
-        for (int i = 0; i < factorItemsListView.getCount(); i++) {
-            v = factorItemsListView.getChildAt(i);
+        influencingFactor.setName(factorName.getText().toString());
+        /*for (int i = 0; i < factorItemsListView.getCount(); i++) {
+            v = factorItemsListView.getAdapter().getView(i, null, null);
             etValue = (EditText) v.findViewById(R.id.tvInfluenceValue);
             name = (TextView) v.findViewById(R.id.tvInfluenceName);
             value = Integer.parseInt(influenceListAdapter.checkInputSize(String.valueOf(etValue.getText()),name.getText().toString()));
             influencingFactor.setChosenValueOfItem(value,name.getText().toString());
-        }
+        }*/
+        influencingFactor.setInfluenceFactorItems(influenceListAdapter.getInfluenceFactorItems());
+
         if(oldFactorName.isEmpty() || oldFactorName.equals(""))
         {
-            databaseHelper.createNewInfluenceFactor(selectedEstimationMethod,influencingFactor);
+            databaseHelper.createNewInfluenceFactor(selectedEstimationMethod, influencingFactor);
+            Intent returnIntent = new Intent();
+            setResult(Integer.parseInt(getString(R.string.new_influence_factor_request_code)), returnIntent);
         } else {
             databaseHelper.updateExistingInfluenceFactor(selectedEstimationMethod,oldFactorName,influencingFactor);
+            Intent returnIntent = new Intent();
+            setResult(Integer.parseInt(getString(R.string.edit_influence_factor_request_code)), returnIntent);
         }
     }
 

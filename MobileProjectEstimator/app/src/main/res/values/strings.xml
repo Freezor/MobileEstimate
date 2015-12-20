@@ -89,7 +89,7 @@
     <string name="estimation_item_unweighted_points">Unweighted Points:</string>
     <string name="estimation_item_sample_value">10</string>
     <string name="influence_factor_list_item_base_value">Integration into other applications</string>
-    <string name="influence_factor_list_item_value">10</string>
+    <string name="influence_factor_list_item_value">0</string>
     <string name="project_list_creation_name">Item Name:</string>
     <string name="project_list_creation_value">Item Value</string>
     <string name="function_point_estimation_simple">Simple</string>
@@ -149,4 +149,5 @@
     <string name="ISNEWFACTOR">ISNEWFACTOR</string>
     <string name="NEWFACTORESTIMATIONMETHOD">ESTIMATIONMETHOD</string>
     <string name="NEWFACTORINFLUENCESETNAME">INFLUENCEFACTORNAME</string>
+    <string name="edit_influence_factor_request_code">42365</string>
 </resources>
