@@ -19,15 +19,15 @@ public class InfluencingFactor
     /**
      * The ID for Function Point
      */
-    public static final int FUNCTIONPOINTFACTORS = 1;
+    public static final int FUNCTIONPOINTFACTORS = 101;
     /**
      * The ID for COCOMO
      */
-    public static final int COCOMOFACTORS = 2;
+    public static final int COCOMOFACTORS = 102;
     /**
      * The ID for COCOMO 2
      */
-    public static final int COCOMO2FACTORS = 3;
+    public static final int COCOMO2FACTORS = 103;
     private final int influencingFactorId;
     private final Context context;
     private String name;
@@ -329,6 +329,7 @@ public class InfluencingFactor
             influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_integration))).setChosenValue(Integer.parseInt(map.get(context.getString(R.string.function_point_influence_factor_item_integration))));
             influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_local_data))).setChosenValue(Integer.parseInt(map.get(context.getString(R.string.function_point_influence_factor_item_local_data))));
             influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_transaction_rate))).setChosenValue(Integer.parseInt(map.get(context.getString(R.string.function_point_influence_factor_item_transaction_rate))));
+            influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_arithmetic_operation))).setChosenValue(Integer.parseInt(map.get(context.getString(R.string.function_point_influence_factor_item_arithmetic_operation))));
             influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_reusability))).setChosenValue(Integer.parseInt(map.get(context.getString(R.string.function_point_influence_factor_item_reusability))));
             influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_stock_conversion))).setChosenValue(Integer.parseInt(map.get(context.getString(R.string.function_point_influence_factor_item_stock_conversion))));
             influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_adaptability))).setChosenValue(Integer.parseInt(map.get(context.getString(R.string.function_point_influence_factor_item_adaptability))));

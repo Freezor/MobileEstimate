@@ -529,6 +529,11 @@ public class Project implements Serializable
         return evaluatedPersonDays;
     }
 
+    public void setEvaluatedPersonDays(int evaluatedPersonDays)
+    {
+        this.evaluatedPersonDays = evaluatedPersonDays;
+    }
+
     public int getProjectId()
     {
         return projectId;
@@ -537,5 +542,11 @@ public class Project implements Serializable
     public void setProjectId(int projectId)
     {
         this.projectId = projectId;
+    }
+
+
+    public void setEstimationItems(ArrayList<EstimationItem> estimationItems)
+    {
+        this.estimationItems = estimationItems;
     }
 }

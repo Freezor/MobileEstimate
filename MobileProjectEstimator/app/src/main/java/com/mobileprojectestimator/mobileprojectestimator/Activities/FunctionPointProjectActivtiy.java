@@ -83,14 +83,24 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
             e.printStackTrace();
         }
 
-        Intent intent = getIntent();
-        String projectId = intent.getStringExtra(getString(R.string.NewProjectIntentValueParam));
+        Bundle extras = getIntent().getExtras();
+        String projectId = null;
+        if (extras != null)
+        {
+            projectId = String.valueOf(extras.getInt(getString(R.string.SELECTEDPROJECTID)));
+        }
         if (databaseHelper == null)
         {
             initDatabase();
         }
-        project = databaseHelper.loadProjectById(this, projectId);
-        Log.d("Info", project.getTitle() + " wurde geöffnet.");
+        if (projectId == null)
+        {
+            Log.d("ERROR","Loading Project from bundle Error");
+        } else
+        {
+            project = databaseHelper.loadProjectById(this, projectId);
+            Log.d("Info", project.getTitle() + " wurde geöffnet.");
+        }
 
 
         fragmentsList = new ArrayList<>();

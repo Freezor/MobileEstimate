@@ -109,12 +109,13 @@ public class ProjectOverviewActivity extends DatabaseActivity
      */
     private void onClickProject(int position)
     {
-        Intent intent = new Intent(ProjectOverviewActivity.this, FunctionPointProjectActivtiy.class);
+        Intent intent = new Intent(getApplicationContext(), FunctionPointProjectActivtiy.class);
         //Changed from toHashMap with introduction of database. Only Id is needed now
         /*HashMap<String, String> projectHashMap = projectsList.get(position).toHashMap();
         intent.putExtra(getString(R.string.NewProjectIntentValueParam), projectHashMap);*/
-        intent.putExtra(getString(R.string.NewProjectIntentValueParam), projectsList.get(position).getProjectId());
+        intent.putExtra(getString(R.string.SELECTEDPROJECTID), projectsList.get(position).getProjectId());
         startActivityForResult(intent, Integer.parseInt((getString(R.string.PROJECT_VIEW_CODE))));
+        //startActivity(intent);
     }
 
     /**

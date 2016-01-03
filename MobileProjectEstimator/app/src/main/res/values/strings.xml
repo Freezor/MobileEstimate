@@ -152,4 +152,5 @@
     <string name="edit_influence_factor_request_code">42365</string>
     <string name="database_destination_path">/data/data/com.mobileprojectestimator.mobileprojectestimator/databases/%s</string>
     <string name="database_new_creation_path">/data/data/com.mobileprojectestimator.mobileprojectestimator/databases/</string>
+    <string name="SELECTEDPROJECTID">Selected_Project_id</string>
 </resources>
