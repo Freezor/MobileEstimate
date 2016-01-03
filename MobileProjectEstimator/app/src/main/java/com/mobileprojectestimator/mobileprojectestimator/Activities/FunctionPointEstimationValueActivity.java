@@ -64,7 +64,7 @@ public class FunctionPointEstimationValueActivity extends DatabaseActivity
             this.project.updateFunctionPointItem(item);
             Intent returnIntent = new Intent();
             //TODO: bereits gesetzte Items sind hier wieder 0
-            returnIntent.putExtra(getString(R.string.NewProjectIntentValueParam), project.getDetailsId());
+            returnIntent.putExtra(getString(R.string.NewProjectIntentValueParam), project.getProjectId());
             setResult(1, returnIntent);
             finish();
         } else

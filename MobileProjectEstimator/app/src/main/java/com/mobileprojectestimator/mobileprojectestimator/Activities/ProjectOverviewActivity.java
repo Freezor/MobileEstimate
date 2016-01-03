@@ -113,7 +113,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
         //Changed from toHashMap with introduction of database. Only Id is needed now
         /*HashMap<String, String> projectHashMap = projectsList.get(position).toHashMap();
         intent.putExtra(getString(R.string.NewProjectIntentValueParam), projectHashMap);*/
-        intent.putExtra(getString(R.string.NewProjectIntentValueParam), projectsList.get(position).getDetailsId());
+        intent.putExtra(getString(R.string.NewProjectIntentValueParam), projectsList.get(position).getProjectId());
         startActivityForResult(intent, Integer.parseInt((getString(R.string.PROJECT_VIEW_CODE))));
     }
 

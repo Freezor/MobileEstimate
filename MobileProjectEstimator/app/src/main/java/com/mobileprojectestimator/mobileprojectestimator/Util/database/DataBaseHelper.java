@@ -3,14 +3,15 @@ package com.mobileprojectestimator.mobileprojectestimator.Util.database;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
-import com.mobileprojectestimator.mobileprojectestimator.Activities.FunctionPointEstimationValueActivity;
-import com.mobileprojectestimator.mobileprojectestimator.Activities.ProjectOverviewActivity;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Database.DatabaseInfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.InfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
@@ -25,8 +26,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Random;
 
 /**
  * Created by Oliver Fries on 15.12.2015, 11:33.
@@ -253,7 +252,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     {
         try
         {
-            String destPath = "/data/data/com.mobileprojectestimator.mobileprojectestimator/databases/"+DB_NAME;
+            String destPath = "/data/data/com.mobileprojectestimator.mobileprojectestimator/databases/" + DB_NAME;
 
             File f = new File(destPath);
             File c = new File("/data/data/com.mobileprojectestimator.mobileprojectestimator/databases/");
@@ -277,14 +276,15 @@ public class DataBaseHelper extends SQLiteOpenHelper
             e.printStackTrace();
         }
     }
+
     //~~~~SQL Queries Start here~~~~\\
 
     /**
      * Query to return all Influence Factors for the estimation Method.
      * ATTENTION: This returns only items with the id. For getting an item with the value you need to select from the estimation method influence factor table with the influence_factor_id
      *
-     * @return
      * @param estimationId
+     * @return
      */
     public ArrayList<DatabaseInfluenceFactorItem> getInfluenceFactorItems(int estimationId)
     {
@@ -330,6 +330,12 @@ public class DataBaseHelper extends SQLiteOpenHelper
     }
 
 
+    /**
+     * load estimation method
+     *
+     * @param estimationMethod
+     * @return
+     */
     public int getEstimationMethodId(String estimationMethod)
     {
         String query = String.format("SELECT _id FROM EstimationMethod WHERE name = '%s';", estimationMethod);
@@ -345,6 +351,12 @@ public class DataBaseHelper extends SQLiteOpenHelper
         return estimationId;
     }
 
+    /**
+     * load influence values for function point values
+     *
+     * @param itemId
+     * @return
+     */
     public ArrayList<Integer> loadFunctionPointInfluenceValues(int itemId)
     {
         ArrayList<Integer> influenceFactorValues = new ArrayList<>();
@@ -374,6 +386,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     /**
      * Returns a string ArrayList with all available Estimation Methods
+     *
      * @return
      */
     public ArrayList<String> getEstimationMethodNames()
@@ -399,6 +412,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     /**
      * Returns the influence factor id for the factor name in the parameter
+     *
      * @param factorName
      * @return
      */
@@ -417,13 +431,20 @@ public class DataBaseHelper extends SQLiteOpenHelper
         return factorItemId;
     }
 
+    /**
+     * create new project in database
+     *
+     * @param selectedEstimationMethod
+     * @param influencingFactor
+     */
     public void createNewInfluenceFactor(String selectedEstimationMethod, InfluencingFactor influencingFactor)
     {
         int influenceFactorDatabaseId = 0;
         int estimationMethodId = 0;
         SQLiteDatabase db = this.getWritableDatabase();
 
-        if(selectedEstimationMethod.equals(context.getString(R.string.function_point))){
+        if (selectedEstimationMethod.equals(context.getString(R.string.function_point)))
+        {
             ArrayList<InfluenceFactorItem> items = influencingFactor.getInfluenceFactorItems();
             int integration = items.get(0).getChosenValue();
             int localData = items.get(1).getChosenValue();
@@ -438,7 +459,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
 
             String selectCreatedIdQuery = "SELECT _id FROM FunctionPointInfluenceFactor ORDER BY _id DESC LIMIT 1;";
-            Cursor c =db.rawQuery(selectCreatedIdQuery, null);
+            Cursor c = db.rawQuery(selectCreatedIdQuery, null);
             if (c != null)
                 c.moveToFirst();
 
@@ -457,7 +478,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
             insertValues.put("Reusability", reusability);
             insertValues.put("StockConversion", stockConversion);
             insertValues.put("Adaptability", adaptability);
-            db.insert("FunctionPointInfluenceFactor",null,insertValues);
+            db.insert("FunctionPointInfluenceFactor", null, insertValues);
 
             estimationMethodId = getEstimationMethodId(selectedEstimationMethod);
         }
@@ -466,7 +487,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         insertInfluenceValues.put("name", influencingFactor.getInfluenceFactorSetName());
         insertInfluenceValues.put("estimation_method_id", estimationMethodId);
         insertInfluenceValues.put("influence_factor_id", influenceFactorDatabaseId);
-        db.insert("InfluenceFactors",null,insertInfluenceValues);
+        db.insert("InfluenceFactors", null, insertInfluenceValues);
 
         db.close();
 
@@ -484,13 +505,128 @@ public class DataBaseHelper extends SQLiteOpenHelper
         return p;
     }
 
+    /**
+     * Return true if projects exist
+     *
+     * @return
+     */
     public boolean hasProjects()
     {
-        return false;
+        String query = "SELECT Count(*) From Projects";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor c = db.rawQuery(query, null);
+
+        if (c != null)
+            c.moveToFirst();
+
+        int factorItemId = c.getInt(0);
+
+        db.close();
+
+        if (factorItemId > 0)
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
     }
 
+    /**
+     * Return all projects in database as arrayList with name, estimation method, creation date, detailsId and Icon Information
+     *
+     * @param activity
+     * @return
+     */
     public ArrayList<Project> getAllProjects(Activity activity)
     {
-        return null;
+        ArrayList<Project> projects = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM Projects;";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst())
+        {
+            do
+            {
+                Project p = new Project(activity.getBaseContext());
+                p.setTitle(c.getString(c.getColumnIndex("name")));
+                p.setEstimationMethod(getEstimationMethodNameById(c.getString(c.getColumnIndex("estimation_method_id"))));
+                int detailsId = c.getInt(c.getColumnIndex("project_details_id"));
+
+                p.setImage(loadProjectImage(detailsId));
+                p.setCreationDate(c.getString(c.getColumnIndex("created_at")));
+
+                p.setProjectId(c.getInt(c.getColumnIndex("_id")));
+                projects.add(p);
+            } while (c.moveToNext());
+        }
+        db.close();
+        return projects;
+    }
+
+    /**
+     * Load the Bitmap from Icon from the assets Folder
+     *
+     * @param detailsId
+     * @return
+     */
+    public Bitmap loadProjectImage(int detailsId)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = String.format("SELECT * FROM ProjectDetails WHERE _id = %d;", detailsId);
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c != null)
+            c.moveToFirst();
+
+        int iconId = c.getInt(c.getColumnIndex("icon_id"));
+
+        selectQuery = String.format("SELECT * FROM ProjectIcons WHERE _id = %d", iconId);
+        c = db.rawQuery(selectQuery, null);
+
+        if (c != null)
+            c.moveToFirst();
+
+        String path = c.getString(c.getColumnIndex("path"));
+        AssetManager assetManager = context.getAssets();
+
+        InputStream istr;
+        Bitmap bitmap = null;
+        try
+        {
+            istr = assetManager.open(path);
+            bitmap = BitmapFactory.decodeStream(istr);
+        } catch (IOException e)
+        {
+            // handle exception
+        }
+
+        db.close();
+        return bitmap;
+    }
+
+    /**
+     * Returns the name of an estimation Method id
+     *
+     * @param estimation_method_id
+     * @return
+     */
+    public String getEstimationMethodNameById(String estimation_method_id)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = String.format("SELECT * FROM EstimationMethod WHERE _id = %s;", estimation_method_id);
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c != null)
+            c.moveToFirst();
+
+        String name = c.getString(1);
+
+        db.close();
+        return name;
     }
 }

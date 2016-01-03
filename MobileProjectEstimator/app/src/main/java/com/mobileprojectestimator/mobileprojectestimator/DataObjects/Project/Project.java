@@ -36,7 +36,7 @@ public class Project implements Serializable
     private int sumOfInfluences;
     private double influenceFactorRating;
     private int evaluatedPersonDays = 0;
-    private int detailsId;
+    private int projectId;
 
     /**
      * Constructs a new instance of {@code Object}.
@@ -66,9 +66,9 @@ public class Project implements Serializable
         initialiseEstimationItems(estimationMethod);
     }
 
-    public Project(Context current, String title, String creationDate, String estimationMethod, int detailsId)
+    public Project(Context current, String title, String creationDate, String estimationMethod, int projectId)
     {
-        this.detailsId = detailsId;
+        this.projectId = projectId;
         this.Title = title;
         this.creationDate = creationDate;
         this.estimationMethod = estimationMethod;
@@ -529,13 +529,13 @@ public class Project implements Serializable
         return evaluatedPersonDays;
     }
 
-    public int getDetailsId()
+    public int getProjectId()
     {
-        return detailsId;
+        return projectId;
     }
 
-    public void setDetailsId(int detailsId)
+    public void setProjectId(int projectId)
     {
-        this.detailsId = detailsId;
+        this.projectId = projectId;
     }
 }
