@@ -1,5 +1,6 @@
 package com.mobileprojectestimator.mobileprojectestimator.Util.database;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -8,9 +9,12 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.mobileprojectestimator.mobileprojectestimator.Activities.FunctionPointEstimationValueActivity;
+import com.mobileprojectestimator.mobileprojectestimator.Activities.ProjectOverviewActivity;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Database.DatabaseInfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.InfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.io.File;
@@ -21,6 +25,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 
 /**
@@ -470,5 +475,22 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public void updateExistingInfluenceFactor(String selectedEstimationMethod, String oldFactorName, InfluencingFactor influencingFactor)
     {
 
+    }
+
+    public Project loadProjectById(Context context, String projectId)
+    {
+        Project p = new Project(context);
+
+        return p;
+    }
+
+    public boolean hasProjects()
+    {
+        return false;
+    }
+
+    public ArrayList<Project> getAllProjects(Activity activity)
+    {
+        return null;
     }
 }

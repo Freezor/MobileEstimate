@@ -149,4 +149,28 @@ public class FunctionPointItem extends EstimationItem
     {
         functionPointCategoryItems.get(index).setTotalItemCount(value);
     }
+
+    public int getSimpleValue() {
+        return functionPointCategoryItems.get(0).getTotalItemCount();
+    }
+
+    public void setSimpleValue(int value){
+        functionPointCategoryItems.get(0).setTotalItemCount(value);
+    }
+
+    public int getMediumValue() {
+        return functionPointCategoryItems.get(1).getTotalItemCount();
+    }
+
+    public void setMediumValue(int value){
+        functionPointCategoryItems.get(1).setTotalItemCount(value);
+    }
+
+    public int getComplexValue() {
+        return functionPointCategoryItems.get(2).getTotalItemCount();
+    }
+
+    public void setComplexValue(int value){
+        functionPointCategoryItems.get(2).setTotalItemCount(value);
+    }
 }

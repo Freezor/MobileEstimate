@@ -27,7 +27,7 @@ public class DatabaseActivity extends AppCompatActivity
     protected void initDatabase()
     {
         Log.d("Info", "Database Initialisation");
-        databaseHelper = new DataBaseHelper(this);
+        this.databaseHelper = new DataBaseHelper(this);
 
         try
         {

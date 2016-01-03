@@ -2,7 +2,6 @@ package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,9 +19,7 @@ import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estim
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
-import java.util.HashMap;
-
-public class FunctionPointEstimationValueActivity extends AppCompatActivity
+public class FunctionPointEstimationValueActivity extends DatabaseActivity
 {
 
     protected String title;
@@ -34,6 +31,11 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
     private EditText valueComplex;
     private Project project;
     private FunctionPointItem item;
+
+    public FunctionPointEstimationValueActivity()
+    {
+        initDatabase();
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -62,7 +64,7 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
             this.project.updateFunctionPointItem(item);
             Intent returnIntent = new Intent();
             //TODO: bereits gesetzte Items sind hier wieder 0
-            returnIntent.putExtra(getString(R.string.NewProjectIntentValueParam), project.toHashMap());
+            returnIntent.putExtra(getString(R.string.NewProjectIntentValueParam), project.getDetailsId());
             setResult(1, returnIntent);
             finish();
         } else
@@ -92,17 +94,18 @@ public class FunctionPointEstimationValueActivity extends AppCompatActivity
         Intent intent = getIntent();
         title = intent.getStringExtra("TITLE");
 
-        HashMap<String, String> hashMap = (HashMap<String, String>) intent.getSerializableExtra("NEWPROJECT");
-        project = new Project(this);
-        if (!hashMap.isEmpty())
+        String projectId = intent.getStringExtra("NEWPROJECT");
+        if (databaseHelper == null)
         {
-            project.toObjectFromHashMap(hashMap);
+            initDatabase();
         }
+        project = databaseHelper.loadProjectById(this, projectId);
+
         item = (FunctionPointItem) project.getEstimationItemByName(this.title);
 
-        simpleValue = Integer.valueOf(hashMap.get(title + "_SIMPLE"));
-        mediumValue = Integer.valueOf(hashMap.get(title + "_MEDIUM"));
-        complexValue = Integer.valueOf(hashMap.get(title + "_COMPLEX"));
+        simpleValue = item.getSimpleValue();
+        mediumValue = item.getMediumValue();
+        complexValue = item.getComplexValue();
 
         item.updateItems(simpleValue, mediumValue, complexValue);
 

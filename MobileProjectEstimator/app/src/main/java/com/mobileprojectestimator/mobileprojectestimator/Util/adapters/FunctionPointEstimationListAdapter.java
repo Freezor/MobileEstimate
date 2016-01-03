@@ -113,7 +113,7 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter
                 intent.putExtra("TITLE", rowViewHolderHashMap.get(position).item.getItemName());
                 //TODO: Error: Fehler bei Umwandlung durch den zweiten Aufruf der Methode
                 //TODO: Richtiger Total Amount wird hier noch mitgeliefert
-                intent.putExtra("NEWPROJECT", project.toHashMap());
+                intent.putExtra("NEWPROJECT", project.getDetailsId());
                 fragment.startActivityForResult(intent, 1);
             }
         });

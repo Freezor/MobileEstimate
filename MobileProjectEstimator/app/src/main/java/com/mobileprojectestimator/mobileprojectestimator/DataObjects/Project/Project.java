@@ -36,6 +36,7 @@ public class Project implements Serializable
     private int sumOfInfluences;
     private double influenceFactorRating;
     private int evaluatedPersonDays = 0;
+    private int detailsId;
 
     /**
      * Constructs a new instance of {@code Object}.
@@ -56,6 +57,18 @@ public class Project implements Serializable
      */
     public Project(Context current, String title, String creationDate, String estimationMethod)
     {
+        this.Title = title;
+        this.creationDate = creationDate;
+        this.estimationMethod = estimationMethod;
+        this.context = current;
+        setInfluencingFactors();
+        projectProperties = new ProjectProperties();
+        initialiseEstimationItems(estimationMethod);
+    }
+
+    public Project(Context current, String title, String creationDate, String estimationMethod, int detailsId)
+    {
+        this.detailsId = detailsId;
         this.Title = title;
         this.creationDate = creationDate;
         this.estimationMethod = estimationMethod;
@@ -238,8 +251,6 @@ public class Project implements Serializable
      */
     public HashMap<String, String> toHashMap()
     {
-        //TODO: change use of gson to hashmap
-
         HashMap<String, String> valuesMap = new HashMap<>();
         valuesMap.putAll(this.influencingFactor.toHashMap());
         valuesMap.putAll(this.projectProperties.toHashMap());
@@ -516,5 +527,15 @@ public class Project implements Serializable
     public int getEvaluatedPersonDays()
     {
         return evaluatedPersonDays;
+    }
+
+    public int getDetailsId()
+    {
+        return detailsId;
+    }
+
+    public void setDetailsId(int detailsId)
+    {
+        this.detailsId = detailsId;
     }
 }

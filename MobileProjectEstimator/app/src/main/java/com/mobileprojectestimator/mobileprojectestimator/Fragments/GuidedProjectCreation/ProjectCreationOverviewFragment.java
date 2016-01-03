@@ -62,8 +62,8 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
                     this.project.initialiseEstimationItems(this.project.getEstimationMethod());
 
                     Intent intent = new Intent();
-                    HashMap<String, String> projectHashMap = project.toHashMap();
-                    intent.putExtra(this.getString(R.string.NewProjectIntentValueParam), projectHashMap);
+                    //Send Title to Project Overview for logging
+                    intent.putExtra(this.getString(R.string.NewProjectIntentValueParam), project.getTitle());
                     getActivity().setResult(Activity.RESULT_OK, intent);
                     getActivity().finish();
                 }

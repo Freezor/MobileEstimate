@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -20,9 +19,8 @@ import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstima
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class FunctionPointProjectActivtiy extends AppCompatActivity
+public class FunctionPointProjectActivtiy extends DatabaseActivity
 {
 
     /**
@@ -39,6 +37,12 @@ public class FunctionPointProjectActivtiy extends AppCompatActivity
 
     @SuppressWarnings("FieldCanBeLocal")
     private Project project;
+
+    public void FunctionPointProjectActivtiy()
+    {
+        initDatabase();
+    }
+
 
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -80,13 +84,14 @@ public class FunctionPointProjectActivtiy extends AppCompatActivity
         }
 
         Intent intent = getIntent();
-        HashMap<String, String> hashMap = (HashMap<String, String>) intent.getSerializableExtra(getString(R.string.NewProjectIntentValueParam));
-        project = new Project(this);
-        if (hashMap != null)
+        String projectId = intent.getStringExtra(getString(R.string.NewProjectIntentValueParam));
+        if (databaseHelper == null)
         {
-            project.toObjectFromHashMap(hashMap);
-            Log.d("Info", project.getTitle() + " wurde geöffnet.");
+            initDatabase();
         }
+        project = databaseHelper.loadProjectById(this, projectId);
+        Log.d("Info", project.getTitle() + " wurde geöffnet.");
+
 
         fragmentsList = new ArrayList<>();
         fragmentsList.add(new FunctionPointMethodFragment());//Position 0

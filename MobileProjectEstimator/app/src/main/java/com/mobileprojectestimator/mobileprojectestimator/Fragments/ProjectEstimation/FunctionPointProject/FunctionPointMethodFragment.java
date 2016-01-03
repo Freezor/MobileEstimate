@@ -17,7 +17,6 @@ import com.mobileprojectestimator.mobileprojectestimator.R;
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.FunctionPointEstimationListAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by Oliver Fries on 02.11.2015, 14:57.
@@ -81,9 +80,13 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
         Log.d("INFO", "FunctionPointMethodFragment: onActivtiyResult");
         try
         {
-            HashMap<String, String> hashMap = (HashMap<String, String>) data.getSerializableExtra(this.getString(R.string.NewProjectIntentValueParam));
-            this.project.toObjectFromHashMap(hashMap);
-            updateEstimationItems(hashMap);
+            String projectId = data.getStringExtra(getString(R.string.NewProjectIntentValueParam));
+            if (databaseHelper == null)
+            {
+                initDatabase();
+            }
+            project = databaseHelper.loadProjectById(this.getContext(), projectId);
+            updateEstimationItems();
             totalPoints.setText(String.format("%s %d", getContext().getString(R.string.function_point_estimation_total_points), getTotalPoints()));
             evaluatedFunctionPoints.setText(String.format("%s %s", getContext().getString(R.string.function_point_estimation_evaluated_total_points), getEvaluatedPoints()));
         } catch (Exception e)
@@ -95,15 +98,13 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
 
     /**
      * Update all estimation Items that exist in the hashMap
-     *
-     * @param hashMap
      */
-    private void updateEstimationItems(HashMap<String, String> hashMap)
+    private void updateEstimationItems()
     {
-        for (FunctionPointItem item : functionPointEstimationItems)
+        /*for (FunctionPointItem item : functionPointEstimationItems)
         {
             this.project.updateFunctionPointItem(item.getItemName(), Integer.valueOf(hashMap.get(item.getItemName() + getContext().getString(R.string.project_hash_suffix_simple))), Integer.valueOf(hashMap.get(item.getItemName() + getContext().getString(R.string.project_hash_suffix_medium))), Integer.valueOf(hashMap.get(item.getItemName() + getContext().getString(R.string.project_hash_suffix_complex))));
-        }
+        }*/
         //TODO: Bisherige Werte werden gelöscht. Muss noch abgefangen werden
         functionPointEstimationItems = this.project.getFunctionPointItems();
         projectCreationAdapter.updateProject(this.project);

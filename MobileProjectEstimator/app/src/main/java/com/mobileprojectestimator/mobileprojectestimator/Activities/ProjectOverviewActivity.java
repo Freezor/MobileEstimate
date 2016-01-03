@@ -12,7 +12,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -24,17 +23,12 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Database.DatabaseInfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.ProjectListAdapter;
-import com.mobileprojectestimator.mobileprojectestimator.Util.database.DataBaseHelper;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -48,13 +42,13 @@ public class ProjectOverviewActivity extends DatabaseActivity
     private ListView projectsListView;
     private ProjectListAdapter projectsAdapter;
     private TextView navigationDrawerUserNameTextView;
-    private DataBaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
+        initDatabase();
+        databaseHelper.logAllTableNames();
 
         setContentView(R.layout.activity_project_overview);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -106,9 +100,6 @@ public class ProjectOverviewActivity extends DatabaseActivity
                 onClickProject(position);
             }
         });
-
-        initDatabase();
-
     }
 
     /**
@@ -119,8 +110,10 @@ public class ProjectOverviewActivity extends DatabaseActivity
     private void onClickProject(int position)
     {
         Intent intent = new Intent(ProjectOverviewActivity.this, FunctionPointProjectActivtiy.class);
-        HashMap<String, String> projectHashMap = projectsList.get(position).toHashMap();
-        intent.putExtra(getString(R.string.NewProjectIntentValueParam), projectHashMap);
+        //Changed from toHashMap with introduction of database. Only Id is needed now
+        /*HashMap<String, String> projectHashMap = projectsList.get(position).toHashMap();
+        intent.putExtra(getString(R.string.NewProjectIntentValueParam), projectHashMap);*/
+        intent.putExtra(getString(R.string.NewProjectIntentValueParam), projectsList.get(position).getDetailsId());
         startActivityForResult(intent, Integer.parseInt((getString(R.string.PROJECT_VIEW_CODE))));
     }
 
@@ -138,8 +131,15 @@ public class ProjectOverviewActivity extends DatabaseActivity
      */
     private void loadProjects()
     {
-        //TODO: Add Database access for loading projectss
-        generateTestProject();
+        //if somehow projects table is empty load the demo project
+        if (databaseHelper.hasProjects())
+        {
+            projectsList.clear();
+            projectsList.addAll(databaseHelper.getAllProjects(this));
+        } else
+        {
+            generateTestProject();
+        }
     }
 
     /**
@@ -148,7 +148,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
      */
     private void generateTestProject()
     {
-        Project p = new Project(this, "Pizza Bestellung", "20.04.2013", getResources().getString(R.string.estimation_method_function_point));
+        Project p = new Project(this, "Demo Project", "20.04.2009", getResources().getString(R.string.estimation_method_function_point));
         p.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.project));
         InfluencingFactor factor = new InfluencingFactor(this, InfluencingFactor.FUNCTIONPOINTFACTORS);
         factor.setName("Team Mates");
@@ -227,14 +227,12 @@ public class ProjectOverviewActivity extends DatabaseActivity
     private void getDataFromProjectCreationProcess(Intent data)
     {
         //TODO: Check if HasMap is null
-        HashMap<String, String> hashMap = (HashMap<String, String>) data.getSerializableExtra(this.getString(R.string.NewProjectIntentValueParam));
-        Project p = new Project(this);
-        p.toObjectFromHashMap(hashMap);
-        projectsList.add(p);
+        String title =  data.getStringExtra(this.getString(R.string.NewProjectIntentValueParam));
+        loadProjects();
         projectsAdapter = new ProjectListAdapter(this, projectsList);
         projectsListView.setAdapter(projectsAdapter);
         projectsAdapter.notifyDataSetChanged();
-        Log.d("Info", p.getTitle() + " wurde erstellt.");
+        Log.d("Info", title + " wurde erstellt.");
     }
 
     @Override
