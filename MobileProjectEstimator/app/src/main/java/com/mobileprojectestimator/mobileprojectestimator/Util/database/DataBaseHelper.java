@@ -78,10 +78,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     {
         boolean dbExist = checkDataBase();
 
-        if (dbExist)
-        {
-            //do nothing - database already exist
-        } else
+        if (!dbExist)
         {
 
             //By calling this method and empty database will be created into the default system path
@@ -97,10 +94,13 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
             } catch (IOException e)
             {
-
+                Log.d("Error", "Database Creation Error: " + e.getCause());
                 throw new Error("Error copying database");
 
             }
+        } else
+        {
+            Log.d("Info", "Database Already exists");
         }
     }
 
@@ -132,7 +132,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
         }
 
-        return checkDB != null ? true : false;
+        return checkDB != null;
     }
 
     /**
@@ -185,10 +185,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public void createDataBase() throws IOException
     {
         boolean dbExist = checkDataBase();
-        if (dbExist)
-        {
-
-        } else
+        if (!dbExist)
         {
             this.getReadableDatabase();
             try
@@ -196,6 +193,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
                 copyDataBase();
             } catch (IOException e)
             {
+                Log.d("ERROR", "Database could not be copied " + e.getCause());
                 throw new Error("Database could not be copied");
             }
         }
@@ -263,6 +261,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
             // ---if directory doesn't exist then create it---
             if (!c.exists())
             {
+                //noinspection ResultOfMethodCallIgnored
                 c.mkdir();
             }
 
@@ -273,11 +272,52 @@ public class DataBaseHelper extends SQLiteOpenHelper
             }
         } catch (FileNotFoundException e)
         {
+            Log.d("ERROR", "checkDatabaseCreation: FileNotFoundException = " + e.getCause());
             e.printStackTrace();
         } catch (IOException e)
         {
+            Log.d("ERROR", "checkDatabaseCreation: IOException = " + e.getCause());
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Returns the String value from Resource by the string name
+     *
+     * @param resourceName
+     * @return
+     */
+    public String getStringResourceByName(String resourceName)
+    {
+
+        int resID = context.getResources().getIdentifier(resourceName, "string", context.getPackageName());
+
+        return context.getResources().getString(resID);
+    }
+
+    /**
+     * Returns the xml tag name from a resource ID
+     * <string name="THIS_IS_THE_NAME_TAG"></string>
+     *
+     * @param resID
+     * @return
+     */
+    public String getStringResourceEntryNameById(int resID)
+    {
+        return context.getResources().getResourceEntryName(resID);
+    }
+
+    /**
+     * Returns the xml tag name by a searching name from the resources
+     * <string name="THIS_IS_THE_NAME_TAG">THIS IS THE SEARCH VALUE</string>
+     *
+     * @param resourceName
+     * @return
+     */
+    public String getStringResourceEntryNameByValue(String resourceName)
+    {
+        int resID = context.getResources().getIdentifier(resourceName, "string", context.getPackageName());
+        return getStringResourceEntryNameById(resID);
     }
 
     //~~~~SQL Queries Start here~~~~\\
@@ -297,18 +337,20 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor c = db.rawQuery(selectQuery, null);
-        if (c.moveToFirst())
+        try (Cursor c = db.rawQuery(selectQuery, null))
         {
-            do
+            if (c.moveToFirst())
             {
-                DatabaseInfluenceFactorItem databaseInfluenceFactorItem = new DatabaseInfluenceFactorItem();
-                databaseInfluenceFactorItem.set_id(c.getInt((c.getColumnIndex("_id"))));
-                databaseInfluenceFactorItem.set_name(c.getString(c.getColumnIndex("name")));
-                databaseInfluenceFactorItem.set_estimationMethodId(c.getInt((c.getColumnIndex("estimation_method_id"))));
-                databaseInfluenceFactorItem.set_influenceFactorId(c.getInt((c.getColumnIndex("influence_factor_id"))));
-                influenceFactorItems.add(databaseInfluenceFactorItem);
-            } while (c.moveToNext());
+                do
+                {
+                    DatabaseInfluenceFactorItem databaseInfluenceFactorItem = new DatabaseInfluenceFactorItem();
+                    databaseInfluenceFactorItem.set_id(c.getInt((c.getColumnIndex("_id"))));
+                    databaseInfluenceFactorItem.set_name(c.getString(c.getColumnIndex("name")));
+                    databaseInfluenceFactorItem.set_estimationMethodId(c.getInt((c.getColumnIndex("estimation_method_id"))));
+                    databaseInfluenceFactorItem.set_influenceFactorId(c.getInt((c.getColumnIndex("influence_factor_id"))));
+                    influenceFactorItems.add(databaseInfluenceFactorItem);
+                } while (c.moveToNext());
+            }
         }
         db.close();
         return influenceFactorItems;
@@ -320,13 +362,15 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public void logAllTableNames()
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT name FROM sqlite_master  WHERE type='table'", null);
-        if (c.moveToFirst())
+        try (Cursor c = db.rawQuery("SELECT name FROM sqlite_master  WHERE type='table'", null))
         {
-            while (!c.isAfterLast())
+            if (c.moveToFirst())
             {
-                Log.d("INFO", "Table Name => " + c.getString(0));
-                c.moveToNext();
+                while (!c.isAfterLast())
+                {
+                    Log.d("INFO", "Table Name => " + c.getString(0));
+                    c.moveToNext();
+                }
             }
         }
         db.close();
@@ -341,15 +385,18 @@ public class DataBaseHelper extends SQLiteOpenHelper
      */
     public int getEstimationMethodId(String estimationMethod)
     {
-        String query = String.format("SELECT _id FROM EstimationMethod WHERE name = '%s';", estimationMethod);
+        String query = String.format("SELECT _id FROM EstimationMethod WHERE name = '%s';", getStringResourceByName(estimationMethod));
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor c = db.rawQuery(query, null);
+        int estimationId;
+        try (Cursor c = db.rawQuery(query, null))
+        {
 
-        if (c != null)
-            c.moveToFirst();
+            if (c != null)
+                c.moveToFirst();
 
-        int estimationId = c.getInt(c.getColumnIndex("_id"));
+            estimationId = c.getInt(c.getColumnIndex("_id"));
+        }
 
         return estimationId;
     }
@@ -368,20 +415,22 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor c = db.rawQuery(selectQuery, null);
-        if (c != null)
-            c.moveToFirst();
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c != null)
+                c.moveToFirst();
 
-        influenceFactorValues.add(c.getInt(c.getColumnIndex("Integration")));
-        influenceFactorValues.add(c.getInt(c.getColumnIndex("LocalDataProcessing")));
-        influenceFactorValues.add(c.getInt(c.getColumnIndex("TransactionRate")));
-        influenceFactorValues.add(c.getInt(c.getColumnIndex("ArithmeticOperation")));
-        influenceFactorValues.add(c.getInt(c.getColumnIndex("ControlProcedure")));
-        influenceFactorValues.add(c.getInt(c.getColumnIndex("ExceptionalRule")));
-        influenceFactorValues.add(c.getInt(c.getColumnIndex("Logic")));
-        influenceFactorValues.add(c.getInt(c.getColumnIndex("Reusability")));
-        influenceFactorValues.add(c.getInt(c.getColumnIndex("StockConversion")));
-        influenceFactorValues.add(c.getInt(c.getColumnIndex("Adaptability")));
+            influenceFactorValues.add(c.getInt(c.getColumnIndex("Integration")));
+            influenceFactorValues.add(c.getInt(c.getColumnIndex("LocalDataProcessing")));
+            influenceFactorValues.add(c.getInt(c.getColumnIndex("TransactionRate")));
+            influenceFactorValues.add(c.getInt(c.getColumnIndex("ArithmeticOperation")));
+            influenceFactorValues.add(c.getInt(c.getColumnIndex("ControlProcedure")));
+            influenceFactorValues.add(c.getInt(c.getColumnIndex("ExceptionalRule")));
+            influenceFactorValues.add(c.getInt(c.getColumnIndex("Logic")));
+            influenceFactorValues.add(c.getInt(c.getColumnIndex("Reusability")));
+            influenceFactorValues.add(c.getInt(c.getColumnIndex("StockConversion")));
+            influenceFactorValues.add(c.getInt(c.getColumnIndex("Adaptability")));
+        }
 
         db.close();
         return influenceFactorValues;
@@ -400,13 +449,16 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor c = db.rawQuery(selectQuery, null);
-        if (c.moveToFirst())
+        try (Cursor c = db.rawQuery(selectQuery, null))
         {
-            do
+            if (c.moveToFirst())
             {
-                estimationMethodNames.add(c.getString(c.getColumnIndex("name")));
-            } while (c.moveToNext());
+                do
+                {
+                    String estimationMethod = getStringResourceEntryNameByValue(c.getString(c.getColumnIndex("name")));
+                    estimationMethodNames.add(estimationMethod);
+                } while (c.moveToNext());
+            }
         }
         db.close();
 
@@ -424,12 +476,15 @@ public class DataBaseHelper extends SQLiteOpenHelper
         String query = String.format("SELECT influence_factor_id FROM InfluenceFactors where name = '%s'", factorName);
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor c = db.rawQuery(query, null);
+        int factorItemId;
+        try (Cursor c = db.rawQuery(query, null))
+        {
 
-        if (c != null)
-            c.moveToFirst();
+            if (c != null)
+                c.moveToFirst();
 
-        int factorItemId = c.getInt(c.getColumnIndex("influence_factor_id"));
+            factorItemId = c.getInt(c.getColumnIndex("influence_factor_id"));
+        }
 
         return factorItemId;
     }
@@ -446,7 +501,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         int estimationMethodId = 0;
         SQLiteDatabase db = this.getWritableDatabase();
 
-        if (selectedEstimationMethod.equals(context.getString(R.string.function_point)))
+        if (selectedEstimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
         {
             ArrayList<InfluenceFactorItem> items = influencingFactor.getInfluenceFactorItems();
             int integration = items.get(0).getChosenValue();
@@ -462,11 +517,13 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
 
             String selectCreatedIdQuery = "SELECT _id FROM FunctionPointInfluenceFactor ORDER BY _id DESC LIMIT 1;";
-            Cursor c = db.rawQuery(selectCreatedIdQuery, null);
-            if (c != null)
-                c.moveToFirst();
+            try (Cursor c = db.rawQuery(selectCreatedIdQuery, null))
+            {
+                if (c != null)
+                    c.moveToFirst();
 
-            influenceFactorDatabaseId = c.getInt(c.getColumnIndex("_id"));
+                influenceFactorDatabaseId = c.getInt(c.getColumnIndex("_id"));
+            }
             influenceFactorDatabaseId++;
 
             ContentValues insertValues = new ContentValues();
@@ -498,7 +555,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     public void updateExistingInfluenceFactor(String selectedEstimationMethod, String oldFactorName, InfluencingFactor influencingFactor)
     {
-
+        //TODO: Create Statement to update existing Influence Factor
     }
 
     /**
@@ -515,42 +572,48 @@ public class DataBaseHelper extends SQLiteOpenHelper
         String query = String.format("SELECT * FROM Projects where _id = '%s'", projectId);
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor c = db.rawQuery(query, null);
+        int estimation_items_id;
+        try (Cursor c = db.rawQuery(query, null))
+        {
 
-        if (c != null)
-            c.moveToFirst();
+            if (c != null)
+                c.moveToFirst();
 
-        p.setTitle(c.getString(c.getColumnIndex("name")));
-        p.setCreationDate(c.getString(c.getColumnIndex("created_at")));
-        String estimationMethodId = c.getString(c.getColumnIndex("estimation_method_id"));
-        p.setEstimationMethod(getEstimationMethodNameById(estimationMethodId));
-        int detailsId = c.getInt(c.getColumnIndex("project_details_id"));
+            p.setTitle(c.getString(c.getColumnIndex("name")));
+            p.setCreationDate(c.getString(c.getColumnIndex("created_at")));
+            String estimationMethodId = c.getString(c.getColumnIndex("estimation_method_id"));
+            p.setEstimationMethod(getEstimationMethodNameById(estimationMethodId));
+            int detailsId = c.getInt(c.getColumnIndex("project_details_id"));
 
-        p.setImage(loadProjectImage(detailsId));
+            p.setImage(loadProjectImage(detailsId));
 
-        query = String.format("SELECT * FROM ProjectDetails where _id = '%s'", detailsId);
-        c = db.rawQuery(query, null);
+            query = String.format("SELECT * FROM ProjectDetails where _id = '%s'", detailsId);
+            int project_properties_id;
+            try (Cursor c2 = db.rawQuery(query, null))
+            {
 
-        if (c != null)
-            c.moveToFirst();
+                if (c2 != null)
+                    c2.moveToFirst();
 
-        p.setEvaluatedPersonDays(c.getInt(c.getColumnIndex("evaluated_person_days")));
+                p.setEvaluatedPersonDays(c2.getInt(c2.getColumnIndex("evaluated_person_days")));
 
-        int estimation_items_id = c.getInt(c.getColumnIndex("estimation_items_id"));
-        int project_properties_id = c.getInt(c.getColumnIndex("project_properties_id"));
-        int description_id = c.getInt(c.getColumnIndex("description_id"));
-        int influence_factorset_id = c.getInt(c.getColumnIndex("influence_factorset_id"));
-
-        p.setProjectDescription(loadDescriptionById(description_id));
-        p.setInfluencingFactor(loadInfluenceFactorById(influence_factorset_id));
-        p.setEstimationItems(loadEstimationItemsById(p.getEstimationMethod(), estimation_items_id));
-        p.setProjectProperties(loadProjectPropertiesById(project_properties_id));
+                estimation_items_id = c2.getInt(c2.getColumnIndex("estimation_items_id"));
+                project_properties_id = c2.getInt(c2.getColumnIndex("project_properties_id"));
+                int description_id = c2.getInt(c2.getColumnIndex("description_id"));
+                int influence_factorset_id = c2.getInt(c2.getColumnIndex("influence_factorset_id"));
+                p.setProjectDescription(loadDescriptionById(description_id));
+                p.setInfluencingFactor(loadInfluenceFactorById(influence_factorset_id));
+            }
+            p.setEstimationItems(loadEstimationItemsById(p.getEstimationMethod(), estimation_items_id));
+            p.setProjectProperties(loadProjectPropertiesById(project_properties_id));
+        }
         db.close();
         return p;
     }
 
     /**
      * Load the projectProperties by the property Id
+     *
      * @param project_properties_id
      * @return
      */
@@ -561,60 +624,140 @@ public class DataBaseHelper extends SQLiteOpenHelper
         String query = String.format("SELECT * FROM ProjectProperties where _id = '%s'", project_properties_id);
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor c = db.rawQuery(query, null);
-        if (c != null)
-            c.moveToFirst();
+        String developmentMarktedId;
+        try (Cursor c = db.rawQuery(query, null))
+        {
+            if (c != null)
+                c.moveToFirst();
 
-        String developmentMarktedId = c.getString(c.getColumnIndex("DevelopmentMarket_id"));
-        String developmentKindId = c.getString(c.getColumnIndex("DevelopmentMarket_id"));
-        String processMethologyId = c.getString(c.getColumnIndex("DevelopmentMarket_id"));
-        String programmingLanguageId = c.getString(c.getColumnIndex("DevelopmentMarket_id"));
-        String platformId = c.getString(c.getColumnIndex("DevelopmentMarket_id"));
-        String industrySectorId = c.getString(c.getColumnIndex("DevelopmentMarket_id"));
-
-        properties.setMarket(loadMarketNameById(developmentMarktedId));
-        properties.setDevelopmentKind(loadDevelopmentKindNameById(developmentKindId));
-        properties.setProgrammingLanguage(loadProgrammingLanguageNameById(programmingLanguageId));
-        properties.setProcessMethology(loadProcessMethologyNameById(processMethologyId));
-        properties.setPlatform(loadPlatformNameById(platformId));
-        properties.setIndustrySector(loadIndustrySectorNameById(industrySectorId));
-
+            developmentMarktedId = c.getString(c.getColumnIndex("DevelopmentMarket_id"));
+            String developmentKindId = c.getString(c.getColumnIndex("DevelopmentMarket_id"));
+            String processMethologyId = c.getString(c.getColumnIndex("DevelopmentMarket_id"));
+            String programmingLanguageId = c.getString(c.getColumnIndex("DevelopmentMarket_id"));
+            String platformId = c.getString(c.getColumnIndex("DevelopmentMarket_id"));
+            String industrySectorId = c.getString(c.getColumnIndex("DevelopmentMarket_id"));
+            properties.setMarket(loadMarketNameById(developmentMarktedId));
+            properties.setDevelopmentKind(loadDevelopmentKindNameById(developmentKindId));
+            properties.setProgrammingLanguage(loadProgrammingLanguageNameById(programmingLanguageId));
+            properties.setProcessMethology(loadProcessMethologyNameById(processMethologyId));
+            properties.setPlatform(loadPlatformNameById(platformId));
+            properties.setIndustrySector(loadIndustrySectorNameById(industrySectorId));
+        }
         db.close();
         return properties;
     }
 
     public String loadIndustrySectorNameById(String industrySectorId)
     {
-        return null;
+        String name;
+
+        String query = String.format("SELECT * FROM IndustrySectors where _id = '%s'", industrySectorId);
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        try (Cursor c = db.rawQuery(query, null))
+        {
+            if (c != null)
+                c.moveToFirst();
+
+            name = c.getString(c.getColumnIndex("name"));
+        }
+
+        return getStringResourceByName(name);
     }
 
-    public String loadPlatformNameById(String id)
+    public String loadPlatformNameById(String platformId)
     {
-        return null;
+        String name;
+
+        String query = String.format("SELECT * FROM Platforms where _id = '%s'", platformId);
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        try (Cursor c = db.rawQuery(query, null))
+        {
+            if (c != null)
+                c.moveToFirst();
+
+            name = c.getString(c.getColumnIndex("name"));
+        }
+
+        return getStringResourceByName(name);
     }
 
     public String loadProcessMethologyNameById(String processMethologyId)
     {
-        return null;
+        String name;
+
+        String query = String.format("SELECT * FROM ProcessMethologies where _id = '%s'", processMethologyId);
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        try (Cursor c = db.rawQuery(query, null))
+        {
+            if (c != null)
+                c.moveToFirst();
+
+            name = c.getString(c.getColumnIndex("name"));
+        }
+
+        return getStringResourceByName(name);
     }
 
     public String loadProgrammingLanguageNameById(String programmingLanguageId)
     {
-        return null;
+        String name;
+
+        String query = String.format("SELECT * FROM ProgrammingLanguages where _id = '%s'", programmingLanguageId);
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        try (Cursor c = db.rawQuery(query, null))
+        {
+            if (c != null)
+                c.moveToFirst();
+
+            name = c.getString(c.getColumnIndex("name"));
+        }
+
+        return getStringResourceByName(name);
     }
 
     public String loadDevelopmentKindNameById(String developmentKindId)
     {
-        return null;
+        String name;
+
+        String query = String.format("SELECT * FROM DevelopmentTypes where _id = '%s'", developmentKindId);
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        try (Cursor c = db.rawQuery(query, null))
+        {
+            if (c != null)
+                c.moveToFirst();
+
+            name = c.getString(c.getColumnIndex("name"));
+        }
+
+        return getStringResourceByName(name);
     }
 
     public String loadMarketNameById(String developmentMarktedId)
     {
-        return null;
+        String name;
+
+        String query = String.format("SELECT * FROM DevelopmentMarkets where _id = '%s'", developmentMarktedId);
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        try (Cursor c = db.rawQuery(query, null))
+        {
+            if (c != null)
+                c.moveToFirst();
+
+            name = c.getString(c.getColumnIndex("name"));
+        }
+
+        return getStringResourceByName(name);
     }
 
     /**
      * Load the EstimationItems
+     *
      * @param estimationMethod
      * @param estimation_items_id
      * @return
@@ -626,65 +769,77 @@ public class DataBaseHelper extends SQLiteOpenHelper
         if (estimationMethod.equals(this.context.getString(R.string.estimation_method_function_point)))
         {
             String query = String.format("SELECT * FROM FunctionPointEstimationItems where _id = '%s'", estimation_items_id);
-            Cursor c = db.rawQuery(query, null);
-            if (c != null)
-                c.moveToFirst();
-            String inputDataItemsId = c.getString(c.getColumnIndex("InputDataItems_id"));
-            String requestItemsId = c.getString(c.getColumnIndex("RequestItems_id"));
-            String outputItemsId = c.getString(c.getColumnIndex("OutputItems_id"));
-            String datasetItemsId = c.getString(c.getColumnIndex("DatasetItems_id"));
-            String referenceDataItemsId = c.getString(c.getColumnIndex("ReferenceDataItems_id"));
+            FunctionPointItem item;
+            try (Cursor c = db.rawQuery(query, null))
+            {
+                if (c != null)
+                    c.moveToFirst();
+                String inputDataItemsId = c.getString(c.getColumnIndex("InputDataItems_id"));
+                String requestItemsId = c.getString(c.getColumnIndex("RequestItems_id"));
+                String outputItemsId = c.getString(c.getColumnIndex("OutputItems_id"));
+                String datasetItemsId = c.getString(c.getColumnIndex("DatasetItems_id"));
+                String referenceDataItemsId = c.getString(c.getColumnIndex("ReferenceDataItems_id"));
 
-            query = String.format("SELECT * FROM InputDataItems where _id = '%s'", inputDataItemsId);
-            c = db.rawQuery(query, null);
-            if (c != null)
-                c.moveToFirst();
-            FunctionPointItem item = new FunctionPointItem();
-            item.setSimpleValue(c.getInt(c.getColumnIndex("simple")));
-            item.setMediumValue(c.getInt(c.getColumnIndex("medium")));
-            item.setComplexValue(c.getInt(c.getColumnIndex("complex")));
-            estimationItems.add(item);
+                query = String.format("SELECT * FROM InputDataItems where _id = '%s'", inputDataItemsId);
+                try (Cursor c1 = db.rawQuery(query, null))
+                {
+                    if (c1 != null)
+                        c1.moveToFirst();
+                    item = new FunctionPointItem();
+                    item.setSimpleValue(c1.getInt(c1.getColumnIndex("simple")));
+                    item.setMediumValue(c1.getInt(c1.getColumnIndex("medium")));
+                    item.setComplexValue(c1.getInt(c1.getColumnIndex("complex")));
+                }
+                estimationItems.add(item);
 
-            query = String.format("SELECT * FROM RequestItems where _id = '%s'", requestItemsId);
-            c = db.rawQuery(query, null);
-            if (c != null)
-                c.moveToFirst();
-            item = new FunctionPointItem();
-            item.setSimpleValue(c.getInt(c.getColumnIndex("simple")));
-            item.setMediumValue(c.getInt(c.getColumnIndex("medium")));
-            item.setComplexValue(c.getInt(c.getColumnIndex("complex")));
-            estimationItems.add(item);
+                query = String.format("SELECT * FROM RequestItems where _id = '%s'", requestItemsId);
+                try (Cursor c2 = db.rawQuery(query, null))
+                {
+                    if (c2 != null)
+                        c2.moveToFirst();
+                    item = new FunctionPointItem();
+                    item.setSimpleValue(c2.getInt(c2.getColumnIndex("simple")));
+                    item.setMediumValue(c2.getInt(c2.getColumnIndex("medium")));
+                    item.setComplexValue(c2.getInt(c2.getColumnIndex("complex")));
+                }
+                estimationItems.add(item);
 
-            query = String.format("SELECT * FROM OutputItems where _id = '%s'", outputItemsId);
-            c = db.rawQuery(query, null);
-            if (c != null)
-                c.moveToFirst();
-            item = new FunctionPointItem();
-            item.setSimpleValue(c.getInt(c.getColumnIndex("simple")));
-            item.setMediumValue(c.getInt(c.getColumnIndex("medium")));
-            item.setComplexValue(c.getInt(c.getColumnIndex("complex")));
-            estimationItems.add(item);
+                query = String.format("SELECT * FROM OutputItems where _id = '%s'", outputItemsId);
+                try (Cursor c3 = db.rawQuery(query, null))
+                {
+                    if (c3 != null)
+                        c3.moveToFirst();
+                    item = new FunctionPointItem();
+                    item.setSimpleValue(c3.getInt(c3.getColumnIndex("simple")));
+                    item.setMediumValue(c3.getInt(c3.getColumnIndex("medium")));
+                    item.setComplexValue(c3.getInt(c3.getColumnIndex("complex")));
+                }
+                estimationItems.add(item);
 
-            query = String.format("SELECT * FROM DatasetItems where _id = '%s'", datasetItemsId);
-            c = db.rawQuery(query, null);
-            if (c != null)
-                c.moveToFirst();
-            item = new FunctionPointItem();
-            item.setSimpleValue(c.getInt(c.getColumnIndex("simple")));
-            item.setMediumValue(c.getInt(c.getColumnIndex("medium")));
-            item.setComplexValue(c.getInt(c.getColumnIndex("complex")));
-            estimationItems.add(item);
+                query = String.format("SELECT * FROM DatasetItems where _id = '%s'", datasetItemsId);
+                try (Cursor c4 = db.rawQuery(query, null))
+                {
+                    if (c4 != null)
+                        c4.moveToFirst();
+                    item = new FunctionPointItem();
+                    item.setSimpleValue(c4.getInt(c4.getColumnIndex("simple")));
+                    item.setMediumValue(c4.getInt(c4.getColumnIndex("medium")));
+                    item.setComplexValue(c4.getInt(c4.getColumnIndex("complex")));
+                }
+                estimationItems.add(item);
 
-            query = String.format("SELECT * FROM ReferenceDataItems where _id = '%s'", referenceDataItemsId);
-            c = db.rawQuery(query, null);
-            if (c != null)
-                c.moveToFirst();
-            item = new FunctionPointItem();
-            item.setSimpleValue(c.getInt(c.getColumnIndex("simple")));
-            item.setMediumValue(c.getInt(c.getColumnIndex("medium")));
-            item.setComplexValue(c.getInt(c.getColumnIndex("complex")));
-            estimationItems.add(item);
-
+                query = String.format("SELECT * FROM ReferenceDataItems where _id = '%s'", referenceDataItemsId);
+                try (Cursor c5 = db.rawQuery(query, null))
+                {
+                    if (c5 != null)
+                        c5.moveToFirst();
+                    item = new FunctionPointItem();
+                    item.setSimpleValue(c5.getInt(c5.getColumnIndex("simple")));
+                    item.setMediumValue(c5.getInt(c5.getColumnIndex("medium")));
+                    item.setComplexValue(c5.getInt(c5.getColumnIndex("complex")));
+                }
+                estimationItems.add(item);
+            }
         }
         db.close();
         return estimationItems;
@@ -702,42 +857,46 @@ public class DataBaseHelper extends SQLiteOpenHelper
         String query = String.format("SELECT * FROM InfluenceFactors where _id = '%s'", influence_factorset_id);
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor c = db.rawQuery(query, null);
-
-        if (c != null)
-            c.moveToFirst();
-
-        String name = c.getString(c.getColumnIndex("name"));
-        String estimationMethod = getEstimationMethodNameById(c.getString(c.getColumnIndex("estimation_method_id")));
-        String influenceFactorId = c.getString(c.getColumnIndex("influence_factor_id"));
-
-        if (estimationMethod.equals(this.context.getString(R.string.estimation_method_function_point)))
+        try (Cursor c = db.rawQuery(query, null))
         {
-            factor = new InfluencingFactor(this.context, InfluencingFactor.FUNCTIONPOINTFACTORS);
-            factor.setName(name);
-            query = String.format("SELECT * FROM FunctionPointInfluenceFactors where _id = '%s'", influenceFactorId);
-            c = db.rawQuery(query, null);
 
             if (c != null)
                 c.moveToFirst();
 
-            factor.setChosenValueOfItem(c.getInt(c.getColumnIndex("Integration")), context.getString(R.string.function_point_influence_factor_item_integration));
-            factor.setChosenValueOfItem(c.getInt(c.getColumnIndex("LocalDataProcessing")), context.getString(R.string.function_point_influence_factor_item_local_data));
-            factor.setChosenValueOfItem(c.getInt(c.getColumnIndex("TransactionRate")), context.getString(R.string.function_point_influence_factor_item_transaction_rate));
-            factor.setChosenValueOfItem(c.getInt(c.getColumnIndex("ArithmeticOperation")), context.getString(R.string.function_point_influence_factor_item_arithmetic_operation));
-            factor.setChosenValueOfItem(c.getInt(c.getColumnIndex("Reusability")), context.getString(R.string.function_point_influence_factor_item_reusability));
-            factor.setChosenValueOfItem(c.getInt(c.getColumnIndex("StockConversion")), context.getString(R.string.function_point_influence_factor_item_stock_conversion));
-            factor.setChosenValueOfItem(c.getInt(c.getColumnIndex("Adaptability")), context.getString(R.string.function_point_influence_factor_item_adaptability));
-            factor.setChosenValueOfItem(c.getInt(c.getColumnIndex("ArithmeticOperation")), context.getString(R.string.function_point_influence_factor_item_arithmetic_operation));
-            factor.setChosenValueOfItem(c.getInt(c.getColumnIndex("ExceptionalRule")), context.getString(R.string.function_point_influence_factor_item_exception_regulation));
-            factor.setChosenValueOfItem(c.getInt(c.getColumnIndex("Logic")), context.getString(R.string.function_point_influence_factor_item_logic));
+            String name = c.getString(c.getColumnIndex("name"));
+            String estimationMethod = getEstimationMethodNameById(c.getString(c.getColumnIndex("estimation_method_id")));
+            String influenceFactorId = c.getString(c.getColumnIndex("influence_factor_id"));
 
-        } else if (estimationMethod.equals(this.context.getString(R.string.estimation_method_cocomo)))
-        {
-            factor = new InfluencingFactor(this.context, InfluencingFactor.COCOMOFACTORS);
-        } else if (estimationMethod.equals(this.context.getString(R.string.estimation_method_cocomo_2)))
-        {
-            factor = new InfluencingFactor(this.context, InfluencingFactor.COCOMO2FACTORS);
+            if (estimationMethod.equals(this.context.getString(R.string.estimation_method_function_point)))
+            {
+                factor = new InfluencingFactor(this.context, InfluencingFactor.FUNCTIONPOINTFACTORS);
+                factor.setName(name);
+                query = String.format("SELECT * FROM FunctionPointInfluenceFactors where _id = '%s'", influenceFactorId);
+                try (Cursor c2 = db.rawQuery(query, null))
+                {
+
+                    if (c2 != null)
+                        c2.moveToFirst();
+
+                    factor.setChosenValueOfItem(c2.getInt(c2.getColumnIndex("Integration")), context.getString(R.string.function_point_influence_factor_item_integration));
+                    factor.setChosenValueOfItem(c2.getInt(c2.getColumnIndex("LocalDataProcessing")), context.getString(R.string.function_point_influence_factor_item_local_data));
+                    factor.setChosenValueOfItem(c2.getInt(c2.getColumnIndex("TransactionRate")), context.getString(R.string.function_point_influence_factor_item_transaction_rate));
+                    factor.setChosenValueOfItem(c2.getInt(c2.getColumnIndex("ArithmeticOperation")), context.getString(R.string.function_point_influence_factor_item_arithmetic_operation));
+                    factor.setChosenValueOfItem(c2.getInt(c2.getColumnIndex("Reusability")), context.getString(R.string.function_point_influence_factor_item_reusability));
+                    factor.setChosenValueOfItem(c2.getInt(c2.getColumnIndex("StockConversion")), context.getString(R.string.function_point_influence_factor_item_stock_conversion));
+                    factor.setChosenValueOfItem(c2.getInt(c2.getColumnIndex("Adaptability")), context.getString(R.string.function_point_influence_factor_item_adaptability));
+                    factor.setChosenValueOfItem(c2.getInt(c2.getColumnIndex("ArithmeticOperation")), context.getString(R.string.function_point_influence_factor_item_arithmetic_operation));
+                    factor.setChosenValueOfItem(c2.getInt(c2.getColumnIndex("ExceptionalRule")), context.getString(R.string.function_point_influence_factor_item_exception_regulation));
+                    factor.setChosenValueOfItem(c2.getInt(c2.getColumnIndex("Logic")), context.getString(R.string.function_point_influence_factor_item_logic));
+                }
+
+            } else if (estimationMethod.equals(this.context.getString(R.string.estimation_method_cocomo)))
+            {
+                factor = new InfluencingFactor(this.context, InfluencingFactor.COCOMOFACTORS);
+            } else if (estimationMethod.equals(this.context.getString(R.string.estimation_method_cocomo_2)))
+            {
+                factor = new InfluencingFactor(this.context, InfluencingFactor.COCOMO2FACTORS);
+            }
         }
 
         db.close();
@@ -755,12 +914,15 @@ public class DataBaseHelper extends SQLiteOpenHelper
         String query = String.format("SELECT * FROM ProjectDescriptions where _id = '%s'", description_id);
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor c = db.rawQuery(query, null);
+        String description;
+        try (Cursor c = db.rawQuery(query, null))
+        {
 
-        if (c != null)
-            c.moveToFirst();
+            if (c != null)
+                c.moveToFirst();
 
-        String description = c.getString(c.getColumnIndex("text"));
+            description = c.getString(c.getColumnIndex("text"));
+        }
         db.close();
         return description;
     }
@@ -775,22 +937,19 @@ public class DataBaseHelper extends SQLiteOpenHelper
         String query = "SELECT Count(*) From Projects";
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor c = db.rawQuery(query, null);
+        int factorItemId;
+        try (Cursor c = db.rawQuery(query, null))
+        {
 
-        if (c != null)
-            c.moveToFirst();
+            if (c != null)
+                c.moveToFirst();
 
-        int factorItemId = c.getInt(0);
+            factorItemId = c.getInt(0);
+        }
 
         db.close();
 
-        if (factorItemId > 0)
-        {
-            return true;
-        } else
-        {
-            return false;
-        }
+        return factorItemId > 0;
     }
 
     /**
@@ -807,22 +966,24 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor c = db.rawQuery(selectQuery, null);
-        if (c.moveToFirst())
+        try (Cursor c = db.rawQuery(selectQuery, null))
         {
-            do
+            if (c.moveToFirst())
             {
-                Project p = new Project(activity.getBaseContext());
-                p.setTitle(c.getString(c.getColumnIndex("name")));
-                p.setEstimationMethod(getEstimationMethodNameById(c.getString(c.getColumnIndex("estimation_method_id"))));
-                int detailsId = c.getInt(c.getColumnIndex("project_details_id"));
+                do
+                {
+                    Project p = new Project(activity.getBaseContext());
+                    p.setTitle(c.getString(c.getColumnIndex("name")));
+                    p.setEstimationMethod(getEstimationMethodNameById(c.getString(c.getColumnIndex("estimation_method_id"))));
+                    int detailsId = c.getInt(c.getColumnIndex("project_details_id"));
 
-                p.setImage(loadProjectImage(detailsId));
-                p.setCreationDate(c.getString(c.getColumnIndex("created_at")));
+                    p.setImage(loadProjectImage(detailsId));
+                    p.setCreationDate(c.getString(c.getColumnIndex("created_at")));
 
-                p.setProjectId(c.getInt(c.getColumnIndex("_id")));
-                projects.add(p);
-            } while (c.moveToNext());
+                    p.setProjectId(c.getInt(c.getColumnIndex("_id")));
+                    projects.add(p);
+                } while (c.moveToNext());
+            }
         }
         db.close();
         return projects;
@@ -838,20 +999,25 @@ public class DataBaseHelper extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = String.format("SELECT * FROM ProjectDetails WHERE _id = %d;", detailsId);
-        Cursor c = db.rawQuery(selectQuery, null);
+        String path;
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
 
-        if (c != null)
-            c.moveToFirst();
+            if (c != null)
+                c.moveToFirst();
 
-        int iconId = c.getInt(c.getColumnIndex("icon_id"));
+            int iconId = c.getInt(c.getColumnIndex("icon_id"));
 
-        selectQuery = String.format("SELECT * FROM ProjectIcons WHERE _id = %d", iconId);
-        c = db.rawQuery(selectQuery, null);
+            selectQuery = String.format("SELECT * FROM ProjectIcons WHERE _id = %d", iconId);
+            try (Cursor c2 = db.rawQuery(selectQuery, null))
+            {
 
-        if (c != null)
-            c.moveToFirst();
+                if (c2 != null)
+                    c2.moveToFirst();
 
-        String path = c.getString(c.getColumnIndex("path"));
+                path = c2.getString(c2.getColumnIndex("path"));
+            }
+        }
         AssetManager assetManager = context.getAssets();
 
         InputStream istr;
@@ -879,14 +1045,17 @@ public class DataBaseHelper extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = String.format("SELECT * FROM EstimationMethod WHERE _id = %s;", estimation_method_id);
-        Cursor c = db.rawQuery(selectQuery, null);
+        String name;
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
 
-        if (c != null)
-            c.moveToFirst();
+            if (c != null)
+                c.moveToFirst();
 
-        String name = c.getString(1);
+            name = c.getString(1);
+        }
 
         db.close();
-        return name;
+        return getStringResourceByName(name);
     }
 }
