@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation.GuidedCreationFragment;
@@ -40,6 +41,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter
     public Fragment getItem(int position)
     {
         GuidedCreationFragment f = guidedCreationFragmentsArrayList.get(position);
+        Log.d("INFO","Create new Instance of fragment: "+ position);
         guidedCreationFragmentsArrayList.set(position, f.newInstance(this.project));
         return f;
     }

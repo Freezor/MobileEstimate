@@ -122,7 +122,11 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
             creationItems.add(new ProjectItemForCreation("Platform: ", this.project.getProjectProperties().getPlatform()));
             creationItems.add(new ProjectItemForCreation("Industry Sector: ", this.project.getProjectProperties().getIndustrySector()));
             creationItems.add(new ProjectItemForCreation("Estimation Method: ", this.project.getEstimationMethod()));
-            creationItems.add(new ProjectItemForCreation("Influencing Factor: ", this.project.getInfluencingFactor().getInfluenceFactorSetName()));
+            if(this.project.getInfluencingFactor() != null){
+                creationItems.add(new ProjectItemForCreation("Influencing Factor: ", this.project.getInfluencingFactor().getInfluenceFactorSetName()));
+            } else {
+                creationItems.add(new ProjectItemForCreation("Influencing Factor: ", "ERROR"));
+            }
         }
 
         projectCreationListView = (ListView) rootView.findViewById(R.id.lvProjectCreation);

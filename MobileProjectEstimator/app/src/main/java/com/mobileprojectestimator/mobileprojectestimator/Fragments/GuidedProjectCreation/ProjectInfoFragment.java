@@ -94,6 +94,7 @@ public class ProjectInfoFragment extends GuidedCreationFragment
             }
         });
 
+        //TODO: Load Standard Icon from DB
         Bitmap projectIcon = BitmapFactory.decodeResource(getResources(), R.drawable.project);
         project.setImage(projectIcon);
         project.setIconName("Standard Project Icon");
@@ -107,6 +108,7 @@ public class ProjectInfoFragment extends GuidedCreationFragment
             @Override
             public void onClick(View v)
             {
+                //TODO: Create Icon Selection Dialog
                 Toast.makeText(project.getContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
             }
         });

@@ -46,6 +46,10 @@ public class EstimationMethodFragment extends GuidedCreationFragment
         ImageView dot4 = (ImageView) rootView.findViewById(R.id.dot4);
         dot4.setBackgroundResource(R.drawable.circle_blue);
 
+        if (project.getEstimationMethod().isEmpty() || project.getEstimationMethod() == null){
+            project.setEstimationMethod(getString(R.string.estimation_method_function_point));
+        }
+
         final RadioGroup estimationMethodRadioGroup = (RadioGroup) rootView.findViewById(R.id.estimationMethodRadioGroup);
         estimationMethodRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
@@ -56,8 +60,8 @@ public class EstimationMethodFragment extends GuidedCreationFragment
                 int selectedId = estimationMethodRadioGroup.getCheckedRadioButtonId();
 
                 // find the radiobutton by returned id
-                RadioButton estimatiionRB = (RadioButton) rootView.findViewById(selectedId);
-                project.setEstimationMethod(estimatiionRB.getText().toString());
+                RadioButton estimationRB = (RadioButton) rootView.findViewById(selectedId);
+                project.setEstimationMethod(estimationRB.getText().toString());
             }
         });
 

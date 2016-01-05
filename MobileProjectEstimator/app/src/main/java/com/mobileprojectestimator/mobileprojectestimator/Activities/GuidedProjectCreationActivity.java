@@ -43,7 +43,7 @@ import java.util.ArrayList;
 import static com.mobileprojectestimator.mobileprojectestimator.R.id.ivEditItem;
 import static com.mobileprojectestimator.mobileprojectestimator.R.id.tvItemValue;
 
-public class GuidedProjectCreationActivity extends AppCompatActivity
+public class GuidedProjectCreationActivity extends DatabaseActivity
 {
 
     /**
@@ -757,38 +757,6 @@ public class GuidedProjectCreationActivity extends AppCompatActivity
     }
 
 
-    /**
-     * Initialise the Database Helper class and loads the database
-     */
-    private void initDatabase()
-    {
-        Log.d("Info", "Database Initialisation");
-        databaseHelper = new DataBaseHelper(this);
-
-        try
-        {
-
-            databaseHelper.createDataBase();
-
-        } catch (IOException ioe)
-        {
-
-            throw new Error("Unable to create database");
-
-        }
-
-        try
-        {
-
-            databaseHelper.openDataBase();
-
-        } catch (SQLException sqle)
-        {
-            Log.d("ERROR", sqle.toString());
-        }
-
-        databaseHelper.logDatabaseInformation();
-    }
 
     /**
      * Create and Show the Cancel Dialog when the user wants to exit the creation dialog

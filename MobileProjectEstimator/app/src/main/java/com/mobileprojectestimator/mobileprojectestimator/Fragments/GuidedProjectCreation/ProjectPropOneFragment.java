@@ -42,6 +42,7 @@ public class ProjectPropOneFragment extends GuidedCreationFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
+        initDatabase();
         View rootView = inflater.inflate(R.layout.project_prop_one_fragment, container, false);
         ImageView dot1 = (ImageView) rootView.findViewById(R.id.dot1);
         dot1.setBackgroundResource(R.drawable.circle_blue);
@@ -53,9 +54,7 @@ public class ProjectPropOneFragment extends GuidedCreationFragment
          * Initialise the Spinner Data
          */
         ArrayList<String> marketItems = new ArrayList<>();
-        marketItems.add("Inhouse");
-        marketItems.add("Customer");
-        marketItems.add("Anonymous Market");
+        marketItems.addAll(databaseHelper.loadAllPropertiesByName("DevelopmentMarkets"));
         ArrayAdapter<String> marketsAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, marketItems);
         final Spinner marketSpinner = (Spinner) rootView.findViewById(R.id.market);
         marketSpinner.setAdapter(marketsAdapter);
@@ -78,9 +77,7 @@ public class ProjectPropOneFragment extends GuidedCreationFragment
         });
 
         ArrayList<String> developmentItems = new ArrayList<>();
-        developmentItems.add("New Project");
-        developmentItems.add("Extension");
-        developmentItems.add("Research Project");
+        developmentItems.addAll(databaseHelper.loadAllPropertiesByName("DevelopmentTypes"));
         ArrayAdapter<String> developmentAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, developmentItems);
         final Spinner developmentSpinner = (Spinner) rootView.findViewById(R.id.developmentKind);
         developmentSpinner.setAdapter(developmentAdapter);
@@ -103,12 +100,7 @@ public class ProjectPropOneFragment extends GuidedCreationFragment
         });
 
         ArrayList<String> processMethologyItems = new ArrayList<>();
-        processMethologyItems.add("V-Model");
-        processMethologyItems.add("Scrum");
-        processMethologyItems.add("Waterfall");
-        processMethologyItems.add("Spiral");
-        processMethologyItems.add("Iterativ");
-        processMethologyItems.add("Prototyping");
+        processMethologyItems.addAll(databaseHelper.loadAllPropertiesByName("ProcessMethologies"));
         ArrayAdapter<String> processModelAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, processMethologyItems);
         final Spinner processMethologySpinner = (Spinner) rootView.findViewById(R.id.processModel);
         processMethologySpinner.setAdapter(processModelAdapter);

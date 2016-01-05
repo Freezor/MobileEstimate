@@ -41,6 +41,7 @@ public class ProjectPropTwoFragment extends GuidedCreationFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
+        initDatabase();
         View rootView = inflater.inflate(R.layout.project_prop_two_fragment, container, false);
         ImageView dot1 = (ImageView) rootView.findViewById(R.id.dot1);
         dot1.setBackgroundResource(R.drawable.circle_blue);
@@ -54,19 +55,7 @@ public class ProjectPropTwoFragment extends GuidedCreationFragment
          * Initialise the Spinner Data
          */
         ArrayList<String> programmingLanguageItems = new ArrayList<>();
-        programmingLanguageItems.add("C");
-        programmingLanguageItems.add("C#");
-        programmingLanguageItems.add("C++");
-        programmingLanguageItems.add("Clojure");
-        programmingLanguageItems.add("COBOL");
-        programmingLanguageItems.add("Java");
-        programmingLanguageItems.add("Javascript");
-        programmingLanguageItems.add("Matlab");
-        programmingLanguageItems.add("Objective-C");
-        programmingLanguageItems.add("PHP");
-        programmingLanguageItems.add("Prolog");
-        programmingLanguageItems.add("Python");
-        programmingLanguageItems.add("Scala");
+        programmingLanguageItems.addAll(databaseHelper.loadAllPropertiesByName("ProgrammingLanguages"));
         ArrayAdapter<String> programmingLanguageAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, programmingLanguageItems);
         final Spinner programmingLanguageSpinner = (Spinner) rootView.findViewById(R.id.programmingLanguage);
         programmingLanguageSpinner.setAdapter(programmingLanguageAdapter);
@@ -89,15 +78,7 @@ public class ProjectPropTwoFragment extends GuidedCreationFragment
         });
 
         ArrayList<String> platformItems = new ArrayList<>();
-        platformItems.add("Android");
-        platformItems.add("IOS");
-        platformItems.add("Windows 7");
-        platformItems.add("Windows 8");
-        platformItems.add("Windows 10");
-        platformItems.add("Linux");
-        platformItems.add("Windows Phone");
-        platformItems.add("Web Development");
-        platformItems.add("Mac OS");
+        platformItems.addAll(databaseHelper.loadAllPropertiesByName("Platforms"));
         ArrayAdapter<String> platformAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, platformItems);
         final Spinner platformSpinner = (Spinner) rootView.findViewById(R.id.developmentPlatform);
         platformSpinner.setAdapter(platformAdapter);
@@ -120,20 +101,7 @@ public class ProjectPropTwoFragment extends GuidedCreationFragment
         });
 
         ArrayList<String> industrySectorItems = new ArrayList<>();
-        industrySectorItems.add("Agriculture");
-        industrySectorItems.add("Automotive");
-        industrySectorItems.add("Banking");
-        industrySectorItems.add("Bars & Restaurants");
-        industrySectorItems.add("Business Service");
-        industrySectorItems.add("Construction");
-        industrySectorItems.add("Electronics");
-        industrySectorItems.add("Entertainment");
-        industrySectorItems.add("Finance");
-        industrySectorItems.add("Health");
-        industrySectorItems.add("Internet");
-        industrySectorItems.add("Music Production");
-        industrySectorItems.add("Pharmaceutical Manufacturing");
-        industrySectorItems.add("Education");
+        industrySectorItems.addAll(databaseHelper.loadAllPropertiesByName("IndustrySectors"));
         ArrayAdapter<String> industrySectorAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, industrySectorItems);
         final Spinner industrySectorSpinner = (Spinner) rootView.findViewById(R.id.industrySector);
         industrySectorSpinner.setAdapter(industrySectorAdapter);

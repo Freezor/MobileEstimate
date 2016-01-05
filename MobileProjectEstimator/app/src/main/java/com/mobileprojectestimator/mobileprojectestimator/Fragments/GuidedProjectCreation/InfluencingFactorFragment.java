@@ -43,7 +43,6 @@ public class InfluencingFactorFragment extends GuidedCreationFragment
         InfluencingFactorFragment fragment = new InfluencingFactorFragment();
         Bundle args = new Bundle();
         project = proj;
-        //TODO: Projekt als Json mitgeben
         fragment.setArguments(args);
         return fragment;
     }

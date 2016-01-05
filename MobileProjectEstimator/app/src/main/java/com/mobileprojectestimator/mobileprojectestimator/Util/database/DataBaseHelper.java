@@ -29,6 +29,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 /**
@@ -1052,4 +1053,35 @@ public class DataBaseHelper extends SQLiteOpenHelper
         db.close();
         return getStringResourceValueByResourceName(name);
     }
+
+    /**
+     * Load all project properties as Arraylist from the database
+     * TableNames: DevelopmentMarkets, DevelopmentTypes, IndustrySectors, Platforms, ProcessMethologies, ProgrammingLanguages,
+     * @param tableName
+     * @return
+     */
+    public ArrayList<String> loadAllPropertiesByName(String tableName)
+    {
+        ArrayList<String> items = new ArrayList<>();
+        Log.d("Info","Load project properties from table: "+tableName);
+        String selectQuery = String.format("SELECT * FROM %s;", tableName);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                do
+                {
+                    String marketName = c.getString(c.getColumnIndex("name"));
+                    items.add(getStringResourceValueByResourceName(marketName));
+                } while (c.moveToNext());
+            }
+        }
+        db.close();
+        Collections.sort(items);
+        return items;
+    }
+
 }
