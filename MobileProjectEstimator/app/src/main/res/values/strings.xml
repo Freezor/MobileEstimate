@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">Project Estimator</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -14,7 +15,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="action_save_project">Save Project</string>
-    <string name="NewProjectIntentValueParam">NEWPROJECT</string>
+    <string name="NewProjectIntentValueParam" translatable="false">NEWPROJECT</string>
     <string name="title_activity_function_point_project">Function Point Activity</string>
     <string name="title_activity_function_point_project_activtiy">FunctionPointProjectActivtiy
     </string>
@@ -22,7 +23,7 @@
     <string name="action_terminate_project">Terminate Project</string>
     <string name="action_project_properties">Project Properties</string>
     <string name="project_created_text_part">"Created: "</string>
-    <string name="factor_value_standard_value">0</string>
+    <string name="factor_value_standard_value" translatable="false">0</string>
     <string name="function_point_influence_factor_item_integration">Integration into other applications</string>
     <string name="function_point_influence_factor_item_local_data">Local Data Processing</string>
     <string name="function_point_influence_factor_item_transaction_rate">Transaction Rate</string>
@@ -34,21 +35,18 @@
     <string name="function_point_influence_factor_item_reusability">Reusability</string>
     <string name="function_point_influence_factor_item_stock_conversion">Stock Conversion</string>
     <string name="function_point_influence_factor_item_adaptability">Adaptability</string>
-    <string name="project_hashmap_item_influencing_factors">INFLUENCINGFACTORS</string>
-    <string name="project_hashmap_item_properties">PROPERTIES</string>
-    <string name="project_hashmap_item_title">TITLE</string>
-    <string name="project_hashmap_item_image">IMAGE</string>
-    <string name="project_hashmap_item_iconname">ICONNAME</string>
-    <string name="project_hashmap_item_creation_date">CREATIONDATE</string>
-    <string name="project_hashmap_item_description">PROJECTDESCRIPTION</string>
-    <string name="project_hashmap_item_estimation_method">ESTIMATIONMETHOD</string>
-    <string name="PROJECT_VIEW_CODE">1001</string>
-    <string name="FRAGMENT_REQUEST_CODE">1002</string>
+    <string name="project_hashmap_item_influencing_factors" translatable="false">INFLUENCINGFACTORS</string>
+    <string name="project_hashmap_item_properties" translatable="false">PROPERTIES</string>
+    <string name="project_hashmap_item_title" translatable="false">TITLE</string>
+    <string name="project_hashmap_item_image" translatable="false">IMAGE</string>
+    <string name="project_hashmap_item_iconname" translatable="false">ICONNAME</string>
+    <string name="project_hashmap_item_creation_date" translatable="false">CREATIONDATE</string>
+    <string name="project_hashmap_item_description" translatable="false">PROJECTDESCRIPTION</string>
+    <string name="project_hashmap_item_estimation_method" translatable="false">ESTIMATIONMETHOD</string>
+    <string name="PROJECT_VIEW_CODE" translatable="false">1001</string>
+    <string name="FRAGMENT_REQUEST_CODE" translatable="false">1002</string>
     <string name="msg_guided_project_creation_no_estimation_method">You have chosen no Estimation Method.</string>
     <string name="msg_guided_project_creation_chosen_estimation_method">You have chosen the %s Estimation Method.</string>
-    <string name="estimation_method_function_point">Function Point</string>
-    <string name="estimation_method_cocomo">COCOMO</string>
-    <string name="estimation_method_cocomo_2">COCOMO 2</string>
     <string name="error_this_should_not_happen">THIS SHOULD NOT HAPPEN!</string>
     <string name="function_point_estimation_input_data">Input Data</string>
     <string name="function_point_estimation_requests">"Requests "</string>
@@ -63,9 +61,9 @@
     <string name="help">Help</string>
     <string name="settings">Settings</string>
     <string name="influence_factor_sample_name">Integration into other applications</string>
-    <string name="influence_factor_sample_value">10</string>
+    <string name="influence_factor_sample_value" translatable="false">10</string>
     <string name="project_creation_overview_hint">Please Check all your input information.</string>
-    <string name="function_point_estimation_sample_value">999</string>
+    <string name="function_point_estimation_sample_value" translatable="false">999</string>
     <string name="nav_header_project_name_hint">Project Name</string>
     <string name="nav_header_user">User: testuser</string>
     <string name="function_point_sum_of_influences">Sum of Influences: </string>
@@ -87,44 +85,44 @@
     <string name="project_creation_change_icon">Change Project Icon</string>
     <string name="estimation_item_name">Reference Data</string>
     <string name="estimation_item_unweighted_points">Unweighted Points:</string>
-    <string name="estimation_item_sample_value">10</string>
+    <string name="estimation_item_sample_value" translatable="false">10</string>
     <string name="influence_factor_list_item_base_value">Integration into other applications</string>
-    <string name="influence_factor_list_item_value">0</string>
+    <string name="influence_factor_list_item_value" translatable="false">0</string>
     <string name="project_list_creation_name">Item Name:</string>
     <string name="project_list_creation_value">Item Value</string>
     <string name="function_point_estimation_simple">Simple</string>
     <string name="function_point_estimation_medium">Medium</string>
     <string name="function_point_estimation_complex">Complex</string>
-    <string name="function_point_estimation_description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum.</string>
+    <string name="function_point_estimation_description" translatable="false">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum.</string>
     <string name="estimation_method_hint">Choose the estimation method you want to use.</string>
     <string name="function_point_estimation_total_points">Total Points: </string>
     <string name="function_point_estimation_evaluated_total_points">Evaluated Function Points: </string>
     <string name="function_point_estimation_evaluated_person_days">Evaluated Person Days: </string>
     <string name="function_point_estimation_calculate_person_days_button">Calculate Person Days</string>
-    <string name="project_hash_suffix_simple">_SIMPLE</string>
-    <string name="project_hash_suffix_medium">_MEDIUM</string>
-    <string name="project_hash_suffix_complex">_COMPLEX</string>
-    <string name="project_hash_suffix_total_amount">_TOTAL_AMOUNT</string>
-    <string name="pref_user_info_title">USER INFORMATION</string>
-    <string name="pref_user_name_summary">Set username</string>
-    <string name="pref_password_summary">Set password</string>
-    <string name="pref_user_name_title">Name</string>
-    <string name="pref_user_password_title">Password</string>
-    <string name="pref_update_settings">UPDATE SETTINGS</string>
-    <string name="pref_send_report_summary">Helps to fix bugs</string>
-    <string name="pref_send_report">Send crash reports</string>
-    <string name="pref_sync_frequency_summary">Set the synchronisation frequency</string>
-    <string name="pref_sync_frequency">Synchronisation</string>
+    <string name="project_hash_suffix_simple" translatable="false">_SIMPLE</string>
+    <string name="project_hash_suffix_medium" translatable="false">_MEDIUM</string>
+    <string name="project_hash_suffix_complex" translatable="false">_COMPLEX</string>
+    <string name="project_hash_suffix_total_amount" translatable="false">_TOTAL_AMOUNT</string>
+    <string name="pref_user_info_title" translatable="false">USER INFORMATION</string>
+    <string name="pref_user_name_summary" translatable="false">Set username</string>
+    <string name="pref_password_summary" translatable="false">Set password</string>
+    <string name="pref_user_name_title" translatable="false">Name</string>
+    <string name="pref_user_password_title" translatable="false">Password</string>
+    <string name="pref_update_settings" translatable="false">UPDATE SETTINGS</string>
+    <string name="pref_send_report_summary" translatable="false">Helps to fix bugs</string>
+    <string name="pref_send_report" translatable="false">Send crash reports</string>
+    <string name="pref_sync_frequency_summary" translatable="false">Set the synchronisation frequency</string>
+    <string name="pref_sync_frequency" translatable="false">Synchronisation</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="title_activity_settings">Settings</string>
     <string name="settings_title">Settings</string>
-    <string name="RESULT_SETTINGS_REQUEST_CODE">1003</string>
-    <string name="pref_key_user_name">pref_key_user_name</string>
-    <string name="pref_key_user_password">pref_key_user_password</string>
-    <string name="pref_key_send_crash_report">pref_key_send_crash_report</string>
+    <string name="RESULT_SETTINGS_REQUEST_CODE" translatable="false">1003</string>
+    <string name="pref_key_user_name" translatable="false">pref_key_user_name</string>
+    <string name="pref_key_user_password" translatable="false">pref_key_user_password</string>
+    <string name="pref_key_send_crash_report" translatable="false">pref_key_send_crash_report</string>
     <string name="user_name_error">Username: NOT SET</string>
-    <string name="title_activity_help_and_feedback"><![CDATA[Help & Feedback]]></string>
+    <string name="title_activity_help_and_feedback" translatable="false"><![CDATA[Help & Feedback]]></string>
     <string name="hel_activity_article_headline">Article</string>
     <string name="help_activity_search_all_articles">Search All Articles</string>
     <string name="help_activity_feedback">Feedback</string>
@@ -133,20 +131,92 @@
     <string name="export_pdf">Export PDF</string>
     <string name="export_settings">Settings</string>
     <string name="export_choose_project">Choose a project</string>
-    <string name="ProjectsNameList">LISTWITHPROJECTNAMES</string>
+    <string name="ProjectsNameList" translatable="false">LISTWITHPROJECTNAMES</string>
     <string name="title_activity_influence_factors">Influencing Factors</string>
-    <string name="INFLUENCEFACTORACTIVITYREQUESTCODE">1006</string>
+    <string name="INFLUENCEFACTORACTIVITYREQUESTCODE" translatable="false">1006</string>
     <string name="title_activity_create_new_influence_factor">New Factor</string>
     <string name="action_save_factor">Save</string>
     <string name="action_delete_factor">Delete Factor from database</string>
     <string name="action_create_new_factor">Create New Factor</string>
     <string name="hint_factor_name">Factor Name</string>
-    <string name="new_influence_factor_request_code">31246</string>
-    <string name="ISNEWFACTOR">ISNEWFACTOR</string>
-    <string name="NEWFACTORESTIMATIONMETHOD">ESTIMATIONMETHOD</string>
-    <string name="NEWFACTORINFLUENCESETNAME">INFLUENCEFACTORNAME</string>
-    <string name="edit_influence_factor_request_code">42365</string>
-    <string name="database_destination_path">/data/data/com.mobileprojectestimator.mobileprojectestimator/databases/%s</string>
-    <string name="database_new_creation_path">/data/data/com.mobileprojectestimator.mobileprojectestimator/databases/</string>
-    <string name="SELECTEDPROJECTID">Selected_Project_id</string>
+    <string name="new_influence_factor_request_code" translatable="false">31246</string>
+    <string name="ISNEWFACTOR" translatable="false">ISNEWFACTOR</string>
+    <string name="NEWFACTORESTIMATIONMETHOD" translatable="false">ESTIMATIONMETHOD</string>
+    <string name="NEWFACTORINFLUENCESETNAME" translatable="false">INFLUENCEFACTORNAME</string>
+    <string name="edit_influence_factor_request_code" translatable="false">42365</string>
+    <string name="SELECTEDPROJECTID" translatable="false">Selected_Project_id</string>
+
+    <!-- Development Markets -->
+    <string name="Anonymous_Market_string" translatable="false">Anonymous Market</string>
+    <string name="Customer_string" translatable="false">Customer</string>
+    <string name="Inhouse_string" translatable="false">Inhouse</string>
+
+    <!-- Development Types -->
+    <string name="Research_Project_string" translatable="false">Research Project</string>
+    <string name="Extension_Project_string" translatable="false">Extension Project</string>
+    <string name="New_Project_string" translatable="false">New Project</string>
+
+    <!-- Estimation Methods -->
+    <string name="estimation_method_function_point">Function Point</string>
+    <string name="estimation_method_cocomo">COCOMO</string>
+    <string name="estimation_method_cocomo_2">COCOMO 2</string>
+
+    <!-- Industry Sectors -->
+    <string name="Agriculture_string">Agriculture</string>
+    <string name="Automotive_string">Automotive</string>
+    <string name="Banking_string">Banking</string>
+    <string name="Bars_and_Restaurants_string">Bars and Restaurants</string>
+    <string name="Business_Service_string">Business Service</string>
+    <string name="Construction_string">Construction</string>
+    <string name="Electronics_string">Electronics</string>
+    <string name="Entertainment_string">Entertainment</string>
+    <string name="Finance_string">Finance</string>
+    <string name="Health_string">Health</string>
+    <string name="Internet_string">Internet</string>
+    <string name="Music_Production_string">Music Production</string>
+    <string name="Education_string">Education</string>
+    <string name="Other_string">Other</string>
+
+    <!-- Platforms -->
+    <string name="Android_string">Android</string>
+    <string name="IOS_string">IOS</string>
+    <string name="Windows_7_string">Windows 7</string>
+    <string name="Windows_8_string">Windows 8</string>
+    <string name="Windows_10_string">Windows 10</string>
+    <string name="Linux_string">Linux</string>
+    <string name="Windows_Universal_App_string">Windows Universal App</string>
+    <string name="Windows_Phone_string">Windows Phone</string>
+    <string name="Web_Development_string">Web Development</string>
+    <string name="Mac_OS_string">Mac OS</string>
+
+    <!-- Process Methologies -->
+    <string name="V_Model_string">V Model</string>
+    <string name="Scrum_string">Scrum</string>
+    <string name="Waterfall_string">Waterfall Model</string>
+    <string name="Spiral_string">Spiral Model</string>
+    <string name="Iterativ_string">Iterativ Development</string>
+    <string name="Prototyping_string">Prototyping</string>
+
+    <!-- Programming Languages -->
+    <string name="C_string">C</string>
+    <string name="Csharp_string">C#</string>
+    <string name="Cpp_string">C++</string>
+    <string name="Clojure_string">Clojure</string>
+    <string name="COBOL_string">COBOL</string>
+    <string name="Java_string">Java</string>
+    <string name="Javascript_string">Javascript</string>
+    <string name="Matlab_string">Matlab</string>
+    <string name="Objective_C_string">Objective-C</string>
+    <string name="PHP_string">PHP</string>
+    <string name="Prolog_string">Prolog</string>
+    <string name="Python_string">Python</string>
+    <string name="Scala_string">Scala</string>
+
+    <!-- Project Icon Names -->
+    <string name="standard_icon_string">Project</string>
+    <string name="android_icon_string">Android</string>
+    <string name="pizza_icon_string">Pizza Project</string>
+    <string name="visualstudio_icon_string">VisualStudio</string>
+
+
 </resources>
