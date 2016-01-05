@@ -100,6 +100,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
                 onClickProject(position);
             }
         });
+        databaseHelper.preloadResourcesIdMap();
     }
 
     /**

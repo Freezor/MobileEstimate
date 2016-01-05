@@ -1090,4 +1090,26 @@ public class DataBaseHelper extends SQLiteOpenHelper
         return items;
     }
 
+    /**
+     * Fills the DatabaseHelper.resourcesIdMap with all string values
+     */
+    public void preloadResourcesIdMap()
+    {
+        Log.d("Info","Preload DatabaseHelper.resourcesIdMap");
+        ArrayList<String> tables = new ArrayList<>();
+        tables.add("DevelopmentMarkets");
+        tables.add("DevelopmentTypes");
+        tables.add("EstimationMethod");
+        tables.add("IndustrySectors");
+        tables.add("Platforms");
+        tables.add("ProcessMethologies");
+        tables.add("ProgrammingLanguages");
+        tables.add("ProjectIcons");
+
+        for (String tablename :tables)
+        {
+            loadAllPropertiesByName(tablename);
+        }
+
+    }
 }

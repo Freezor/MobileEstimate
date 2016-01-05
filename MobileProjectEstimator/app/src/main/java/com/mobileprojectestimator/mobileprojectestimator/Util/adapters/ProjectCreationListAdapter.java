@@ -70,7 +70,7 @@ public class ProjectCreationListAdapter extends BaseAdapter
         if (inflater == null)
             inflater = fragment.getActivity().getLayoutInflater();
         if (convertView == null)
-            convertView = inflater.inflate(R.layout.project_list_creation_item, null);
+            convertView = inflater.inflate(R.layout.project_list_creation_item, parent,false);
 
         TextView itemValueTv = (TextView) convertView.findViewById(R.id.tvItemValue);
         TextView itemDescriptionTv = (TextView) convertView.findViewById(R.id.tvItemDescription);

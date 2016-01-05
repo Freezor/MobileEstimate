@@ -20,6 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/ivEditItem"
         android:layout_toStartOf="@+id/ivEditItem"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:text="@string/project_list_creation_value"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
 

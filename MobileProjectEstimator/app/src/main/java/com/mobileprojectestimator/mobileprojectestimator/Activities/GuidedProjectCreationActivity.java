@@ -44,11 +44,6 @@ import static com.mobileprojectestimator.mobileprojectestimator.R.id.tvItemValue
 
 public class GuidedProjectCreationActivity extends DatabaseActivity
 {
-
-    /**
-     * Constant int for the length where the string will be cut in shortenString()
-     */
-    public static final int STRINGLENGTH = 12;
     protected RelativeLayout sublayout;
     protected ImageView editName;
     protected ImageView editInfluenceFactor;
@@ -209,7 +204,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
     {
         if (this.projectCreationOverviewFragment != null)
         {
-            updateOvervieItemsValue();
+            updateOverviewItemsValue();
         } else
         {
             instanciateOverviewViewItems(position);
@@ -365,7 +360,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
             });
 
             //fill the items with the actual value
-            updateOvervieItemsValue();
+            updateOverviewItemsValue();
         } catch (Exception e)
         {
             Log.d("Error", "instanciateOverviewViewItems: " + e.toString());
@@ -474,47 +469,25 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
     /**
      * Update all View Items with the actual value the user selected
      */
-    private void updateOvervieItemsValue()
+    private void updateOverviewItemsValue()
     {
-        projName.setText(shorten(projectNew.getTitle(), STRINGLENGTH));
+        projName.setText(projectNew.getTitle());
         if (projectNew.getProjectDescription() != null)
         {
-            projDescription.setText(shorten(projectNew.getProjectDescription(), STRINGLENGTH));
+            projDescription.setText(projectNew.getProjectDescription());
         } else
         {
             projDescription.setText("");
         }
-        iconName.setText(shorten(projectNew.getIconName(), STRINGLENGTH));
-        projectMarket.setText(shorten(projectNew.getProjectProperties().getMarket(), STRINGLENGTH));
-        developmentKind.setText(shorten(projectNew.getProjectProperties().getDevelopmentKind(), STRINGLENGTH));
-        processModel.setText(shorten(projectNew.getProjectProperties().getProcessMethology(), STRINGLENGTH));
-        programmingLanguage.setText(shorten(projectNew.getProjectProperties().getProgrammingLanguage(), STRINGLENGTH));
-        platform.setText(shorten(projectNew.getProjectProperties().getPlatform(), STRINGLENGTH));
-        industrySector.setText(shorten(projectNew.getProjectProperties().getIndustrySector(), STRINGLENGTH));
-        estimationMethod.setText(shorten(projectNew.getEstimationMethod(), STRINGLENGTH));
-        //TODO: SET Influence Factor Name
-        influenceFactor.setText(shorten(projectNew.getInfluencingFactor().getInfluenceFactorSetName(), STRINGLENGTH));
-    }
-
-    /**
-     * Shortens a string to a specific length and add "..."
-     *
-     * @param text
-     * @param length
-     * @return
-     */
-    private String shorten(String text, int length)
-    {
-        if (text.length() > length)
-        {
-            //TODO: check if contains("\n") and shorten to oneline
-            String s = text.substring(0, length);
-            s = s + "...";
-            return s;
-        } else
-        {
-            return text;
-        }
+        iconName.setText(projectNew.getIconName());
+        projectMarket.setText(projectNew.getProjectProperties().getMarket());
+        developmentKind.setText(projectNew.getProjectProperties().getDevelopmentKind());
+        processModel.setText(projectNew.getProjectProperties().getProcessMethology());
+        programmingLanguage.setText(projectNew.getProjectProperties().getProgrammingLanguage());
+        platform.setText(projectNew.getProjectProperties().getPlatform());
+        industrySector.setText(projectNew.getProjectProperties().getIndustrySector());
+        estimationMethod.setText(projectNew.getEstimationMethod());
+        influenceFactor.setText(projectNew.getInfluencingFactor().getInfluenceFactorSetName());
     }
 
 
@@ -573,9 +546,9 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
      */
     private void updateInfluencingFactorFragment(int position)
     {
+        initialiseInfluencingFactorFragment(position);
         if (influencingFactorFragment == null)
         {
-            initialiseInfluencingFactorFragment(position);
             infFactorTextViewEstimationMethod.setText(String.format(getString(R.string.msg_guided_project_creation_chosen_estimation_method), new Object[]{projectNew.getEstimationMethod()}));
         } else
         {
