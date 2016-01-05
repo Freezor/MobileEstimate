@@ -23,7 +23,7 @@ import java.util.Map;
  */
 public class Project implements Serializable
 {
-    private String Title;
+    private String title;
     private Bitmap image;
     private String iconName;
     private String creationDate;
@@ -57,7 +57,7 @@ public class Project implements Serializable
      */
     public Project(Context current, String title, String creationDate, String estimationMethod)
     {
-        this.Title = title;
+        this.title = title;
         this.creationDate = creationDate;
         this.estimationMethod = estimationMethod;
         this.context = current;
@@ -69,7 +69,7 @@ public class Project implements Serializable
     public Project(Context current, String title, String creationDate, String estimationMethod, int projectId)
     {
         this.projectId = projectId;
-        this.Title = title;
+        this.title = title;
         this.creationDate = creationDate;
         this.estimationMethod = estimationMethod;
         this.context = current;
@@ -152,12 +152,12 @@ public class Project implements Serializable
 
     public String getTitle()
     {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title)
     {
-        Title = title;
+        this.title = title;
     }
 
     public Bitmap getImage()
@@ -255,7 +255,7 @@ public class Project implements Serializable
         valuesMap.putAll(this.influencingFactor.toHashMap());
         valuesMap.putAll(this.projectProperties.toHashMap());
 
-        valuesMap.put(context.getString(R.string.project_hashmap_item_title), Title);
+        valuesMap.put(context.getString(R.string.project_hashmap_item_title), title);
 
         Bitmap imaged = image;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

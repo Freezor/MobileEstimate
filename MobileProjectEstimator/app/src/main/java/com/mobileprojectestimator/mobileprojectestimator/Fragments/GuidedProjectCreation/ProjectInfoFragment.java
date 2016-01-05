@@ -97,7 +97,7 @@ public class ProjectInfoFragment extends GuidedCreationFragment
         //TODO: Load Standard Icon from DB
         Bitmap projectIcon = BitmapFactory.decodeResource(getResources(), R.drawable.project);
         project.setImage(projectIcon);
-        project.setIconName("Standard Project Icon");
+        project.setIconName(getContext().getString(R.string.standard_icon_string));
 
         TextView iconName = (TextView) rootView.findViewById(R.id.tvProjectImageName);
         iconName.setText(project.getIconName());

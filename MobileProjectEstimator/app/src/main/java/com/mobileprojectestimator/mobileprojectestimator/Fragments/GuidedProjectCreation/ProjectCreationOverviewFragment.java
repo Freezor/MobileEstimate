@@ -1,7 +1,6 @@
 package com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -19,7 +18,6 @@ import com.mobileprojectestimator.mobileprojectestimator.R;
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.ProjectCreationListAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by Oliver Fries on 01.11.2015, 16:01.
@@ -38,6 +36,10 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
      */
     public ProjectCreationOverviewFragment newInstance(Project project)
     {
+        if (databaseHelper == null)
+        {
+            initDatabase();
+        }
         ProjectCreationOverviewFragment fragment = new ProjectCreationOverviewFragment();
         Bundle args = new Bundle();
         this.project = project;
@@ -60,11 +62,12 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
                 } else
                 {
                     this.project.initialiseEstimationItems(this.project.getEstimationMethod());
-
-                    Intent intent = new Intent();
-                    //Send Title to Project Overview for logging
-                    intent.putExtra(this.getString(R.string.NewProjectIntentValueParam), project.getTitle());
-                    getActivity().setResult(Activity.RESULT_OK, intent);
+                    if (databaseHelper == null)
+                    {
+                        initDatabase();
+                    }
+                    databaseHelper.saveNewProject(this.project);
+                    getActivity().setResult(Activity.RESULT_OK);
                     getActivity().finish();
                 }
                 return true;
@@ -87,6 +90,7 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
     {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        initDatabase();
     }
 
     @Override
@@ -122,9 +126,11 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
             creationItems.add(new ProjectItemForCreation("Platform: ", this.project.getProjectProperties().getPlatform()));
             creationItems.add(new ProjectItemForCreation("Industry Sector: ", this.project.getProjectProperties().getIndustrySector()));
             creationItems.add(new ProjectItemForCreation("Estimation Method: ", this.project.getEstimationMethod()));
-            if(this.project.getInfluencingFactor() != null){
+            if (this.project.getInfluencingFactor() != null)
+            {
                 creationItems.add(new ProjectItemForCreation("Influencing Factor: ", this.project.getInfluencingFactor().getInfluenceFactorSetName()));
-            } else {
+            } else
+            {
                 creationItems.add(new ProjectItemForCreation("Influencing Factor: ", "ERROR"));
             }
         }

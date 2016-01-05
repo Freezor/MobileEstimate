@@ -125,7 +125,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
     private void onClickCreateNewProject()
     {
         Intent i = new Intent(ProjectOverviewActivity.this, GuidedProjectCreationActivity.class);
-        startActivityForResult(i, Integer.parseInt((getString(R.string.FRAGMENT_REQUEST_CODE))));
+        startActivityForResult(i, Integer.parseInt((getString(R.string.CREATE_NEW_PROJECT_REQUEST_CODE))));
     }
 
     /**
@@ -200,12 +200,12 @@ public class ProjectOverviewActivity extends DatabaseActivity
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        if (requestCode == Integer.parseInt((getString(R.string.FRAGMENT_REQUEST_CODE))))
+        if (requestCode == Integer.parseInt((getString(R.string.CREATE_NEW_PROJECT_REQUEST_CODE))))
         {
             if (resultCode == RESULT_OK)
             {
                 //TODO: Check if result is null
-                getDataFromProjectCreationProcess(data);
+                reloadProjectsFromDatabase();
             }
         } else if (requestCode == Integer.parseInt((getString(R.string.RESULT_SETTINGS_REQUEST_CODE))))
         {
@@ -224,17 +224,13 @@ public class ProjectOverviewActivity extends DatabaseActivity
     /**
      * This method processes the created project
      *
-     * @param data
      */
-    private void getDataFromProjectCreationProcess(Intent data)
+    private void reloadProjectsFromDatabase()
     {
-        //TODO: Check if HasMap is null
-        String title =  data.getStringExtra(this.getString(R.string.NewProjectIntentValueParam));
         loadProjects();
         projectsAdapter = new ProjectListAdapter(this, projectsList);
         projectsListView.setAdapter(projectsAdapter);
         projectsAdapter.notifyDataSetChanged();
-        Log.d("Info", title + " wurde erstellt.");
     }
 
     @Override

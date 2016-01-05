@@ -379,6 +379,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     /**
      * load estimation method
+     * Input "Function Point"
      *
      * @param estimationMethod
      * @return
@@ -1095,7 +1096,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
      */
     public void preloadResourcesIdMap()
     {
-        Log.d("Info","Preload DatabaseHelper.resourcesIdMap");
+        Log.d("Info", "Preload DatabaseHelper.resourcesIdMap");
         ArrayList<String> tables = new ArrayList<>();
         tables.add("DevelopmentMarkets");
         tables.add("DevelopmentTypes");
@@ -1106,10 +1107,218 @@ public class DataBaseHelper extends SQLiteOpenHelper
         tables.add("ProgrammingLanguages");
         tables.add("ProjectIcons");
 
-        for (String tablename :tables)
+        for (String tablename : tables)
         {
             loadAllPropertiesByName(tablename);
         }
 
+        Log.d("INFO", "Number of resource ids = " + DataBaseHelper.resourcesIdMap.size());
+    }
+
+    /**
+     * Returns the next possible id for a table
+     *
+     * @param tablename
+     * @return
+     */
+    private int getNextIdFromTable(String tablename)
+    {
+        String query = "SELECT _id FROM " + tablename + " ORDER BY _id DESC LIMIT 1;";
+        SQLiteDatabase db = this.getWritableDatabase();
+        int id = 0;
+        try (Cursor c = db.rawQuery(query, null))
+        {
+            if (c.moveToFirst())
+            {
+                id = c.getInt(c.getColumnIndex("_id"));
+            }
+        }
+        db.close();
+        id++;
+        return id;
+    }
+
+    /**
+     * Saves a new Project to the database
+     *
+     * @param project
+     */
+    public void saveNewProject(Project project)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Log.d("INFO", "Start Saving New Project " + project.getTitle());
+        //Insert Project Properties
+        int projectPropertyId = getNextIdFromTable("ProjectProperties");
+        int marketId = getPropertyIdFromTable("DevelopmentMarkets", project.getProjectProperties().getMarket());
+        int devKindId = getPropertyIdFromTable("DevelopmentTypes", project.getProjectProperties().getDevelopmentKind());
+        int processMethodId = getPropertyIdFromTable("ProcessMethologies", project.getProjectProperties().getProcessMethology());
+        int programmingLangId = getPropertyIdFromTable("ProgrammingLanguages", project.getProjectProperties().getProgrammingLanguage());
+        int platformId = getPropertyIdFromTable("Platforms", project.getProjectProperties().getPlatform());
+        int industrySectorId = getPropertyIdFromTable("IndustrySectors", project.getProjectProperties().getIndustrySector());
+
+        ContentValues projectPropertyValues = new ContentValues();
+        projectPropertyValues.put("_id", projectPropertyId);
+        projectPropertyValues.put("DevelopmentMarket_id", marketId);
+        projectPropertyValues.put("DevelopmentKind_id", devKindId);
+        projectPropertyValues.put("ProcessMethology_id", processMethodId);
+        projectPropertyValues.put("ProgrammingLanguage_id", programmingLangId);
+        projectPropertyValues.put("Platform_id", platformId);
+        projectPropertyValues.put("IndustrySector_id", industrySectorId);
+        db = this.getWritableDatabase();
+        db.insert("ProjectProperties", null, projectPropertyValues);
+        Log.d("INFO", "Saved new Property with id " + projectPropertyId);
+
+        //Insert Project Description
+        int projectDescriptionId = getNextIdFromTable("ProjectDescriptions");
+        ContentValues projectDescriptionValues = new ContentValues();
+        projectDescriptionValues.put("_id", projectDescriptionId);
+        if (project.getProjectDescription() == null)
+        {
+            projectDescriptionValues.put("text", "");
+        } else
+        {
+            projectDescriptionValues.put("text", project.getProjectDescription());
+        }
+        db = this.getWritableDatabase();
+        db.insert("ProjectDescriptions", null, projectDescriptionValues);
+        Log.d("INFO", "Saved new Description with id " + projectDescriptionId);
+
+        //Create Estimation Items
+        int estimationItemsId = 0;
+        if (project.getEstimationMethod().equals(this.context.getString(R.string.estimation_method_function_point)))
+        {
+            int inputDataItemId = getNextIdFromTable("InputDataItems");
+            ContentValues inputDataValues = new ContentValues();
+            inputDataValues.put("_id", inputDataItemId);
+            inputDataValues.put("simple", 0);
+            inputDataValues.put("medium", 0);
+            inputDataValues.put("complex", 0);
+            db = this.getWritableDatabase();
+            db.insert("InputDataItems", null, inputDataValues);
+            Log.d("INFO", "Saved new InputData with id " + inputDataItemId);
+
+            int requestDataItemId = getNextIdFromTable("RequestItems");
+            inputDataValues = new ContentValues();
+            inputDataValues.put("_id", requestDataItemId);
+            inputDataValues.put("simple", 0);
+            inputDataValues.put("medium", 0);
+            inputDataValues.put("complex", 0);
+            db = this.getWritableDatabase();
+            db.insert("RequestItems", null, inputDataValues);
+            Log.d("INFO", "Saved new Request Data with id " + requestDataItemId);
+
+            int outputDataItemId = getNextIdFromTable("OutputItems");
+            inputDataValues = new ContentValues();
+            inputDataValues.put("_id", outputDataItemId);
+            inputDataValues.put("simple", 0);
+            inputDataValues.put("medium", 0);
+            inputDataValues.put("complex", 0);
+            db = this.getWritableDatabase();
+            db.insert("OutputItems", null, inputDataValues);
+            Log.d("INFO", "Saved new Output Data with id " + outputDataItemId);
+
+            int datasetItemId = getNextIdFromTable("DatasetItems");
+            inputDataValues = new ContentValues();
+            inputDataValues.put("_id", datasetItemId);
+            inputDataValues.put("simple", 0);
+            inputDataValues.put("medium", 0);
+            inputDataValues.put("complex", 0);
+            db = this.getWritableDatabase();
+            db.insert("DatasetItems", null, inputDataValues);
+            Log.d("INFO", "Saved new Dataset with id " + datasetItemId);
+
+            int referenceDataItemId = getNextIdFromTable("ReferenceDataItems");
+            inputDataValues = new ContentValues();
+            inputDataValues.put("_id", referenceDataItemId);
+            inputDataValues.put("simple", 0);
+            inputDataValues.put("medium", 0);
+            inputDataValues.put("complex", 0);
+            db = this.getWritableDatabase();
+            db.insert("ReferenceDataItems", null, inputDataValues);
+            Log.d("INFO", "Saved new ReferenceData with id " + referenceDataItemId);
+
+            estimationItemsId = getNextIdFromTable("FunctionPointEstimationItems");
+            inputDataValues = new ContentValues();
+            inputDataValues.put("_id", estimationItemsId);
+            inputDataValues.put("InputDataItems_id", inputDataItemId);
+            inputDataValues.put("RequestItems_id", requestDataItemId);
+            inputDataValues.put("OutputItems_id", outputDataItemId);
+            inputDataValues.put("DatasetItems_id", datasetItemId);
+            inputDataValues.put("ReferenceDataItems_id", referenceDataItemId);
+            db = this.getWritableDatabase();
+            db.insert("FunctionPointEstimationItems", null, inputDataValues);
+            Log.d("INFO", "Saved new EstimationItem with id " + estimationItemsId);
+        }
+
+        //Save Project Details
+        String query = String.format("SELECT _id FROM InfluenceFactors WHERE name ='%s'", project.getInfluencingFactor().getInfluenceFactorSetName());
+        int influenceFactorId = 2001;
+        try (Cursor c = db.rawQuery(query, null))
+        {
+            if (c.moveToFirst())
+            {
+                influenceFactorId = c.getInt(c.getColumnIndex("_id"));
+            }
+        }
+
+        int projectIconId = 1;
+        query = String.format("SELECT _id FROM ProjectIcons WHERE name ='%s'", getResourceNameByStringResourceValue(project.getIconName()));
+        try (Cursor c = db.rawQuery(query, null))
+        {
+            if (c.moveToFirst())
+            {
+                projectIconId = c.getInt(c.getColumnIndex("_id"));
+            }
+        }
+
+        int projectDetailsId = getNextIdFromTable("ProjectDetails");
+        ContentValues projectDetailsValues = new ContentValues();
+        projectDetailsValues.put("_id", projectDetailsId);
+        projectDetailsValues.put("icon_id", projectIconId);
+        projectDetailsValues.put("estimation_items_id", estimationItemsId);
+        projectDetailsValues.put("project_properties_id", projectPropertyId);
+        projectDetailsValues.put("description_id", projectDescriptionId);
+        projectDetailsValues.put("influence_factorset_id", influenceFactorId);
+        projectDetailsValues.put("evaluated_person_days", project.getEvaluatedPersonDays());
+        db = this.getWritableDatabase();
+        db.insert("ProjectDetails", null, projectDetailsValues);
+        Log.d("INFO", "Saved new Project Details with id " + projectDetailsId);
+
+        int projectId = getNextIdFromTable("Projects");
+        ContentValues projectValues = new ContentValues();
+        projectValues.put("_id", projectId);
+        projectValues.put("name", project.getTitle());
+        projectValues.put("estimation_method_id", getEstimationMethodId(project.getEstimationMethod()));
+        projectValues.put("project_details_id", projectDetailsId);
+        db = this.getWritableDatabase();
+        db.insert("Projects", null, projectValues);
+        Log.d("INFO", "Saved new Project with id " + projectId);
+
+        db.close();
+    }
+
+    /**
+     * get the Id of an value from the database. Only works with tables that got the "name" coloumn
+     *
+     * @param tablename
+     * @param property
+     * @return
+     */
+    private int getPropertyIdFromTable(String tablename, String property)
+    {
+
+        String query = String.format("SELECT _id FROM %s WHERE name = '%s'", tablename, getResourceNameByStringResourceValue(property));
+        SQLiteDatabase db = this.getReadableDatabase();
+        int id = 0;
+        try (Cursor c = db.rawQuery(query, null))
+        {
+            if (c.moveToFirst())
+            {
+                id = c.getInt(c.getColumnIndex("_id"));
+            }
+        }
+        db.close();
+        return id;
     }
 }

@@ -44,7 +44,7 @@
     <string name="project_hashmap_item_description" translatable="false">PROJECTDESCRIPTION</string>
     <string name="project_hashmap_item_estimation_method" translatable="false">ESTIMATIONMETHOD</string>
     <string name="PROJECT_VIEW_CODE" translatable="false">1001</string>
-    <string name="FRAGMENT_REQUEST_CODE" translatable="false">1002</string>
+    <string name="CREATE_NEW_PROJECT_REQUEST_CODE" translatable="false">1002</string>
     <string name="msg_guided_project_creation_no_estimation_method">You have chosen no Estimation Method.</string>
     <string name="msg_guided_project_creation_chosen_estimation_method">You have chosen the %s Estimation Method.</string>
     <string name="error_this_should_not_happen">THIS SHOULD NOT HAPPEN!</string>
@@ -147,14 +147,14 @@
     <string name="SELECTEDPROJECTID" translatable="false">Selected_Project_id</string>
 
     <!-- Development Markets -->
-    <string name="Anonymous_Market_string" translatable="false">Anonymous Market</string>
-    <string name="Customer_string" translatable="false">Customer</string>
-    <string name="Inhouse_string" translatable="false">Inhouse</string>
+    <string name="Anonymous_Market_string" >Anonymous Market</string>
+    <string name="Customer_string">Customer</string>
+    <string name="Inhouse_string">Inhouse</string>
 
     <!-- Development Types -->
-    <string name="Research_Project_string" translatable="false">Research Project</string>
-    <string name="Extension_Project_string" translatable="false">Extension Project</string>
-    <string name="New_Project_string" translatable="false">New Project</string>
+    <string name="Research_Project_string" >Research Project</string>
+    <string name="Extension_Project_string" >Extension Project</string>
+    <string name="New_Project_string" >New Project</string>
 
     <!-- Estimation Methods -->
     <string name="estimation_method_function_point">Function Point</string>
