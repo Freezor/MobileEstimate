@@ -29,6 +29,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Oliver Fries on 15.12.2015, 11:33.
@@ -53,6 +54,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     private final Context context;
 
+    private HashMap<String,Integer> resourcesIdMap;
 
     /**
      * Constructor
@@ -62,8 +64,8 @@ public class DataBaseHelper extends SQLiteOpenHelper
      */
     public DataBaseHelper(Context context)
     {
-
         super(context, DB_NAME, null, 1);
+        resourcesIdMap = new HashMap<>();
         this.context = context;
     }
 
@@ -284,40 +286,32 @@ public class DataBaseHelper extends SQLiteOpenHelper
     /**
      * Returns the String value from Resource by the string name
      *
+     * Input estimation_method_function_point
+     * Output "Function Point"
      * @param resourceName
      * @return
      */
-    public String getStringResourceByName(String resourceName)
+    public String getStringResourceValueByResourceName(String resourceName)
     {
-
         int resID = context.getResources().getIdentifier(resourceName, "string", context.getPackageName());
-
-        return context.getResources().getString(resID);
+        String name = context.getResources().getString(resID);
+        resourcesIdMap.put(name,resID);
+        return name;
     }
 
     /**
-     * Returns the xml tag name from a resource ID
-     * <string name="THIS_IS_THE_NAME_TAG"></string>
-     *
-     * @param resID
+     * Input e.g. "Function Point"
+     * Output e.g. String id estimation_method_function_point
+     * @param resourceValue
      * @return
      */
-    public String getStringResourceEntryNameById(int resID)
+    public String getResourceNameByStringResourceValue(String resourceValue)
     {
-        return context.getResources().getResourceEntryName(resID);
-    }
+        //String resourceName = v.getResources().getResourceName(resource id);
+        int resId = resourcesIdMap.get(resourceValue);
+        String resValue = context.getResources().getResourceEntryName(resId);
 
-    /**
-     * Returns the xml tag name by a searching name from the resources
-     * <string name="THIS_IS_THE_NAME_TAG">THIS IS THE SEARCH VALUE</string>
-     *
-     * @param resourceName
-     * @return
-     */
-    public String getStringResourceEntryNameByValue(String resourceName)
-    {
-        int resID = context.getResources().getIdentifier(resourceName, "string", context.getPackageName());
-        return getStringResourceEntryNameById(resID);
+        return resValue;
     }
 
     //~~~~SQL Queries Start here~~~~\\
@@ -385,7 +379,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
      */
     public int getEstimationMethodId(String estimationMethod)
     {
-        String query = String.format("SELECT _id FROM EstimationMethod WHERE name = '%s';", getStringResourceByName(estimationMethod));
+        String query = String.format("SELECT _id FROM EstimationMethod WHERE name = '%s';", getResourceNameByStringResourceValue(estimationMethod));
         SQLiteDatabase db = this.getReadableDatabase();
 
         int estimationId;
@@ -455,7 +449,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
             {
                 do
                 {
-                    String estimationMethod = getStringResourceEntryNameByValue(c.getString(c.getColumnIndex("name")));
+                    String estimationMethod = getStringResourceValueByResourceName(c.getString(c.getColumnIndex("name")));
                     estimationMethodNames.add(estimationMethod);
                 } while (c.moveToNext());
             }
@@ -662,7 +656,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
             name = c.getString(c.getColumnIndex("name"));
         }
 
-        return getStringResourceByName(name);
+        return getStringResourceValueByResourceName(name);
     }
 
     public String loadPlatformNameById(String platformId)
@@ -680,7 +674,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
             name = c.getString(c.getColumnIndex("name"));
         }
 
-        return getStringResourceByName(name);
+        return getStringResourceValueByResourceName(name);
     }
 
     public String loadProcessMethologyNameById(String processMethologyId)
@@ -698,7 +692,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
             name = c.getString(c.getColumnIndex("name"));
         }
 
-        return getStringResourceByName(name);
+        return getStringResourceValueByResourceName(name);
     }
 
     public String loadProgrammingLanguageNameById(String programmingLanguageId)
@@ -716,7 +710,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
             name = c.getString(c.getColumnIndex("name"));
         }
 
-        return getStringResourceByName(name);
+        return getStringResourceValueByResourceName(name);
     }
 
     public String loadDevelopmentKindNameById(String developmentKindId)
@@ -734,7 +728,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
             name = c.getString(c.getColumnIndex("name"));
         }
 
-        return getStringResourceByName(name);
+        return getStringResourceValueByResourceName(name);
     }
 
     public String loadMarketNameById(String developmentMarktedId)
@@ -752,7 +746,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
             name = c.getString(c.getColumnIndex("name"));
         }
 
-        return getStringResourceByName(name);
+        return getStringResourceValueByResourceName(name);
     }
 
     /**
@@ -1056,6 +1050,6 @@ public class DataBaseHelper extends SQLiteOpenHelper
         }
 
         db.close();
-        return getStringResourceByName(name);
+        return getStringResourceValueByResourceName(name);
     }
 }
