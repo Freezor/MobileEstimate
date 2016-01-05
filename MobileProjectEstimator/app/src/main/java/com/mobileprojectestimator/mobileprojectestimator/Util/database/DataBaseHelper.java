@@ -55,7 +55,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     private final Context context;
 
-    private HashMap<String,Integer> resourcesIdMap;
+    public static HashMap<String, Integer> resourcesIdMap;
 
     /**
      * Constructor
@@ -66,7 +66,10 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public DataBaseHelper(Context context)
     {
         super(context, DB_NAME, null, 1);
-        resourcesIdMap = new HashMap<>();
+        if (DataBaseHelper.resourcesIdMap == null)
+        {
+            DataBaseHelper.resourcesIdMap = new HashMap<>();
+        }
         this.context = context;
     }
 
@@ -286,9 +289,10 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     /**
      * Returns the String value from Resource by the string name
-     *
+     * <p/>
      * Input estimation_method_function_point
      * Output "Function Point"
+     *
      * @param resourceName
      * @return
      */
@@ -296,20 +300,21 @@ public class DataBaseHelper extends SQLiteOpenHelper
     {
         int resID = context.getResources().getIdentifier(resourceName, "string", context.getPackageName());
         String name = context.getResources().getString(resID);
-        resourcesIdMap.put(name,resID);
+        DataBaseHelper.resourcesIdMap.put(name, resID);
         return name;
     }
 
     /**
      * Input e.g. "Function Point"
      * Output e.g. String id estimation_method_function_point
+     *
      * @param resourceValue
      * @return
      */
     public String getResourceNameByStringResourceValue(String resourceValue)
     {
         //String resourceName = v.getResources().getResourceName(resource id);
-        int resId = resourcesIdMap.get(resourceValue);
+        int resId = DataBaseHelper.resourcesIdMap.get(resourceValue);
         String resValue = context.getResources().getResourceEntryName(resId);
 
         return resValue;
@@ -328,7 +333,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     {
         ArrayList<DatabaseInfluenceFactorItem> influenceFactorItems = new ArrayList<>();
 
-        String selectQuery = String.format("SELECT * FROM \"InfluenceFactors\" WHERE estimation_method_id = %d ORDER BY lower(name) ASC;", estimationId);
+        String selectQuery = String.format("SELECT * FROM InfluenceFactors WHERE estimation_method_id = %d ORDER BY lower(name) ASC;", estimationId);
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -1057,13 +1062,14 @@ public class DataBaseHelper extends SQLiteOpenHelper
     /**
      * Load all project properties as Arraylist from the database
      * TableNames: DevelopmentMarkets, DevelopmentTypes, IndustrySectors, Platforms, ProcessMethologies, ProgrammingLanguages,
+     *
      * @param tableName
      * @return
      */
     public ArrayList<String> loadAllPropertiesByName(String tableName)
     {
         ArrayList<String> items = new ArrayList<>();
-        Log.d("Info","Load project properties from table: "+tableName);
+        Log.d("Info", "Load project properties from table: " + tableName);
         String selectQuery = String.format("SELECT * FROM %s;", tableName);
 
         SQLiteDatabase db = this.getReadableDatabase();

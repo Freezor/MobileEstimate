@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -117,6 +116,10 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guided_project_creation);
 
+        if (databaseHelper == null)
+        {
+            initDatabase();
+        }
 
         projectNew = new Project(this);
 
@@ -587,6 +590,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
      */
     private void initialiseInfluencingFactorFragment(int position)
     {
+
         try
         {
             influencingFactorFragment = (InfluencingFactorFragment) mSectionsPagerAdapter.instantiateItem(mViewPager, position);
@@ -597,6 +601,10 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
             ArrayAdapter<String> influencingFactorsAdapter = new ArrayAdapter<>(influencingFactorFragment.getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, loadInfluencingFactorsSetList());
             influencingFactorsAdapterSpinner = (Spinner) influencingFactorFragment.getView().findViewById(R.id.influencingSet);
             influencingFactorsAdapterSpinner.setAdapter(influencingFactorsAdapter);
+            if (projectNew.getEstimationMethod() == null)
+            {
+                projectNew.setEstimationMethod(getBaseContext().getString(R.string.estimation_method_function_point));
+            }
             influencingFactorsAdapterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
             {
                 @Override
@@ -729,6 +737,32 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
      */
     private ArrayList<String> loadInfluencingFactorsSetList()
     {
+        Log.d("Info", "loadInfluencingFactorsSetList");
+        //initDatabase doesn´t work here. Don´t know why...
+        this.databaseHelper = new DataBaseHelper(this);
+
+        try
+        {
+
+            databaseHelper.createDataBase();
+
+        } catch (IOException ioe)
+        {
+
+            throw new Error("Unable to create database");
+
+        }
+
+        try
+        {
+
+            databaseHelper.openDataBase();
+
+        } catch (SQLException sqle)
+        {
+            Log.d("ERROR",sqle.toString());
+        }
+
         influencingFactorItems = new ArrayList<>();
 
         int estimationMethodDbId = databaseHelper.getEstimationMethodId(projectNew.getEstimationMethod());
@@ -755,7 +789,6 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
         getMenuInflater().inflate(R.menu.menu_guided_project_creation, menu);
         return true;
     }
-
 
 
     /**
