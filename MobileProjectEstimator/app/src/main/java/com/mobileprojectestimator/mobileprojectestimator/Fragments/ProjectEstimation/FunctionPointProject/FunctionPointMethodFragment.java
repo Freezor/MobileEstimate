@@ -86,8 +86,9 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
     /**
      * Update all estimation Items that exist in the hashMap
      */
-    private void updateEstimationItems()
+    public void updateEstimationItems()
     {
+        Log.d("INFO", "FunctionPointMethodFragment: updateEstimationItems");
         //TODO: Bisherige Werte werden gelöscht. Muss noch abgefangen werden
         functionPointEstimationItems = this.project.getFunctionPointItems();
         projectCreationAdapter.updateProject(this.project);
@@ -137,5 +138,10 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
         double erg = (double) getTotalPoints() * this.project.getFactorInfluenceRating();
         erg = (double) Math.round(erg * 10000d) / 10000d;
         return erg;
+    }
+
+    public void setProject(Project project)
+    {
+        this.project = project;
     }
 }

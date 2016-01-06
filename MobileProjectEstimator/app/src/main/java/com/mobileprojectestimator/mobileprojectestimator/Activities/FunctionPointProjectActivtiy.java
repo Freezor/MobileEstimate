@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.EstimationOverviewFragment;
@@ -37,6 +38,7 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
 
     @SuppressWarnings("FieldCanBeLocal")
     private Project project;
+    private ViewPager mViewPager;
 
     public void FunctionPointProjectActivtiy()
     {
@@ -54,9 +56,10 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
                 initDatabase();
             }
             project = databaseHelper.loadProjectById(this, String.valueOf(project.getProjectId()));
-            //Richtige Projektinformationen sind hier geladen
             mSectionsPagerAdapter.setProject(project);
             mSectionsPagerAdapter.notifyDataSetChanged();
+            //Richtige Projektinformationen sind bis hier geladen
+
         }
 
     }
@@ -126,7 +129,7 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
         /*
       The {@link ViewPager} that will host the section contents.
      */
-        ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -172,12 +175,14 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
         public SectionsPagerAdapter(FragmentManager fm, Project p)
         {
             super(fm);
+            Log.d("INFO", "SectionsPagerAdapter: constructor");
             this.project = p;
         }
 
         @Override
         public Fragment getItem(int position)
         {
+            Log.d("INFO", "SectionsPagerAdapter: getItem");
             EstimationOverviewFragment f = fragmentsList.get(position);
             fragmentsList.set(position, f.newInstance(this.project));
             return f;
@@ -207,7 +212,18 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
         {
             this.project = project;
         }
+        /*
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object)
+        {
+            fragmentsList.remove(position);
+            super.destroyItem(container, position, object);
+        }*/
 
+        public Fragment getFragment(int pos)
+        {
+            return fragmentsList.get(pos);
+        }
     }
 
 }

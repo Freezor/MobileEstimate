@@ -2,6 +2,7 @@ package com.mobileprojectestimator.mobileprojectestimator.Util.adapters;
 
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,6 +111,7 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter
             @Override
             public void onClick(View v)
             {
+                Log.d("INFO", "FunctionPointEstimationListAdapter: onClick");
                 Intent intent = new Intent(v.getContext(), FunctionPointEstimationValueActivity.class);
                 intent.putExtra("TITLE", rowViewHolderHashMap.get(position).item.getItemName());
                 intent.putExtra("NEWPROJECT", project.getProjectId());
