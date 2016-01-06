@@ -13,7 +13,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
@@ -110,13 +110,27 @@ public class ProjectOverviewActivity extends DatabaseActivity
      */
     private void onClickProject(int position)
     {
-        Intent intent = new Intent(getApplicationContext(), FunctionPointProjectActivtiy.class);
-        //Changed from toHashMap with introduction of database. Only Id is needed now
-        /*HashMap<String, String> projectHashMap = projectsList.get(position).toHashMap();
-        intent.putExtra(getString(R.string.NewProjectIntentValueParam), projectHashMap);*/
-        intent.putExtra(getString(R.string.SELECTEDPROJECTID), projectsList.get(position).getProjectId());
-        startActivityForResult(intent, Integer.parseInt((getString(R.string.PROJECT_VIEW_CODE))));
-        //startActivity(intent);
+        if (projectsList.get(position).getEstimationMethod().equals(getString(R.string.estimation_method_function_point)))
+        {
+            Intent intent = new Intent(getApplicationContext(), FunctionPointProjectActivtiy.class);
+            intent.putExtra(getString(R.string.SELECTEDPROJECTID), projectsList.get(position).getProjectId());
+            startActivityForResult(intent, Integer.parseInt((getString(R.string.PROJECT_VIEW_CODE))));
+        } else if (projectsList.get(position).getEstimationMethod().equals(getString(R.string.estimation_method_cocomo)))
+        {
+            Toast.makeText(this, "This Estimation Method is not supported at the moment", Toast.LENGTH_SHORT);
+            /*Intent intent = new Intent(getApplicationContext(), FunctionPointProjectActivtiy.class);
+            intent.putExtra(getString(R.string.SELECTEDPROJECTID), projectsList.get(position).getProjectId());
+            startActivityForResult(intent, Integer.parseInt((getString(R.string.PROJECT_VIEW_CODE))));*/
+        } else if (projectsList.get(position).getEstimationMethod().equals(getString(R.string.estimation_method_cocomo_2)))
+        {
+            Toast.makeText(this, "This Estimation Method is not supported at the moment", Toast.LENGTH_SHORT);
+            /*Intent intent = new Intent(getApplicationContext(), FunctionPointProjectActivtiy.class);
+            intent.putExtra(getString(R.string.SELECTEDPROJECTID), projectsList.get(position).getProjectId());
+            startActivityForResult(intent, Integer.parseInt((getString(R.string.PROJECT_VIEW_CODE))));*/
+        } else
+        {
+            Toast.makeText(this, "This Estimation Method is not supported at the moment", Toast.LENGTH_SHORT);
+        }
     }
 
     /**
@@ -223,7 +237,6 @@ public class ProjectOverviewActivity extends DatabaseActivity
 
     /**
      * This method processes the created project
-     *
      */
     private void reloadProjectsFromDatabase()
     {

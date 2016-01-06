@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mobileprojectestimator.mobileprojectestimator.Activities.FunctionPointProjectActivtiy;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.RowViewHolder;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
@@ -111,10 +112,8 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter
             {
                 Intent intent = new Intent(v.getContext(), FunctionPointEstimationValueActivity.class);
                 intent.putExtra("TITLE", rowViewHolderHashMap.get(position).item.getItemName());
-                //TODO: Error: Fehler bei Umwandlung durch den zweiten Aufruf der Methode
-                //TODO: Richtiger Total Amount wird hier noch mitgeliefert
                 intent.putExtra("NEWPROJECT", project.getProjectId());
-                fragment.startActivityForResult(intent, 1);
+                fragment.startActivityForResult(intent, Integer.parseInt((v.getContext().getString(R.string.PROJECT_VIEW_CODE))));
             }
         });
 

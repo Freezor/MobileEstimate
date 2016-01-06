@@ -570,6 +570,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     {
         Project p = new Project(context);
 
+        p.setProjectId(Integer.parseInt(projectId));
         String query = String.format("SELECT * FROM Projects where _id = '%s'", projectId);
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -590,6 +591,8 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
             query = String.format("SELECT * FROM ProjectDetails where _id = '%s'", detailsId);
             int project_properties_id;
+
+            db = this.getReadableDatabase();
             try (Cursor c2 = db.rawQuery(query, null))
             {
 
@@ -786,7 +789,8 @@ public class DataBaseHelper extends SQLiteOpenHelper
                 {
                     if (c1 != null)
                         c1.moveToFirst();
-                    item = new FunctionPointItem();
+                    item = new FunctionPointItem((context.getString(R.string.function_point_estimation_input_data)), 3, 4, 6);
+                    item.setItemId(inputDataItemsId);
                     item.setSimpleValue(c1.getInt(c1.getColumnIndex("simple")));
                     item.setMediumValue(c1.getInt(c1.getColumnIndex("medium")));
                     item.setComplexValue(c1.getInt(c1.getColumnIndex("complex")));
@@ -798,7 +802,8 @@ public class DataBaseHelper extends SQLiteOpenHelper
                 {
                     if (c2 != null)
                         c2.moveToFirst();
-                    item = new FunctionPointItem();
+                    item = new FunctionPointItem((context.getString(R.string.function_point_estimation_requests)), 3, 4, 6);
+                    item.setItemId(requestItemsId);
                     item.setSimpleValue(c2.getInt(c2.getColumnIndex("simple")));
                     item.setMediumValue(c2.getInt(c2.getColumnIndex("medium")));
                     item.setComplexValue(c2.getInt(c2.getColumnIndex("complex")));
@@ -810,7 +815,8 @@ public class DataBaseHelper extends SQLiteOpenHelper
                 {
                     if (c3 != null)
                         c3.moveToFirst();
-                    item = new FunctionPointItem();
+                    item = new FunctionPointItem((context.getString(R.string.function_point_estimation_output)), 4, 5, 7);
+                    item.setItemId(outputItemsId);
                     item.setSimpleValue(c3.getInt(c3.getColumnIndex("simple")));
                     item.setMediumValue(c3.getInt(c3.getColumnIndex("medium")));
                     item.setComplexValue(c3.getInt(c3.getColumnIndex("complex")));
@@ -822,7 +828,8 @@ public class DataBaseHelper extends SQLiteOpenHelper
                 {
                     if (c4 != null)
                         c4.moveToFirst();
-                    item = new FunctionPointItem();
+                    item = new FunctionPointItem((context.getString(R.string.function_point_estimation_dataset)), 7, 10, 15);
+                    item.setItemId(datasetItemsId);
                     item.setSimpleValue(c4.getInt(c4.getColumnIndex("simple")));
                     item.setMediumValue(c4.getInt(c4.getColumnIndex("medium")));
                     item.setComplexValue(c4.getInt(c4.getColumnIndex("complex")));
@@ -834,7 +841,8 @@ public class DataBaseHelper extends SQLiteOpenHelper
                 {
                     if (c5 != null)
                         c5.moveToFirst();
-                    item = new FunctionPointItem();
+                    item = new FunctionPointItem((context.getString(R.string.function_point_estimation_reference_data)), 5, 7, 10);
+                    item.setItemId(referenceDataItemsId);
                     item.setSimpleValue(c5.getInt(c5.getColumnIndex("simple")));
                     item.setMediumValue(c5.getInt(c5.getColumnIndex("medium")));
                     item.setComplexValue(c5.getInt(c5.getColumnIndex("complex")));
@@ -872,7 +880,8 @@ public class DataBaseHelper extends SQLiteOpenHelper
             {
                 factor = new InfluencingFactor(this.context, InfluencingFactor.FUNCTIONPOINTFACTORS);
                 factor.setName(name);
-                query = String.format("SELECT * FROM FunctionPointInfluenceFactors where _id = '%s'", influenceFactorId);
+                query = String.format("SELECT * FROM FunctionPointInfluenceFactor where _id = '%s'", influenceFactorId);
+                db = this.getReadableDatabase();
                 try (Cursor c2 = db.rawQuery(query, null))
                 {
 
@@ -1320,5 +1329,46 @@ public class DataBaseHelper extends SQLiteOpenHelper
         }
         db.close();
         return id;
+    }
+
+    public void updateFunctionPointEstimationItem(FunctionPointItem estimationItem)
+    {
+        ContentValues values = new ContentValues();
+        SQLiteDatabase db = this.getWritableDatabase();
+        if (estimationItem.getItemName().equals(context.getString(R.string.function_point_estimation_input_data)))
+        {
+            values.put("simple",estimationItem.getSimpleValue());
+            values.put("medium",estimationItem.getMediumValue());
+            values.put("complex",estimationItem.getComplexValue());
+            db.update("InputDataItems",values,"_id="+estimationItem.getItemId(),null);
+
+        } else if (estimationItem.getItemName().equals(context.getString(R.string.function_point_estimation_requests)))
+        {
+            values.put("simple",estimationItem.getSimpleValue());
+            values.put("medium",estimationItem.getMediumValue());
+            values.put("complex",estimationItem.getComplexValue());
+            db.update("RequestItems",values,"_id="+estimationItem.getItemId(),null);
+        } else if (estimationItem.getItemName().equals(context.getString(R.string.function_point_estimation_output)))
+        {
+            values.put("simple",estimationItem.getSimpleValue());
+            values.put("medium",estimationItem.getMediumValue());
+            values.put("complex",estimationItem.getComplexValue());
+            db.update("OutputItems",values,"_id="+estimationItem.getItemId(),null);
+        } else if (estimationItem.getItemName().equals(context.getString(R.string.function_point_estimation_dataset)))
+        {
+            values.put("simple",estimationItem.getSimpleValue());
+            values.put("medium",estimationItem.getMediumValue());
+            values.put("complex",estimationItem.getComplexValue());
+            db.update("DatasetItems",values,"_id="+estimationItem.getItemId(),null);
+        } else if (estimationItem.getItemName().equals(context.getString(R.string.function_point_estimation_reference_data)))
+        {
+            values.put("simple",estimationItem.getSimpleValue());
+            values.put("medium",estimationItem.getMediumValue());
+            values.put("complex",estimationItem.getComplexValue());
+            db.update("ReferenceDataItems",values,"_id="+estimationItem.getItemId(),null);
+        } else{
+            Log.d("ERROR","updateFunctionPointEstimationItem: Problem with EstimationItem "+estimationItem.getItemName());
+        }
+        db.close();
     }
 }

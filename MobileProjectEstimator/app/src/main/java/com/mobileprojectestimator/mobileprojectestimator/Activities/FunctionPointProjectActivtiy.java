@@ -47,9 +47,20 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         Log.d("INFO", "FunctionPointProjectActivity: onActivityResult");
-        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Integer.parseInt(getString(R.string.PROJECT_VIEW_CODE)))
+        {
+            if (databaseHelper == null)
+            {
+                initDatabase();
+            }
+            project = databaseHelper.loadProjectById(this, String.valueOf(project.getProjectId()));
+            //Richtige Projektinformationen sind hier geladen
+            mSectionsPagerAdapter.setProject(project);
+            mSectionsPagerAdapter.notifyDataSetChanged();
+        }
 
     }
+
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState)
@@ -95,7 +106,7 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
         }
         if (projectId == null)
         {
-            Log.d("ERROR","Loading Project from bundle Error");
+            Log.d("ERROR", "Loading Project from bundle Error");
         } else
         {
             project = databaseHelper.loadProjectById(this, projectId);
@@ -120,8 +131,6 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
-
     }
 
 
@@ -158,7 +167,7 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
     public class SectionsPagerAdapter extends FragmentPagerAdapter
     {
 
-        private final Project project;
+        private Project project;
 
         public SectionsPagerAdapter(FragmentManager fm, Project p)
         {
@@ -193,6 +202,12 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
             }
             return null;
         }
+
+        public void setProject(Project project)
+        {
+            this.project = project;
+        }
+
     }
 
 }

@@ -36,6 +36,7 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
     @Override
     public EstimationOverviewFragment newInstance(Project p)
     {
+        Log.d("INFO", "FunctionPointMethodFragment: newInstance");
         FunctionPointMethodFragment fragment = new FunctionPointMethodFragment();
         Bundle args = new Bundle();
         project = p;
@@ -78,21 +79,7 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         Log.d("INFO", "FunctionPointMethodFragment: onActivtiyResult");
-        try
-        {
-            String projectId = data.getStringExtra(getString(R.string.NewProjectIntentValueParam));
-            if (databaseHelper == null)
-            {
-                initDatabase();
-            }
-            project = databaseHelper.loadProjectById(this.getContext(), projectId);
-            updateEstimationItems();
-            totalPoints.setText(String.format("%s %d", getContext().getString(R.string.function_point_estimation_total_points), getTotalPoints()));
-            evaluatedFunctionPoints.setText(String.format("%s %s", getContext().getString(R.string.function_point_estimation_evaluated_total_points), getEvaluatedPoints()));
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+        updateEstimationItems();
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -101,10 +88,6 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
      */
     private void updateEstimationItems()
     {
-        /*for (FunctionPointItem item : functionPointEstimationItems)
-        {
-            this.project.updateFunctionPointItem(item.getItemName(), Integer.valueOf(hashMap.get(item.getItemName() + getContext().getString(R.string.project_hash_suffix_simple))), Integer.valueOf(hashMap.get(item.getItemName() + getContext().getString(R.string.project_hash_suffix_medium))), Integer.valueOf(hashMap.get(item.getItemName() + getContext().getString(R.string.project_hash_suffix_complex))));
-        }*/
         //TODO: Bisherige Werte werden gelöscht. Muss noch abgefangen werden
         functionPointEstimationItems = this.project.getFunctionPointItems();
         projectCreationAdapter.updateProject(this.project);
@@ -117,6 +100,7 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
     public void onResume()
     {
         Log.d("INFO", "FunctionPointMethodFragment: onResume");
+        updateEstimationItems();
         super.onResume();
     }
 

@@ -31,6 +31,7 @@ public class FunctionPointEstimationValueActivity extends DatabaseActivity
     private EditText valueComplex;
     private Project project;
     private FunctionPointItem item;
+    private String projectId;
 
     public FunctionPointEstimationValueActivity()
     {
@@ -62,10 +63,10 @@ public class FunctionPointEstimationValueActivity extends DatabaseActivity
         if (this.project.updateEstimationItem(title, item))
         {
             this.project.updateFunctionPointItem(item);
+            databaseHelper.updateFunctionPointEstimationItem((FunctionPointItem) project.getEstimationItemByName(this.title));
             Intent returnIntent = new Intent();
-            //TODO: bereits gesetzte Items sind hier wieder 0
             returnIntent.putExtra(getString(R.string.NewProjectIntentValueParam), project.getProjectId());
-            setResult(1, returnIntent);
+            setResult(Integer.parseInt(getString(R.string.PROJECT_VIEW_CODE)), returnIntent);
             finish();
         } else
         {
@@ -91,10 +92,10 @@ public class FunctionPointEstimationValueActivity extends DatabaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_function_point_estimation_value);
 
-        Intent intent = getIntent();
-        title = intent.getStringExtra("TITLE");
+        Bundle extras = getIntent().getExtras();
+        title = extras.getString("TITLE");
 
-        String projectId = intent.getStringExtra("NEWPROJECT");
+        projectId = String.valueOf(extras.getInt("NEWPROJECT"));
         if (databaseHelper == null)
         {
             initDatabase();
@@ -159,6 +160,9 @@ public class FunctionPointEstimationValueActivity extends DatabaseActivity
             public void afterTextChanged(Editable s)
             {
                 String value = valueComplex.getText().toString();
+                if (value.equals("")){
+                    value = "0";
+                }
                 complexValue = Integer.parseInt(value);
                 item.setValue(2, complexValue);
             }
@@ -216,6 +220,9 @@ public class FunctionPointEstimationValueActivity extends DatabaseActivity
             public void afterTextChanged(Editable s)
             {
                 String value = valueMedium.getText().toString();
+                if (value.equals("")){
+                    value = "0";
+                }
                 mediumValue = Integer.parseInt(value);
                 item.setValue(1, mediumValue);
             }
@@ -273,6 +280,9 @@ public class FunctionPointEstimationValueActivity extends DatabaseActivity
             public void afterTextChanged(Editable s)
             {
                 String value = valueSimple.getText().toString();
+                if (value.equals("")){
+                    value = "0";
+                }
                 simpleValue = Integer.parseInt(value);
                 item.setValue(0, simpleValue);
             }

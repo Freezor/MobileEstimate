@@ -1,7 +1,5 @@
 package com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation;
 
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
-
 /**
  * Created by Oliver Fries on 21.11.2015, 11:53.
  * Project: MobileProjectEstimator
@@ -9,6 +7,9 @@ import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Pro
 public abstract class EstimationItem
 {
     private String itemName;
+
+
+    private String itemId;
 
     public String getItemName()
     {
@@ -22,4 +23,21 @@ public abstract class EstimationItem
 
     public abstract void refresh();
 
+    /**
+     * Set the database table id
+     * @param itemId
+     */
+    public void setItemId(String itemId)
+    {
+        this.itemId = itemId;
+    }
+
+    /**
+     * get the database table id
+     * @return
+     */
+    public String getItemId()
+    {
+        return itemId;
+    }
 }
