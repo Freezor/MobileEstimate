@@ -31,7 +31,7 @@ public class ChooseProjectIconActivity extends DatabaseActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarProjectIcon);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         gridView = (GridView) findViewById(R.id.projectIconsgridView);
         gridAdapter = new ProjectIconsGridViewAdapter(this, R.layout.project_icons_grid_item_layout, getData());
@@ -50,7 +50,7 @@ public class ChooseProjectIconActivity extends DatabaseActivity
     public boolean onCreateOptionsMenu(Menu menu)
     {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.choose_project_icon_menu, menu);
+        inflater.inflate(R.menu.menu_choose_project_icon, menu);
         return true;
     }
 
@@ -60,9 +60,8 @@ public class ChooseProjectIconActivity extends DatabaseActivity
         // Handle item selection
         switch (item.getItemId())
         {
-            case R.id.home:
+            case R.id.action_save_icon:
                 onBackPressed();
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

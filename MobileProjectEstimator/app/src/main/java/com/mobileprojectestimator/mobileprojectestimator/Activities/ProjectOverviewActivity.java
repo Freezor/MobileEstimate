@@ -220,6 +220,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
             {
                 //TODO: Check if result is null
                 reloadProjectsFromDatabase();
+                projectsAdapter.notifyDataSetChanged();
             }
         } else if (requestCode == Integer.parseInt((getString(R.string.RESULT_SETTINGS_REQUEST_CODE))))
         {

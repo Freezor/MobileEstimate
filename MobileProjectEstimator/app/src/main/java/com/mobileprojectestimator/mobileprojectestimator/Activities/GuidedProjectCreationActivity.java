@@ -169,8 +169,6 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
             int projectId = res.getInt("PROJECTICONID");
             mSectionsPagerAdapter.updateIconId(projectId);
             mSectionsPagerAdapter.notifyDataSetChanged();
-            //Richtige Projektinformationen sind bis hier geladen
-
         }
 
     }
