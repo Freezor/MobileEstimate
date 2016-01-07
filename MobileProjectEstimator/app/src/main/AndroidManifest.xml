@@ -28,8 +28,8 @@
         <activity
             android:name=".Activities.GuidedProjectCreationActivity"
             android:label="@string/title_activity_guided_project_creation"
-            android:screenOrientation="portrait"
             android:parentActivityName=".Activities.ProjectOverviewActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan">
 
@@ -40,9 +40,9 @@
         </activity>
         <activity
             android:name=".Activities.FunctionPointProjectActivtiy"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_function_point_project_activtiy"
             android:parentActivityName=".Activities.ProjectOverviewActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan">
 
@@ -53,9 +53,9 @@
         </activity>
         <activity
             android:name=".Activities.FunctionPointEstimationValueActivity"
-            android:screenOrientation="portrait"
             android:label="Estimation Value"
             android:parentActivityName=".Activities.FunctionPointProjectActivtiy"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan">
 
@@ -102,9 +102,9 @@
         </activity>
         <activity
             android:name=".Activities.InfluenceFactorsActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_influence_factors"
             android:parentActivityName=".Activities.ProjectOverviewActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan">
 
@@ -113,17 +113,30 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activities.ProjectOverviewActivity"/>
         </activity>
-        <activity android:name=".Activities.CreateNewInfluenceFactorActivity"
+        <activity
+            android:name=".Activities.CreateNewInfluenceFactorActivity"
+            android:label="@string/title_activity_create_new_influence_factor"
+            android:parentActivityName=".Activities.InfluenceFactorsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.InfluenceFactorsActivity"/>
+        </activity>
+        <activity android:name=".Activities.ChooseProjectIconActivity"
+                  android:label="@string/title_activity_choose_project_icon"
+                  android:parentActivityName=".Activities.GuidedProjectCreationActivity"
                   android:screenOrientation="portrait"
-                  android:label="@string/title_activity_create_new_influence_factor"
-                  android:parentActivityName=".Activities.InfluenceFactorsActivity"
                   android:theme="@style/AppTheme.NoActionBar"
                   android:windowSoftInputMode="adjustPan">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.InfluenceFactorsActivity"/>
+                android:value=".Activities.GuidedProjectCreationActivity"/>
         </activity>
     </application>
 

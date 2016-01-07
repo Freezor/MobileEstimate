@@ -147,14 +147,14 @@
     <string name="SELECTEDPROJECTID" translatable="false">Selected_Project_id</string>
 
     <!-- Development Markets -->
-    <string name="Anonymous_Market_string" >Anonymous Market</string>
+    <string name="Anonymous_Market_string">Anonymous Market</string>
     <string name="Customer_string">Customer</string>
     <string name="Inhouse_string">Inhouse</string>
 
     <!-- Development Types -->
-    <string name="Research_Project_string" >Research Project</string>
-    <string name="Extension_Project_string" >Extension Project</string>
-    <string name="New_Project_string" >New Project</string>
+    <string name="Research_Project_string">Research Project</string>
+    <string name="Extension_Project_string">Extension Project</string>
+    <string name="New_Project_string">New Project</string>
 
     <!-- Estimation Methods -->
     <string name="estimation_method_function_point">Function Point</string>
@@ -217,6 +217,9 @@
     <string name="android_icon_string">Android</string>
     <string name="pizza_icon_string">Pizza Project</string>
     <string name="visualstudio_icon_string">VisualStudio</string>
+    <string name="title_activity_choose_project_icon">Choose a project icon</string>
+    <string name="action_import_new_icon">Import new icon</string>
+    <string name="PROJECT_ICON_DIALOG_CODE">7723</string>
 
 
 </resources>

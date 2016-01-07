@@ -160,9 +160,11 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         Log.d("INFO", "FunctionPointProjectActivity: onActivityResult");
-        if (resultCode == Integer.parseInt(getString(R.string.PROJECT_VIEW_CODE)))
+        if (resultCode == Integer.parseInt(getString(R.string.PROJECT_ICON_DIALOG_CODE)))
         {
-            mSectionsPagerAdapter.updateIconId(project);
+            Bundle res = data.getExtras();
+            int projectId = res.getInt("PROJECTICONID");
+            mSectionsPagerAdapter.updateIconId(projectId);
             mSectionsPagerAdapter.notifyDataSetChanged();
             //Richtige Projektinformationen sind bis hier geladen
 

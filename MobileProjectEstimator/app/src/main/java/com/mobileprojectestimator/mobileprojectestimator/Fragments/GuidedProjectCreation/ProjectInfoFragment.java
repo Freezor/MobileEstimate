@@ -1,5 +1,6 @@
 package com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mobileprojectestimator.mobileprojectestimator.Activities.ChooseProjectIconActivity;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
@@ -50,6 +52,8 @@ public class ProjectInfoFragment extends GuidedCreationFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
+        initDatabase();
+
         rootView = inflater.inflate(R.layout.project_info_fragment, container, false);
         if (project == null)
         {
@@ -112,15 +116,17 @@ public class ProjectInfoFragment extends GuidedCreationFragment
             @Override
             public void onClick(View v)
             {
-                //TODO: Create Icon Selection Dialog
-                Toast.makeText(project.getContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
-
+                Intent intent = new Intent(v.getContext(), ChooseProjectIconActivity.class);
+                startActivityForResult(intent, Integer.parseInt((v.getContext().getString(R.string.PROJECT_ICON_DIALOG_CODE))));
             }
         });
 
         return rootView;
     }
 
+    /**
+     * set the information of the chosen icon to the view
+     */
     private void setProjectIconInformations()
     {
         HashMap<String,String> infos = databaseHelper.getIconInformationsById(projectIconId);
@@ -137,7 +143,12 @@ public class ProjectInfoFragment extends GuidedCreationFragment
         projectImage.setImageBitmap(project.getImage());
     }
 
-    @Nullable
+
+    /**
+     * Load the project icon from assets folder
+     * @param infos
+     * @return
+     */
     private Bitmap loadProjectIcon(HashMap<String, String> infos)
     {
         AssetManager assetManager = getContext().getAssets();
@@ -164,5 +175,11 @@ public class ProjectInfoFragment extends GuidedCreationFragment
     {
         this.projectIconId = iconId;
         setProjectIconInformations();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

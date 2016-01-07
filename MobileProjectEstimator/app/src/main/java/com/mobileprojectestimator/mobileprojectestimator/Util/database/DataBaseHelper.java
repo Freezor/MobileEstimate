@@ -15,6 +15,7 @@ import android.util.Log;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Database.DatabaseInfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.EstimationItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointItem;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.ImageItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.InfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
@@ -1390,5 +1391,52 @@ public class DataBaseHelper extends SQLiteOpenHelper
             Log.d("ERROR","updateFunctionPointEstimationItem: Problem with EstimationItem "+estimationItem.getItemName());
         }
         db.close();
+    }
+
+    /**
+     * Loads all Project icons as an ArrayList<ImageItem>
+     * @return
+     */
+    public ArrayList<ImageItem> loadAllProjectIcons()
+    {
+        final ArrayList<ImageItem> imageItems = new ArrayList<>();
+        String selectQuery = "SELECT * FROM ProjectIcons";
+        SQLiteDatabase db = this.getReadableDatabase();
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                do
+                {
+                    ImageItem item = new ImageItem();
+                    item.setImageDatabaseId(c.getInt(c.getColumnIndex("_id")));
+                    item.setTitle(getStringResourceValueByResourceName(c.getString(c.getColumnIndex("name"))));
+                    item.setImage(loadProjectIcon(c.getString(c.getColumnIndex("path"))));
+                    imageItems.add(item);
+                } while (c.moveToNext());
+            }
+        }
+        return imageItems;
+    }
+
+    /**
+     * Loads a project Icon by its path
+     * @param path
+     * @return
+     */
+    public Bitmap loadProjectIcon(String path)
+    {
+        AssetManager assetManager = this.context.getAssets();
+        InputStream istr;
+        Bitmap projectIcon = null;
+        try
+        {
+            istr = assetManager.open(path);
+            projectIcon = BitmapFactory.decodeStream(istr);
+        } catch (IOException e)
+        {
+            // handle exception
+        }
+        return projectIcon;
     }
 }
