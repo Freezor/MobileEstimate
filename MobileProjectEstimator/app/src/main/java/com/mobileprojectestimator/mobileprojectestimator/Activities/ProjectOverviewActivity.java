@@ -1,7 +1,9 @@
 package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
@@ -100,7 +102,45 @@ public class ProjectOverviewActivity extends DatabaseActivity
                 onClickProject(position);
             }
         });
+        projectsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+        {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                onLongClickProject(position);
+                return true;
+            }
+        });
+
         databaseHelper.preloadResourcesIdMap();
+    }
+
+    public void onLongClickProject(final int position)
+    {
+        final int pos = position;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        ArrayList<String> infItems = new ArrayList<>();
+        infItems.add("Project Informations");
+        infItems.add("Delete Project");
+        final CharSequence[] items = infItems.toArray(new String[infItems.size()]);
+        builder.setItems(items, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
+                String optionItem = items[item].toString();
+                if (optionItem.equals("Project Informations"))
+                {
+                    //TODO: Open Project Info Activity
+                } else if (optionItem.equals("Delete Project"))
+                {
+                    //TODO: Open new Alert dialog with question to delete and delete from database
+                    //databaseHelper.deleteProjectFromDatabase(projectsList.get(pos));
+                }
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     /**
@@ -117,19 +157,19 @@ public class ProjectOverviewActivity extends DatabaseActivity
             startActivityForResult(intent, Integer.parseInt((getString(R.string.PROJECT_VIEW_CODE))));
         } else if (projectsList.get(position).getEstimationMethod().equals(getString(R.string.estimation_method_cocomo)))
         {
-            Toast.makeText(this, "This Estimation Method is not supported at the moment", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "This Estimation Method is not supported at the moment", Toast.LENGTH_SHORT).show();
             /*Intent intent = new Intent(getApplicationContext(), FunctionPointProjectActivtiy.class);
             intent.putExtra(getString(R.string.SELECTEDPROJECTID), projectsList.get(position).getProjectId());
             startActivityForResult(intent, Integer.parseInt((getString(R.string.PROJECT_VIEW_CODE))));*/
         } else if (projectsList.get(position).getEstimationMethod().equals(getString(R.string.estimation_method_cocomo_2)))
         {
-            Toast.makeText(this, "This Estimation Method is not supported at the moment", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "This Estimation Method is not supported at the moment", Toast.LENGTH_SHORT).show();
             /*Intent intent = new Intent(getApplicationContext(), FunctionPointProjectActivtiy.class);
             intent.putExtra(getString(R.string.SELECTEDPROJECTID), projectsList.get(position).getProjectId());
             startActivityForResult(intent, Integer.parseInt((getString(R.string.PROJECT_VIEW_CODE))));*/
         } else
         {
-            Toast.makeText(this, "This Estimation Method is not supported at the moment", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "This Estimation Method is not supported at the moment", Toast.LENGTH_SHORT).show();
         }
     }
 

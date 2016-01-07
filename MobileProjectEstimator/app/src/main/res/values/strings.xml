@@ -223,6 +223,7 @@
     <string name="property_not_set">Not set yet</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog.cancel">Cancel</string>
+    <string name="longclick_project">Project Information for</string>
 
 
 </resources>
