@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
@@ -21,7 +22,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Database.DatabaseInfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
@@ -40,6 +40,7 @@ import com.mobileprojectestimator.mobileprojectestimator.Util.database.DataBaseH
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static com.mobileprojectestimator.mobileprojectestimator.R.id.ivEditItem;
 import static com.mobileprojectestimator.mobileprojectestimator.R.id.tvItemValue;
@@ -105,6 +106,14 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
     private TextView infFactorTextViewEstimationMethod;
     private Spinner influencingFactorsAdapterSpinner;
     private ArrayList<DatabaseInfluenceFactorItem> dbInfluenceFactorItems;
+    private ArrayList<String> developmentMarketItems;
+    private ArrayList<String> estimationMethodItems;
+    private ArrayList<String> developmentKindItems;
+    private ArrayList<String> processMethologieItems;
+    private ArrayList<String> programmingLanguageItems;
+    private ArrayList<String> platformItems;
+    private ArrayList<String> industrySectorItems;
+    private ArrayList<DatabaseInfluenceFactorItem> influenceFactorItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -158,6 +167,28 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initDatabase();
+
+        developmentMarketItems = databaseHelper.loadAllPropertiesByName("DevelopmentMarkets");
+        Collections.sort(developmentMarketItems);
+
+        developmentKindItems = databaseHelper.loadAllPropertiesByName("DevelopmentTypes");
+        Collections.sort(developmentKindItems);
+
+        processMethologieItems = databaseHelper.loadAllPropertiesByName("ProcessMethologies");
+        Collections.sort(processMethologieItems);
+
+        programmingLanguageItems = databaseHelper.loadAllPropertiesByName("ProgrammingLanguages");
+        Collections.sort(programmingLanguageItems);
+
+        platformItems = databaseHelper.loadAllPropertiesByName("Platforms");
+        Collections.sort(platformItems);
+
+        industrySectorItems = databaseHelper.loadAllPropertiesByName("IndustrySectors");
+        Collections.sort(industrySectorItems);
+
+        estimationMethodItems = databaseHelper.getEstimationMethodNames();
+        Collections.sort(estimationMethodItems);
+
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -169,6 +200,10 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
             int projectId = res.getInt("PROJECTICONID");
             mSectionsPagerAdapter.updateIconId(projectId);
             mSectionsPagerAdapter.notifyDataSetChanged();
+            if (mViewPager.getCurrentItem() == 5)
+            {
+                updateProjectCreationOverviewFragment(5);
+            }
         }
 
     }
@@ -236,7 +271,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
      */
     private void instanciateOverviewViewItems(int position)
     {
-        Log.d("Info","GuidedProjectCreation: instanciateOverviewViewItems");
+        Log.d("Info", "GuidedProjectCreation: instanciateOverviewViewItems");
         try
         {
 
@@ -391,8 +426,30 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
      */
     private void editInfluenceFactor()
     {
-        //TODO: Create Dialog
-        Toast.makeText(projectCreationOverviewFragment.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.estimation_method_hint));
+
+        influenceFactorItems =  databaseHelper.getInfluenceFactorItems(databaseHelper.getEstimationMethodId(projectNew.getEstimationMethod()));
+        ArrayList<String> infItems = new ArrayList<>();
+        for(DatabaseInfluenceFactorItem i : influenceFactorItems){
+            infItems.add(i.get_name());
+        }
+
+        final CharSequence[] items = infItems.toArray(new String[infItems.size()]);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                String factorName = items[item].toString();
+                for(DatabaseInfluenceFactorItem i : influenceFactorItems){
+                    if(i.get_name().equals(factorName)){
+                        projectNew.setInfluencingFactor(databaseHelper.loadInfluenceFactorById(i.get_id()));
+                        updateProjectCreationOverviewFragment(5);
+                        break;
+                    }
+                }
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     /**
@@ -400,8 +457,18 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
      */
     private void editEstimationMethod()
     {
-        //TODO: Create Dialog
-        Toast.makeText(projectCreationOverviewFragment.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.estimation_method_hint));
+
+        final CharSequence[] items = estimationMethodItems.toArray(new String[estimationMethodItems.size()]);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                projectNew.setEstimationMethod(items[item].toString());
+                updateProjectCreationOverviewFragment(5);
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     /**
@@ -409,8 +476,18 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
      */
     private void editIndustrySector()
     {
-        //TODO: Create Dialog
-        Toast.makeText(projectCreationOverviewFragment.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.project_creation_industry_sector));
+
+        final CharSequence[] items = industrySectorItems.toArray(new String[industrySectorItems.size()]);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                projectNew.getProjectProperties().setIndustrySector(items[item].toString());
+                updateProjectCreationOverviewFragment(5);
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     /**
@@ -418,8 +495,18 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
      */
     private void editPlatform()
     {
-        //TODO: Create Dialog
-        Toast.makeText(projectCreationOverviewFragment.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.project_creation_platform));
+
+        final CharSequence[] items = platformItems.toArray(new String[platformItems.size()]);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                projectNew.getProjectProperties().setPlatform(items[item].toString());
+                updateProjectCreationOverviewFragment(5);
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     /**
@@ -427,8 +514,18 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
      */
     private void editProgrammingLanguage()
     {
-        //TODO: Create Dialog
-        Toast.makeText(projectCreationOverviewFragment.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.project_creation_programming_language));
+
+        final CharSequence[] items = programmingLanguageItems.toArray(new String[programmingLanguageItems.size()]);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                projectNew.getProjectProperties().setProgrammingLanguage(items[item].toString());
+                updateProjectCreationOverviewFragment(5);
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     /**
@@ -436,8 +533,18 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
      */
     private void editProcessMethology()
     {
-        //TODO: Create Dialog
-        Toast.makeText(projectCreationOverviewFragment.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.project_creation_methology));
+
+        final CharSequence[] items = processMethologieItems.toArray(new String[processMethologieItems.size()]);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                projectNew.getProjectProperties().setProcessMethology(items[item].toString());
+                updateProjectCreationOverviewFragment(5);
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     /**
@@ -445,49 +552,100 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
      */
     private void editDevelopmentKind()
     {
-        //TODO: Create Dialog
-        Toast.makeText(projectCreationOverviewFragment.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.project_creation_development_kind));
+
+        final CharSequence[] items = developmentKindItems.toArray(new String[developmentKindItems.size()]);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                projectNew.getProjectProperties().setDevelopmentKind(items[item].toString());
+                updateProjectCreationOverviewFragment(5);
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     /**
-     * Opens Dialoge to edit the Project Market
+     * Opens Dialog to edit the Project Market
      */
     private void editProjectMarket()
     {
-        //TODO: Create Dialog
-        Toast.makeText(projectCreationOverviewFragment.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.project_creation_market));
+
+        final CharSequence[] items = developmentMarketItems.toArray(new String[developmentMarketItems.size()]);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                projectNew.getProjectProperties().setMarket(items[item].toString());
+                updateProjectCreationOverviewFragment(5);
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     /**
-     * Opens Dialoge to edit the Icon
+     * Opens Dialog to edit the Icon
      */
     private void editIcon()
     {
-        //TODO: Create Dialog
-        Toast.makeText(projectCreationOverviewFragment.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, ChooseProjectIconActivity.class);
+        startActivityForResult(intent, Integer.parseInt(getString(R.string.PROJECT_ICON_DIALOG_CODE)));
     }
 
     /**
-     * Opens Dialoge to edit the Description
+     * Opens Dialog to edit the Description
      */
     private void editDescription()
     {
-        //TODO: Create Dialog
-        Toast.makeText(projectCreationOverviewFragment.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+        Log.d("Info", "GuidedProjectCreation: editDescription");
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.project_creation_description));
+
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        input.setSingleLine(false);
+        if (projectNew.getProjectDescription() != null && !projectNew.getProjectDescription().equals(""))
+        {
+            input.setText(projectNew.getProjectDescription());
+        }
+        builder.setView(input);
+        builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                projectNew.setProjectDescription(input.getText().toString());
+                updateProjectCreationOverviewFragment(5);
+            }
+        });
+        builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
 
     /**
-     * Opens Dialoge to edit the Name
+     * Opens Dialog to edit the Name
      */
     private void editProjectName()
     {
-        Log.d("Info","GuidedProjectCreation: editProjectName");
+        Log.d("Info", "GuidedProjectCreation: editProjectName");
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.project_creation_project_name));
 
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
-        if(projectNew.getTitle() != null && !projectNew.getTitle().equals("")){
+        input.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
+        if (projectNew.getTitle() != null && !projectNew.getTitle().equals(""))
+        {
             input.setText(projectNew.getTitle());
         }
         builder.setView(input);
@@ -517,10 +675,10 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
      */
     private void updateOverviewItemsValue()
     {
-        Log.d("Info","GuidedProjectCreation: updateOverviewItemsValue");
+        Log.d("Info", "GuidedProjectCreation: updateOverviewItemsValue");
         if (projName == null)
         {
-            Log.d("Info","GuidedProjectCreation: updateOverviewItemsValue: values null");
+            Log.d("Info", "GuidedProjectCreation: updateOverviewItemsValue: values null");
             instanciateOverviewViewItems(5);
         } else
         {
@@ -540,9 +698,11 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
             platform.setText(projectNew.getProjectProperties().getPlatform());
             industrySector.setText(projectNew.getProjectProperties().getIndustrySector());
             estimationMethod.setText(projectNew.getEstimationMethod());
-            if(projectNew.getInfluencingFactor() == null){
+            if (projectNew.getInfluencingFactor() == null)
+            {
                 influenceFactor.setText(getString(R.string.property_not_set));
-            } else {
+            } else
+            {
                 influenceFactor.setText(projectNew.getInfluencingFactor().getInfluenceFactorSetName());
             }
         }

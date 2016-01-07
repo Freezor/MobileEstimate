@@ -20,6 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/projectIcon"
         android:layout_toRightOf="@+id/projectIcon"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:textSize="@dimen/projectListTitle"
         android:textStyle="bold"/>
 
@@ -33,7 +35,6 @@
         android:textColor="@color/estimationType"
         android:textSize="@dimen/estimationType"/>
 
-    <!-- Genre -->
     <TextView
         android:id="@+id/creationDate"
         android:layout_width="fill_parent"
