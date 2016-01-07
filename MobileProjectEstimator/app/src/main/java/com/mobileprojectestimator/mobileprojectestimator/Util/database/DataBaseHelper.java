@@ -864,7 +864,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public InfluencingFactor loadInfluenceFactorById(int influence_factorset_id)
     {
         InfluencingFactor factor = null;
-        String query = String.format("SELECT * FROM InfluenceFactors where _id = '%s'", influence_factorset_id);
+        String query = String.format("SELECT * FROM InfluenceFactors where _id = '%d'", influence_factorset_id);
         SQLiteDatabase db = this.getReadableDatabase();
 
         try (Cursor c = db.rawQuery(query, null))

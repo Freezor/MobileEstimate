@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -103,7 +104,6 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
     private InfluencingFactorFragment influencingFactorFragment;
     private TextView infFactorTextViewEstimationMethod;
     private Spinner influencingFactorsAdapterSpinner;
-    private DataBaseHelper databaseHelper;
     private ArrayList<DatabaseInfluenceFactorItem> dbInfluenceFactorItems;
 
     @Override
@@ -118,6 +118,8 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
         }
 
         projectNew = new Project(this);
+
+        projectNew.setInfluencingFactor(databaseHelper.loadInfluenceFactorById(2001));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarGuidedCreation);
         setSupportActionBar(toolbar);
@@ -151,6 +153,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
 
             }
         });
+        mViewPager.setOffscreenPageLimit(6);
 
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -235,6 +238,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
      */
     private void instanciateOverviewViewItems(int position)
     {
+        Log.d("Info","GuidedProjectCreation: instanciateOverviewViewItems");
         try
         {
 
@@ -377,6 +381,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
 
             //fill the items with the actual value
             updateOverviewItemsValue();
+            Log.d("Info", "GuidedProjectCreation: instanciateOverviewViewItems - successful");
         } catch (Exception e)
         {
             Log.d("Error", "instanciateOverviewViewItems: " + e.toString());
@@ -478,8 +483,35 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
      */
     private void editProjectName()
     {
-        //TODO: Create Dialog
-        Toast.makeText(projectCreationOverviewFragment.getActivity().getBaseContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+        Log.d("Info","GuidedProjectCreation: editProjectName");
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.project_creation_project_name));
+
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        if(projectNew.getTitle() != null && !projectNew.getTitle().equals("")){
+            input.setText(projectNew.getTitle());
+        }
+        builder.setView(input);
+        builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                projectNew.setTitle(input.getText().toString());
+                updateProjectCreationOverviewFragment(5);
+            }
+        });
+        builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
 
     /**
@@ -487,23 +519,35 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
      */
     private void updateOverviewItemsValue()
     {
-        projName.setText(projectNew.getTitle());
-        if (projectNew.getProjectDescription() != null)
+        Log.d("Info","GuidedProjectCreation: updateOverviewItemsValue");
+        if (projName == null)
         {
-            projDescription.setText(projectNew.getProjectDescription());
+            Log.d("Info","GuidedProjectCreation: updateOverviewItemsValue: values null");
+            instanciateOverviewViewItems(5);
         } else
         {
-            projDescription.setText("");
+            projName.setText(projectNew.getTitle());
+            if (projectNew.getProjectDescription() != null)
+            {
+                projDescription.setText(projectNew.getProjectDescription());
+            } else
+            {
+                projDescription.setText("");
+            }
+            iconName.setText(projectNew.getIconName());
+            projectMarket.setText(projectNew.getProjectProperties().getMarket());
+            developmentKind.setText(projectNew.getProjectProperties().getDevelopmentKind());
+            processModel.setText(projectNew.getProjectProperties().getProcessMethology());
+            programmingLanguage.setText(projectNew.getProjectProperties().getProgrammingLanguage());
+            platform.setText(projectNew.getProjectProperties().getPlatform());
+            industrySector.setText(projectNew.getProjectProperties().getIndustrySector());
+            estimationMethod.setText(projectNew.getEstimationMethod());
+            if(projectNew.getInfluencingFactor() == null){
+                influenceFactor.setText(getString(R.string.property_not_set));
+            } else {
+                influenceFactor.setText(projectNew.getInfluencingFactor().getInfluenceFactorSetName());
+            }
         }
-        iconName.setText(projectNew.getIconName());
-        projectMarket.setText(projectNew.getProjectProperties().getMarket());
-        developmentKind.setText(projectNew.getProjectProperties().getDevelopmentKind());
-        processModel.setText(projectNew.getProjectProperties().getProcessMethology());
-        programmingLanguage.setText(projectNew.getProjectProperties().getProgrammingLanguage());
-        platform.setText(projectNew.getProjectProperties().getPlatform());
-        industrySector.setText(projectNew.getProjectProperties().getIndustrySector());
-        estimationMethod.setText(projectNew.getEstimationMethod());
-        influenceFactor.setText(projectNew.getInfluencingFactor().getInfluenceFactorSetName());
     }
 
 
@@ -608,6 +652,11 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
 
                 }
             });
+
+            if (projectNew.getInfluencingFactor().getInfluenceFactorSetName() != null)
+            {
+                influencingFactorsAdapterSpinner.setSelection(influencingFactorsAdapter.getPosition(projectNew.getInfluencingFactor().getInfluenceFactorSetName()));
+            }
 
             if (projectNew.getEstimationMethod().equals(""))
             {
@@ -749,7 +798,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
 
         } catch (SQLException sqle)
         {
-            Log.d("ERROR",sqle.toString());
+            Log.d("ERROR", sqle.toString());
         }
 
         influencingFactorItems = new ArrayList<>();
@@ -809,9 +858,6 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
     @Override
     public void onBackPressed()
     {
-        //TODO: fix Error
-        //DO not Use. Will be done with cancelCreationDialog
-        //super.onBackPressed();
         cancelCreationDialog();
     }
 
@@ -826,8 +872,15 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
             case android.R.id.home:
                 cancelCreationDialog();
                 return true;
+            case R.id.action_list_creation:
+                projectNew.getProjectProperties().setProgrammingLanguage("C");
+                projectNew.getProjectProperties().setPlatform("Android");
+                projectNew.getProjectProperties().setIndustrySector("Agriculture");
+                mViewPager.setCurrentItem(5);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
 

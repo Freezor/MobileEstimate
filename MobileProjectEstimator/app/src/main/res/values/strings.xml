@@ -220,6 +220,9 @@
     <string name="title_activity_choose_project_icon">Choose a project icon</string>
     <string name="action_import_new_icon">Import new icon</string>
     <string name="PROJECT_ICON_DIALOG_CODE">7723</string>
+    <string name="property_not_set">Not set yet</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog.cancel">Cancel</string>
 
 
 </resources>

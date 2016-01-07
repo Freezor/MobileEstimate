@@ -27,7 +27,6 @@ public class ChooseProjectIconActivity extends DatabaseActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_project_icon);
-
         initDatabase();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarProjectIcon);
@@ -44,6 +43,7 @@ public class ChooseProjectIconActivity extends DatabaseActivity
                 chosenImage = (ImageItem) parent.getItemAtPosition(position);
             }
         });
+        chosenImage =(ImageItem) gridView.getItemAtPosition(0);
     }
 
     @Override
@@ -77,7 +77,13 @@ public class ChooseProjectIconActivity extends DatabaseActivity
     public void onBackPressed()
     {
         Intent intent = this.getIntent();
-        intent.putExtra("PROJECTICONID", chosenImage.getImageDatabaseId());
+        if (chosenImage.getImageDatabaseId() < 1)
+        {
+            intent.putExtra("PROJECTICONID", 1);
+        } else
+        {
+            intent.putExtra("PROJECTICONID", chosenImage.getImageDatabaseId());
+        }
         this.setResult(Integer.parseInt((getString(R.string.PROJECT_ICON_DIALOG_CODE))), intent);
         finish();
     }

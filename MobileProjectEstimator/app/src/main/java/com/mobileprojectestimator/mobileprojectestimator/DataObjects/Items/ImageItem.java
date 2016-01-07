@@ -15,6 +15,7 @@ public class ImageItem
     public ImageItem(Bitmap image, String title)
     {
         super();
+        imageDatabaseId = 0;
         this.image = image;
         this.title = title;
     }
@@ -22,6 +23,7 @@ public class ImageItem
     public ImageItem()
     {
         super();
+        imageDatabaseId = 0;
     }
 
     public Bitmap getImage()

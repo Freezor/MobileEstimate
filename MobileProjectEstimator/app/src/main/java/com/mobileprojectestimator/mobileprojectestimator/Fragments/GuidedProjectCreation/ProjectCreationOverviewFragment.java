@@ -131,7 +131,7 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
                 creationItems.add(new ProjectItemForCreation("Influencing Factor: ", this.project.getInfluencingFactor().getInfluenceFactorSetName()));
             } else
             {
-                creationItems.add(new ProjectItemForCreation("Influencing Factor: ", "ERROR"));
+                creationItems.add(new ProjectItemForCreation("Influencing Factor: ", getContext().getString(R.string.property_not_set)));
             }
         }
 
