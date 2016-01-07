@@ -55,7 +55,7 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
                 initDatabase();
             }
             project = databaseHelper.loadProjectById(this, String.valueOf(project.getProjectId()));
-            mSectionsPagerAdapter.setProject(project);
+            mSectionsPagerAdapter.update(project);
             mSectionsPagerAdapter.notifyDataSetChanged();
             //Richtige Projektinformationen sind bis hier geladen
 
@@ -224,10 +224,6 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
             return null;
         }
 
-        public void setProject(Project project)
-        {
-            this.project = project;
-        }
     }
 
 }

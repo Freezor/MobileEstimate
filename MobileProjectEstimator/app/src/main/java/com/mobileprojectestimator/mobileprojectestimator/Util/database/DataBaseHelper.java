@@ -587,7 +587,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
             p.setEstimationMethod(getEstimationMethodNameById(estimationMethodId));
             int detailsId = c.getInt(c.getColumnIndex("project_details_id"));
 
-            p.setImage(loadProjectImage(detailsId));
+            p.setImage(loadProjectImageFromProjectDetails(detailsId));
 
             query = String.format("SELECT * FROM ProjectDetails where _id = '%s'", detailsId);
             int project_properties_id;
@@ -987,7 +987,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
                     p.setEstimationMethod(getEstimationMethodNameById(c.getString(c.getColumnIndex("estimation_method_id"))));
                     int detailsId = c.getInt(c.getColumnIndex("project_details_id"));
 
-                    p.setImage(loadProjectImage(detailsId));
+                    p.setImage(loadProjectImageFromProjectDetails(detailsId));
                     p.setCreationDate(c.getString(c.getColumnIndex("created_at")));
 
                     p.setProjectId(c.getInt(c.getColumnIndex("_id")));
@@ -1005,7 +1005,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
      * @param detailsId
      * @return
      */
-    public Bitmap loadProjectImage(int detailsId)
+    public Bitmap loadProjectImageFromProjectDetails(int detailsId)
     {
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = String.format("SELECT * FROM ProjectDetails WHERE _id = %d;", detailsId);
@@ -1018,15 +1018,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
             int iconId = c.getInt(c.getColumnIndex("icon_id"));
 
-            selectQuery = String.format("SELECT * FROM ProjectIcons WHERE _id = %d", iconId);
-            try (Cursor c2 = db.rawQuery(selectQuery, null))
-            {
-
-                if (c2 != null)
-                    c2.moveToFirst();
-
-                path = c2.getString(c2.getColumnIndex("path"));
-            }
+            path = getIconInformationsById(iconId).get("path");
         }
         AssetManager assetManager = context.getAssets();
 
@@ -1043,6 +1035,30 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
         db.close();
         return bitmap;
+    }
+
+    /**
+     * Get Icon Informations (name & path) by the Icon Id
+     * @param iconId
+     * @return
+     */
+    public HashMap<String,String> getIconInformationsById(int iconId)
+    {
+        SQLiteDatabase db = getReadableDatabase();
+        String selectQuery;
+        HashMap<String,String> iconInfos = new HashMap<>();
+        selectQuery = String.format("SELECT * FROM ProjectIcons WHERE _id = %d", iconId);
+        try (Cursor c2 = db.rawQuery(selectQuery, null))
+        {
+
+            if (c2 != null)
+                c2.moveToFirst();
+
+            iconInfos.put("path",c2.getString(c2.getColumnIndex("path")));
+            iconInfos.put("name", c2.getString(c2.getColumnIndex("name")));
+        }
+        db.close();
+        return iconInfos;
     }
 
     /**
@@ -1331,6 +1347,10 @@ public class DataBaseHelper extends SQLiteOpenHelper
         return id;
     }
 
+    /**
+     * Saves the estimation item to the database. Overwrites the existing values
+     * @param estimationItem
+     */
     public void updateFunctionPointEstimationItem(FunctionPointItem estimationItem)
     {
         ContentValues values = new ContentValues();

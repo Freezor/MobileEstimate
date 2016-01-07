@@ -2,6 +2,7 @@ package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.NavUtils;
@@ -154,6 +155,19 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initDatabase();
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        Log.d("INFO", "FunctionPointProjectActivity: onActivityResult");
+        if (resultCode == Integer.parseInt(getString(R.string.PROJECT_VIEW_CODE)))
+        {
+            mSectionsPagerAdapter.updateIconId(project);
+            mSectionsPagerAdapter.notifyDataSetChanged();
+            //Richtige Projektinformationen sind bis hier geladen
+
+        }
+
     }
 
     /**
