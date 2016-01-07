@@ -1,5 +1,6 @@
 package com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.FunctionPointProject;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
     private TextView totalPoints;
     private TextView evaluatedFunctionPoints;
     private TextView evaluatedPersonDays;
+
 
     @Override
     public EstimationOverviewFragment newInstance(Project p)
@@ -95,6 +97,9 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
         projectCreationAdapter.notifyDataSetChanged();
         fpEstimationListView.invalidateViews();
         fpEstimationListView.refreshDrawableState();
+        totalPoints.setText(String.format("%s %d", getContext().getString(R.string.function_point_estimation_total_points), getTotalPoints()));
+        evaluatedFunctionPoints.setText(String.format("%s %s", getContext().getString(R.string.function_point_estimation_evaluated_total_points), getEvaluatedPoints()));
+        evaluatedPersonDays.setText(String.format("%s %d", getContext().getString(R.string.function_point_estimation_evaluated_person_days), this.project.getEvaluatedPersonDays()));
     }
 
     @Override
@@ -143,5 +148,12 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
     public void setProject(Project project)
     {
         this.project = project;
+    }
+
+
+    public void update(Project project)
+    {
+        this.project = project;
+        updateEstimationItems();
     }
 }

@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.EstimationOverviewFragment;
@@ -188,6 +187,23 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
             return f;
         }
 
+        public void update(Project p)
+        {
+            this.project = p;
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public int getItemPosition(Object object)
+        {
+            if (object instanceof FunctionPointMethodFragment)
+            {
+                ((FunctionPointMethodFragment) object).update(project);
+            }
+            //don't return POSITION_NONE, avoid fragment recreation.
+            return super.getItemPosition(object);
+        }
+
         @Override
         public int getCount()
         {
@@ -211,18 +227,6 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
         public void setProject(Project project)
         {
             this.project = project;
-        }
-        /*
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object)
-        {
-            fragmentsList.remove(position);
-            super.destroyItem(container, position, object);
-        }*/
-
-        public Fragment getFragment(int pos)
-        {
-            return fragmentsList.get(pos);
         }
     }
 
