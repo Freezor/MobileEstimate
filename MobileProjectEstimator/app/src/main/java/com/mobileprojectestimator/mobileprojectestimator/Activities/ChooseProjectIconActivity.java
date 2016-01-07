@@ -60,9 +60,6 @@ public class ChooseProjectIconActivity extends DatabaseActivity
         // Handle item selection
         switch (item.getItemId())
         {
-            case R.id.action_import_new_icon:
-                //TODO: Import Icon Dialog
-                return true;
             case R.id.home:
                 onBackPressed();
                 return true;

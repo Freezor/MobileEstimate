@@ -3,9 +3,5 @@
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       tools:context=".Activities.CreateNewInfluenceFactorActivity">
-    <item
-        android:id="@+id/action_import_new_icon"
-        android:orderInCategory="102"
-        android:title="@string/action_import_new_icon"
-        app:showAsAction="never"/>
+
 </menu>
