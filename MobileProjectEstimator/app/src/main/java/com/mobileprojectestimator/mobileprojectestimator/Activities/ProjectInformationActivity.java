@@ -1,18 +1,28 @@
 package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
 public class ProjectInformationActivity extends DatabaseActivity
 {
@@ -26,6 +36,14 @@ public class ProjectInformationActivity extends DatabaseActivity
     private TextView tvDevKindValue;
     private TextView tvMarketValue;
     private TextView tvProjectDescription;
+    private int projectId;
+    private ArrayList<String> developmentMarketItems;
+    private ArrayList<String> estimationMethodItems;
+    private ArrayList<String> developmentKindItems;
+    private ArrayList<String> processMethologieItems;
+    private ArrayList<String> programmingLanguageItems;
+    private ArrayList<String> platformItems;
+    private ArrayList<String> industrySectorItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -39,10 +57,6 @@ public class ProjectInformationActivity extends DatabaseActivity
 
         initDatabase();
 
-        Intent intent = getIntent();
-        int projectId = intent.getIntExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID),0);
-        project = databaseHelper.loadProjectById(this,String.valueOf(projectId));
-
         tvProjectName = (TextView) findViewById(R.id.tvProjectName);
         ivProjectIcon = (ImageView) findViewById(R.id.ivProjectIcon);
         tvProjectDescription = (TextView) findViewById(R.id.tvProjectDescription);
@@ -53,15 +67,10 @@ public class ProjectInformationActivity extends DatabaseActivity
         tvPlatformValue = (TextView) findViewById(R.id.tvPlatformValue);
         tvIndustrySectorValue = (TextView) findViewById(R.id.tvIndustrySectorValue);
 
-        tvProjectName.setText(project.getTitle());
-        ivProjectIcon.setImageBitmap(project.getImage());
-        tvProjectDescription.setText(project.getProjectDescription());
-        tvMarketValue.setText(project.getProjectProperties().getMarket());
-        tvDevKindValue.setText(project.getProjectProperties().getDevelopmentKind());
-        tvMethologyValue.setText(project.getProjectProperties().getProcessMethology());
-        tvProgrammingLangValue.setText(project.getProjectProperties().getProgrammingLanguage());
-        tvPlatformValue.setText(project.getProjectProperties().getPlatform());
-        tvIndustrySectorValue.setText(project.getProjectProperties().getIndustrySector());
+        Intent intent = getIntent();
+        projectId = intent.getIntExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID),0);
+
+        updateProjectInformationValues();
 
         tvProjectName.setOnClickListener(new View.OnClickListener()
         {
@@ -136,51 +145,246 @@ public class ProjectInformationActivity extends DatabaseActivity
                 openProjectIndustrySectorDialog();
             }
         });
+
+        loadPropertyValues();
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        Log.d("INFO", "FunctionPointProjectActivity: onActivityResult");
+        if (resultCode == Integer.parseInt(getString(R.string.PROJECT_ICON_DIALOG_CODE)))
+        {
+            Bundle res = data.getExtras();
+            int projectId = res.getInt("PROJECTICONID");
+            HashMap<String,String> map = databaseHelper.getIconInformationsById(projectId);
+            project.setIconName(map.get("name"));
+            project.setImage(databaseHelper.loadProjectIcon(map.get("path")));
+            updateContent();
+        }
+
+    }
+
+    /**
+     * Load the all possible Property Values from the database
+     */
+    private void loadPropertyValues()
+    {
+        developmentMarketItems = databaseHelper.loadAllPropertiesByName("DevelopmentMarkets");
+        Collections.sort(developmentMarketItems);
+
+        developmentKindItems = databaseHelper.loadAllPropertiesByName("DevelopmentTypes");
+        Collections.sort(developmentKindItems);
+
+        processMethologieItems = databaseHelper.loadAllPropertiesByName("ProcessMethologies");
+        Collections.sort(processMethologieItems);
+
+        programmingLanguageItems = databaseHelper.loadAllPropertiesByName("ProgrammingLanguages");
+        Collections.sort(programmingLanguageItems);
+
+        platformItems = databaseHelper.loadAllPropertiesByName("Platforms");
+        Collections.sort(platformItems);
+
+        industrySectorItems = databaseHelper.loadAllPropertiesByName("IndustrySectors");
+        Collections.sort(industrySectorItems);
+
+        estimationMethodItems = databaseHelper.getEstimationMethodNames();
+        Collections.sort(estimationMethodItems);
+    }
+
+    /**
+     * (Re-)Loads the projectFrom the database and set the values to the textViews
+     */
+    private void updateProjectInformationValues()
+    {
+        project = databaseHelper.loadProjectById(this,String.valueOf(projectId));
+
+        updateContent();
+    }
+
+    /**
+     * Updates the content of the View
+     */
+    private void updateContent()
+    {
+        tvProjectName.setText(project.getTitle());
+        ivProjectIcon.setImageBitmap(project.getImage());
+        tvProjectDescription.setText(project.getProjectDescription());
+        tvMarketValue.setText(project.getProjectProperties().getMarket());
+        tvDevKindValue.setText(project.getProjectProperties().getDevelopmentKind());
+        tvMethologyValue.setText(project.getProjectProperties().getProcessMethology());
+        tvProgrammingLangValue.setText(project.getProjectProperties().getProgrammingLanguage());
+        tvPlatformValue.setText(project.getProjectProperties().getPlatform());
+        tvIndustrySectorValue.setText(project.getProjectProperties().getIndustrySector());
     }
 
     private void openProjectNameDialog()
     {
-        
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.project_creation_project_name));
+
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        input.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
+        if (project.getTitle() != null && !project.getTitle().equals(""))
+        {
+            input.setText(project.getTitle());
+        }
+        builder.setView(input);
+        builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                project.setTitle(input.getText().toString());
+                updateContent();
+            }
+        });
+        builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
 
     private void openProjectIconDialog()
     {
-
+        Intent intent = new Intent(this, ChooseProjectIconActivity.class);
+        startActivityForResult(intent, Integer.parseInt(getString(R.string.PROJECT_ICON_DIALOG_CODE)));
     }
 
     private void openProjectDescriptionDialog()
     {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.project_creation_description));
 
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        input.setSingleLine(false);
+        if (project.getProjectDescription() != null && !project.getProjectDescription().equals(""))
+        {
+            input.setText(project.getProjectDescription());
+        }
+        builder.setView(input);
+        builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                project.setProjectDescription(input.getText().toString());
+                updateContent();
+            }
+        });
+        builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
 
     private void openProjectMarketDialog()
     {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.project_creation_market));
 
+        final CharSequence[] items = developmentMarketItems.toArray(new String[developmentMarketItems.size()]);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                project.getProjectProperties().setMarket(items[item].toString());
+                updateContent();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void openProjectDevelopmentKindDialog()
     {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.project_creation_development_kind));
 
+        final CharSequence[] items = developmentKindItems.toArray(new String[developmentKindItems.size()]);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                project.getProjectProperties().setDevelopmentKind(items[item].toString());
+                updateContent();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void openProjectMethologyDialog()
     {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.project_creation_methology));
 
+        final CharSequence[] items = processMethologieItems.toArray(new String[processMethologieItems.size()]);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                project.getProjectProperties().setProcessMethology(items[item].toString());
+                updateContent();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void openProjectProgrammingLanguageDialog()
     {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.project_creation_programming_language));
 
+        final CharSequence[] items = programmingLanguageItems.toArray(new String[programmingLanguageItems.size()]);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                project.getProjectProperties().setProgrammingLanguage(items[item].toString());
+                updateContent();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void openProjectPlatformValueDialog()
     {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.project_creation_platform));
 
+        final CharSequence[] items = platformItems.toArray(new String[platformItems.size()]);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                project.getProjectProperties().setPlatform(items[item].toString());
+                updateContent();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void openProjectIndustrySectorDialog()
     {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.project_creation_industry_sector));
 
+        final CharSequence[] items = industrySectorItems.toArray(new String[industrySectorItems.size()]);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                project.getProjectProperties().setIndustrySector(items[item].toString());
+                updateContent();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override
