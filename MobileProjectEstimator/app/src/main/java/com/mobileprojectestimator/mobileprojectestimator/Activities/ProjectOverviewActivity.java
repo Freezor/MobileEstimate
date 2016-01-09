@@ -117,7 +117,6 @@ public class ProjectOverviewActivity extends DatabaseActivity
 
     public void onLongClickProject(final int position)
     {
-        final int pos = position;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         ArrayList<String> infItems = new ArrayList<>();
         infItems.add("Project Informations");
@@ -133,14 +132,39 @@ public class ProjectOverviewActivity extends DatabaseActivity
                     //TODO: Open Project Info Activity
                 } else if (optionItem.equals("Delete Project"))
                 {
-                    //TODO: Open new Alert dialog with question to delete and delete from database
-                    //databaseHelper.deleteProjectFromDatabase(projectsList.get(pos));
+                    showDeleteProjectDialog(position);
                 }
             }
         });
 
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    private void showDeleteProjectDialog(final int position)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(ProjectOverviewActivity.this);
+        builder.setTitle(projectsList.get(position).getTitle());
+        builder.setMessage(R.string.dialog_delete_project_request)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        databaseHelper.deleteProjectFromDatabase(projectsList.get(position).getProjectId());
+                        reloadProjectsFromDatabase();
+                        projectsAdapter.notifyDataSetChanged();
+                    }
+                })
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        // User cancelled the dialog
+                    }
+                });
+        // Create the AlertDialog object and return it
+        builder.create();
+        builder.show();
     }
 
     /**

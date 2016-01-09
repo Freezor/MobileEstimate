@@ -1040,14 +1040,15 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     /**
      * Get Icon Informations (name & path) by the Icon Id
+     *
      * @param iconId
      * @return
      */
-    public HashMap<String,String> getIconInformationsById(int iconId)
+    public HashMap<String, String> getIconInformationsById(int iconId)
     {
         SQLiteDatabase db = getReadableDatabase();
         String selectQuery;
-        HashMap<String,String> iconInfos = new HashMap<>();
+        HashMap<String, String> iconInfos = new HashMap<>();
         selectQuery = String.format("SELECT * FROM ProjectIcons WHERE _id = %d", iconId);
         try (Cursor c2 = db.rawQuery(selectQuery, null))
         {
@@ -1055,7 +1056,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
             if (c2 != null)
                 c2.moveToFirst();
 
-            iconInfos.put("path",c2.getString(c2.getColumnIndex("path")));
+            iconInfos.put("path", c2.getString(c2.getColumnIndex("path")));
             iconInfos.put("name", c2.getString(c2.getColumnIndex("name")));
         }
         db.close();
@@ -1350,6 +1351,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     /**
      * Saves the estimation item to the database. Overwrites the existing values
+     *
      * @param estimationItem
      */
     public void updateFunctionPointEstimationItem(FunctionPointItem estimationItem)
@@ -1358,43 +1360,45 @@ public class DataBaseHelper extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         if (estimationItem.getItemName().equals(context.getString(R.string.function_point_estimation_input_data)))
         {
-            values.put("simple",estimationItem.getSimpleValue());
-            values.put("medium",estimationItem.getMediumValue());
-            values.put("complex",estimationItem.getComplexValue());
-            db.update("InputDataItems",values,"_id="+estimationItem.getItemId(),null);
+            values.put("simple", estimationItem.getSimpleValue());
+            values.put("medium", estimationItem.getMediumValue());
+            values.put("complex", estimationItem.getComplexValue());
+            db.update("InputDataItems", values, "_id=" + estimationItem.getItemId(), null);
 
         } else if (estimationItem.getItemName().equals(context.getString(R.string.function_point_estimation_requests)))
         {
-            values.put("simple",estimationItem.getSimpleValue());
-            values.put("medium",estimationItem.getMediumValue());
-            values.put("complex",estimationItem.getComplexValue());
-            db.update("RequestItems",values,"_id="+estimationItem.getItemId(),null);
+            values.put("simple", estimationItem.getSimpleValue());
+            values.put("medium", estimationItem.getMediumValue());
+            values.put("complex", estimationItem.getComplexValue());
+            db.update("RequestItems", values, "_id=" + estimationItem.getItemId(), null);
         } else if (estimationItem.getItemName().equals(context.getString(R.string.function_point_estimation_output)))
         {
-            values.put("simple",estimationItem.getSimpleValue());
-            values.put("medium",estimationItem.getMediumValue());
-            values.put("complex",estimationItem.getComplexValue());
-            db.update("OutputItems",values,"_id="+estimationItem.getItemId(),null);
+            values.put("simple", estimationItem.getSimpleValue());
+            values.put("medium", estimationItem.getMediumValue());
+            values.put("complex", estimationItem.getComplexValue());
+            db.update("OutputItems", values, "_id=" + estimationItem.getItemId(), null);
         } else if (estimationItem.getItemName().equals(context.getString(R.string.function_point_estimation_dataset)))
         {
-            values.put("simple",estimationItem.getSimpleValue());
-            values.put("medium",estimationItem.getMediumValue());
-            values.put("complex",estimationItem.getComplexValue());
-            db.update("DatasetItems",values,"_id="+estimationItem.getItemId(),null);
+            values.put("simple", estimationItem.getSimpleValue());
+            values.put("medium", estimationItem.getMediumValue());
+            values.put("complex", estimationItem.getComplexValue());
+            db.update("DatasetItems", values, "_id=" + estimationItem.getItemId(), null);
         } else if (estimationItem.getItemName().equals(context.getString(R.string.function_point_estimation_reference_data)))
         {
-            values.put("simple",estimationItem.getSimpleValue());
-            values.put("medium",estimationItem.getMediumValue());
-            values.put("complex",estimationItem.getComplexValue());
-            db.update("ReferenceDataItems",values,"_id="+estimationItem.getItemId(),null);
-        } else{
-            Log.d("ERROR","updateFunctionPointEstimationItem: Problem with EstimationItem "+estimationItem.getItemName());
+            values.put("simple", estimationItem.getSimpleValue());
+            values.put("medium", estimationItem.getMediumValue());
+            values.put("complex", estimationItem.getComplexValue());
+            db.update("ReferenceDataItems", values, "_id=" + estimationItem.getItemId(), null);
+        } else
+        {
+            Log.d("ERROR", "updateFunctionPointEstimationItem: Problem with EstimationItem " + estimationItem.getItemName());
         }
         db.close();
     }
 
     /**
      * Loads all Project icons as an ArrayList<ImageItem>
+     *
      * @return
      */
     public ArrayList<ImageItem> loadAllProjectIcons()
@@ -1421,6 +1425,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     /**
      * Loads a project Icon by its path
+     *
      * @param path
      * @return
      */
@@ -1438,5 +1443,74 @@ public class DataBaseHelper extends SQLiteOpenHelper
             // handle exception
         }
         return projectIcon;
+    }
+
+    /**
+     * Completly deletes a project from the database
+     *
+     * @param projectId
+     */
+    public void deleteProjectFromDatabase(int projectId)
+    {
+        String selectQuery = String.format("SELECT * FROM Projects WHERE _id = %d", projectId);
+        SQLiteDatabase db = this.getReadableDatabase();
+        int projectDetailsId = 0;
+        String estimationMethod = null;
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                projectDetailsId = c.getInt(c.getColumnIndex("project_details_id"));
+                estimationMethod = getEstimationMethodNameById(String.valueOf(c.getInt(c.getColumnIndex("estimation_method_id"))));
+
+            }
+        }
+        db = this.getWritableDatabase();
+        db.delete("Projects", "_id = " + projectId, null);
+
+        int estimationItemsId = 0;
+        int descriptionId = 0;
+        int propertiesId = 0;
+        selectQuery = String.format("SELECT * FROM ProjectDetails WHERE _id = %d", projectDetailsId);
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                estimationItemsId = c.getInt(c.getColumnIndex("estimation_items_id"));
+                descriptionId = c.getInt(c.getColumnIndex("description_id"));
+                propertiesId = c.getInt(c.getColumnIndex("project_properties_id"));
+            }
+        }
+        db.delete("ProjectDetails", "_id = " + projectDetailsId, null);
+        db.delete("ProjectDescriptions", "_id = " + descriptionId, null);
+        db.delete("ProjectProperties", "_id = " + propertiesId, null);
+
+        if (estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
+        {
+            int inputId = 0;
+            int requestId = 0;
+            int outputId = 0;
+            int datasetId = 0;
+            int referenceId = 0;
+            selectQuery = String.format("SELECT * FROM FunctionPointEstimationItems WHERE _id = %d", estimationItemsId);
+            try (Cursor c = db.rawQuery(selectQuery, null))
+            {
+                if (c.moveToFirst())
+                {
+                    inputId = c.getInt(c.getColumnIndex("InputDataItems_id"));
+                    requestId = c.getInt(c.getColumnIndex("RequestItems_id"));
+                    outputId = c.getInt(c.getColumnIndex("OutputItems_id"));
+                    datasetId = c.getInt(c.getColumnIndex("DatasetItems_id"));
+                    referenceId = c.getInt(c.getColumnIndex("ReferenceDataItems_id"));
+                }
+            }
+            db.delete("FunctionPointEstimationItems", "_id = " + estimationItemsId, null);
+            db.delete("InputDataItems", "_id = " + inputId, null);
+            db.delete("RequestItems", "_id = " + requestId, null);
+            db.delete("OutputItems", "_id = " + outputId, null);
+            db.delete("DatasetItems", "_id = " + datasetId, null);
+            db.delete("ReferenceDataItems", "_id = " + referenceId, null);
+        }
+        db.close();
     }
 }

@@ -224,6 +224,7 @@
     <string name="dialog_ok">OK</string>
     <string name="dialog.cancel">Cancel</string>
     <string name="longclick_project">Project Information for</string>
+    <string name="dialog_delete_project_request">Do you really want to delete this project? There is no way to restore a deleted project.</string>
 
 
 </resources>
