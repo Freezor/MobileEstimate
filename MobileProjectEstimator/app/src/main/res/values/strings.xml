@@ -230,6 +230,7 @@
     <string name="action_find_related_project">Find related projects</string>
     <string name="ACTIVITY_EXTRA_PROJECTID">PROJECTID</string>
     <string name="action_save">Save</string>
+    <string name="dialog_save_project_request">Do you really want to save this project? This will overwrite the existing project.</string>
 
 
 </resources>

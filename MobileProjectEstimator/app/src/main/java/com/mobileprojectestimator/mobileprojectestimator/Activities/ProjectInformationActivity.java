@@ -3,7 +3,6 @@ package com.mobileprojectestimator.mobileprojectestimator.Activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
@@ -68,7 +67,7 @@ public class ProjectInformationActivity extends DatabaseActivity
         tvIndustrySectorValue = (TextView) findViewById(R.id.tvIndustrySectorValue);
 
         Intent intent = getIntent();
-        projectId = intent.getIntExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID),0);
+        projectId = intent.getIntExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID), 0);
 
         updateProjectInformationValues();
 
@@ -156,7 +155,7 @@ public class ProjectInformationActivity extends DatabaseActivity
         {
             Bundle res = data.getExtras();
             int projectId = res.getInt("PROJECTICONID");
-            HashMap<String,String> map = databaseHelper.getIconInformationsById(projectId);
+            HashMap<String, String> map = databaseHelper.getIconInformationsById(projectId);
             project.setIconName(map.get("name"));
             project.setImage(databaseHelper.loadProjectIcon(map.get("path")));
             updateContent();
@@ -196,7 +195,7 @@ public class ProjectInformationActivity extends DatabaseActivity
      */
     private void updateProjectInformationValues()
     {
-        project = databaseHelper.loadProjectById(this,String.valueOf(projectId));
+        project = databaseHelper.loadProjectById(this, String.valueOf(projectId));
 
         updateContent();
     }
@@ -297,8 +296,10 @@ public class ProjectInformationActivity extends DatabaseActivity
         builder.setTitle(getString(R.string.project_creation_market));
 
         final CharSequence[] items = developmentMarketItems.toArray(new String[developmentMarketItems.size()]);
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
+        builder.setItems(items, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
                 project.getProjectProperties().setMarket(items[item].toString());
                 updateContent();
             }
@@ -313,8 +314,10 @@ public class ProjectInformationActivity extends DatabaseActivity
         builder.setTitle(getString(R.string.project_creation_development_kind));
 
         final CharSequence[] items = developmentKindItems.toArray(new String[developmentKindItems.size()]);
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
+        builder.setItems(items, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
                 project.getProjectProperties().setDevelopmentKind(items[item].toString());
                 updateContent();
             }
@@ -327,10 +330,18 @@ public class ProjectInformationActivity extends DatabaseActivity
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.project_creation_methology));
-
+        builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int id)
+            {
+                // User cancelled the dialog
+            }
+        });
         final CharSequence[] items = processMethologieItems.toArray(new String[processMethologieItems.size()]);
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
+        builder.setItems(items, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
                 project.getProjectProperties().setProcessMethology(items[item].toString());
                 updateContent();
             }
@@ -344,9 +355,18 @@ public class ProjectInformationActivity extends DatabaseActivity
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.project_creation_programming_language));
 
+        builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int id)
+            {
+                // User cancelled the dialog
+            }
+        });
         final CharSequence[] items = programmingLanguageItems.toArray(new String[programmingLanguageItems.size()]);
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
+        builder.setItems(items, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
                 project.getProjectProperties().setProgrammingLanguage(items[item].toString());
                 updateContent();
             }
@@ -359,10 +379,18 @@ public class ProjectInformationActivity extends DatabaseActivity
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.project_creation_platform));
-
+        builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int id)
+            {
+                // User cancelled the dialog
+            }
+        });
         final CharSequence[] items = platformItems.toArray(new String[platformItems.size()]);
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
+        builder.setItems(items, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
                 project.getProjectProperties().setPlatform(items[item].toString());
                 updateContent();
             }
@@ -375,10 +403,18 @@ public class ProjectInformationActivity extends DatabaseActivity
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.project_creation_industry_sector));
-
+        builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int id)
+            {
+                // User cancelled the dialog
+            }
+        });
         final CharSequence[] items = industrySectorItems.toArray(new String[industrySectorItems.size()]);
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
+        builder.setItems(items, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
                 project.getProjectProperties().setIndustrySector(items[item].toString());
                 updateContent();
             }
@@ -403,7 +439,7 @@ public class ProjectInformationActivity extends DatabaseActivity
         switch (item.getItemId())
         {
             case R.id.action_save_project_informations:
-                return super.onOptionsItemSelected(item);
+                saveProject();
             case R.id.action_change_estimation_method:
                 return super.onOptionsItemSelected(item);
             case R.id.action_find_related_project:
@@ -411,5 +447,28 @@ public class ProjectInformationActivity extends DatabaseActivity
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void saveProject()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(ProjectInformationActivity.this);
+        builder.setMessage(R.string.dialog_save_project_request)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        databaseHelper.updateExistingProject(project);
+                    }
+                })
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        // User cancelled the dialog
+                    }
+                });
+        // Create the AlertDialog object and return it
+        builder.create();
+        builder.show();
     }
 }

@@ -1513,4 +1513,9 @@ public class DataBaseHelper extends SQLiteOpenHelper
         }
         db.close();
     }
+
+    public void updateExistingProject(Project project)
+    {
+        //TODO: updateProject
+    }
 }
