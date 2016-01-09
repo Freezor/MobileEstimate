@@ -129,7 +129,9 @@ public class ProjectOverviewActivity extends DatabaseActivity
                 String optionItem = items[item].toString();
                 if (optionItem.equals("Project Informations"))
                 {
-                    //TODO: Open Project Info Activity
+                    Intent i = new Intent(ProjectOverviewActivity.this, ProjectInformationActivity.class);
+                    i.putExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID),projectsList.get(position).getProjectId());
+                    startActivityForResult(i, 1);
                 } else if (optionItem.equals("Delete Project"))
                 {
                     showDeleteProjectDialog(position);
@@ -141,6 +143,10 @@ public class ProjectOverviewActivity extends DatabaseActivity
         alert.show();
     }
 
+    /**
+     * Shos the dialog for project delete
+     * @param position
+     */
     private void showDeleteProjectDialog(final int position)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(ProjectOverviewActivity.this);

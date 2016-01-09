@@ -225,6 +225,11 @@
     <string name="dialog.cancel">Cancel</string>
     <string name="longclick_project">Project Information for</string>
     <string name="dialog_delete_project_request">Do you really want to delete this project? There is no way to restore a deleted project.</string>
+    <string name="title_activity_project_information">Project Informations</string>
+    <string name="action_change_estimation_method">Change Estimation Method</string>
+    <string name="action_find_related_project">Find related projects</string>
+    <string name="ACTIVITY_EXTRA_PROJECTID">PROJECTID</string>
+    <string name="action_save">Save</string>
 
 
 </resources>

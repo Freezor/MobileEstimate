@@ -13,6 +13,7 @@
     <color name="list_row_hover_end_color">#BBDEFB</color>
     <color name="creationDate">#2196F3</color>
     <color name="estimationType">#FF5722</color>
+    <color name="dark_orange">#FF5722</color>
     <color name="standardButtonColor">#2196F3</color>
     <color name="standardRowEven">#BBDEFB</color>
     <color name="standardRowOdd">#2196F3</color>
