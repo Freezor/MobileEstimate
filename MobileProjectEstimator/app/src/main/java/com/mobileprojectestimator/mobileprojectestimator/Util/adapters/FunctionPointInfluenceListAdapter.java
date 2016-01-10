@@ -82,6 +82,7 @@ public class FunctionPointInfluenceListAdapter extends BaseAdapter
      */
     public void updateChosenValues(Context context)
     {
+        //TODO: Check Loading Error. Some values are not right set here
         try
         {
             for (InfluenceFactorItem item : fpInfluenceItems)

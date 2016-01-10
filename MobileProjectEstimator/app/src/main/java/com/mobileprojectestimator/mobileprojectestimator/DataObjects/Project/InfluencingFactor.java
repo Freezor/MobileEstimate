@@ -376,18 +376,16 @@ public class InfluencingFactor
     {
         influenceItemSum = 0;
 
-        influenceItemSum += influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_integration))).getChosenValue();
-        influenceItemSum += influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_local_data))).getChosenValue();
-        influenceItemSum += influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_transaction_rate))).getChosenValue();
-        influenceItemSum += influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_reusability))).getChosenValue();
-        influenceItemSum += influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_stock_conversion))).getChosenValue();
-        influenceItemSum += influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_adaptability))).getChosenValue();
+        for(InfluenceFactorItem item : influenceFactorItems){
+            if(item.hasSubItems()){
+                for (InfluenceFactorItem subitem: item.getSubInfluenceFactorItemsList()){
+                    influenceItemSum += subitem.getChosenValue();
+                }
+            } else {
+                influenceItemSum += item.getChosenValue();
+            }
+        }
 
-        ArrayList<InfluenceFactorItem> subitems = influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_processing_logic))).getSubInfluenceFactorItemsList();
-        influenceItemSum += subitems.get(0).getChosenValue();
-        influenceItemSum += subitems.get(1).getChosenValue();
-        influenceItemSum += subitems.get(2).getChosenValue();
-        influenceItemSum += subitems.get(3).getChosenValue();
         return influenceItemSum;
     }
 

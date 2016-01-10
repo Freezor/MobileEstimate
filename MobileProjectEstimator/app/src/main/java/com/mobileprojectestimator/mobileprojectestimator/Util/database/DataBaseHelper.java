@@ -1573,7 +1573,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         int industrySectId = getPropertyIdFromTable("IndustrySectors", project.getProjectProperties().getIndustrySector());
         db.close();
 
-        //TODO: Property Werte werden nicht übernommen
+        //TODO: Property Werte werden nicht übernommen. Werte richtig jedoch für jede Spalte 1. Fehler beim Daten holen
         SQLiteDatabase db2 = this.getWritableDatabase();
         args = new ContentValues();
         args.put("DevelopmentMarket_id",marketId);
