@@ -131,7 +131,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
                 {
                     Intent i = new Intent(ProjectOverviewActivity.this, ProjectInformationActivity.class);
                     i.putExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID),projectsList.get(position).getProjectId());
-                    startActivityForResult(i, 1);
+                    startActivityForResult(i, Integer.parseInt((getString(R.string.CREATE_NEW_PROJECT_REQUEST_CODE))));
                 } else if (optionItem.equals("Delete Project"))
                 {
                     showDeleteProjectDialog(position);

@@ -1,5 +1,6 @@
 package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -156,8 +157,9 @@ public class ProjectInformationActivity extends DatabaseActivity
             Bundle res = data.getExtras();
             int projectId = res.getInt("PROJECTICONID");
             HashMap<String, String> map = databaseHelper.getIconInformationsById(projectId);
-            project.setIconName(map.get("name"));
-            project.setImage(databaseHelper.loadProjectIcon(map.get("path")));
+            this.project.setIconId(map.get("id"));
+            this.project.setIconName(databaseHelper.getStringResourceValueByResourceName(map.get("name")));
+            this.project.setImage(databaseHelper.loadProjectIcon(map.get("path")));
             updateContent();
         }
 
@@ -424,6 +426,14 @@ public class ProjectInformationActivity extends DatabaseActivity
     }
 
     @Override
+    public void onBackPressed()
+    {
+        //TODO: ask for not saved informations
+        setResult(Activity.RESULT_OK);
+        finish();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
         MenuInflater inflater = getMenuInflater();
@@ -438,8 +448,12 @@ public class ProjectInformationActivity extends DatabaseActivity
         // Handle item selection
         switch (item.getItemId())
         {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
             case R.id.action_save_project_informations:
                 saveProject();
+                return true;
             case R.id.action_change_estimation_method:
                 return super.onOptionsItemSelected(item);
             case R.id.action_find_related_project:
@@ -457,7 +471,7 @@ public class ProjectInformationActivity extends DatabaseActivity
                 {
                     public void onClick(DialogInterface dialog, int id)
                     {
-                        databaseHelper.updateExistingProject(project);
+                        databaseHelper.updateExistingProjectInformations(project);
                     }
                 })
                 .setNegativeButton(R.string.no, new DialogInterface.OnClickListener()

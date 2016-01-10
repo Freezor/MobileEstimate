@@ -134,7 +134,9 @@ public class ProjectInfoFragment extends GuidedCreationFragment
         Bitmap projectIcon = loadProjectIcon(infos);
 
         project.setImage(projectIcon);
+
         project.setIconName(databaseHelper.getStringResourceValueByResourceName(infos.get("name")));
+        project.setIconId(infos.get("id"));
 
         TextView iconName = (TextView) rootView.findViewById(R.id.tvProjectImageName);
         iconName.setText(project.getIconName());

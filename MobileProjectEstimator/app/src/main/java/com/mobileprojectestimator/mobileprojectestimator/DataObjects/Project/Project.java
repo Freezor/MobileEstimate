@@ -37,6 +37,7 @@ public class Project implements Serializable
     private double influenceFactorRating;
     private int evaluatedPersonDays = 0;
     private int projectId;
+    private String iconId;
 
     /**
      * Constructs a new instance of {@code Object}.
@@ -548,5 +549,15 @@ public class Project implements Serializable
     public void setEstimationItems(ArrayList<EstimationItem> estimationItems)
     {
         this.estimationItems = estimationItems;
+    }
+
+    public void setIconId(String iconId)
+    {
+        this.iconId = iconId;
+    }
+
+    public String getIconId()
+    {
+        return iconId;
     }
 }

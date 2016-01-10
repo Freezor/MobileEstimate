@@ -300,6 +300,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public String getStringResourceValueByResourceName(String resourceName)
     {
         int resID = context.getResources().getIdentifier(resourceName, "string", context.getPackageName());
+        Log.d("Info","getStringResourceValueByResourceName. resourceName = "+resourceName+" resId= "+resID);
         String name = context.getResources().getString(resID);
         DataBaseHelper.resourcesIdMap.put(name, resID);
         return name;
@@ -601,7 +602,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
                     c2.moveToFirst();
 
                 p.setEvaluatedPersonDays(c2.getInt(c2.getColumnIndex("evaluated_person_days")));
-
+                p.setIconId(c2.getString(c2.getColumnIndex("icon_id")));
                 estimation_items_id = c2.getInt(c2.getColumnIndex("estimation_items_id"));
                 project_properties_id = c2.getInt(c2.getColumnIndex("project_properties_id"));
                 int description_id = c2.getInt(c2.getColumnIndex("description_id"));
@@ -1057,6 +1058,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
                 c2.moveToFirst();
 
             iconInfos.put("path", c2.getString(c2.getColumnIndex("path")));
+            iconInfos.put("id", String.valueOf(c2.getInt(c2.getColumnIndex("_id"))));
             iconInfos.put("name", c2.getString(c2.getColumnIndex("name")));
         }
         db.close();
@@ -1514,8 +1516,75 @@ public class DataBaseHelper extends SQLiteOpenHelper
         db.close();
     }
 
-    public void updateExistingProject(Project project)
+    /**
+     * Updates the Project Informations. Not Included are Estimation Items and InfluenceFactor Sets
+     * @param project
+     */
+    public void updateExistingProjectInformations(Project project)
     {
-        //TODO: updateProject
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //Update Project Name
+        ContentValues args = new ContentValues();
+        args.put("name", project.getTitle());
+        db.update("Projects", args, "_id=" + project.getProjectId(), null);
+
+        //Load the ProjectDetailsId
+        int detailsId = 0;
+        String selectQuery = String.format("SELECT * FROM Projects WHERE _id = %d", project.getProjectId());
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                detailsId = c.getInt(c.getColumnIndex("project_details_id"));
+            }
+        }
+
+        //Update Project Icon and evaluated days
+        args = new ContentValues();
+        args.put("icon_id", Integer.valueOf(project.getIconId()));
+        args.put("evaluated_person_days", project.getEvaluatedPersonDays());
+        db.update("ProjectDetails", args, "_id=" + detailsId, null);
+
+        //Load Properties and Description IDs
+        int propertiesId = 0;
+        int descriptionId = 0;
+        selectQuery = String.format("SELECT * FROM ProjectDetails WHERE _id = %d", detailsId);
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                propertiesId = c.getInt(c.getColumnIndex("project_properties_id"));
+                descriptionId = c.getInt(c.getColumnIndex("description_id"));
+            }
+        }
+
+        //Update Project Description
+        args = new ContentValues();
+        args.put("text", project.getProjectDescription());
+        db.update("ProjectDescriptions", args, "_id=" + descriptionId, null);
+
+        //Update ProjectProperties
+        int marketId = getPropertyIdFromTable("DevelopmentMarkets",project.getProjectProperties().getMarket());
+        int devkindId = getPropertyIdFromTable("DevelopmentTypes",project.getProjectProperties().getDevelopmentKind());
+        int methologyId = getPropertyIdFromTable("ProcessMethologies",project.getProjectProperties().getProcessMethology());
+        int langId = getPropertyIdFromTable("ProgrammingLanguages", project.getProjectProperties().getProgrammingLanguage());
+        int platformId = getPropertyIdFromTable("Platforms", project.getProjectProperties().getPlatform());
+        int industrySectId = getPropertyIdFromTable("IndustrySectors", project.getProjectProperties().getIndustrySector());
+        db.close();
+
+        //TODO: Property Werte werden nicht übernommen
+        SQLiteDatabase db2 = this.getWritableDatabase();
+        args = new ContentValues();
+        args.put("DevelopmentMarket_id",marketId);
+        args.put("DevelopmentKind_id",devkindId);
+        args.put("ProcessMethology_id",methologyId);
+        args.put("ProgrammingLanguage_id",langId);
+        args.put("Platform_id",platformId);
+        args.put("IndustrySector_id", industrySectId);
+        //long i = db2.update("ProjectProperties", args, "_id= '" + propertiesId+"'", null);
+        long i = db2.update("ProjectProperties", args, "_id= ?", new String[] {String.valueOf(propertiesId)});
+        Log.d("INFO","Update ProjectProperties:" + i);
+        db2.close();
     }
 }
