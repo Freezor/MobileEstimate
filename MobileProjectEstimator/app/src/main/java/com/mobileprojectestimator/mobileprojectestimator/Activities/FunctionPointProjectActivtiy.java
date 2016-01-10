@@ -1,5 +1,6 @@
 package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointCategoryItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.EstimationOverviewFragment;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.FunctionPointProject.FunctionPointInfluenceFactorFragment;
@@ -39,7 +41,7 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
     private Project project;
     private ViewPager mViewPager;
 
-    public void FunctionPointProjectActivtiy()
+    public FunctionPointProjectActivtiy()
     {
         initDatabase();
     }
@@ -55,10 +57,23 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
                 initDatabase();
             }
             project = databaseHelper.loadProjectById(this, String.valueOf(project.getProjectId()));
+            setTitle(project.getTitle());
             mSectionsPagerAdapter.update(project);
             mSectionsPagerAdapter.notifyDataSetChanged();
             //Richtige Projektinformationen sind bis hier geladen
 
+        }
+        if (requestCode == Integer.parseInt(getString(R.string.CREATE_NEW_PROJECT_REQUEST_CODE)))
+        {
+
+            if (databaseHelper == null)
+            {
+                initDatabase();
+            }
+            project = databaseHelper.loadProjectById(this, String.valueOf(project.getProjectId()));
+            setTitle(project.getTitle());
+            mSectionsPagerAdapter.update(project);
+            mSectionsPagerAdapter.notifyDataSetChanged();
         }
 
     }
@@ -112,6 +127,7 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
         } else
         {
             project = databaseHelper.loadProjectById(this, projectId);
+            setTitle(project.getTitle());
             Log.d("Info", project.getTitle() + " wurde geöffnet.");
         }
 
@@ -147,18 +163,25 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_project_properties)
+        switch (item.getItemId())
         {
-            return true;
+            case R.id.action_project_properties:
+                openProjectProperties();
+                return true;
+            case R.id.action_person_days_overview:
+                return true;
+            case R.id.action_terminate:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
+    }
 
-        return super.onOptionsItemSelected(item);
+    private void openProjectProperties()
+    {
+        Intent i = new Intent(FunctionPointProjectActivtiy.this, ProjectInformationActivity.class);
+        i.putExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID),project.getProjectId());
+        startActivityForResult(i, Integer.parseInt((getString(R.string.CREATE_NEW_PROJECT_REQUEST_CODE))));
     }
 
 

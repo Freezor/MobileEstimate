@@ -130,7 +130,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
                 if (optionItem.equals("Project Informations"))
                 {
                     Intent i = new Intent(ProjectOverviewActivity.this, ProjectInformationActivity.class);
-                    i.putExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID),projectsList.get(position).getProjectId());
+                    i.putExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID), projectsList.get(position).getProjectId());
                     startActivityForResult(i, Integer.parseInt((getString(R.string.CREATE_NEW_PROJECT_REQUEST_CODE))));
                 } else if (optionItem.equals("Delete Project"))
                 {
@@ -145,6 +145,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
 
     /**
      * Shos the dialog for project delete
+     *
      * @param position
      */
     private void showDeleteProjectDialog(final int position)
@@ -303,6 +304,10 @@ public class ProjectOverviewActivity extends DatabaseActivity
             {
                 navigationDrawerUserNameTextView.setText(userName);
             }
+        } else if (requestCode == Integer.parseInt((getString(R.string.PROJECT_VIEW_CODE))))
+        {
+            reloadProjectsFromDatabase();
+            projectsAdapter.notifyDataSetChanged();
         }
     }
 

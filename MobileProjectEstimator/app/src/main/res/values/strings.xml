@@ -17,8 +17,7 @@
     <string name="action_save_project">Save Project</string>
     <string name="NewProjectIntentValueParam" translatable="false">NEWPROJECT</string>
     <string name="title_activity_function_point_project">Function Point Activity</string>
-    <string name="title_activity_function_point_project_activtiy">FunctionPointProjectActivtiy
-    </string>
+    <string name="title_activity_function_point_project_activtiy">Function Point Project</string>
     <string name="action_person_days_overview">Person Days Overview</string>
     <string name="action_terminate_project">Terminate Project</string>
     <string name="action_project_properties">Project Properties</string>
