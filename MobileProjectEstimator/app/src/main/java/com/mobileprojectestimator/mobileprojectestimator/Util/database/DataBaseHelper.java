@@ -1530,16 +1530,9 @@ public class DataBaseHelper extends SQLiteOpenHelper
         db.update("Projects", args, "_id=" + project.getProjectId(), null);
 
         //Load the ProjectDetailsId
-        int detailsId = 0;
-        String selectQuery = String.format("SELECT * FROM Projects WHERE _id = %d", project.getProjectId());
-        try (Cursor c = db.rawQuery(selectQuery, null))
-        {
-            if (c.moveToFirst())
-            {
-                detailsId = c.getInt(c.getColumnIndex("project_details_id"));
-            }
-        }
+        int detailsId = getProjectDetailsId(project.getProjectId());
 
+        db = this.getWritableDatabase();
         //Update Project Icon and evaluated days
         args = new ContentValues();
         args.put("icon_id", Integer.valueOf(project.getIconId()));
@@ -1549,7 +1542,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         //Load Properties and Description IDs
         int propertiesId = 0;
         int descriptionId = 0;
-        selectQuery = String.format("SELECT * FROM ProjectDetails WHERE _id = %d", detailsId);
+        String selectQuery = String.format("SELECT * FROM ProjectDetails WHERE _id = %d", detailsId);
         try (Cursor c = db.rawQuery(selectQuery, null))
         {
             if (c.moveToFirst())
@@ -1586,5 +1579,55 @@ public class DataBaseHelper extends SQLiteOpenHelper
         long i = db2.update("ProjectProperties", args, "_id= ?", new String[] {String.valueOf(propertiesId)});
         Log.d("INFO","Update ProjectProperties:" + i);
         db2.close();
+    }
+
+    /**
+     * Update the ID of the influence Factor set used by a project
+     * @param project
+     */
+    public void updateExistingProjectInfluenceFactor(Project project)
+    {
+        int detailsId = getProjectDetailsId(project.getProjectId());
+        SQLiteDatabase db = this.getWritableDatabase();
+        //Update Project Icon and evaluated days
+        ContentValues args = new ContentValues();
+        int setId = loadInfluenceFactorSetIdByName(project.getInfluencingFactor().getInfluenceFactorSetName(),getEstimationMethodId(project.getEstimationMethod()));
+        args.put("influence_factorset_id",setId );
+        db.update("ProjectDetails", args, "_id=" + detailsId, null);
+
+    }
+
+    private int loadInfluenceFactorSetIdByName(String name,int estMethodId )
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int infSetId = 0;
+        String selectQuery = String.format("SELECT * FROM InfluenceFactors WHERE name = '%s' AND estimation_method_id = %d", name, estMethodId);
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                infSetId = c.getInt(c.getColumnIndex("_id"));
+            }
+        }
+        return infSetId;
+    }
+
+    /**
+     * Get the projectDetailsID of a project
+     * @param projectId
+     * @return
+     */
+    public int getProjectDetailsId(int projectId){
+        SQLiteDatabase db = this.getReadableDatabase();
+        int detailsId = 0;
+        String selectQuery = String.format("SELECT * FROM Projects WHERE _id = %d", projectId);
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                detailsId = c.getInt(c.getColumnIndex("project_details_id"));
+            }
+        }
+        return detailsId;
     }
 }

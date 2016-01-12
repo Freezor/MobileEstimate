@@ -1,13 +1,23 @@
 package com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.FunctionPointProject;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.mobileprojectestimator.mobileprojectestimator.Activities.FunctionPointProjectActivtiy;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Database.DatabaseInfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.EstimationOverviewFragment;
@@ -29,6 +39,8 @@ public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFrag
     private ArrayList<Object> fragmentsList;
     private TextView sumOfInfluences;
     private TextView factorInfluenceRating;
+    private Context mContext;
+    private ArrayList<DatabaseInfluenceFactorItem> influenceFactorItems;
 
     @Override
     public EstimationOverviewFragment newInstance(Project p)
@@ -44,6 +56,9 @@ public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFrag
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
+        mContext = getActivity();
+        initDatabase();
+
         View rootView = inflater.inflate(R.layout.fragment_function_point_influence_factor_activtiy, container, false);
 
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -62,6 +77,52 @@ public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFrag
         factorInfluenceRating = (TextView) rootView.findViewById(R.id.tvFactorInfluenceRating);
         factorInfluenceRating.setText(String.format("%s %s", getContext().getString(R.string.function_point_influence_rating), this.project.getFactorInfluenceRating()));
 
+        Button changeInfluenceFactorButton = (Button) rootView.findViewById(R.id.bChangeFactorSet);
+        changeInfluenceFactorButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                openInfluenceFactorSetDialog();
+            }
+        });
+
         return rootView;
+    }
+
+    private void openInfluenceFactorSetDialog()
+    {
+        Log.d("Info", "FunctionPointInfluenceFactorFragment: openInfluenceFactorSetDialog");
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle(getString(R.string.estimation_method_hint));
+
+        influenceFactorItems =  databaseHelper.getInfluenceFactorItems(databaseHelper.getEstimationMethodId(project.getEstimationMethod()));
+        ArrayList<String> infItems = new ArrayList<>();
+        for(DatabaseInfluenceFactorItem i : influenceFactorItems){
+            infItems.add(i.get_name());
+        }
+
+        final CharSequence[] items = infItems.toArray(new String[infItems.size()]);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                String factorName = items[item].toString();
+                for(DatabaseInfluenceFactorItem i : influenceFactorItems){
+                    if(i.get_name().equals(factorName)){
+                        project.setInfluencingFactor(databaseHelper.loadInfluenceFactorById(i.get_id()));
+                        databaseHelper.updateExistingProjectInfluenceFactor(project);
+                        project = databaseHelper.loadProjectById(getContext(), String.valueOf(project.getProjectId()));
+                        projectInfluenceListAdapter = new FunctionPointInfluenceListAdapter(projectInfluenceListAdapter.fragment, project.getInfluencingFactor().getInfluenceFactorItems(), project);
+                        projectInfluenceListAdapter.updateChosenValues(getContext());
+                        projectInfluenceListAdapter.notifyDataSetChanged();
+                        fpInfluenceListView.setAdapter(projectInfluenceListAdapter);
+                        sumOfInfluences.setText(String.format("%s %d", getContext().getString(R.string.function_point_sum_of_influences), project.getSumOfInfluences()));
+                        factorInfluenceRating.setText(String.format("%s %s", getContext().getString(R.string.function_point_influence_rating), project.getFactorInfluenceRating()));
+                        break;
+                    }
+                }
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

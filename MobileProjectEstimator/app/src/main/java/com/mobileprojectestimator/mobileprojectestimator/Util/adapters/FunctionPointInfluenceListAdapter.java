@@ -30,7 +30,7 @@ public class FunctionPointInfluenceListAdapter extends BaseAdapter
     /**
      * The fragment, where the adapter is used
      */
-    private final FunctionPointInfluenceFactorFragment fragment;
+    public final FunctionPointInfluenceFactorFragment fragment;
     /**
      * Array List with all influence factor items
      */
