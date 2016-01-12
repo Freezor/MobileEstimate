@@ -300,7 +300,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public String getStringResourceValueByResourceName(String resourceName)
     {
         int resID = context.getResources().getIdentifier(resourceName, "string", context.getPackageName());
-        Log.d("Info","getStringResourceValueByResourceName. resourceName = "+resourceName+" resId= "+resID);
+        Log.d("Info", "getStringResourceValueByResourceName. resourceName = " + resourceName + " resId= " + resID);
         String name = context.getResources().getString(resID);
         DataBaseHelper.resourcesIdMap.put(name, resID);
         return name;
@@ -964,6 +964,37 @@ public class DataBaseHelper extends SQLiteOpenHelper
         return factorItemId > 0;
     }
 
+    public ArrayList<Project> getAllActiveProjects(Activity activity)
+    {
+        ArrayList<Project> projects = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM Projects WHERE is_deleted = 0;";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                do
+                {
+                    Project p = new Project(activity.getBaseContext());
+                    p.setTitle(c.getString(c.getColumnIndex("name")));
+                    p.setEstimationMethod(getEstimationMethodNameById(c.getString(c.getColumnIndex("estimation_method_id"))));
+                    int detailsId = c.getInt(c.getColumnIndex("project_details_id"));
+
+                    p.setImage(loadProjectImageFromProjectDetails(detailsId));
+                    p.setCreationDate(c.getString(c.getColumnIndex("created_at")));
+
+                    p.setProjectId(c.getInt(c.getColumnIndex("_id")));
+                    projects.add(p);
+                } while (c.moveToNext());
+            }
+        }
+        db.close();
+        return projects;
+    }
+
     /**
      * Return all projects in database as arrayList with name, estimation method, creation date, detailsId and Icon Information
      *
@@ -1448,6 +1479,24 @@ public class DataBaseHelper extends SQLiteOpenHelper
     }
 
     /**
+     * Set the deletion Flag to a project. For later deletion of the project
+     * <p/>
+     * Note: isdeleted 0 = false ; 1 = true
+     *
+     * @param projectId
+     */
+    public void setDeleteFlagForProject(int projectId)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //Update Project Name
+        ContentValues args = new ContentValues();
+        args.put("is_deleted", 1);
+        db.update("Projects", args, "_id=" + projectId, null);
+        db.close();
+    }
+
+    /**
      * Completly deletes a project from the database
      *
      * @param projectId
@@ -1518,6 +1567,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     /**
      * Updates the Project Informations. Not Included are Estimation Items and InfluenceFactor Sets
+     *
      * @param project
      */
     public void updateExistingProjectInformations(Project project)
@@ -1558,9 +1608,9 @@ public class DataBaseHelper extends SQLiteOpenHelper
         db.update("ProjectDescriptions", args, "_id=" + descriptionId, null);
 
         //Update ProjectProperties
-        int marketId = getPropertyIdFromTable("DevelopmentMarkets",project.getProjectProperties().getMarket());
-        int devkindId = getPropertyIdFromTable("DevelopmentTypes",project.getProjectProperties().getDevelopmentKind());
-        int methologyId = getPropertyIdFromTable("ProcessMethologies",project.getProjectProperties().getProcessMethology());
+        int marketId = getPropertyIdFromTable("DevelopmentMarkets", project.getProjectProperties().getMarket());
+        int devkindId = getPropertyIdFromTable("DevelopmentTypes", project.getProjectProperties().getDevelopmentKind());
+        int methologyId = getPropertyIdFromTable("ProcessMethologies", project.getProjectProperties().getProcessMethology());
         int langId = getPropertyIdFromTable("ProgrammingLanguages", project.getProjectProperties().getProgrammingLanguage());
         int platformId = getPropertyIdFromTable("Platforms", project.getProjectProperties().getPlatform());
         int industrySectId = getPropertyIdFromTable("IndustrySectors", project.getProjectProperties().getIndustrySector());
@@ -1569,20 +1619,21 @@ public class DataBaseHelper extends SQLiteOpenHelper
         //TODO: Property Werte werden nicht übernommen. Werte richtig jedoch für jede Spalte 1. Fehler beim Daten holen
         SQLiteDatabase db2 = this.getWritableDatabase();
         args = new ContentValues();
-        args.put("DevelopmentMarket_id",marketId);
-        args.put("DevelopmentKind_id",devkindId);
-        args.put("ProcessMethology_id",methologyId);
-        args.put("ProgrammingLanguage_id",langId);
-        args.put("Platform_id",platformId);
+        args.put("DevelopmentMarket_id", marketId);
+        args.put("DevelopmentKind_id", devkindId);
+        args.put("ProcessMethology_id", methologyId);
+        args.put("ProgrammingLanguage_id", langId);
+        args.put("Platform_id", platformId);
         args.put("IndustrySector_id", industrySectId);
         //long i = db2.update("ProjectProperties", args, "_id= '" + propertiesId+"'", null);
-        long i = db2.update("ProjectProperties", args, "_id= ?", new String[] {String.valueOf(propertiesId)});
-        Log.d("INFO","Update ProjectProperties:" + i);
+        long i = db2.update("ProjectProperties", args, "_id= ?", new String[]{String.valueOf(propertiesId)});
+        Log.d("INFO", "Update ProjectProperties:" + i);
         db2.close();
     }
 
     /**
      * Update the ID of the influence Factor set used by a project
+     *
      * @param project
      */
     public void updateExistingProjectInfluenceFactor(Project project)
@@ -1591,13 +1642,13 @@ public class DataBaseHelper extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         //Update Project Icon and evaluated days
         ContentValues args = new ContentValues();
-        int setId = loadInfluenceFactorSetIdByName(project.getInfluencingFactor().getInfluenceFactorSetName(),getEstimationMethodId(project.getEstimationMethod()));
-        args.put("influence_factorset_id",setId );
+        int setId = loadInfluenceFactorSetIdByName(project.getInfluencingFactor().getInfluenceFactorSetName(), getEstimationMethodId(project.getEstimationMethod()));
+        args.put("influence_factorset_id", setId);
         db.update("ProjectDetails", args, "_id=" + detailsId, null);
 
     }
 
-    private int loadInfluenceFactorSetIdByName(String name,int estMethodId )
+    private int loadInfluenceFactorSetIdByName(String name, int estMethodId)
     {
         SQLiteDatabase db = this.getReadableDatabase();
         int infSetId = 0;
@@ -1614,10 +1665,12 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     /**
      * Get the projectDetailsID of a project
+     *
      * @param projectId
      * @return
      */
-    public int getProjectDetailsId(int projectId){
+    public int getProjectDetailsId(int projectId)
+    {
         SQLiteDatabase db = this.getReadableDatabase();
         int detailsId = 0;
         String selectQuery = String.format("SELECT * FROM Projects WHERE _id = %d", projectId);

@@ -157,7 +157,9 @@ public class ProjectOverviewActivity extends DatabaseActivity
                 {
                     public void onClick(DialogInterface dialog, int id)
                     {
-                        databaseHelper.deleteProjectFromDatabase(projectsList.get(position).getProjectId());
+                        //databaseHelper.deleteProjectFromDatabase(projectsList.get(position).getProjectId());
+                        //Only Set the deletion Flag to the project
+                        databaseHelper.setDeleteFlagForProject(projectsList.get(position).getProjectId());
                         reloadProjectsFromDatabase();
                         projectsAdapter.notifyDataSetChanged();
                     }
@@ -222,7 +224,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
         if (databaseHelper.hasProjects())
         {
             projectsList.clear();
-            projectsList.addAll(databaseHelper.getAllProjects(this));
+            projectsList.addAll(databaseHelper.getAllActiveProjects(this));
         } else
         {
             generateTestProject();
