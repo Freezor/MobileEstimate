@@ -38,6 +38,8 @@ public class Project implements Serializable
     private int evaluatedPersonDays = 0;
     private int projectId;
     private String iconId;
+    private boolean isDeleted;
+    private boolean isTerminated;
 
     /**
      * Constructs a new instance of {@code Object}.
@@ -74,6 +76,8 @@ public class Project implements Serializable
         this.creationDate = creationDate;
         this.estimationMethod = estimationMethod;
         this.context = current;
+        isDeleted = false;
+        isTerminated = false;
         setInfluencingFactors();
         projectProperties = new ProjectProperties();
         initialiseEstimationItems(estimationMethod);
@@ -503,6 +507,12 @@ public class Project implements Serializable
         return sumOfInfluences;
     }
 
+
+    public void setSumOfInfluences(int sumOfInfluences)
+    {
+        this.sumOfInfluences = sumOfInfluences;
+    }
+
     /**
      * Returns the calculated influence rating of all influences
      *
@@ -559,5 +569,30 @@ public class Project implements Serializable
     public String getIconId()
     {
         return iconId;
+    }
+
+    public void setInfluenceFactorRating(double influenceFactorRating)
+    {
+        this.influenceFactorRating = influenceFactorRating;
+    }
+
+    public boolean isDeleted()
+    {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(boolean isDeleted)
+    {
+        this.isDeleted = isDeleted;
+    }
+
+    public boolean isTerminated()
+    {
+        return isTerminated;
+    }
+
+    public void setIsTerminated(boolean isTerminated)
+    {
+        this.isTerminated = isTerminated;
     }
 }
