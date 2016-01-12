@@ -588,6 +588,22 @@ public class DataBaseHelper extends SQLiteOpenHelper
             String estimationMethodId = c.getString(c.getColumnIndex("estimation_method_id"));
             p.setEstimationMethod(getEstimationMethodNameById(estimationMethodId));
             int detailsId = c.getInt(c.getColumnIndex("project_details_id"));
+            int isdeleted = c.getInt(c.getColumnIndex("is_deleted"));
+            if (isdeleted > 0)
+            {
+                p.setIsDeleted(true);
+            } else
+            {
+                p.setIsDeleted(false);
+            }
+            int istermintated = c.getInt(c.getColumnIndex("is_terminated"));
+            if (istermintated > 0)
+            {
+                p.setIsTerminated(true);
+            } else
+            {
+                p.setIsTerminated(false);
+            }
 
             p.setImage(loadProjectImageFromProjectDetails(detailsId));
 
@@ -612,6 +628,24 @@ public class DataBaseHelper extends SQLiteOpenHelper
             }
             p.setEstimationItems(loadEstimationItemsById(p.getEstimationMethod(), estimation_items_id));
             p.setProjectProperties(loadProjectPropertiesById(project_properties_id));
+            
+            if (p.isTerminated())
+            {
+                if (p.getEstimationMethod().equals(context.getString(R.string.estimation_method_function_point)))
+                {
+                    query = String.format("SELECT * FROM FunctionPointProductivity where project_id = '%s'", p.getProjectId());
+                    db = this.getReadableDatabase();
+                    try (Cursor c2 = db.rawQuery(query, null))
+                    {
+                        if (c2 != null)
+                            c2.moveToFirst();
+                        p.setFinalPersonDays(c2.getInt(c2.getColumnIndex("terminated_days")));
+                    }
+                }
+            } else
+            {
+                p.setFinalPersonDays(0);
+            }
         }
         db.close();
         return p;
@@ -1682,5 +1716,30 @@ public class DataBaseHelper extends SQLiteOpenHelper
             }
         }
         return detailsId;
+    }
+
+    public void terminateProject(Project project)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        //Update Project Icon and evaluated days
+        ContentValues args = new ContentValues();
+        args.put("is_terminated", 1);
+        db.update("Projects", args, "_id=" + project.getProjectId(), null);
+        if (project.getEstimationMethod().equals(context.getString(R.string.estimation_method_function_point)))
+        {
+            int tableId = getNextIdFromTable("FunctionPointProductivity");
+            if (tableId < 10)
+            {
+                tableId = 3500;
+            }
+            ContentValues insertValues = new ContentValues();
+            insertValues.put("_id", tableId);
+            insertValues.put("project_id", project.getProjectId());
+            insertValues.put("influence_factor_set_id", loadInfluenceFactorSetIdByName(project.getInfluencingFactor().getInfluenceFactorSetName(), getEstimationMethodId(project.getEstimationMethod())));
+            insertValues.put("terminated_days", project.getFinalPersonDays());
+            db = this.getWritableDatabase();
+            db.insert("FunctionPointProductivity", null, insertValues);
+        }
+        db.close();
     }
 }

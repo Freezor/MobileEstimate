@@ -5,18 +5,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.text.InputFilter;
-import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.mobileprojectestimator.mobileprojectestimator.Activities.FunctionPointProjectActivtiy;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Database.DatabaseInfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
@@ -83,11 +79,26 @@ public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFrag
             @Override
             public void onClick(View v)
             {
-                openInfluenceFactorSetDialog();
+                if (project.isTerminated())
+                {
+                    openProjectIsTerminatedDialog();
+                } else
+                {
+                    openInfluenceFactorSetDialog();
+                }
             }
         });
 
         return rootView;
+    }
+
+    private void openProjectIsTerminatedDialog()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle(getString(R.string.dialog_project_ist_terminated_title));
+        builder.setMessage(R.string.dialog_project_ist_terminated_text);
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void openInfluenceFactorSetDialog()
@@ -96,18 +107,23 @@ public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFrag
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle(getString(R.string.estimation_method_hint));
 
-        influenceFactorItems =  databaseHelper.getInfluenceFactorItems(databaseHelper.getEstimationMethodId(project.getEstimationMethod()));
+        influenceFactorItems = databaseHelper.getInfluenceFactorItems(databaseHelper.getEstimationMethodId(project.getEstimationMethod()));
         ArrayList<String> infItems = new ArrayList<>();
-        for(DatabaseInfluenceFactorItem i : influenceFactorItems){
+        for (DatabaseInfluenceFactorItem i : influenceFactorItems)
+        {
             infItems.add(i.get_name());
         }
 
         final CharSequence[] items = infItems.toArray(new String[infItems.size()]);
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
+        builder.setItems(items, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
                 String factorName = items[item].toString();
-                for(DatabaseInfluenceFactorItem i : influenceFactorItems){
-                    if(i.get_name().equals(factorName)){
+                for (DatabaseInfluenceFactorItem i : influenceFactorItems)
+                {
+                    if (i.get_name().equals(factorName))
+                    {
                         project.setInfluencingFactor(databaseHelper.loadInfluenceFactorById(i.get_id()));
                         databaseHelper.updateExistingProjectInfluenceFactor(project);
                         project = databaseHelper.loadProjectById(getContext(), String.valueOf(project.getProjectId()));

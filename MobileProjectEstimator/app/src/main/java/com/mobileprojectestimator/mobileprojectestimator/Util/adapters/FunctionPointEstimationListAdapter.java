@@ -1,5 +1,6 @@
 package com.mobileprojectestimator.mobileprojectestimator.Util.adapters;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -10,12 +11,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mobileprojectestimator.mobileprojectestimator.Activities.FunctionPointProjectActivtiy;
+import com.mobileprojectestimator.mobileprojectestimator.Activities.FunctionPointEstimationValueActivity;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.RowViewHolder;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.FunctionPointProject.FunctionPointMethodFragment;
-import com.mobileprojectestimator.mobileprojectestimator.Activities.FunctionPointEstimationValueActivity;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.util.ArrayList;
@@ -111,11 +111,17 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter
             @Override
             public void onClick(View v)
             {
-                Log.d("INFO", "FunctionPointEstimationListAdapter: onClick");
-                Intent intent = new Intent(v.getContext(), FunctionPointEstimationValueActivity.class);
-                intent.putExtra("TITLE", rowViewHolderHashMap.get(position).item.getItemName());
-                intent.putExtra("NEWPROJECT", project.getProjectId());
-                fragment.startActivityForResult(intent, Integer.parseInt((v.getContext().getString(R.string.PROJECT_VIEW_CODE))));
+                if (project.isTerminated())
+                {
+                    openProjectIsTerminatedDialog();
+                } else
+                {
+                    Log.d("INFO", "FunctionPointEstimationListAdapter: onClick");
+                    Intent intent = new Intent(v.getContext(), FunctionPointEstimationValueActivity.class);
+                    intent.putExtra("TITLE", rowViewHolderHashMap.get(position).item.getItemName());
+                    intent.putExtra("NEWPROJECT", project.getProjectId());
+                    fragment.startActivityForResult(intent, Integer.parseInt((v.getContext().getString(R.string.PROJECT_VIEW_CODE))));
+                }
             }
         });
 
@@ -123,6 +129,15 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter
         rowViewHolderHashMap.put(position, holder);
         setListViewBackgroundColor(position, convertView);
         return convertView;
+    }
+
+    private void openProjectIsTerminatedDialog()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(fragment.getContext());
+        builder.setTitle(fragment.getContext().getString(R.string.dialog_project_ist_terminated_title));
+        builder.setMessage(R.string.dialog_project_ist_terminated_text);
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     /**

@@ -1,6 +1,8 @@
 package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -9,16 +11,21 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Database.DatabaseInfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointCategoryItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.EstimationOverviewFragment;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.FunctionPointProject.FunctionPointInfluenceFactorFragment;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.FunctionPointProject.FunctionPointMethodFragment;
 import com.mobileprojectestimator.mobileprojectestimator.R;
+import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.FunctionPointInfluenceListAdapter;
 
 import java.util.ArrayList;
 
@@ -171,10 +178,62 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
             case R.id.action_person_days_overview:
                 return true;
             case R.id.action_terminate:
+                if (project.isTerminated()){
+                    showFinalPersonDaysDialog();
+                } else {
+                    openTerminateProjectDialog();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void showFinalPersonDaysDialog()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.dialog_terminated_project_title));
+        builder.setMessage(String.format(getString(R.string.dialog_terminated_project_message), project.getFinalPersonDays()));
+        builder.show();
+    }
+
+    private void openTerminateProjectDialog()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.dialog_terminate_project_title));
+        builder.setMessage(getString(R.string.dialog_terminate_project_message));
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        input.setSingleLine(true);
+        input.setText("0");
+        builder.setView(input);
+        builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                int totalDays = Integer.parseInt(input.getText().toString());
+                if(totalDays > 1){
+                    project.setFinalPersonDays(totalDays);
+                    project.setIsTerminated(true);
+                    databaseHelper.terminateProject(project);
+                    project = databaseHelper.loadProjectById(FunctionPointProjectActivtiy.this, String.valueOf(project.getProjectId()));
+                } else {
+                    //TODO: Somehow display error message
+                    Toast.makeText(FunctionPointProjectActivtiy.this, getString(R.string.toast_terminate_project_error), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
 
     private void openProjectProperties()

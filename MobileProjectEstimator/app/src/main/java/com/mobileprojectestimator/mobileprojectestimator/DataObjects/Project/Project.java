@@ -40,6 +40,7 @@ public class Project implements Serializable
     private String iconId;
     private boolean isDeleted;
     private boolean isTerminated;
+    private int finalPersonDays;
 
     /**
      * Constructs a new instance of {@code Object}.
@@ -594,5 +595,15 @@ public class Project implements Serializable
     public void setIsTerminated(boolean isTerminated)
     {
         this.isTerminated = isTerminated;
+    }
+
+    public int getFinalPersonDays()
+    {
+        return finalPersonDays;
+    }
+
+    public void setFinalPersonDays(int finalPersonDays)
+    {
+        this.finalPersonDays = finalPersonDays;
     }
 }
