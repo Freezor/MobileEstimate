@@ -51,7 +51,7 @@ public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFrag
         influencingFactor = new InfluencingFactor(this.getContext(), InfluencingFactor.FUNCTIONPOINTFACTORS);
 
         fpInfluenceListView = (ListView) rootView.findViewById(R.id.lvInfluenceFactors);
-        projectInfluenceListAdapter = new FunctionPointInfluenceListAdapter(this, influencingFactor.getInfluenceFactorItems(), project);
+        projectInfluenceListAdapter = new FunctionPointInfluenceListAdapter(this, project.getInfluencingFactor().getInfluenceFactorItems(), project);
         projectInfluenceListAdapter.updateChosenValues(getContext());
         fpInfluenceListView.setAdapter(projectInfluenceListAdapter);
         fpInfluenceListView.setScrollbarFadingEnabled(false);

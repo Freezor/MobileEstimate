@@ -894,12 +894,12 @@ public class DataBaseHelper extends SQLiteOpenHelper
                     factor.setChosenValueOfItem(c2.getInt(c2.getColumnIndex("LocalDataProcessing")), context.getString(R.string.function_point_influence_factor_item_local_data));
                     factor.setChosenValueOfItem(c2.getInt(c2.getColumnIndex("TransactionRate")), context.getString(R.string.function_point_influence_factor_item_transaction_rate));
                     factor.setChosenValueOfItem(c2.getInt(c2.getColumnIndex("ArithmeticOperation")), context.getString(R.string.function_point_influence_factor_item_arithmetic_operation));
+                    factor.setChosenValueOfItem(c2.getInt(c2.getColumnIndex("ControlProcedure")), context.getString(R.string.function_point_influence_factor_item_control_procedure));
+                    factor.setChosenValueOfItem(c2.getInt(c2.getColumnIndex("ExceptionalRule")), context.getString(R.string.function_point_influence_factor_item_exception_regulation));
+                    factor.setChosenValueOfItem(c2.getInt(c2.getColumnIndex("Logic")), context.getString(R.string.function_point_influence_factor_item_logic));
                     factor.setChosenValueOfItem(c2.getInt(c2.getColumnIndex("Reusability")), context.getString(R.string.function_point_influence_factor_item_reusability));
                     factor.setChosenValueOfItem(c2.getInt(c2.getColumnIndex("StockConversion")), context.getString(R.string.function_point_influence_factor_item_stock_conversion));
                     factor.setChosenValueOfItem(c2.getInt(c2.getColumnIndex("Adaptability")), context.getString(R.string.function_point_influence_factor_item_adaptability));
-                    factor.setChosenValueOfItem(c2.getInt(c2.getColumnIndex("ArithmeticOperation")), context.getString(R.string.function_point_influence_factor_item_arithmetic_operation));
-                    factor.setChosenValueOfItem(c2.getInt(c2.getColumnIndex("ExceptionalRule")), context.getString(R.string.function_point_influence_factor_item_exception_regulation));
-                    factor.setChosenValueOfItem(c2.getInt(c2.getColumnIndex("Logic")), context.getString(R.string.function_point_influence_factor_item_logic));
                 }
 
             } else if (estimationMethod.equals(this.context.getString(R.string.estimation_method_cocomo)))
