@@ -615,6 +615,23 @@ public class Project implements Serializable
 
     public double getEvaluatedPoints()
     {
+        double erg = (double) getTotalPoints() * getFactorInfluenceRating();
+        erg = (double) Math.round(erg * 10000d) / 10000d;
+        this.evaluatedPoints = erg;
         return this.evaluatedPoints;
+    }
+    /**
+     * Calculate the total function points
+     *
+     * @return
+     */
+    public int getTotalPoints()
+    {
+        int totalPoints = 0;
+        for (FunctionPointItem item : getFunctionPointItems())
+        {
+            totalPoints += item.getTotalAmount();
+        }
+        return totalPoints;
     }
 }

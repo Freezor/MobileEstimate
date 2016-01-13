@@ -84,10 +84,10 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
                     int terminatedProject = databaseHelper.getAmountTerminatedFunctionPointProject();
                     if (terminatedProject < 1)
                     {
-                        project.setEvaluatedPersonDays(databaseHelper.evaluatePersonDaysWithBaseProductivity(project));
+                        project.setEvaluatedPersonDays(databaseHelper.evaluateFunctionPointPersonDaysWithBaseProductivity(project));
                     } else
                     {
-                        project.setEvaluatedPersonDays(databaseHelper.evaluatePersonDaysWithExistingProductivity(project));
+                        project.setEvaluatedPersonDays(databaseHelper.evaluateFunctionPointPersonDaysWithExistingProductivity(project));
                     }
                     databaseHelper.updateExistingProjectInformations(project);
                     evaluatedPersonDays.setText(String.format("%s %s", getContext().getString(R.string.function_point_estimation_evaluated_person_days), project.getEvaluatedPersonDays()));
@@ -137,6 +137,7 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
         totalPoints.setText(String.format("%s %d", getContext().getString(R.string.function_point_estimation_total_points), getTotalPoints()));
         evaluatedFunctionPoints.setText(String.format("%s %s", getContext().getString(R.string.function_point_estimation_evaluated_total_points), getEvaluatedPoints()));
         evaluatedPersonDays.setText(String.format("%s %s", getContext().getString(R.string.function_point_estimation_evaluated_person_days), this.project.getEvaluatedPersonDays()));
+        databaseHelper.updateExistingProjectInformations(project);
     }
 
     @Override
@@ -180,6 +181,7 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
         double erg = (double) getTotalPoints() * this.project.getFactorInfluenceRating();
         erg = (double) Math.round(erg * 10000d) / 10000d;
         project.setEvaluatedPoints(erg);
+        databaseHelper.updateExistingProjectInformations(project);
         return erg;
     }
 

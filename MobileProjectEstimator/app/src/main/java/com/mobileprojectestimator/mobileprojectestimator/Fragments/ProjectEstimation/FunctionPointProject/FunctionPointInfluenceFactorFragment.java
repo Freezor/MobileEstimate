@@ -133,6 +133,7 @@ public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFrag
                         fpInfluenceListView.setAdapter(projectInfluenceListAdapter);
                         sumOfInfluences.setText(String.format("%s %d", getContext().getString(R.string.function_point_sum_of_influences), project.getSumOfInfluences()));
                         factorInfluenceRating.setText(String.format("%s %s", getContext().getString(R.string.function_point_influence_rating), project.getFactorInfluenceRating()));
+                        //TODO: Update Evaluated Function Points in Estimation Tab
                         break;
                     }
                 }

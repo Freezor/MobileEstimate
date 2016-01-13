@@ -15,6 +15,7 @@ import android.util.Log;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Database.DatabaseInfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.EstimationItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointItem;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.FunctionPointProductivityItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.ImageItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.InfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
@@ -1607,6 +1608,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
      */
     public void updateExistingProjectInformations(Project project)
     {
+        Log.d("INFO","updateExistingProjectInformations for "+project.getTitle());
         SQLiteDatabase db = this.getWritableDatabase();
 
         //Update Project Name
@@ -1662,7 +1664,6 @@ public class DataBaseHelper extends SQLiteOpenHelper
         args.put("IndustrySector_id", industrySectId);
         //long i = db2.update("ProjectProperties", args, "_id= '" + propertiesId+"'", null);
         long i = db2.update("ProjectProperties", args, "_id= ?", new String[]{String.valueOf(propertiesId)});
-        Log.d("INFO", "Update ProjectProperties:" + i);
         db2.close();
     }
 
@@ -1746,8 +1747,9 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     /**
      * Returns the amount of terminated Function Point Projects from the table FunctionPointProductivity
-     *
+     * <p/>
      * Returns 0 if there is no terminated Project yet.
+     *
      * @return
      */
     public int getAmountTerminatedFunctionPointProject()
@@ -1767,10 +1769,11 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     /**
      * Evaluate the estimated person days with the base productivity from the database
+     *
      * @param project
      * @return
      */
-    public double evaluatePersonDaysWithBaseProductivity(Project project)
+    public double evaluateFunctionPointPersonDaysWithBaseProductivity(Project project)
     {
         SQLiteDatabase db = this.getReadableDatabase();
         double evaluatedPoints = project.getEvaluatedPoints();
@@ -1783,7 +1786,8 @@ public class DataBaseHelper extends SQLiteOpenHelper
                 pointsPerDay = c.getInt(c.getColumnIndex("points_per_day"));
             }
         }
-        if (pointsPerDay == 1){
+        if (pointsPerDay == 1)
+        {
             selectQuery = String.format("SELECT * FROM FunctionPointBaseProductivity WHERE min_fp IS NULL AND %s< max_fp", evaluatedPoints);
             try (Cursor c = db.rawQuery(selectQuery, null))
             {
@@ -1793,7 +1797,8 @@ public class DataBaseHelper extends SQLiteOpenHelper
                 }
             }
         }
-        if (pointsPerDay == 1){
+        if (pointsPerDay == 1)
+        {
             selectQuery = String.format("SELECT * FROM FunctionPointBaseProductivity WHERE %s>= min_fp AND max_fp IS NULL", evaluatedPoints);
             try (Cursor c = db.rawQuery(selectQuery, null))
             {
@@ -1806,15 +1811,93 @@ public class DataBaseHelper extends SQLiteOpenHelper
         return roundDoubleTwoDecimals(evaluatedPoints / pointsPerDay);
     }
 
-    public int evaluatePersonDaysWithExistingProductivity(Project project)
+    /**
+     * evaluate the person days with already estimated projects
+     *
+     * @param project
+     * @return
+     */
+    public double evaluateFunctionPointPersonDaysWithExistingProductivity(Project project)
     {
-        return 0;
+        double evaluatedDays = 0.0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<FunctionPointProductivityItem> functionPointProductivityItems = new ArrayList<>();
+        int influenceFactorsetId = loadInfluenceFactorSetIdByName(project.getInfluencingFactor().getInfluenceFactorSetName(), getEstimationMethodId(project.getEstimationMethod()));
+        String selectQuery = String.format("SELECT * FROM FunctionPointProductivity WHERE influence_factor_set_id = %d", influenceFactorsetId);
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                do
+                {
+                    FunctionPointProductivityItem item = new FunctionPointProductivityItem();
+                    item.setId(c.getInt(c.getColumnIndex("_id")));
+                    item.setProject_id(c.getInt(c.getColumnIndex("project_id")));
+                    item.setInfluenceFactorsetId(c.getInt(c.getColumnIndex("influence_factor_set_id")));
+                    item.setTerminatedDays(c.getInt(c.getColumnIndex("terminated_days")));
+                    item.setFunctionPoints(loadProjectFunctionPoints(item.getProject_id()));
+                    item.setPointsPerDay(item.getFunctionPoints() / item.getTerminatedDays());
+                    functionPointProductivityItems.add(item);
+                } while (c.moveToNext());
+            }
+        }
+        FunctionPointProductivityItem smallerItem = null;
+        for (FunctionPointProductivityItem item : functionPointProductivityItems)
+        {
+            if (item.getFunctionPoints() < project.getEvaluatedPoints())
+            {
+                if (smallerItem == null)
+                {
+                    smallerItem = item;
+                } else if (item.getFunctionPoints() > smallerItem.getFunctionPoints())
+                {
+                    smallerItem = item;
+                }
+            }
+        }
+        FunctionPointProductivityItem biggerItem = null;
+        for (FunctionPointProductivityItem item : functionPointProductivityItems)
+        {
+            if (item.getFunctionPoints() > project.getEvaluatedPoints())
+            {
+                if (biggerItem == null)
+                {
+                    biggerItem = item;
+                } else if (item.getFunctionPoints() < biggerItem.getFunctionPoints())
+                {
+                    biggerItem = item;
+                }
+            }
+        }
+
+        if (biggerItem == null || smallerItem == null)
+        {
+            evaluatedDays = evaluateFunctionPointPersonDaysWithBaseProductivity(project);
+        } else
+        {
+            double averagePointsPerDay = (smallerItem.getPointsPerDay() + biggerItem.getPointsPerDay()) / 2;
+            averagePointsPerDay = roundDoubleTwoDecimals(averagePointsPerDay);
+
+            evaluatedDays = roundDoubleTwoDecimals(project.getEvaluatedPoints() / averagePointsPerDay);
+        }
+
+        db.close();
+        return evaluatedDays;
+    }
+
+    private double loadProjectFunctionPoints(int project_id)
+    {
+        double points = 0.0;
+        Project p = loadProjectById(context, String.valueOf(project_id));
+        points = p.getEvaluatedPoints();
+        return points;
     }
 
     /**
      * Round a double value to two  decimal numbers
-     *
+     * <p/>
      * e.g. 3.34
+     *
      * @param d
      * @return
      */
