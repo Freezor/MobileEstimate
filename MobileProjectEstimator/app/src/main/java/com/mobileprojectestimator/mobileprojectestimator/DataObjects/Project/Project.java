@@ -35,12 +35,13 @@ public class Project implements Serializable
     private ArrayList<EstimationItem> estimationItems;
     private int sumOfInfluences;
     private double influenceFactorRating;
-    private int evaluatedPersonDays = 0;
+    private double evaluatedPersonDays = 0.0;
     private int projectId;
     private String iconId;
     private boolean isDeleted;
     private boolean isTerminated;
     private int finalPersonDays;
+    private double evaluatedPoints;
 
     /**
      * Constructs a new instance of {@code Object}.
@@ -536,12 +537,12 @@ public class Project implements Serializable
      *
      * @return
      */
-    public int getEvaluatedPersonDays()
+    public double getEvaluatedPersonDays()
     {
         return evaluatedPersonDays;
     }
 
-    public void setEvaluatedPersonDays(int evaluatedPersonDays)
+    public void setEvaluatedPersonDays(double evaluatedPersonDays)
     {
         this.evaluatedPersonDays = evaluatedPersonDays;
     }
@@ -605,5 +606,15 @@ public class Project implements Serializable
     public void setFinalPersonDays(int finalPersonDays)
     {
         this.finalPersonDays = finalPersonDays;
+    }
+
+    public void setEvaluatedPoints(double evaluatedPoints)
+    {
+        this.evaluatedPoints = evaluatedPoints;
+    }
+
+    public double getEvaluatedPoints()
+    {
+        return this.evaluatedPoints;
     }
 }

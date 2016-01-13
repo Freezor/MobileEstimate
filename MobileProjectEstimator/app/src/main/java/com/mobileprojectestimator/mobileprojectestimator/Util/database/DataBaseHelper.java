@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -617,7 +618,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
                 if (c2 != null)
                     c2.moveToFirst();
 
-                p.setEvaluatedPersonDays(c2.getInt(c2.getColumnIndex("evaluated_person_days")));
+                p.setEvaluatedPersonDays(c2.getDouble(c2.getColumnIndex("evaluated_person_days")));
                 p.setIconId(c2.getString(c2.getColumnIndex("icon_id")));
                 estimation_items_id = c2.getInt(c2.getColumnIndex("estimation_items_id"));
                 project_properties_id = c2.getInt(c2.getColumnIndex("project_properties_id"));
@@ -628,7 +629,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
             }
             p.setEstimationItems(loadEstimationItemsById(p.getEstimationMethod(), estimation_items_id));
             p.setProjectProperties(loadProjectPropertiesById(project_properties_id));
-            
+
             if (p.isTerminated())
             {
                 if (p.getEstimationMethod().equals(context.getString(R.string.estimation_method_function_point)))
@@ -1741,5 +1742,85 @@ public class DataBaseHelper extends SQLiteOpenHelper
             db.insert("FunctionPointProductivity", null, insertValues);
         }
         db.close();
+    }
+
+    /**
+     * Returns the amount of terminated Function Point Projects from the table FunctionPointProductivity
+     *
+     * Returns 0 if there is no terminated Project yet.
+     * @return
+     */
+    public int getAmountTerminatedFunctionPointProject()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int amountTerminatedProjects = 0;
+        String selectQuery = "SELECT COUNT(*) FROM FunctionPointProductivity";
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                amountTerminatedProjects = c.getInt(0);
+            }
+        }
+        return amountTerminatedProjects;
+    }
+
+    /**
+     * Evaluate the estimated person days with the base productivity from the database
+     * @param project
+     * @return
+     */
+    public double evaluatePersonDaysWithBaseProductivity(Project project)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        double evaluatedPoints = project.getEvaluatedPoints();
+        int pointsPerDay = 1;
+        String selectQuery = String.format("SELECT * FROM FunctionPointBaseProductivity WHERE %s>= min_fp AND %s< max_fp", evaluatedPoints, evaluatedPoints);
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                pointsPerDay = c.getInt(c.getColumnIndex("points_per_day"));
+            }
+        }
+        if (pointsPerDay == 1){
+            selectQuery = String.format("SELECT * FROM FunctionPointBaseProductivity WHERE min_fp IS NULL AND %s< max_fp", evaluatedPoints);
+            try (Cursor c = db.rawQuery(selectQuery, null))
+            {
+                if (c.moveToFirst())
+                {
+                    pointsPerDay = c.getInt(c.getColumnIndex("points_per_day"));
+                }
+            }
+        }
+        if (pointsPerDay == 1){
+            selectQuery = String.format("SELECT * FROM FunctionPointBaseProductivity WHERE %s>= min_fp AND max_fp IS NULL", evaluatedPoints);
+            try (Cursor c = db.rawQuery(selectQuery, null))
+            {
+                if (c.moveToFirst())
+                {
+                    pointsPerDay = c.getInt(c.getColumnIndex("points_per_day"));
+                }
+            }
+        }
+        return roundDoubleTwoDecimals(evaluatedPoints / pointsPerDay);
+    }
+
+    public int evaluatePersonDaysWithExistingProductivity(Project project)
+    {
+        return 0;
+    }
+
+    /**
+     * Round a double value to two  decimal numbers
+     *
+     * e.g. 3.34
+     * @param d
+     * @return
+     */
+    double roundDoubleTwoDecimals(double d)
+    {
+        DecimalFormat twoDForm = new DecimalFormat("#.##");
+        return Double.valueOf(twoDForm.format(d));
     }
 }
