@@ -1,4 +1,4 @@
-package com.mobileprojectestimator.mobileprojectestimator.Activities;
+package com.mobileprojectestimator.mobileprojectestimator.Util.adapters;
 
 import android.app.Activity;
 import android.content.Context;

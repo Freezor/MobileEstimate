@@ -237,6 +237,8 @@
     <string name="toast_terminate_project_error">You inserted a wrong amount of person days. Project NOT terminated.</string>
     <string name="dialog_terminated_project_title">Final Person Days</string>
     <string name="dialog_terminated_project_message">Project terminated with %d person days.</string>
+    <string name="mail_feedback_intent_title">Send feedback...</string>
+    <string name="feedback_subject">Feedback</string>
 
 
 </resources>

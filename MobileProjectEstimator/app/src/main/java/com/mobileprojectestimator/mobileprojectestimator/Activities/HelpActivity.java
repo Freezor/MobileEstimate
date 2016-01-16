@@ -1,15 +1,17 @@
 package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.mobileprojectestimator.mobileprojectestimator.R;
+import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.HelpArticlesListAdapter;
 
 import java.util.ArrayList;
 
@@ -57,8 +59,11 @@ public class HelpActivity extends AppCompatActivity
 
     private void onClickFeedback()
     {
-        //TODO: start feedback activity to send feedback
-        Toast.makeText(this, "Feedback", Toast.LENGTH_SHORT).show();
+        //TODO: send feedback with extra intent and without mail app
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                "mailto", "support@cost-estimator.com", null));
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.feedback_subject));
+        startActivity(Intent.createChooser(emailIntent, getString(R.string.mail_feedback_intent_title)));
     }
 
     private void onClickHelpItem(int position)
