@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.HelpArticleItem;
 import com.mobileprojectestimator.mobileprojectestimator.R;
+import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.HelpParagraphsListAdapter;
 
-import org.w3c.dom.Text;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -24,6 +26,8 @@ public class HelpArticleActivity extends AppCompatActivity
     private String nameTag;
     private HelpArticleItem helpArticleItem;
     private TextView tvProjectName;
+    private ListView paragraphsListView;
+    private HelpParagraphsListAdapter helpParagraphsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -45,6 +49,10 @@ public class HelpArticleActivity extends AppCompatActivity
 
         tvProjectName = (TextView) findViewById(R.id.tvProjectName);
         tvProjectName.setText(helpArticleItem.getName());
+
+        paragraphsListView = (ListView) findViewById(R.id.lvArticleParagraphs);
+        helpParagraphsAdapter = new HelpParagraphsListAdapter(this,helpArticleItem.getParagraphs());
+        paragraphsListView.setAdapter(helpParagraphsAdapter);
     }
 
     private void loadArticleFromXml()
