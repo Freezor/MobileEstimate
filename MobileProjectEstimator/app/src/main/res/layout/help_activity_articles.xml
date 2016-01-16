@@ -43,19 +43,21 @@
         <ListView
             android:id="@+id/listViewHelpArticles"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="320dp"
+            android:scrollbarThumbVertical="@drawable/scrollbar_orange"
+            android:fadeScrollbars="false"
             android:layout_below="@+id/tvArtikel"
             android:layout_centerHorizontal="true"
             android:listSelector="@drawable/project_list_row_selector"/>
 
         <TextView
-            android:id="@+id/tvAllArtcles"
+            android:id="@+id/tvAllArticles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/listViewHelpArticles"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:text="@string/help_activity_search_all_articles"
+            android:text="@string/help_activity_show_all_articles"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/estimationType"/>
     </RelativeLayout>

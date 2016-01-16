@@ -139,18 +139,30 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activities.GuidedProjectCreationActivity"/>
         </activity>
-        <activity android:name=".Activities.ProjectInformationActivity"
-                  android:label="@string/title_activity_project_information"
-                  android:parentActivityName=".Activities.ProjectOverviewActivity"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/AppTheme.NoActionBar"
-                  android:windowSoftInputMode="adjustPan">
+        <activity
+            android:name=".Activities.ProjectInformationActivity"
+            android:label="@string/title_activity_project_information"
+            android:parentActivityName=".Activities.ProjectOverviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activities.ProjectOverviewActivity"/>
         </activity>
+        <activity android:name=".Activities.HelpArticleActivity"
+            android:label="@string/title_activity_help_and_feedback"
+        android:parentActivityName=".Activities.HelpActivity"
+        android:theme="@style/AppTheme.NoActionBar"
+        android:windowSoftInputMode="adjustPan">
+
+        <!-- Parent activity meta-data to support 4.0 and lower -->
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".Activities.HelpActivity"/>
+    </activity>
     </application>
 
 </manifest>

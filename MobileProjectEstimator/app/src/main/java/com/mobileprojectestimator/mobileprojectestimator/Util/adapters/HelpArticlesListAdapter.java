@@ -2,7 +2,6 @@ package com.mobileprojectestimator.mobileprojectestimator.Util.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.HelpArticleItem;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class HelpArticlesListAdapter extends BaseAdapter
         return helpTitlesArrayList;
     }
 
-    private final ArrayList<String> helpTitlesArrayList;
+    private ArrayList<String> helpTitlesArrayList;
     /**
      * The layout that the adapter can access  the layout
      */
@@ -37,25 +37,23 @@ public class HelpArticlesListAdapter extends BaseAdapter
     {
         this.activity = activity;
         this.helpTitlesArrayList = new ArrayList<String>();
-        helpTitlesArrayList.addAll(loadHelpArticles());
     }
 
-    private ArrayList<String> loadHelpArticles()
+    public void setHelpArticles(ArrayList<HelpArticleItem> helpArticleItems)
     {
-        //TODO: Load Help Articles from database/web
-        ArrayList<String> titlesArrayList = new ArrayList<>();
-        titlesArrayList.add("Create new Project");
-        titlesArrayList.add("How the estimation works");
-        titlesArrayList.add("Function Point Estimations");
-        titlesArrayList.add("COCOMO Estimation");
-        titlesArrayList.add("Project Comparison");
-        titlesArrayList.add("Placeholder");
-        titlesArrayList.add("Placeholder");
-        titlesArrayList.add("Placeholder");
-        titlesArrayList.add("Placeholder");
-        titlesArrayList.add("Placeholder");
-        titlesArrayList.add("Placeholder");
-        return titlesArrayList;
+        helpTitlesArrayList = new ArrayList<>();
+        int i = 0;
+        for (HelpArticleItem item : helpArticleItems)
+        {
+            if (i < 7)
+            {
+                i++;
+                helpTitlesArrayList.add(item.getName());
+            } else
+            {
+                break;
+            }
+        }
     }
 
     /**
@@ -132,4 +130,16 @@ public class HelpArticlesListAdapter extends BaseAdapter
         return convertView;
     }
 
+    /**
+     * Add all available Articles to the list
+     * @param helpArticleItems
+     */
+    public void setAllHelpArticles(ArrayList<HelpArticleItem> helpArticleItems)
+    {
+        helpTitlesArrayList = new ArrayList<>();
+        for (HelpArticleItem item : helpArticleItems)
+        {
+            helpTitlesArrayList.add(item.getName());
+        }
+    }
 }

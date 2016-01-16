@@ -16,12 +16,17 @@ import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Datab
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.EstimationItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.FunctionPointProductivityItem;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.HelpArticleItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.ImageItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.InfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.ProjectProperties;
 import com.mobileprojectestimator.mobileprojectestimator.R;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -1608,7 +1613,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
      */
     public void updateExistingProjectInformations(Project project)
     {
-        Log.d("INFO","updateExistingProjectInformations for "+project.getTitle());
+        Log.d("INFO", "updateExistingProjectInformations for " + project.getTitle());
         SQLiteDatabase db = this.getWritableDatabase();
 
         //Update Project Name
@@ -1905,5 +1910,121 @@ public class DataBaseHelper extends SQLiteOpenHelper
     {
         DecimalFormat twoDForm = new DecimalFormat("#.##");
         return Double.valueOf(twoDForm.format(d));
+    }
+
+    /**
+     * Load all Help Items from the Database and the content from the XML file
+     * @return
+     */
+    public ArrayList<HelpArticleItem> loadAllHelpItems()
+    {
+        ArrayList<HelpArticleItem> helpArticleItems = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM HelpArticles";
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                do
+                {
+                    HelpArticleItem item = new HelpArticleItem();
+                    item.setId(c.getInt(c.getColumnIndex("_id")));
+                    item.setNameTag(c.getString(c.getColumnIndex("name_string")));
+                    helpArticleItems.add(item);
+                } while (c.moveToNext());
+            }
+        }
+
+        helpArticleItems = loadHelpArticlesFromXML(helpArticleItems);
+
+        return helpArticleItems;
+    }
+
+    /**
+     * Load all Help Items from the XML File
+     * @param helpArticleItems
+     * @return
+     */
+    private ArrayList<HelpArticleItem> loadHelpArticlesFromXML(ArrayList<HelpArticleItem> helpArticleItems)
+    {
+        XmlPullParserFactory factory = null;
+        InputStream is = null;
+        try
+        {
+            is = context.openFileInput("help_data.xml");
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        try
+        {
+            factory = XmlPullParserFactory.newInstance();
+            factory.setNamespaceAware(true);
+            XmlPullParser xpp = factory.newPullParser();
+
+            xpp.setInput(is, null);
+            int eventType = xpp.getEventType();
+
+            String title = "";
+            String name = "";
+            ArrayList<String> paragraphs = new ArrayList<>();
+            boolean startTitleText = false;
+            boolean startParagraphText = false;
+            while (eventType != XmlPullParser.END_DOCUMENT)
+            {
+                if (eventType == XmlPullParser.START_TAG)
+                {
+                    if (xpp.getName().equals("article"))
+                    {
+                        name = xpp.getAttributeValue(null, "name");
+                    } else if (xpp.getName().equals("title"))
+                    {
+                        startTitleText = true;
+                    } else if (xpp.getName().equals("paragraph"))
+                    {
+                        startParagraphText = true;
+                    }
+                } else if (eventType == XmlPullParser.END_TAG)
+                {
+                    if (xpp.getName().equals("article"))
+                    {
+                        for (HelpArticleItem item: helpArticleItems){
+                            if (item.getNameTag().equals(name)){
+                                item.setName(title);
+                                item.setParagraphs(paragraphs);
+                                paragraphs = new ArrayList<>();
+                                title = "";
+                                name = "";
+                                startTitleText = false;
+                                startParagraphText = false;
+                                break;
+                            }
+                        }
+                    } else if (xpp.getName().equals("title"))
+                    {
+                        startTitleText = false;
+                    } else if (xpp.getName().equals("paragraph"))
+                    {
+                        startParagraphText = false;
+                    }
+                } else if (eventType == XmlPullParser.TEXT)
+                {
+                    if(startTitleText){
+                        title = xpp.getText();
+                    } else if (startParagraphText){
+                        paragraphs.add(xpp.getText());
+                    }
+                }
+                eventType = xpp.next();
+            }
+        } catch (XmlPullParserException e)
+        {
+            e.printStackTrace();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return helpArticleItems;
     }
 }

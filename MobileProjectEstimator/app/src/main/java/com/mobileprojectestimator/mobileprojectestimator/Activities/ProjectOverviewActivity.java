@@ -15,6 +15,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,6 +29,7 @@ import android.widget.Toast;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
+import com.mobileprojectestimator.mobileprojectestimator.Server.ServerConnector;
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.ProjectListAdapter;
 
 import java.util.ArrayList;
@@ -40,6 +42,8 @@ public class ProjectOverviewActivity extends DatabaseActivity
         implements NavigationView.OnNavigationItemSelectedListener
 {
 
+    private ServerConnector serverConnector;
+
     private final List<Project> projectsList = new ArrayList<>();
     private ListView projectsListView;
     private ProjectListAdapter projectsAdapter;
@@ -51,6 +55,15 @@ public class ProjectOverviewActivity extends DatabaseActivity
         super.onCreate(savedInstanceState);
         initDatabase();
         databaseHelper.logAllTableNames();
+
+        serverConnector = new ServerConnector(this);
+
+        if(serverConnector.initConnection()){
+            Log.d("INFO", "Messages from the Server: " + serverConnector.loadMessages());
+            serverConnector.synchronise();
+        } else {
+            Log.d("ERROR","Server connection failure");
+        }
 
         setContentView(R.layout.activity_project_overview);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
