@@ -176,6 +176,7 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
                 openProjectProperties();
                 return true;
             case R.id.action_person_days_overview:
+                startProjectAnalysis();
                 return true;
             case R.id.action_terminate:
                 if (project.isTerminated()){
@@ -187,6 +188,13 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void startProjectAnalysis()
+    {
+        Intent i = new Intent(FunctionPointProjectActivtiy.this, AnalysisActivity.class);
+        i.putExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID),project.getProjectId());
+        startActivityForResult(i, Integer.parseInt((getString(R.string.CREATE_NEW_PROJECT_REQUEST_CODE))));
     }
 
     private void showFinalPersonDaysDialog()

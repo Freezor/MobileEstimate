@@ -151,21 +151,35 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activities.ProjectOverviewActivity"/>
+
             <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
+                <action android:name="android.intent.action.SEARCH"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.HelpArticleActivity"
+        <activity
+            android:name=".Activities.HelpArticleActivity"
             android:label="@string/title_activity_help_and_feedback"
-        android:parentActivityName=".Activities.HelpActivity"
-        android:theme="@style/AppTheme.NoActionBar"
-        android:windowSoftInputMode="adjustPan">
+            android:parentActivityName=".Activities.HelpActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
 
-        <!-- Parent activity meta-data to support 4.0 and lower -->
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".Activities.HelpActivity"/>
-    </activity>
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.HelpActivity"/>
+        </activity>
+        <activity android:name=".Activities.AnalysisActivity"
+                  android:label="@string/title_activity_analysis"
+                  android:parentActivityName=".Activities.ProjectOverviewActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.NoActionBar"
+                  android:windowSoftInputMode="adjustPan">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.ProjectOverviewActivity"/>
+        </activity>
     </application>
 
 </manifest>

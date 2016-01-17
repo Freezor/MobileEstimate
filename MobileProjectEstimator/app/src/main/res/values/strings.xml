@@ -53,7 +53,7 @@
     <string name="function_point_estimation_dataset">Dataset</string>
     <string name="function_point_estimation_reference_data">Reference Data</string>
     <string name="project_information">Project Information</string>
-    <string name="project_analysis">Project Analysis</string>
+    <string name="project_analysis">Analysis</string>
     <string name="my_projects">My Projects</string>
     <string name="influencing_factors">Influencing Factors</string>
     <string name="export">Export</string>
@@ -244,6 +244,7 @@
     <string name="help_activity_search_hint">Search Help Articles</string>
     <string name="help_activity_search_results">Search results</string>
     <string name="help_activity_reset_search">Reset Search</string>
+    <string name="title_activity_analysis">Analysis</string>
 
 
 </resources>

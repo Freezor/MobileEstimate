@@ -1945,6 +1945,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
         helpArticleItems = loadHelpArticlesFromXML(helpArticleItems);
 
+        db.close();
         return helpArticleItems;
     }
 
@@ -2033,5 +2034,33 @@ public class DataBaseHelper extends SQLiteOpenHelper
             e.printStackTrace();
         }
         return helpArticleItems;
+    }
+
+    public ArrayList<Project> loadProjectByEstimationMethodAndInfluenceSet(String selectedEstimationMethod, String selectedInfluenceFactorSet)
+    {
+        ArrayList<Project> projects = new ArrayList<>();
+
+        int estimationId = getEstimationMethodId(selectedEstimationMethod);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = String.format("SELECT * FROM Projects WHERE estimation_method_id = %d", estimationId);
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                do
+                {
+                    Project p = loadProjectById(context, String.valueOf(c.getInt(c.getColumnIndex("_id"))));
+                    if(p.getInfluencingFactor().getInfluenceFactorSetName().equals(selectedInfluenceFactorSet)){
+                        projects.add(p);
+                    }
+                } while (c.moveToNext());
+            }
+        }
+
+        db.close();
+
+
+        return projects;
     }
 }
