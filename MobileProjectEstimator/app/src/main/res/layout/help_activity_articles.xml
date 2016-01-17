@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:orientation="vertical">
 
     <RelativeLayout
@@ -17,7 +18,10 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:iconifiedByDefault="false"/>
+            android:queryHint="@string/help_activity_search_hint"
+            android:iconifiedByDefault="false"
+            android:voiceSearchMode="showVoiceSearchButton|launchRecognizer"
+            android:voiceLanguageModel="free_form"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -36,7 +40,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
-            android:text="@string/hel_activity_article_headline"
+            android:text="@string/help_activity_article_headline"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/colorPrimary"/>
 

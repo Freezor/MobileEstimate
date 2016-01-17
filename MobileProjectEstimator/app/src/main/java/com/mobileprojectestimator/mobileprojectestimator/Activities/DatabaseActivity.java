@@ -1,7 +1,9 @@
 package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.inputmethod.InputMethodManager;
 
 import com.mobileprojectestimator.mobileprojectestimator.Util.database.DataBaseHelper;
 
@@ -12,7 +14,7 @@ import java.sql.SQLException;
  * Created by Oliver Fries on 15.12.2015, 18:31.
  * Project: MobileProjectEstimator
  * Extends AppCompatActivity
- *  For all Activities that need access to the database
+ * For all Activities that need access to the database
  */
 public class DatabaseActivity extends AppCompatActivity
 {
@@ -48,9 +50,18 @@ public class DatabaseActivity extends AppCompatActivity
 
         } catch (SQLException sqle)
         {
-            Log.d("ERROR",sqle.toString());
+            Log.d("ERROR", sqle.toString());
         }
 
         databaseHelper.logDatabaseInformation();
+    }
+
+    public void hideKeyboard()
+    {
+        InputMethodManager inputManager =
+                (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(
+                this.getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
     }
 }

@@ -122,7 +122,7 @@
     <string name="pref_key_send_crash_report" translatable="false">pref_key_send_crash_report</string>
     <string name="user_name_error">Username: NOT SET</string>
     <string name="title_activity_help_and_feedback" translatable="false"><![CDATA[Help & Feedback]]></string>
-    <string name="hel_activity_article_headline">Article</string>
+    <string name="help_activity_article_headline">Article</string>
     <string name="help_activity_show_all_articles">Show All Articles</string>
     <string name="help_activity_feedback">Feedback</string>
     <string name="title_activity_export_project">Export</string>
@@ -241,6 +241,9 @@
     <string name="feedback_subject">Feedback</string>
     <string name="help_activity_show_relevant_articles">Show only relevant Articles</string>
     <string name="intent_extra_help_article_name_tag">HELPARTIKLEID</string>
+    <string name="help_activity_search_hint">Search Help Articles</string>
+    <string name="help_activity_search_results">Search results</string>
+    <string name="help_activity_reset_search">Reset Search</string>
 
 
 </resources>

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -51,7 +50,7 @@ public class HelpArticleActivity extends AppCompatActivity
         tvProjectName.setText(helpArticleItem.getName());
 
         paragraphsListView = (ListView) findViewById(R.id.lvArticleParagraphs);
-        helpParagraphsAdapter = new HelpParagraphsListAdapter(this,helpArticleItem.getParagraphs());
+        helpParagraphsAdapter = new HelpParagraphsListAdapter(this, helpArticleItem.getParagraphs());
         paragraphsListView.setAdapter(helpParagraphsAdapter);
     }
 
@@ -88,7 +87,8 @@ public class HelpArticleActivity extends AppCompatActivity
                     if (xpp.getName().equals("article"))
                     {
                         currentName = xpp.getAttributeValue(null, "name");
-                        if(currentName.equals(nameTag)){
+                        if (currentName.equals(nameTag))
+                        {
                             isSelectedArticle = true;
                         }
                     } else if (xpp.getName().equals("title"))
@@ -102,8 +102,10 @@ public class HelpArticleActivity extends AppCompatActivity
                 {
                     if (xpp.getName().equals("article"))
                     {
-                        if (isSelectedArticle){
-                            if (helpArticleItem.getNameTag().equals(currentName)){
+                        if (isSelectedArticle)
+                        {
+                            if (helpArticleItem.getNameTag().equals(currentName))
+                            {
                                 isSelectedArticle = false;
                                 helpArticleItem.setName(title);
                                 helpArticleItem.setParagraphs(paragraphs);
@@ -124,10 +126,15 @@ public class HelpArticleActivity extends AppCompatActivity
                     }
                 } else if (eventType == XmlPullParser.TEXT)
                 {
-                    if(startTitleText){
-                        title = xpp.getText();
-                    } else if (startParagraphText){
-                        paragraphs.add(xpp.getText());
+                    if (isSelectedArticle)
+                    {
+                        if (startTitleText)
+                        {
+                            title = xpp.getText();
+                        } else if (startParagraphText)
+                        {
+                            paragraphs.add(xpp.getText());
+                        }
                     }
                 }
                 eventType = xpp.next();

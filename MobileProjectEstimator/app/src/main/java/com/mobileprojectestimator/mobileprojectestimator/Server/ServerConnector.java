@@ -164,7 +164,7 @@ public class ServerConnector
             xmlSerializer.text("This is how an estimation works");
             xmlSerializer.endTag(null, "paragraph");
             xmlSerializer.startTag(null, "paragraph");
-            xmlSerializer.text("It just do");
+            xmlSerializer.text("It just does.");
             xmlSerializer.endTag(null, "paragraph");
             xmlSerializer.endTag(null, "article");
 

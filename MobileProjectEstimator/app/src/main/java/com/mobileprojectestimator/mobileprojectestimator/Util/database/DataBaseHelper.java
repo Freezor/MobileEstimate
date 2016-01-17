@@ -34,6 +34,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -1782,13 +1784,13 @@ public class DataBaseHelper extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getReadableDatabase();
         double evaluatedPoints = project.getEvaluatedPoints();
-        int pointsPerDay = 1;
+        double pointsPerDay = 1.0;
         String selectQuery = String.format("SELECT * FROM FunctionPointBaseProductivity WHERE %s>= min_fp AND %s< max_fp", evaluatedPoints, evaluatedPoints);
         try (Cursor c = db.rawQuery(selectQuery, null))
         {
             if (c.moveToFirst())
             {
-                pointsPerDay = c.getInt(c.getColumnIndex("points_per_day"));
+                pointsPerDay = (double) c.getInt(c.getColumnIndex("points_per_day"));
             }
         }
         if (pointsPerDay == 1)
@@ -1798,7 +1800,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
             {
                 if (c.moveToFirst())
                 {
-                    pointsPerDay = c.getInt(c.getColumnIndex("points_per_day"));
+                    pointsPerDay = (double) c.getInt(c.getColumnIndex("points_per_day"));
                 }
             }
         }
@@ -1809,10 +1811,11 @@ public class DataBaseHelper extends SQLiteOpenHelper
             {
                 if (c.moveToFirst())
                 {
-                    pointsPerDay = c.getInt(c.getColumnIndex("points_per_day"));
+                    pointsPerDay = (double) c.getInt(c.getColumnIndex("points_per_day"));
                 }
             }
         }
+
         return roundDoubleTwoDecimals(evaluatedPoints / pointsPerDay);
     }
 
@@ -1906,10 +1909,14 @@ public class DataBaseHelper extends SQLiteOpenHelper
      * @param d
      * @return
      */
-    double roundDoubleTwoDecimals(double d)
+    public double roundDoubleTwoDecimals(double d)
     {
-        DecimalFormat twoDForm = new DecimalFormat("#.##");
-        return Double.valueOf(twoDForm.format(d));
+        //DecimalFormat twoDForm = new DecimalFormat("#.##");
+        //return Double.valueOf(twoDForm.format(d));
+        //Changed to new rounding method because of some Exception java.lang.NumberFormatException: Invalid double: "0,78"
+        BigDecimal bd = new BigDecimal(d);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 
     /**
