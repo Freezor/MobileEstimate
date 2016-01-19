@@ -480,6 +480,13 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
         builder.setTitle(getString(R.string.project_creation_industry_sector));
 
         final CharSequence[] items = industrySectorItems.toArray(new String[industrySectorItems.size()]);
+        builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int id)
+            {
+                // User cancelled the dialog
+            }
+        });
         builder.setItems(items, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
                 projectNew.getProjectProperties().setIndustrySector(items[item].toString());
@@ -499,6 +506,13 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
         builder.setTitle(getString(R.string.project_creation_platform));
 
         final CharSequence[] items = platformItems.toArray(new String[platformItems.size()]);
+        builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int id)
+            {
+                // User cancelled the dialog
+            }
+        });
         builder.setItems(items, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
                 projectNew.getProjectProperties().setPlatform(items[item].toString());
@@ -518,6 +532,13 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
         builder.setTitle(getString(R.string.project_creation_programming_language));
 
         final CharSequence[] items = programmingLanguageItems.toArray(new String[programmingLanguageItems.size()]);
+        builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int id)
+            {
+                // User cancelled the dialog
+            }
+        });
         builder.setItems(items, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
                 projectNew.getProjectProperties().setProgrammingLanguage(items[item].toString());

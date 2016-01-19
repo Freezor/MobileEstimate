@@ -362,7 +362,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
         Intent i;
         if (title.equals((getString(R.string.project_analysis))))
         {
-
+            startProjectAnalysis();
         } else if (title.equals((getString(R.string.my_projects))))
         {
 
@@ -388,5 +388,11 @@ public class ProjectOverviewActivity extends DatabaseActivity
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void startProjectAnalysis()
+    {
+        Intent i = new Intent(ProjectOverviewActivity.this, AnalysisActivity.class);
+        startActivityForResult(i, Integer.parseInt((getString(R.string.CREATE_NEW_PROJECT_REQUEST_CODE))));
     }
 }

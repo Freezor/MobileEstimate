@@ -57,7 +57,7 @@ public class ProjectPropTwoFragment extends GuidedCreationFragment
         ArrayList<String> programmingLanguageItems = new ArrayList<>();
         programmingLanguageItems.addAll(databaseHelper.loadAllPropertiesByName("ProgrammingLanguages"));
         ArrayAdapter<String> programmingLanguageAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, programmingLanguageItems);
-        final Spinner programmingLanguageSpinner = (Spinner) rootView.findViewById(R.id.spEstimationMethod);
+        final Spinner programmingLanguageSpinner = (Spinner) rootView.findViewById(R.id.tvEstimationMethod);
         programmingLanguageSpinner.setAdapter(programmingLanguageAdapter);
         programmingLanguageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {

@@ -245,6 +245,8 @@
     <string name="help_activity_search_results">Search results</string>
     <string name="help_activity_reset_search">Reset Search</string>
     <string name="title_activity_analysis">Analysis</string>
+    <string name="dialog_change_influence_Factor_title">Change Influence Factor Set</string>
+    <string name="dialog_change_estimation_method_title">Change Estimation Method</string>
 
 
 </resources>

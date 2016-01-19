@@ -22,16 +22,19 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"/>
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/export_settings"
-        android:id="@+id/tvExportSettings"
+        android:id="@+id/bExportSettings"
+        android:background="@color/standardButtonColor"
         android:layout_below="@+id/projectSpinner"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:textColor="@color/standardButtonColor"/>
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:theme="@style/Base.Widget.AppCompat.ActionButton"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -39,7 +42,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/export_pdf"
         android:id="@+id/tvExportPdf"
-        android:layout_below="@+id/tvExportSettings"
+        android:layout_below="@+id/bExportSettings"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:textColor="@color/estimationType"/>

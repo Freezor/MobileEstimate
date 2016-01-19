@@ -37,6 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text=""
+            android:drawableLeft="@drawable/ic_action_edit"
             android:ellipsize="end"
             android:singleLine="true"
             android:layout_marginLeft="20dp"
@@ -58,6 +59,7 @@
             android:maxLines="6"
             android:scrollbars="vertical"
             android:text=""
+            android:drawableLeft="@drawable/ic_action_edit"
             android:textColor="@color/dark_orange"
             android:layout_below="@+id/tvProjectName"
             android:layout_alignParentEnd="true"/>
@@ -68,6 +70,7 @@
             android:id="@+id/ivProjectIcon"
             android:src="@mipmap/ic_launcher"
             android:layout_marginRight="15dp"
+            android:drawableLeft="@drawable/ic_action_edit"
             android:layout_marginLeft="10dp"
             android:layout_alignTop="@+id/tvProjectDescription"
             android:layout_toStartOf="@+id/tvProjectDescription"/>
@@ -137,6 +140,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text=""
+            android:drawableLeft="@drawable/ic_action_edit"
             android:id="@+id/tvMarketValue"
             android:ellipsize="end"
             android:singleLine="true"
@@ -149,6 +153,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text=""
+            android:drawableLeft="@drawable/ic_action_edit"
             android:ellipsize="end"
             android:singleLine="true"
             android:id="@+id/tvDevKindValue"
@@ -161,11 +166,12 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text=""
+            android:drawableLeft="@drawable/ic_action_edit"
             android:ellipsize="end"
             android:singleLine="true"
             android:id="@+id/tvMethologyValue"
             android:textColor="@color/dark_orange"
-            android:layout_above="@+id/tvProgrammLanguage"
+            android:layout_below="@+id/tvDevKindValue"
             android:layout_alignStart="@+id/tvDevKindValue"/>
 
         <TextView
@@ -173,11 +179,12 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text=""
+            android:drawableLeft="@drawable/ic_action_edit"
             android:ellipsize="end"
             android:singleLine="true"
             android:id="@+id/tvProgLangValue"
             android:textColor="@color/dark_orange"
-            android:layout_above="@+id/tvPlatform"
+            android:layout_above="@+id/tvPlatformValue"
             android:layout_alignStart="@+id/tvMethologyValue"/>
 
         <TextView
@@ -185,6 +192,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text=""
+            android:drawableLeft="@drawable/ic_action_edit"
             android:ellipsize="end"
             android:singleLine="true"
             android:id="@+id/tvPlatformValue"
@@ -197,6 +205,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text=""
+            android:drawableLeft="@drawable/ic_action_edit"
             android:ellipsize="end"
             android:singleLine="true"
             android:id="@+id/tvIndustrySectorValue"

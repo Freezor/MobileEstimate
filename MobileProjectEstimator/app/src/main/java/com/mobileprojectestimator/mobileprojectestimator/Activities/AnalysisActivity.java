@@ -1,14 +1,15 @@
 package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -28,20 +29,21 @@ import java.util.ArrayList;
 
 public class AnalysisActivity extends DatabaseActivity
 {
-
-    private Spinner estimationMethodSpinner;
     private String selectedEstimationMethod;
-    private ArrayAdapter<String> influencingFactorsAdapter;
-    private ArrayAdapter<String> estimationMethodsAdapter;
-    private Spinner influencingFactorSpinner;
     private String selectedInfluenceFactorSet;
     private ArrayList<DatabaseInfluenceFactorItem> influenceItems;
+    private ArrayList<String> estimationMethods;
     private CombinedChart personDaysChart;
 
     private ArrayList<String> projectNames;
     private ArrayList<Project> selectedProjects;
     private boolean estimationMethodChanged;
     private boolean influenceFactorChanged;
+    private TextView tvInfluenceFactorSet;
+    private ArrayList<String> influenceSetNames;
+    private TextView tvEstimationMethod;
+    private LineDataSet lineDataSet;
+    private BarDataSet barDataSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -53,28 +55,42 @@ public class AnalysisActivity extends DatabaseActivity
         projectNames = new ArrayList<>();
         selectedProjects = new ArrayList<>();
 
+        selectedEstimationMethod = "";
+        selectedInfluenceFactorSet = "";
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarAnalysis);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        initEstimationMethodSpinner();
-        selectedEstimationMethod = estimationMethodSpinner.getItemAtPosition(0).toString();
-        initInfluenceFactorSetSpinner();
-        selectedInfluenceFactorSet =  influencingFactorSpinner.getItemAtPosition(0).toString();
+        initEstimationMethods();
+        initInfluenceFactorSets();
+        selectedInfluenceFactorSet = influenceItems.get(0).get_name();
 
         loadProjectData();
 
         personDaysChart = (CombinedChart) findViewById(R.id.personDaysChart);
         initPersonDaysChart();
-
     }
 
     private void loadProjectData()
     {
+        projectNames = new ArrayList<>();
+        if (selectedEstimationMethod.isEmpty() || selectedEstimationMethod.equals(""))
+        {
+            selectedEstimationMethod = estimationMethods.get(0);
+        }
+        if (selectedInfluenceFactorSet.isEmpty() || selectedInfluenceFactorSet.equals(""))
+        {
+            selectedInfluenceFactorSet = influenceItems.get(0).get_name();
+        }
+        Log.d("INFO", "AnalysisActivity: loadProjectData: selectedEstimationMethod " + selectedEstimationMethod + " selectedInfluenceFactor " + selectedInfluenceFactorSet);
         selectedProjects = databaseHelper.loadProjectByEstimationMethodAndInfluenceSet(selectedEstimationMethod, selectedInfluenceFactorSet);
-        for(Project p : selectedProjects){
+        for (Project p : selectedProjects)
+        {
             projectNames.add(p.getTitle());
         }
+        Log.d("INFO", "AnalysisActivity: loadProjectData: Number of loaded Projects: " + selectedProjects.size());
     }
 
     private void initPersonDaysChart()
@@ -83,7 +99,7 @@ public class AnalysisActivity extends DatabaseActivity
         personDaysChart.setBackgroundColor(Color.WHITE);
         personDaysChart.setDrawGridBackground(false);
         personDaysChart.setDrawBarShadow(false);
-        personDaysChart.setVisibleXRangeMaximum(50);
+        personDaysChart.setVisibleXRange(2, 6);
 
         // draw bars behind lines
         personDaysChart.setDrawOrder(new CombinedChart.DrawOrder[]{
@@ -108,7 +124,8 @@ public class AnalysisActivity extends DatabaseActivity
         personDaysChart.invalidate();
     }
 
-    private LineData loadLineDataTerminatedPersonDays() {
+    private LineData loadLineDataTerminatedPersonDays()
+    {
 
         LineData d = new LineData();
 
@@ -117,25 +134,26 @@ public class AnalysisActivity extends DatabaseActivity
         for (int index = 0; index < selectedProjects.size(); index++)
             entries.add(new Entry(selectedProjects.get(index).getFinalPersonDays(), index));
 
-        LineDataSet set = new LineDataSet(entries, "Terminated Person Days");
-        set.setColor(ContextCompat.getColor(this, R.color.even_darker_orange));
-        set.setLineWidth(2.5f);
-        set.setCircleColor(ContextCompat.getColor(this, R.color.dark_orange));
+        lineDataSet = new LineDataSet(entries, "Terminated Person Days");
+        lineDataSet.setColor(ContextCompat.getColor(this, R.color.even_darker_orange));
+        lineDataSet.setLineWidth(2.5f);
+        lineDataSet.setCircleColor(ContextCompat.getColor(this, R.color.dark_orange));
         //set.setCircleRadius(5f);
-        set.setFillColor(ContextCompat.getColor(this, R.color.dark_orange));
-        set.setDrawCubic(true);
-        set.setDrawValues(true);
-        set.setValueTextSize(10f);
-        set.setValueTextColor(ContextCompat.getColor(this, R.color.even_darker_orange));
+        lineDataSet.setFillColor(ContextCompat.getColor(this, R.color.dark_orange));
+        lineDataSet.setDrawCubic(true);
+        lineDataSet.setDrawValues(true);
+        lineDataSet.setValueTextSize(10f);
+        lineDataSet.setValueTextColor(ContextCompat.getColor(this, R.color.even_darker_orange));
 
-        set.setAxisDependency(YAxis.AxisDependency.LEFT);
+        lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
 
-        d.addDataSet(set);
+        d.addDataSet(lineDataSet);
 
         return d;
     }
 
-    private BarData loadBarDataEstimatedPersonDays() {
+    private BarData loadBarDataEstimatedPersonDays()
+    {
 
         BarData d = new BarData();
 
@@ -144,93 +162,165 @@ public class AnalysisActivity extends DatabaseActivity
         for (int index = 0; index < selectedProjects.size(); index++)
             entries.add(new BarEntry((float) selectedProjects.get(index).getEvaluatedPersonDays(), index));
 
-        BarDataSet set = new BarDataSet(entries, "Estimated Person Days");
-        set.setColor(ContextCompat.getColor(this, R.color.light_blue));
-        set.setValueTextColor(ContextCompat.getColor(this, R.color.dark_blue));
-        set.setValueTextSize(10f);
-        d.addDataSet(set);
+        barDataSet = new BarDataSet(entries, "Estimated Person Days");
+        barDataSet.setColor(ContextCompat.getColor(this, R.color.light_blue));
+        barDataSet.setValueTextColor(ContextCompat.getColor(this, R.color.dark_blue));
+        barDataSet.setValueTextSize(10f);
+        d.addDataSet(barDataSet);
 
-        set.setAxisDependency(YAxis.AxisDependency.LEFT);
+        barDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
 
         return d;
     }
 
     private void refreshAnalysis()
     {
-        if (estimationMethodChanged){
+        lineDataSet.clear();
+        barDataSet.clear();
+        if (estimationMethodChanged)
+        {
             Log.d("INFO", "Project Analysis: Estimation Method Changed");
-            estimationMethodChanged= false;
-            initInfluenceFactorSetSpinner();
-            selectedInfluenceFactorSet =  influencingFactorSpinner.getItemAtPosition(0).toString();
-            loadLineDataTerminatedPersonDays();
-            loadBarDataEstimatedPersonDays();
+            estimationMethodChanged = false;
+            initInfluenceFactorSets();
+            tvEstimationMethod.setText(selectedEstimationMethod);
             loadProjectData();
             reloadChartData();
-        } else if (influenceFactorChanged){
+        } else if (influenceFactorChanged)
+        {
+            Log.d("INFO", "Project Analysis: Influence Set Changed");
             influenceFactorChanged = false;
+            loadProjectData();
+            reloadChartData();
         }
 
     }
 
     private void reloadChartData()
     {
+        Log.d("Info", "Analysis Activity: reloadCharData");
+
+        lineDataSet.clear();
+        barDataSet.clear();
+        loadProjectData();
+        initPersonDaysChart();
+        personDaysChart.notifyDataSetChanged();
+        personDaysChart.invalidate();
+
+        /*personDaysChart.clear();
         CombinedData data = new CombinedData(projectNames);
         data.setData(loadLineDataTerminatedPersonDays());
         data.setData(loadBarDataEstimatedPersonDays());
-        data.notifyDataChanged();
+        initPersonDaysChart();
         personDaysChart.notifyDataSetChanged();
-        personDaysChart.invalidate();
+        personDaysChart.invalidate();*/
     }
 
-    private void initInfluenceFactorSetSpinner()
+    private void initInfluenceFactorSets()
     {
-        influenceItems = databaseHelper.getInfluenceFactorItems(databaseHelper.getEstimationMethodId(selectedEstimationMethod));
-        ArrayList<String> influenceItemNames = new ArrayList<>();
-        for(DatabaseInfluenceFactorItem item : influenceItems){
-            influenceItemNames.add(item.get_name());
+        if (selectedEstimationMethod.isEmpty() || selectedEstimationMethod.equals(""))
+        {
+            selectedEstimationMethod = estimationMethods.get(0);
         }
-        influencingFactorsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, influenceItemNames);
-        influencingFactorSpinner = (Spinner) findViewById(R.id.spInfluenceFactorSet);
-        influencingFactorSpinner.setAdapter(influencingFactorsAdapter);
-        influencingFactorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        influenceItems = databaseHelper.getInfluenceFactorItems(databaseHelper.getEstimationMethodId(selectedEstimationMethod));
+        if (tvInfluenceFactorSet == null)
         {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            tvInfluenceFactorSet = (TextView) findViewById(R.id.tvInfluenceFactorSet);
+            tvInfluenceFactorSet.setOnClickListener(new View.OnClickListener()
             {
-                selectedInfluenceFactorSet = influencingFactorSpinner.getItemAtPosition(position).toString();
-                influenceFactorChanged = true;
-                //refreshAnalysis();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent)
-            {
-
-            }
-        });
+                @Override
+                public void onClick(View v)
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(AnalysisActivity.this);
+                    builder.setTitle(getString(R.string.dialog_change_influence_Factor_title));
+                    builder.setCancelable(false);
+                    builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
+                    {
+                        public void onClick(DialogInterface dialog, int id)
+                        {
+                            // User cancelled the dialog
+                        }
+                    });
+                    influenceSetNames = new ArrayList<String>();
+                    for (DatabaseInfluenceFactorItem item : influenceItems)
+                    {
+                        influenceSetNames.add(item.get_name());
+                    }
+                    final CharSequence[] items = influenceSetNames.toArray(new String[influenceSetNames.size()]);
+                    builder.setItems(items, new DialogInterface.OnClickListener()
+                    {
+                        public void onClick(DialogInterface dialog, int item)
+                        {
+                            selectedInfluenceFactorSet = items[item].toString();
+                            influenceFactorChanged = true;
+                            refreshAnalysis();
+                        }
+                    });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
+            });
+        }
+        if (selectedInfluenceFactorSet.isEmpty() || !influenceItems.contains(selectedInfluenceFactorSet))
+        {
+            selectedInfluenceFactorSet = influenceItems.get(0).get_name();
+        }
+        tvInfluenceFactorSet.setText(selectedInfluenceFactorSet);
     }
 
 
-    private void initEstimationMethodSpinner()
+    private void initEstimationMethods()
     {
-        estimationMethodsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, databaseHelper.getEstimationMethodNames());
-        estimationMethodSpinner = (Spinner) findViewById(R.id.spEstimationMethod);
-        estimationMethodSpinner.setAdapter(estimationMethodsAdapter);
-        estimationMethodSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        estimationMethods = databaseHelper.getEstimationMethodNames();
+        if (tvEstimationMethod == null)
         {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            tvEstimationMethod = (TextView) findViewById(R.id.tvEstimationMethod);
+            tvEstimationMethod.setOnClickListener(new View.OnClickListener()
             {
-                selectedEstimationMethod = estimationMethodSpinner.getItemAtPosition(position).toString();
-                estimationMethodChanged = true;
-                //refreshAnalysis();
-            }
+                @Override
+                public void onClick(View v)
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(AnalysisActivity.this);
+                    builder.setTitle(getString(R.string.dialog_change_estimation_method_title));
+                    builder.setCancelable(false);
+                    builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
+                    {
+                        public void onClick(DialogInterface dialog, int id)
+                        {
+                            // User cancelled the dialog
+                        }
+                    });
+                    final CharSequence[] items = estimationMethods.toArray(new String[estimationMethods.size()]);
+                    builder.setItems(items, new DialogInterface.OnClickListener()
+                    {
+                        public void onClick(DialogInterface dialog, int item)
+                        {
+                            selectedEstimationMethod = items[item].toString();
+                            estimationMethodChanged = true;
+                            refreshAnalysis();
+                        }
+                    });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
+            });
+        }
+        if (selectedEstimationMethod.isEmpty())
+        {
+            selectedEstimationMethod = estimationMethods.get(0);
+        }
+        tvEstimationMethod.setText(selectedEstimationMethod);
+    }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent)
-            {
-
-            }
-        });
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.home:
+                super.onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

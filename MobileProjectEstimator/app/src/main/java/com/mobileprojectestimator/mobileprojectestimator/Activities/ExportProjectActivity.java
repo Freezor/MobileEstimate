@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +19,7 @@ public class ExportProjectActivity extends AppCompatActivity
 {
 
     private ArrayList<String> projectNames;
-    private TextView exportSettings;
+    private Button exportSettings;
     private TextView exportPdf;
     private TextView exportExcel;
     private Spinner projectsSpinner;
@@ -35,7 +36,7 @@ public class ExportProjectActivity extends AppCompatActivity
 
         View articlesLayout = (View) findViewById(R.id.exportProjectLayout);
 
-        exportSettings = (TextView) articlesLayout.findViewById(R.id.tvExportSettings);
+        exportSettings = (Button) articlesLayout.findViewById(R.id.bExportSettings);
         exportPdf = (TextView) articlesLayout.findViewById(R.id.tvExportPdf);
         exportExcel = (TextView) articlesLayout.findViewById(R.id.tvExportExcel);
         projectsSpinner = (Spinner) articlesLayout.findViewById(R.id.projectSpinner);
