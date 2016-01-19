@@ -1,5 +1,6 @@
 package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -7,8 +8,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -142,6 +145,25 @@ public class FunctionPointEstimationValueActivity extends DatabaseActivity
         RelativeLayout layoutComplexEstimation = (RelativeLayout) findViewById(R.id.i_complex_value);
         valueComplex = (EditText) layoutComplexEstimation.findViewById(R.id.tvValue);
         valueComplex.setText(String.format("%d", complexValue));
+        valueComplex.setOnKeyListener(new View.OnKeyListener()
+        {
+            public boolean onKey(View v, int keyCode, KeyEvent event)
+            {
+                if (event.getAction() == KeyEvent.ACTION_DOWN)
+                {
+                    switch (keyCode)
+                    {
+                        case KeyEvent.KEYCODE_DPAD_CENTER:
+                        case KeyEvent.KEYCODE_ENTER:
+                            hideKeyboard();
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+                return false;
+            }
+        });
         valueComplex.addTextChangedListener(new TextWatcher()
         {
             @Override
@@ -202,6 +224,25 @@ public class FunctionPointEstimationValueActivity extends DatabaseActivity
         RelativeLayout layoutMediumEstimation = (RelativeLayout) findViewById(R.id.i_medium_value);
         valueMedium = (EditText) layoutMediumEstimation.findViewById(R.id.tvValue);
         valueMedium.setText(String.format("%d", mediumValue));
+        valueMedium.setOnKeyListener(new View.OnKeyListener()
+        {
+            public boolean onKey(View v, int keyCode, KeyEvent event)
+            {
+                if (event.getAction() == KeyEvent.ACTION_DOWN)
+                {
+                    switch (keyCode)
+                    {
+                        case KeyEvent.KEYCODE_DPAD_CENTER:
+                        case KeyEvent.KEYCODE_ENTER:
+                            hideKeyboard();
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+                return false;
+            }
+        });
         valueMedium.addTextChangedListener(new TextWatcher()
         {
             @Override
@@ -262,6 +303,25 @@ public class FunctionPointEstimationValueActivity extends DatabaseActivity
         RelativeLayout layoutSimpleEstimation = (RelativeLayout) findViewById(R.id.i_simple_value);
         valueSimple = (EditText) layoutSimpleEstimation.findViewById(R.id.tvValue);
         valueSimple.setText(String.format("%d", simpleValue));
+        valueSimple.setOnKeyListener(new View.OnKeyListener()
+        {
+            public boolean onKey(View v, int keyCode, KeyEvent event)
+            {
+                if (event.getAction() == KeyEvent.ACTION_DOWN)
+                {
+                    switch (keyCode)
+                    {
+                        case KeyEvent.KEYCODE_DPAD_CENTER:
+                        case KeyEvent.KEYCODE_ENTER:
+                            hideKeyboard();
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+                return false;
+            }
+        });
         valueSimple.addTextChangedListener(new TextWatcher()
         {
             @Override

@@ -1,5 +1,7 @@
 package com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -8,9 +10,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobileprojectestimator.mobileprojectestimator.Activities.ChooseProjectIconActivity;
+import com.mobileprojectestimator.mobileprojectestimator.Activities.GuidedProjectCreationActivity;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
@@ -63,6 +68,27 @@ public class ProjectInfoFragment extends GuidedCreationFragment
         dot1.setBackgroundResource(R.drawable.circle_blue);
 
         final EditText projectNameET = (EditText) rootView.findViewById(R.id.projectNameET);
+        projectNameET.setOnKeyListener(new View.OnKeyListener()
+        {
+            public boolean onKey(View v, int keyCode, KeyEvent event)
+            {
+                if (event.getAction() == KeyEvent.ACTION_DOWN)
+                {
+                    switch (keyCode)
+                    {
+                        case KeyEvent.KEYCODE_DPAD_CENTER:
+                        case KeyEvent.KEYCODE_ENTER:
+                            hideKeyboard();
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+                return false;
+            }
+
+
+        });
         projectNameET.addTextChangedListener(new TextWatcher()
         {
             @Override
@@ -122,6 +148,12 @@ public class ProjectInfoFragment extends GuidedCreationFragment
         });
 
         return rootView;
+    }
+
+    private void hideKeyboard()
+    {
+        final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
     }
 
     /**

@@ -71,6 +71,8 @@
         android:layout_marginRight="5dp"
         android:layout_marginTop="20dp"
         android:maxLines="14"
+        android:fadeScrollbars="false"
+        android:scrollbarThumbVertical="@drawable/scrollbar_orange"
         android:scrollbars="vertical"
         android:text="@string/function_point_estimation_description"/>
 </RelativeLayout>
