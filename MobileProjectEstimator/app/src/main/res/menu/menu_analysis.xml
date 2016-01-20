@@ -8,7 +8,7 @@
         android:orderInCategory="100"
         android:title="@string/action_open_statistics"
         android:icon="@drawable/line_chart_white"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom|withText"/>
     <item
         android:id="@+id/action_generate_demo_values"
         android:orderInCategory="110"

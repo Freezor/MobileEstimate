@@ -29,6 +29,7 @@
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
+        android:id="@+id/analysis_layout"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_marginTop="70dp">
@@ -84,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Function Points"
+            android:text="Terminated Person Days"
             android:id="@+id/tvPoints"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp"
@@ -95,7 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Person Days"
+            android:text="Evaluated Person Days"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp"
             android:id="@+id/tvEstimatedDays"
@@ -103,7 +104,7 @@
             android:layout_alignParentStart="true"/>
 
         <TextView
-            android:layout_width="170dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
@@ -112,33 +113,33 @@
             android:ellipsize="end"
             android:textColor="@color/dark_blue"
             android:layout_below="@+id/personDaysChart"
-            android:layout_alignStart="@+id/tvInfluenceFactorSet"/>
+            android:layout_alignEnd="@+id/tvInfluenceFactorSet"/>
 
         <TextView
-            android:layout_width="170dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
             android:singleLine="true"
             android:ellipsize="end"
             android:textColor="@color/dark_orange"
-            android:id="@+id/tvFunctionPoints"
-            android:layout_below="@+id/tvProjectName"
+            android:id="@+id/tvFinalPersonDays"
             android:drawableRight="@drawable/ic_action_edit"
+            android:layout_alignTop="@+id/tvPoints"
             android:layout_alignStart="@+id/tvProjectName"/>
 
         <TextView
-            android:layout_width="170dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
             android:textColor="@color/dark_orange"
-            android:id="@+id/tvPersonDays"
+            android:id="@+id/tvEvaluatedPersonDays"
             android:singleLine="true"
             android:ellipsize="end"
             android:drawableRight="@drawable/ic_action_edit"
             android:layout_alignTop="@+id/tvEstimatedDays"
-            android:layout_alignStart="@+id/tvFunctionPoints"/>
+            android:layout_alignStart="@+id/tvFinalPersonDays"/>
 
     </RelativeLayout>
 

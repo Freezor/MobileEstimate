@@ -236,7 +236,7 @@
     <string name="dialog_terminate_project_message">To terminate the project insert the total amount of person days the project took and click on OK. WARNING: A terminated project cannot be edited anymore.</string>
     <string name="toast_terminate_project_error">You inserted a wrong amount of person days. Project NOT terminated.</string>
     <string name="dialog_terminated_project_title">Final Person Days</string>
-    <string name="dialog_terminated_project_message">Project terminated with %d person days.</string>
+    <string name="dialog_terminated_project_message">Project terminated with %s person days.</string>
     <string name="mail_feedback_intent_title">Send feedback...</string>
     <string name="feedback_subject">Feedback</string>
     <string name="help_activity_show_relevant_articles">Show only relevant Articles</string>
@@ -250,6 +250,10 @@
     <string name="action_open_statistics">Open Statistics</string>
     <string name="action_generate_demo_values">Generate Demo Values</string>
     <string name="title_activity_projects_overview">Projects</string>
+    <string name="dialog_change_final_person_days_title">Change the final person days</string>
+    <string name="dialog_change_final_person_days_message">This changes are only visible in the diagramm and will not be saved.</string>
+    <string name="dialog_change_evaluated_person_days_title">Change the evaluated person days</string>
+    <string name="dialog_change_evaluated_person_days_message">This changes are only visible in the diagramm and will not be saved.</string>
 
 
 </resources>

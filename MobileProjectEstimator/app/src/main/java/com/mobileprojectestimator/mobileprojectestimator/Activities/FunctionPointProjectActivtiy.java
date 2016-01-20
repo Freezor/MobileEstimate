@@ -211,7 +211,7 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
         builder.setTitle(getString(R.string.dialog_terminate_project_title));
         builder.setMessage(getString(R.string.dialog_terminate_project_message));
         final EditText input = new EditText(this);
-        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         input.setSingleLine(true);
         input.setText("0");
         builder.setView(input);
@@ -220,7 +220,7 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                int totalDays = Integer.parseInt(input.getText().toString());
+                double totalDays = Double.parseDouble(input.getText().toString());
                 if(totalDays > 1){
                     project.setFinalPersonDays(totalDays);
                     project.setIsTerminated(true);

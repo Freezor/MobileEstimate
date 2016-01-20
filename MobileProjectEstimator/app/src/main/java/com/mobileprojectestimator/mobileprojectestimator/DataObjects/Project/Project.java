@@ -40,7 +40,7 @@ public class Project implements Serializable
     private String iconId;
     private boolean isDeleted;
     private boolean isTerminated;
-    private int finalPersonDays;
+    private double finalPersonDays;
     private double evaluatedPoints;
 
     /**
@@ -598,12 +598,12 @@ public class Project implements Serializable
         this.isTerminated = isTerminated;
     }
 
-    public int getFinalPersonDays()
+    public double getFinalPersonDays()
     {
         return finalPersonDays;
     }
 
-    public void setFinalPersonDays(int finalPersonDays)
+    public void setFinalPersonDays(double finalPersonDays)
     {
         this.finalPersonDays = finalPersonDays;
     }
