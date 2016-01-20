@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -34,7 +33,6 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
     private TextView totalPoints;
     private TextView evaluatedFunctionPoints;
     private TextView evaluatedPersonDays;
-    private Button bCalculatePersonDays;
 
 
     @Override
@@ -70,30 +68,6 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
         projectCreationAdapter = new FunctionPointEstimationListAdapter(this, functionPointEstimationItems, getFragmentManager(), this.project);
         fpEstimationListView.setAdapter(projectCreationAdapter);
 
-        bCalculatePersonDays = (Button) rootView.findViewById(R.id.bCalculatePersonDays);
-        bCalculatePersonDays.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if (project.isTerminated())
-                {
-                    openProjectIsTerminatedDialog();
-                } else
-                {
-                    int terminatedProject = databaseHelper.getAmountTerminatedFunctionPointProject();
-                    if (terminatedProject < 1)
-                    {
-                        project.setEvaluatedPersonDays(databaseHelper.evaluateFunctionPointPersonDaysWithBaseProductivity(project));
-                    } else
-                    {
-                        project.setEvaluatedPersonDays(databaseHelper.evaluateFunctionPointPersonDaysWithExistingProductivity(project));
-                    }
-                    databaseHelper.updateExistingProjectInformations(project);
-                    evaluatedPersonDays.setText(String.format("%s %s", getContext().getString(R.string.function_point_estimation_evaluated_person_days), project.getEvaluatedPersonDays()));
-                }
-            }
-        });
 
         return rootView;
     }
@@ -137,6 +111,18 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
         totalPoints.setText(String.format("%s %d", getContext().getString(R.string.function_point_estimation_total_points), getTotalPoints()));
         evaluatedFunctionPoints.setText(String.format("%s %s", getContext().getString(R.string.function_point_estimation_evaluated_total_points), getEvaluatedPoints()));
         evaluatedPersonDays.setText(String.format("%s %s", getContext().getString(R.string.function_point_estimation_evaluated_person_days), this.project.getEvaluatedPersonDays()));
+
+        int terminatedProject = databaseHelper.getAmountTerminatedFunctionPointProject();
+        if (terminatedProject < 1)
+        {
+            project.setEvaluatedPersonDays(databaseHelper.evaluateFunctionPointPersonDaysWithBaseProductivity(project));
+        } else
+        {
+            project.setEvaluatedPersonDays(databaseHelper.evaluateFunctionPointPersonDaysWithExistingProductivity(project));
+        }
+        databaseHelper.updateExistingProjectInformations(project);
+        evaluatedPersonDays.setText(String.format("%s %s", getContext().getString(R.string.function_point_estimation_evaluated_person_days), project.getEvaluatedPersonDays()));
+
         databaseHelper.updateExistingProjectInformations(project);
     }
 

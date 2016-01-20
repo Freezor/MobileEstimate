@@ -2,11 +2,14 @@ package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -21,11 +24,15 @@ import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Database.DatabaseInfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class AnalysisActivity extends DatabaseActivity
 {
@@ -44,12 +51,18 @@ public class AnalysisActivity extends DatabaseActivity
     private TextView tvEstimationMethod;
     private LineDataSet lineDataSet;
     private BarDataSet barDataSet;
+    private String projectId;
+    private TextView tvProjectName;
+    private TextView tvFunctionPoints;
+    private TextView tvPersonDays;
+    private Project chosenProject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_analysis);
+        projectId = "";
 
         initDatabase();
         projectNames = new ArrayList<>();
@@ -71,8 +84,60 @@ public class AnalysisActivity extends DatabaseActivity
 
         personDaysChart = (CombinedChart) findViewById(R.id.personDaysChart);
         initPersonDaysChart();
+        personDaysChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener()
+        {
+            @Override
+            public void onValueSelected(Entry entry, int i, Highlight highlight)
+            {
+                Log.d("INFO","Selected Value: "+entry.toString()+" index: "+i+ " highlight "+highlight.toString());
+                chosenProject = selectedProjects.get(entry.getXIndex());
+                tvProjectName.setText(chosenProject.getTitle());
+                tvFunctionPoints.setText(String.valueOf(chosenProject.getEvaluatedPoints()));
+                tvPersonDays.setText(String.valueOf(chosenProject.getFinalPersonDays()));
+            }
+
+            @Override
+            public void onNothingSelected()
+            {
+
+            }
+        });
+
+        tvProjectName = (TextView) findViewById(R.id.tvProjectName);
+        tvFunctionPoints = (TextView) findViewById(R.id.tvFunctionPoints);
+        tvPersonDays = (TextView) findViewById(R.id.tvPersonDays);
+
+        Intent intent = getIntent();
+        projectId = intent.getStringExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID));
+        if(projectId == null || projectId.equals("")){
+            tvProjectName.setText("");
+            tvFunctionPoints.setText("");
+            tvPersonDays.setText("");
+        } else {
+            boolean projectFound=false;
+            for(Project p: selectedProjects){
+                if(p.getProjectId() == Integer.valueOf(projectId)){
+                    projectFound = true;
+                    chosenProject = p;
+                    tvProjectName.setText(chosenProject.getTitle());
+                    tvFunctionPoints.setText(String.valueOf(chosenProject.getEvaluatedPoints()));
+                    tvPersonDays.setText(String.valueOf(chosenProject.getFinalPersonDays()));
+                    break;
+                }
+            }
+            if(!projectFound){
+                tvProjectName.setText("");
+                tvFunctionPoints.setText("");
+                tvPersonDays.setText("");
+            }
+        }
     }
 
+    /**
+     * Load the Projects depending of the estimation method and chosen influence factor
+     *
+     * Sorts the projects after the estimated days
+     */
     private void loadProjectData()
     {
         projectNames = new ArrayList<>();
@@ -85,7 +150,16 @@ public class AnalysisActivity extends DatabaseActivity
             selectedInfluenceFactorSet = influenceItems.get(0).get_name();
         }
         Log.d("INFO", "AnalysisActivity: loadProjectData: selectedEstimationMethod " + selectedEstimationMethod + " selectedInfluenceFactor " + selectedInfluenceFactorSet);
-        selectedProjects = databaseHelper.loadProjectByEstimationMethodAndInfluenceSet(selectedEstimationMethod, selectedInfluenceFactorSet);
+        selectedProjects = databaseHelper.loadActiveProjectsByEstimationMethodAndInfluenceSet(selectedEstimationMethod, selectedInfluenceFactorSet);
+        Collections.sort(selectedProjects, new Comparator<Project>()
+        {
+            @Override
+            public int compare(Project p1, Project p2)
+            {
+                return Double.compare(p1.getEvaluatedPoints(), p2.getEvaluatedPoints());
+            }
+
+        });
         for (Project p : selectedProjects)
         {
             projectNames.add(p.getTitle());
@@ -311,6 +385,15 @@ public class AnalysisActivity extends DatabaseActivity
         tvEstimationMethod.setText(selectedEstimationMethod);
     }
 
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_analysis, menu);
+
+        return true;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -322,5 +405,11 @@ public class AnalysisActivity extends DatabaseActivity
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.action_open_statistics);
+        return true;
     }
 }

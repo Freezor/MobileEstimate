@@ -289,7 +289,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
     {
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.project_overview, menu);
+        inflater.inflate(R.menu.menu_project_overview, menu);
 
         // Associate searchable configuration with the SearchView
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);

@@ -9,7 +9,7 @@
     <ListView
         android:id="@+id/lv_function_point_estimation"
         android:layout_width="wrap_content"
-        android:layout_height="250dp"
+        android:layout_height="300dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="5dp"
@@ -46,17 +46,4 @@
         android:text="@string/function_point_estimation_evaluated_person_days"
         android:textAppearance="?android:attr/textAppearanceLarge"/>
 
-    <Button
-        android:id="@+id/bCalculatePersonDays"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/evaluatedPersonDaysTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:background="@color/standardButtonColor"
-        android:text="@string/function_point_estimation_calculate_person_days_button"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        android:theme="@style/Base.Widget.AppCompat.ActionButton"/>
 </RelativeLayout>

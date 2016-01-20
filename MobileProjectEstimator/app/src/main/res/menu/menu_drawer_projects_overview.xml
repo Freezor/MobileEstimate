@@ -8,7 +8,7 @@
             android:title="@string/my_projects"/>
         <item
             android:id="@+id/nav_project_analysis"
-            android:icon="@android:drawable/ic_menu_view"
+            android:icon="@drawable/line_chart"
             android:title="@string/project_analysis"/>
 
         <item

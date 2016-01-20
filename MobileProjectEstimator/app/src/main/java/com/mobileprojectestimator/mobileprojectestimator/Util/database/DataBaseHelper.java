@@ -2036,14 +2036,14 @@ public class DataBaseHelper extends SQLiteOpenHelper
         return helpArticleItems;
     }
 
-    public ArrayList<Project> loadProjectByEstimationMethodAndInfluenceSet(String selectedEstimationMethod, String selectedInfluenceFactorSet)
+    public ArrayList<Project> loadActiveProjectsByEstimationMethodAndInfluenceSet(String selectedEstimationMethod, String selectedInfluenceFactorSet)
     {
         ArrayList<Project> projects = new ArrayList<>();
 
         int estimationId = getEstimationMethodId(selectedEstimationMethod);
 
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = String.format("SELECT * FROM Projects WHERE estimation_method_id = %d", estimationId);
+        String selectQuery = String.format("SELECT * FROM Projects WHERE estimation_method_id = %d AND is_deleted = 0", estimationId);
         try (Cursor c = db.rawQuery(selectQuery, null))
         {
             if (c.moveToFirst())
