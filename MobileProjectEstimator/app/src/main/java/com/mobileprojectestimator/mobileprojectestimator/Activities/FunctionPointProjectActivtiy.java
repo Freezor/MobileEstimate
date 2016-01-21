@@ -1,6 +1,5 @@
 package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,17 +14,18 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Database.DatabaseInfluenceFactorItem;
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointCategoryItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.EstimationOverviewFragment;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.FunctionPointProject.FunctionPointInfluenceFactorFragment;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.FunctionPointProject.FunctionPointMethodFragment;
 import com.mobileprojectestimator.mobileprojectestimator.R;
-import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.FunctionPointInfluenceListAdapter;
 
 import java.util.ArrayList;
 
@@ -153,6 +153,26 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
      */
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
+        {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+            {
+
+            }
+
+            @Override
+            public void onPageSelected(int position)
+            {
+                onChangeViewPage(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state)
+            {
+
+            }
+        });
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
@@ -179,9 +199,11 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
                 startProjectAnalysis();
                 return true;
             case R.id.action_terminate:
-                if (project.isTerminated()){
+                if (project.isTerminated())
+                {
                     showFinalPersonDaysDialog();
-                } else {
+                } else
+                {
                     openTerminateProjectDialog();
                 }
                 return true;
@@ -193,7 +215,7 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
     private void startProjectAnalysis()
     {
         Intent i = new Intent(FunctionPointProjectActivtiy.this, AnalysisActivity.class);
-        i.putExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID),project.getProjectId());
+        i.putExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID), project.getProjectId());
         startActivityForResult(i, Integer.parseInt((getString(R.string.CREATE_NEW_PROJECT_REQUEST_CODE))));
     }
 
@@ -221,12 +243,14 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
             public void onClick(DialogInterface dialog, int which)
             {
                 double totalDays = Double.parseDouble(input.getText().toString());
-                if(totalDays > 1){
+                if (totalDays > 1)
+                {
                     project.setFinalPersonDays(totalDays);
                     project.setIsTerminated(true);
                     databaseHelper.terminateProject(project);
                     project = databaseHelper.loadProjectById(FunctionPointProjectActivtiy.this, String.valueOf(project.getProjectId()));
-                } else {
+                } else
+                {
                     //TODO: Somehow display error message
                     Toast.makeText(FunctionPointProjectActivtiy.this, getString(R.string.toast_terminate_project_error), Toast.LENGTH_LONG).show();
                 }
@@ -247,8 +271,151 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
     private void openProjectProperties()
     {
         Intent i = new Intent(FunctionPointProjectActivtiy.this, ProjectInformationActivity.class);
-        i.putExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID),project.getProjectId());
+        i.putExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID), project.getProjectId());
         startActivityForResult(i, Integer.parseInt((getString(R.string.CREATE_NEW_PROJECT_REQUEST_CODE))));
+    }
+
+    private void onChangeViewPage(int position)
+    {
+        if (fragmentsList.get(position) instanceof FunctionPointInfluenceFactorFragment)
+        {
+            instanciateInfluenceItems(position);
+
+        }
+    }
+
+    public void instanciateInfluenceItems(int position)
+    {
+        try
+        {
+            //TODO: only works for the first values
+            FunctionPointInfluenceFactorFragment functionPointInfluenceFactorFragment = (FunctionPointInfluenceFactorFragment) mSectionsPagerAdapter.instantiateItem(mViewPager, position);
+            //noinspection ConstantConditions
+            ListView fpInfluenceListView = (ListView) functionPointInfluenceFactorFragment.getView().findViewById(R.id.lvInfluenceFactors);
+            //Set Project Name
+            RelativeLayout sublayout = (RelativeLayout) fpInfluenceListView.getChildAt(0);
+            ImageView infoImageView = (ImageView) sublayout.findViewById(R.id.infoImageView);
+            infoImageView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    openFactorInfoDialog(v, getString(R.string.function_point_influence_factor_item_integration));
+                }
+            });
+
+            sublayout = (RelativeLayout) fpInfluenceListView.getChildAt(1);
+            infoImageView = (ImageView) sublayout.findViewById(R.id.infoImageView);
+            infoImageView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    openFactorInfoDialog(v, getString(R.string.function_point_influence_factor_item_local_data));
+                }
+            });
+
+            sublayout = (RelativeLayout) fpInfluenceListView.getChildAt(2);
+            infoImageView = (ImageView) sublayout.findViewById(R.id.infoImageView);
+            infoImageView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    openFactorInfoDialog(v, getString(R.string.function_point_influence_factor_item_transaction_rate));
+                }
+            });
+            sublayout = (RelativeLayout) fpInfluenceListView.getChildAt(3);
+            infoImageView = (ImageView) sublayout.findViewById(R.id.infoImageView);
+            infoImageView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    openFactorInfoDialog(v, getString(R.string.function_point_influence_factor_item_arithmetic_operation));
+                }
+            });
+            sublayout = (RelativeLayout) fpInfluenceListView.getChildAt(4);
+            infoImageView = (ImageView) sublayout.findViewById(R.id.infoImageView);
+            infoImageView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    openFactorInfoDialog(v, getString(R.string.function_point_influence_factor_item_control_procedure));
+                }
+            });
+            sublayout = (RelativeLayout) fpInfluenceListView.getChildAt(5);
+            infoImageView = (ImageView) sublayout.findViewById(R.id.infoImageView);
+            infoImageView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    openFactorInfoDialog(v, getString(R.string.function_point_influence_factor_item_exception_regulation));
+                }
+            });
+            sublayout = (RelativeLayout) fpInfluenceListView.getChildAt(6);
+            infoImageView = (ImageView) sublayout.findViewById(R.id.infoImageView);
+            infoImageView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    openFactorInfoDialog(v, getString(R.string.function_point_influence_factor_item_logic));
+                }
+            });
+            sublayout = (RelativeLayout) fpInfluenceListView.getChildAt(7);
+            infoImageView = (ImageView) sublayout.findViewById(R.id.infoImageView);
+            infoImageView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    openFactorInfoDialog(v, getString(R.string.function_point_influence_factor_item_reusability));
+                }
+            });
+            sublayout = (RelativeLayout) fpInfluenceListView.getChildAt(8);
+            infoImageView = (ImageView) sublayout.findViewById(R.id.infoImageView);
+            infoImageView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    openFactorInfoDialog(v, getString(R.string.function_point_influence_factor_item_stock_conversion));
+                }
+            });
+            sublayout = (RelativeLayout) fpInfluenceListView.getChildAt(9);
+            infoImageView = (ImageView) sublayout.findViewById(R.id.infoImageView);
+            infoImageView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    openFactorInfoDialog(v, getString(R.string.function_point_influence_factor_item_adaptability));
+                }
+            });
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private void openFactorInfoDialog(View v, String item)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(item);
+        builder.setMessage(databaseHelper.getXmlHelper().loadDescriptionText(item.replace(" ", "_").toLowerCase()));
+        builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+
+            }
+        });
+
+        builder.show();
     }
 
 

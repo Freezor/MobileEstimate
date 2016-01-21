@@ -34,7 +34,7 @@ public class ExportProjectActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        View articlesLayout = (View) findViewById(R.id.exportProjectLayout);
+        View articlesLayout = findViewById(R.id.exportProjectLayout);
 
         exportSettings = (Button) articlesLayout.findViewById(R.id.bExportSettings);
         exportPdf = (TextView) articlesLayout.findViewById(R.id.tvExportPdf);

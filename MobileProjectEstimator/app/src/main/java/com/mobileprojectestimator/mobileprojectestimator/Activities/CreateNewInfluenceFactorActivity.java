@@ -38,7 +38,7 @@ public class CreateNewInfluenceFactorActivity extends DatabaseActivity
 
         initDatabase();
 
-        view = (View) findViewById(R.id.editInfluenceFactorContent);
+        view = findViewById(R.id.editInfluenceFactorContent);
 
         factorName = (EditText) view.findViewById(R.id.etInfluenceFactorName);
         factorItemsListView = (ListView) view.findViewById(R.id.lvInfluenceFactors);
@@ -55,7 +55,7 @@ public class CreateNewInfluenceFactorActivity extends DatabaseActivity
         {
             toolbar.setTitle("Edit Factor");
             oldFactorName = bundle.getString(getString(R.string.NEWFACTORINFLUENCESETNAME));
-            factorName.setText((CharSequence) oldFactorName);
+            factorName.setText( oldFactorName);
         }
         toolbar.setNavigationIcon(R.drawable.ic_action_cancel);
         setSupportActionBar(toolbar);

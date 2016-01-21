@@ -18,6 +18,7 @@
         android:layout_height="wrap_content"
         android:divider="@color/list_divider"
         android:dividerHeight="1dp"
+        android:scrollbarThumbVertical="@drawable/scrollbar_orange"
         android:listSelector="@drawable/project_list_row_selector"/>
 
 </RelativeLayout>

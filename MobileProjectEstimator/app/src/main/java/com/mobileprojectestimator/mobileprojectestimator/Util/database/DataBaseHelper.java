@@ -49,6 +49,8 @@ import java.util.HashMap;
  */
 public class DataBaseHelper extends SQLiteOpenHelper
 {
+    private XmlHelper xmlHelper;
+
     /**
      * The Android's default system path of your application database.
      */
@@ -81,6 +83,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         {
             DataBaseHelper.resourcesIdMap = new HashMap<>();
         }
+        xmlHelper = new XmlHelper(context);
         this.context = context;
     }
 
@@ -1945,103 +1948,13 @@ public class DataBaseHelper extends SQLiteOpenHelper
             }
         }
 
-        helpArticleItems = loadHelpArticlesFromXML(helpArticleItems);
+        helpArticleItems = xmlHelper.loadHelpArticlesFromXML(helpArticleItems);
 
         db.close();
         return helpArticleItems;
     }
 
-    /**
-     * Load all Help Items from the XML File
-     *
-     * @param helpArticleItems
-     * @return
-     */
-    private ArrayList<HelpArticleItem> loadHelpArticlesFromXML(ArrayList<HelpArticleItem> helpArticleItems)
-    {
-        XmlPullParserFactory factory = null;
-        InputStream is = null;
-        try
-        {
-            is = context.openFileInput("help_data.xml");
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        try
-        {
-            factory = XmlPullParserFactory.newInstance();
-            factory.setNamespaceAware(true);
-            XmlPullParser xpp = factory.newPullParser();
 
-            xpp.setInput(is, null);
-            int eventType = xpp.getEventType();
-
-            String title = "";
-            String name = "";
-            ArrayList<String> paragraphs = new ArrayList<>();
-            boolean startTitleText = false;
-            boolean startParagraphText = false;
-            while (eventType != XmlPullParser.END_DOCUMENT)
-            {
-                if (eventType == XmlPullParser.START_TAG)
-                {
-                    if (xpp.getName().equals("article"))
-                    {
-                        name = xpp.getAttributeValue(null, "name");
-                    } else if (xpp.getName().equals("title"))
-                    {
-                        startTitleText = true;
-                    } else if (xpp.getName().equals("paragraph"))
-                    {
-                        startParagraphText = true;
-                    }
-                } else if (eventType == XmlPullParser.END_TAG)
-                {
-                    if (xpp.getName().equals("article"))
-                    {
-                        for (HelpArticleItem item : helpArticleItems)
-                        {
-                            if (item.getNameTag().equals(name))
-                            {
-                                item.setName(title);
-                                item.setParagraphs(paragraphs);
-                                paragraphs = new ArrayList<>();
-                                title = "";
-                                name = "";
-                                startTitleText = false;
-                                startParagraphText = false;
-                                break;
-                            }
-                        }
-                    } else if (xpp.getName().equals("title"))
-                    {
-                        startTitleText = false;
-                    } else if (xpp.getName().equals("paragraph"))
-                    {
-                        startParagraphText = false;
-                    }
-                } else if (eventType == XmlPullParser.TEXT)
-                {
-                    if (startTitleText)
-                    {
-                        title = xpp.getText();
-                    } else if (startParagraphText)
-                    {
-                        paragraphs.add(xpp.getText());
-                    }
-                }
-                eventType = xpp.next();
-            }
-        } catch (XmlPullParserException e)
-        {
-            e.printStackTrace();
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        return helpArticleItems;
-    }
 
     public ArrayList<Project> loadActiveProjectsByEstimationMethodAndInfluenceSet(String selectedEstimationMethod, String selectedInfluenceFactorSet)
     {
@@ -2184,5 +2097,10 @@ public class DataBaseHelper extends SQLiteOpenHelper
         db.close();
 
         return values;
+    }
+
+    public XmlHelper getXmlHelper()
+    {
+        return xmlHelper;
     }
 }

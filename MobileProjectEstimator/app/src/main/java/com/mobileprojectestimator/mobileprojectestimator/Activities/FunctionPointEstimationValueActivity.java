@@ -1,6 +1,5 @@
 package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,7 +10,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -35,6 +33,7 @@ public class FunctionPointEstimationValueActivity extends DatabaseActivity
     private Project project;
     private FunctionPointItem item;
     private String projectId;
+    private TextView tvFpEstimationDescription;
 
     public FunctionPointEstimationValueActivity()
     {
@@ -106,6 +105,11 @@ public class FunctionPointEstimationValueActivity extends DatabaseActivity
         project = databaseHelper.loadProjectById(this, projectId);
 
         item = (FunctionPointItem) project.getEstimationItemByName(this.title);
+
+        tvFpEstimationDescription = (TextView) findViewById(R.id.tvFpEstimationDescription);
+        String searchterm = title.replaceAll(" ","_");
+        tvFpEstimationDescription.setText(databaseHelper.getXmlHelper().loadDescriptionText(searchterm.toLowerCase() + "_description"));
+
 
         simpleValue = item.getSimpleValue();
         mediumValue = item.getMediumValue();
