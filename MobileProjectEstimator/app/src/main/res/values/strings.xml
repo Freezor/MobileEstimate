@@ -266,6 +266,7 @@
     <string name="fragment_statistic_process_methology_title">Process Methology</string>
     <string name="fragment_statistic_programming_language_title">Programming Language</string>
     <string name="fragment_statistic_projects_title">Projects</string>
+    <string name="action_filter">Filter Projects</string>
 
 
 </resources>

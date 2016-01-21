@@ -58,11 +58,13 @@ public class ProjectOverviewActivity extends DatabaseActivity
 
         serverConnector = new ServerConnector(this);
 
-        if(serverConnector.initConnection()){
+        if (serverConnector.initConnection())
+        {
             Log.d("INFO", "Messages from the Server: " + serverConnector.loadMessages());
             serverConnector.synchronise();
-        } else {
-            Log.d("ERROR","Server connection failure");
+        } else
+        {
+            Log.d("ERROR", "Server connection failure");
         }
 
         setContentView(R.layout.activity_project_overview);
@@ -104,26 +106,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
 
         //Create and Load the projects
         loadProjects();
-        projectsListView = (ListView) findViewById(R.id.projectsList);
-        projectsAdapter = new ProjectListAdapter(this, projectsList);
-        projectsListView.setAdapter(projectsAdapter);
-        projectsListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                onClickProject(position);
-            }
-        });
-        projectsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
-        {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                onLongClickProject(position);
-                return true;
-            }
-        });
+        changeProjectsView();
 
         databaseHelper.preloadResourcesIdMap();
     }
@@ -290,11 +273,6 @@ public class ProjectOverviewActivity extends DatabaseActivity
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_project_overview, menu);
-
-        // Associate searchable configuration with the SearchView
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         return true;
     }
 
@@ -343,9 +321,44 @@ public class ProjectOverviewActivity extends DatabaseActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        switch (item.getItemId())
+        {
+            case R.id.action_filter:
+                return true;
+            case R.id.action_search:
+                /*SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+                SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+                searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));*/
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
 
-        return super.onOptionsItemSelected(item);
+    }
+
+    private void changeProjectsView()
+    {
+            projectsListView = (ListView) findViewById(R.id.projectsList);
+            projectsAdapter = new ProjectListAdapter(this, projectsList);
+            projectsListView.setAdapter(projectsAdapter);
+            projectsListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+            {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                {
+                    onClickProject(position);
+                }
+            });
+            projectsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+            {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
+                {
+                    onLongClickProject(position);
+                    return true;
+                }
+            });
+            projectsAdapter.notifyDataSetChanged();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
