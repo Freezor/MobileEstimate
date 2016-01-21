@@ -19,6 +19,8 @@ import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Funct
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.HelpArticleItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.ImageItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.InfluenceFactorItem;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Statistic.EstimatedProjectItem;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Statistic.PropertyProjects;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.ProjectProperties;
@@ -37,7 +39,6 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -1921,6 +1922,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     /**
      * Load all Help Items from the Database and the content from the XML file
+     *
      * @return
      */
     public ArrayList<HelpArticleItem> loadAllHelpItems()
@@ -1951,6 +1953,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     /**
      * Load all Help Items from the XML File
+     *
      * @param helpArticleItems
      * @return
      */
@@ -1997,8 +2000,10 @@ public class DataBaseHelper extends SQLiteOpenHelper
                 {
                     if (xpp.getName().equals("article"))
                     {
-                        for (HelpArticleItem item: helpArticleItems){
-                            if (item.getNameTag().equals(name)){
+                        for (HelpArticleItem item : helpArticleItems)
+                        {
+                            if (item.getNameTag().equals(name))
+                            {
                                 item.setName(title);
                                 item.setParagraphs(paragraphs);
                                 paragraphs = new ArrayList<>();
@@ -2018,9 +2023,11 @@ public class DataBaseHelper extends SQLiteOpenHelper
                     }
                 } else if (eventType == XmlPullParser.TEXT)
                 {
-                    if(startTitleText){
+                    if (startTitleText)
+                    {
                         title = xpp.getText();
-                    } else if (startParagraphText){
+                    } else if (startParagraphText)
+                    {
                         paragraphs.add(xpp.getText());
                     }
                 }
@@ -2051,7 +2058,8 @@ public class DataBaseHelper extends SQLiteOpenHelper
                 do
                 {
                     Project p = loadProjectById(context, String.valueOf(c.getInt(c.getColumnIndex("_id"))));
-                    if(p.getInfluencingFactor().getInfluenceFactorSetName().equals(selectedInfluenceFactorSet)){
+                    if (p.getInfluencingFactor().getInfluenceFactorSetName().equals(selectedInfluenceFactorSet))
+                    {
                         projects.add(p);
                     }
                 } while (c.moveToNext());
@@ -2062,5 +2070,119 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
 
         return projects;
+    }
+
+    public ArrayList<EstimatedProjectItem> loadProjectsEstimationMethodStatistic()
+    {
+        ArrayList<EstimatedProjectItem> projects = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM EstimationMethod";
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                do
+                {
+                    int methodId = c.getInt(c.getColumnIndex("_id"));
+                    String methodName = getEstimationMethodNameById(String.valueOf(methodId));
+                    db = this.getReadableDatabase();
+                    int projectsCount = 0;
+                    String selectQuery2 = String.format("SELECT * FROM Projects WHERE estimation_method_id = %d", methodId);
+                    try (Cursor c2 = db.rawQuery(selectQuery2, null))
+                    {
+                        if (c2.moveToFirst())
+                        {
+                            do
+                            {
+                                projectsCount++;
+                            } while (c2.moveToNext());
+                        }
+                    }
+                    projects.add(new EstimatedProjectItem(methodName, projectsCount));
+                } while (c.moveToNext());
+            }
+        }
+
+        db.close();
+
+        return projects;
+    }
+
+    /**
+     * Returns Active and Terminated Projects
+     * <p/>
+     * First Value are the active Projects and the second are the terminated Projects
+     * <p/>
+     * Does not use the deleted projects
+     *
+     * @return
+     */
+    public ArrayList<Integer> loadActiveAndTerminatedProjectsStatistic()
+    {
+        ArrayList<Integer> projects = new ArrayList<>();
+
+        int active = 0;
+        int terminated = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM Projects WHERE is_deleted = 0";
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                do
+                {
+                    int isterminated = c.getInt(c.getColumnIndex("is_terminated"));
+                    if (isterminated == 0)
+                    {
+                        terminated++;
+                    } else
+                    {
+                        active++;
+                    }
+                } while (c.moveToNext());
+            }
+        }
+
+        db.close();
+        projects.add(active);
+        projects.add(terminated);
+
+        return projects;
+    }
+
+    public ArrayList<PropertyProjects> loadPropertyStatistic(String tablename,String propertyColumnname)
+    {
+        ArrayList<PropertyProjects> values = new ArrayList<>();
+
+        int propertyId = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = String.format("SELECT * FROM %s", tablename);
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                do
+                {
+                    PropertyProjects p = new PropertyProjects();
+                    propertyId = c.getInt(c.getColumnIndex("_id"));
+                    p.setPropertyName(getStringResourceValueByResourceName(c.getString(c.getColumnIndex("name"))));
+                    db = this.getReadableDatabase();
+                    String selectQuery2 = String.format("SELECT COUNT(*) FROM ProjectProperties WHERE %s = %d", propertyColumnname, propertyId);
+                    try (Cursor c2 = db.rawQuery(selectQuery2, null))
+                    {
+                        if (c2.moveToFirst())
+                        {
+                            p.setNumberOfProjects(c2.getInt(0));
+                        }
+                    }
+                    values.add(p);
+                } while (c.moveToNext());
+            }
+        }
+
+        db.close();
+
+        return values;
     }
 }

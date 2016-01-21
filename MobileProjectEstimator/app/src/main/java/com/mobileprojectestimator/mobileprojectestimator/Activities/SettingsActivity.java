@@ -23,7 +23,7 @@ public class SettingsActivity extends PreferenceActivity
 
         setContentView(R.layout.activity_settings);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.statisticToolbar);
 
         addPreferencesFromResource(R.xml.preferences);
         //getFragmentManager().beginTransaction().replace(android.R.id.content, new MyPreferenceFragment()).commit();

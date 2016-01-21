@@ -66,7 +66,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
         }
 
         setContentView(R.layout.activity_project_overview);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.statisticToolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.addProject);

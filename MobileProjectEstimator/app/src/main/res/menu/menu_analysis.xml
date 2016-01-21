@@ -10,8 +10,13 @@
         android:icon="@drawable/line_chart_white"
         app:showAsAction="ifRoom|withText"/>
     <item
-        android:id="@+id/action_generate_demo_values"
+        android:id="@+id/action_change_analysis_sort"
         android:orderInCategory="110"
+        android:title="@string/action_change_analysis_sort_final_days"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_generate_demo_values"
+        android:orderInCategory="120"
         android:title="@string/action_generate_demo_values"
         app:showAsAction="never"/>
         <!--android:visible="false" -->

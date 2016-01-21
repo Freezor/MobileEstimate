@@ -2,6 +2,7 @@ package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -34,6 +35,7 @@ import com.mobileprojectestimator.mobileprojectestimator.R;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Random;
 
 public class AnalysisActivity extends DatabaseActivity
 {
@@ -58,11 +60,14 @@ public class AnalysisActivity extends DatabaseActivity
     private TextView tvEvaluatedPersonDays;
     private Project chosenProject;
     private View layout;
+    private boolean isArrangementFinalDays;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        isArrangementFinalDays = false;
         setContentView(R.layout.activity_analysis);
         projectId = "";
         initDatabase();
@@ -181,6 +186,22 @@ public class AnalysisActivity extends DatabaseActivity
                 chosenProject.setFinalPersonDays(Double.parseDouble(input.getText().toString()));
                 tvFinalPersonDays.setText(String.valueOf(chosenProject.getFinalPersonDays()));
                 reEvaluatePersonDaysForAllProjects();
+                for (Project p:selectedProjects){
+                    if(p.getProjectId() == chosenProject.getProjectId()){
+                        selectedProjects.remove(p);
+                        selectedProjects.add(chosenProject);
+                        Collections.sort(selectedProjects, new Comparator<Project>()
+                        {
+                            @Override
+                            public int compare(Project p1, Project p2)
+                            {
+                                return Double.compare(p1.getEvaluatedPoints(), p2.getEvaluatedPoints());
+                            }
+
+                        });
+                        break;
+                    }
+                }
                 refreshCharData();
             }
         });
@@ -281,6 +302,22 @@ public class AnalysisActivity extends DatabaseActivity
             {
                 chosenProject.setEvaluatedPersonDays(Double.parseDouble(input.getText().toString()));
                 tvEvaluatedPersonDays.setText(String.valueOf(chosenProject.getEvaluatedPersonDays()));
+                for (Project p:selectedProjects){
+                    if(p.getProjectId() == chosenProject.getProjectId()){
+                        selectedProjects.remove(p);
+                        selectedProjects.add(chosenProject);
+                        Collections.sort(selectedProjects, new Comparator<Project>()
+                        {
+                            @Override
+                            public int compare(Project p1, Project p2)
+                            {
+                                return Double.compare(p1.getEvaluatedPoints(), p2.getEvaluatedPoints());
+                            }
+
+                        });
+                        break;
+                    }
+                }
                 refreshCharData();
             }
         });
@@ -336,7 +373,7 @@ public class AnalysisActivity extends DatabaseActivity
         personDaysChart.setBackgroundColor(Color.WHITE);
         personDaysChart.setDrawGridBackground(false);
         personDaysChart.setDrawBarShadow(false);
-        personDaysChart.setVisibleXRange(2, 6);
+        //personDaysChart.setVisibleXRange(2, 6);
 
         // draw bars behind lines
         personDaysChart.setDrawOrder(new CombinedChart.DrawOrder[]{
@@ -429,7 +466,9 @@ public class AnalysisActivity extends DatabaseActivity
             loadProjectData();
             reloadChartData();
         }
-
+        MenuItem arrangementMenuItem = menu.findItem(R.id.action_change_analysis_sort);
+        arrangementMenuItem.setTitle(getString(R.string.action_change_analysis_sort_final_days));
+        isArrangementFinalDays = false;
     }
 
     private void refreshCharData()
@@ -466,6 +505,11 @@ public class AnalysisActivity extends DatabaseActivity
 
         personDaysChart.notifyDataSetChanged();
         personDaysChart.invalidate();
+
+        MenuItem arrangementMenuItem = menu.findItem(R.id.action_change_analysis_sort);
+        arrangementMenuItem.setTitle(getString(R.string.action_change_analysis_sort_final_days));
+        isArrangementFinalDays = false;
+
         layout.invalidate();
     }
 
@@ -523,6 +567,7 @@ public class AnalysisActivity extends DatabaseActivity
                         public void onClick(DialogInterface dialog, int item)
                         {
                             selectedInfluenceFactorSet = items[item].toString();
+                            tvInfluenceFactorSet.setText(selectedInfluenceFactorSet);
                             influenceFactorChanged = true;
                             refreshAnalysis();
                         }
@@ -588,7 +633,7 @@ public class AnalysisActivity extends DatabaseActivity
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_analysis, menu);
-
+        this.menu = menu;
         return true;
     }
 
@@ -600,9 +645,128 @@ public class AnalysisActivity extends DatabaseActivity
             case R.id.home:
                 super.onBackPressed();
                 return true;
+            case R.id.action_generate_demo_values:
+                generateDemoValues();
+                return true;
+            case R.id.action_open_statistics:
+                openStatisticActivtiy();
+                return true;
+            case R.id.action_change_analysis_sort:
+                changeDiagrammArrangement();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void openStatisticActivtiy()
+    {
+        Intent i = new Intent(AnalysisActivity.this, StatisticsActivity.class);
+        startActivity(i);
+    }
+
+    private void changeDiagrammArrangement()
+    {
+        MenuItem arrangementMenuItem = menu.findItem(R.id.action_change_analysis_sort);
+        if(!isArrangementFinalDays){
+            isArrangementFinalDays = true;
+            arrangementMenuItem.setTitle(getString(R.string.action_change_analysis_sort_estimated_days));
+            Collections.sort(selectedProjects, new Comparator<Project>()
+            {
+                @Override
+                public int compare(Project p1, Project p2)
+                {
+                    return Double.compare(p1.getFinalPersonDays(), p2.getFinalPersonDays());
+                }
+
+            });
+            projectNames = new ArrayList<>();
+            for (Project proj : selectedProjects)
+            {
+                projectNames.add(proj.getTitle());
+            }
+        } else {
+            isArrangementFinalDays = false;
+            arrangementMenuItem.setTitle(getString(R.string.action_change_analysis_sort_final_days));
+            Collections.sort(selectedProjects, new Comparator<Project>()
+            {
+                @Override
+                public int compare(Project p1, Project p2)
+                {
+                    return Double.compare(p1.getEvaluatedPersonDays(), p2.getEvaluatedPersonDays());
+                }
+
+            });
+            projectNames = new ArrayList<>();
+            for (Project proj : selectedProjects)
+            {
+                projectNames.add(proj.getTitle());
+            }
+        }
+        CombinedData data = new CombinedData(projectNames);
+
+        data.setData(loadLineDataTerminatedPersonDays());
+        data.setData(loadBarDataEstimatedPersonDays());
+        personDaysChart.setData(data);
+
+        personDaysChart.notifyDataSetChanged();
+        personDaysChart.invalidate();
+        layout.invalidate();
+    }
+
+    private void generateDemoValues()
+    {
+        tvProjectName.setText("");
+        tvFinalPersonDays.setText("");
+        tvEvaluatedPersonDays.setText("");
+
+        selectedProjects = new ArrayList<>();
+
+        Random r = new Random();
+        int maxPoint = 4000;
+        int maxDays = 4000;
+
+        for (int i = 0; i < 40; i++)
+        {
+            int min = r.nextInt((i+60) - 20 + 1) + 20;
+
+            Project p = new Project(this);
+            p.setTitle("Project " + i);
+            p.setEvaluatedPoints(r.nextInt(maxPoint - min + 1) + min);
+            int evaluatedDays = r.nextInt(maxDays - min + 1) + min;
+            p.setEvaluatedPersonDays(evaluatedDays);
+            double fakt =  r.nextInt(80 - 5 + 1) + 5;
+            fakt = (fakt/100) + 1;
+            p.setFinalPersonDays(evaluatedDays*fakt);
+
+            p.initialiseEstimationItems(getString(R.string.estimation_method_function_point));
+            p.getEstimationItems();
+
+            p.setEstimationMethod(getString(R.string.estimation_method_function_point));
+            p.setInfluencingFactor(databaseHelper.loadInfluenceFactorById(2001));
+
+            selectedProjects.add(p);
+        }
+
+        Collections.sort(selectedProjects, new Comparator<Project>()
+        {
+            @Override
+            public int compare(Project p1, Project p2)
+            {
+                return Double.compare(p1.getEvaluatedPoints(), p2.getEvaluatedPoints());
+            }
+
+        });
+        for (Project p : selectedProjects)
+        {
+            projectNames.add(p.getTitle());
+        }
+
+        tvEstimationMethod.setText(getString(R.string.estimation_method_function_point));
+        tvInfluenceFactorSet.setText("Demo Factor");
+        chosenProject = selectedProjects.get(0);
+        refreshAnalysis();
+        refreshCharData();
     }
 
     public boolean onPrepareOptionsMenu(Menu menu)
