@@ -40,6 +40,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -2102,5 +2103,49 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public XmlHelper getXmlHelper()
     {
         return xmlHelper;
+    }
+
+    public ArrayList<Project> searchAllProjectsWithName(Context context, String searchQuery)
+    {
+        ArrayList<Project> projects = new ArrayList<>();
+        ArrayList<String> searchTerms = new ArrayList<>();
+        for (String word : searchQuery.split(" "))
+        {
+            searchTerms.add(word);
+        }
+
+        String selectQuery = "SELECT * FROM Projects WHERE is_deleted = 0;";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                do
+                {
+                    Project p = new Project(context);
+                    p.setTitle(c.getString(c.getColumnIndex("name")));
+
+                    for (String key : searchTerms)
+                    {
+                        if (p.getTitle().toLowerCase().contains(key.toLowerCase()))
+                        {
+                            p.setEstimationMethod(getEstimationMethodNameById(c.getString(c.getColumnIndex("estimation_method_id"))));
+                            int detailsId = c.getInt(c.getColumnIndex("project_details_id"));
+
+                            p.setImage(loadProjectImageFromProjectDetails(detailsId));
+                            p.setCreationDate(c.getString(c.getColumnIndex("created_at")));
+
+                            p.setProjectId(c.getInt(c.getColumnIndex("_id")));
+                            projects.add(p);
+                            break;
+                        }
+                    }
+                } while (c.moveToNext());
+            }
+        }
+        db.close();
+        return projects;
     }
 }

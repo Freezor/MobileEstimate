@@ -48,6 +48,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
     private ListView projectsListView;
     private ProjectListAdapter projectsAdapter;
     private TextView navigationDrawerUserNameTextView;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -270,9 +271,33 @@ public class ProjectOverviewActivity extends DatabaseActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_project_overview, menu);
+
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setIconifiedByDefault(false);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        {
+            @Override
+            public boolean onQueryTextSubmit(String query)
+            {
+                Log.d("INFO","Search query: "+query);
+                Intent i = new Intent(ProjectOverviewActivity.this,ProjectSearchResultsActivity.class);
+                i.putExtra(getString(R.string.PROJECT_SEARCH_QUERY),query);
+                startActivity(i);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText)
+            {
+
+                return false;
+            }
+        });
         return true;
     }
 
@@ -338,27 +363,27 @@ public class ProjectOverviewActivity extends DatabaseActivity
 
     private void changeProjectsView()
     {
-            projectsListView = (ListView) findViewById(R.id.projectsList);
-            projectsAdapter = new ProjectListAdapter(this, projectsList);
-            projectsListView.setAdapter(projectsAdapter);
-            projectsListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        projectsListView = (ListView) findViewById(R.id.projectsList);
+        projectsAdapter = new ProjectListAdapter(this, projectsList);
+        projectsListView.setAdapter(projectsAdapter);
+        projectsListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-                {
-                    onClickProject(position);
-                }
-            });
-            projectsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+                onClickProject(position);
+            }
+        });
+        projectsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+        {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
             {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
-                {
-                    onLongClickProject(position);
-                    return true;
-                }
-            });
-            projectsAdapter.notifyDataSetChanged();
+                onLongClickProject(position);
+                return true;
+            }
+        });
+        projectsAdapter.notifyDataSetChanged();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

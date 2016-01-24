@@ -267,6 +267,10 @@
     <string name="fragment_statistic_programming_language_title">Programming Language</string>
     <string name="fragment_statistic_projects_title">Projects</string>
     <string name="action_filter">Filter Projects</string>
+    <string name="title_activity_project_search_results">Search Results</string>
+    <string name="PROJECT_SEARCH_QUERY">PROJECTSEARCHQUERY</string>
+    <string name="no_search_results">No search results found</string>
+    <string name="error">Error</string>
 
 
 </resources>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.mobileprojectestimator.mobileprojectestimator"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+    package="com.mobileprojectestimator.mobileprojectestimator"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"
@@ -22,8 +23,8 @@
             </intent-filter>
 
             <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable"/>
+                android:name="android.app.default_searchable"
+                android:value=".ProjectSearchResultsActivity"/>
         </activity>
         <activity
             android:name=".Activities.GuidedProjectCreationActivity"
@@ -184,15 +185,32 @@
         <activity
             android:name=".Activities.StatisticsActivity"
             android:label="@string/title_activity_statistics"
-            android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".Activities.AnalysisActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activities.AnalysisActivity"/>
+        </activity>
+        <activity
+            android:name=".Activities.ProjectSearchResultsActivity"
+            android:label="@string/title_activity_project_search_results"
+            android:parentActivityName=".Activities.ProjectOverviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.ProjectOverviewActivity"/>
         </activity>
     </application>
 
