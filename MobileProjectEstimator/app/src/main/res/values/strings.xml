@@ -102,10 +102,10 @@
     <string name="project_hash_suffix_medium" translatable="false">_MEDIUM</string>
     <string name="project_hash_suffix_complex" translatable="false">_COMPLEX</string>
     <string name="project_hash_suffix_total_amount" translatable="false">_TOTAL_AMOUNT</string>
-    <string name="pref_user_info_title" translatable="false">USER INFORMATION</string>
+    <string name="pref_user_info_title" translatable="false">User Informations</string>
     <string name="pref_user_name_summary" translatable="false">Set username</string>
     <string name="pref_password_summary" translatable="false">Set password</string>
-    <string name="pref_user_name_title" translatable="false">Name</string>
+    <string name="pref_user_name_title" translatable="false">Username</string>
     <string name="pref_user_password_title" translatable="false">Password</string>
     <string name="pref_update_settings" translatable="false">UPDATE SETTINGS</string>
     <string name="pref_send_report_summary" translatable="false">Helps to fix bugs</string>
@@ -221,7 +221,7 @@
     <string name="PROJECT_ICON_DIALOG_CODE">7723</string>
     <string name="property_not_set">Not set yet</string>
     <string name="dialog_ok">OK</string>
-    <string name="dialog.cancel">Cancel</string>
+    <string name="dialog_cancel">Cancel</string>
     <string name="longclick_project">Project Information for</string>
     <string name="dialog_delete_project_request">Do you really want to delete this project? There is no way to restore a deleted project.</string>
     <string name="title_activity_project_information">Project Informations</string>
@@ -272,5 +272,58 @@
     <string name="no_search_results">No search results found</string>
     <string name="error">Error</string>
 
+    <!-- Strings related to Settings -->
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string name="preferences_user_informations">User Informations</string>
+    <string name="preferences_database_settings">Database Settings</string>
+    <string name="preferences_support">Support</string>
+    <string name="pref_check_login">Check Login</string>
+    <string name="preferences_synchronisation">Synchronisation</string>
+    <string name="pref_key_sync_frequency">SYNCFREQUENCY</string>
+    <string name="preferences_auto_synch">Automatic Synchronisation</string>
+    <string name="pref_key_auto_sync">AUTOSYNCH</string>
+    <string name="pref_key_sync_connection_option">SYNCOPTIONS</string>
+    <string name="pref_title_sync_connection_option">Connection Options</string>
+    <string name="pref_database_size">Database size</string>
+    <string name="pref_database_size_key">DBSIZEKEY</string>
+    <string name="pref_deleted_projects">View deleted Project</string>
+    <string name="pref_deleted_projects_key">DELETEDPROJECTSKEY</string>
+    <string name="pref_delete_projects">Completly Delete Projects</string>
+    <string name="pref_delete_projects_key">COMPLETEDELETEKEY</string>
+    <string name="pref_send_crash_reports_automatically">Send crash reports automatically</string>
+    <string name="pref_send_crash_reports_automatically_key">AUTOMATICCRASHREPORTKEX</string>
+    <string name="pref_send_logfiles">Send Logfiles</string>
+    <string name="pref_send_logfiles_key">SENDLOGSKEY</string>
+    <string name="pref_ask_question">Ask a question</string>
+    <string name="pref_ask_question_key">ASKQUESTIONKEY</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>daily</item>
+        <item>weekly</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>1</item>
+        <item>3</item>
+        <item>6</item>
+        <item>24</item>
+        <item>168</item>
+        <item>-1</item>
+    </string-array>
+    <string-array name="pref_sync_connection_option_titles">
+        <item>WLAN</item>
+        <item>Mobile Connection</item>
+        <item>Roaming</item>
+    </string-array>
+    <string-array name="pref_sync_connection_option_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string-array name="pref_sync_connection_option_values_default">
+        <item>1</item>
+    </string-array>
 
 </resources>

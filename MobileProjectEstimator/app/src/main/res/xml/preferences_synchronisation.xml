@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:defaultValue="1"
+        android:title="@string/preferences_auto_synch"
+        android:key="@string/pref_key_auto_sync"
+        />
+    <ListPreference
+        android:defaultValue="24"
+        android:entries="@array/pref_sync_frequency_titles"
+        android:entryValues="@array/pref_sync_frequency_values"
+        android:key="@string/pref_key_sync_frequency"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:title="@string/pref_title_sync_frequency"/>
+    <MultiSelectListPreference
+        android:defaultValue="@array/pref_sync_connection_option_values_default"
+        android:entries="@array/pref_sync_connection_option_titles"
+        android:entryValues="@array/pref_sync_connection_option_values"
+        android:key="@string/pref_key_sync_connection_option"
+        android:negativeButtonText="@string/dialog_ok"
+        android:positiveButtonText="@string/dialog_cancel"
+        android:title="@string/pref_title_sync_connection_option"/>
+
+
+</PreferenceScreen>

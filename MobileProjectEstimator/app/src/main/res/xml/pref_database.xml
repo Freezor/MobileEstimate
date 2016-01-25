@@ -1,0 +1,13 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:title="@string/pref_database_size"
+        android:key="@string/pref_database_size_key"/>
+    <Preference
+        android:title="@string/pref_deleted_projects"
+        android:key="@string/pref_deleted_projects_key"/>
+    <Preference
+        android:title="@string/pref_delete_projects"
+        android:key="@string/pref_delete_projects_key"/>
+
+</PreferenceScreen>
