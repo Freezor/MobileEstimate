@@ -57,9 +57,9 @@ public class ProjectOverviewActivity extends DatabaseActivity
     {
         super.onCreate(savedInstanceState);
         logging = new LoggingHelper(this);
-        logging.writeToLog("This is a Info",LoggingHelper.LOGLEVEL_INFO);
-        logging.writeToLog("This is a Warning",LoggingHelper.LOGLEVEL_WARNING);
-        logging.writeToLog("This is a Error",LoggingHelper.LOGLEVEL_ERROR);
+
+        setTitle(getString(R.string.activity_project_overview_title));
+
         initDatabase();
         databaseHelper.logAllTableNames();
 
@@ -71,6 +71,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
             serverConnector.synchronise();
         } else
         {
+            logging.writeToLog("Server connection failure",LoggingHelper.LOGLEVEL_ERROR);
             Log.d("ERROR", "Server connection failure");
         }
 

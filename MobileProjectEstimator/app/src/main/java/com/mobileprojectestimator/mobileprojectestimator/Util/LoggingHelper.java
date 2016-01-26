@@ -12,6 +12,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * Created by Oliver Fries on 26.01.2016, 17:45.
@@ -42,8 +44,19 @@ public class LoggingHelper
 
     private void openOrCreateLog()
     {
-        logFile = new File(context.getApplicationContext().getFilesDir(), "log.txt");
+        //logFile = new File(context.getApplicationContext().getFilesDir(), "log.txt");
+        logFile = new File(context.getFilesDir(), "log.txt");
         if(!logFile.exists()) {
+            try
+            {
+                logFile.createNewFile();
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        long mbSize = logFile.length()/(1024*1024);
+        if(mbSize > 2){
             try
             {
                 logFile.createNewFile();
@@ -58,13 +71,16 @@ public class LoggingHelper
     {
         openOrCreateLog();
         try {
+            Calendar c = Calendar.getInstance();
+            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy kk:mm:ss");
+            String formattedDate = df.format(c.getTime());
 
             FileWriter fw = new FileWriter(logFile,true);
             switch(logLevel){
                 case 0:
                     try
                     {
-                        fw.append("INFO: " + text +"\r\n");
+                        fw.append("INFO: "+formattedDate+" " + text +"\r\n");
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -73,7 +89,7 @@ public class LoggingHelper
                 case 1:
                     try
                     {
-                        fw.append("WARNING: " + text +"\r\n");
+                        fw.append("WARNING: "+formattedDate+" " + text +"\r\n");
                     } catch (IOException e)
                     {
                         e.printStackTrace();
@@ -82,7 +98,7 @@ public class LoggingHelper
                 case 2:
                     try
                     {
-                        fw.append("ERROR: " + text +"\r\n");
+                        fw.append("ERROR: "+formattedDate+" " + text +"\r\n");
                     } catch (IOException e)
                     {
                         e.printStackTrace();

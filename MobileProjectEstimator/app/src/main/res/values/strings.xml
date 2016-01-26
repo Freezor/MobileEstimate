@@ -315,6 +315,7 @@
     <string name="problem_hint">Please describe your problem</string>
     <string name="problem_include_logs">Include Logfiles</string>
     <string name="support_message_too_short">Please give us a clearer description of your problem.</string>
+    <string name="activity_project_overview_title">All Projects</string>
     <string-array name="pref_sync_frequency_titles">
         <item>1 hour</item>
         <item>3 hours</item>

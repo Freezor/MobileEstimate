@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.SearchView;
@@ -43,6 +44,7 @@ public class ContactSupportActivity extends AppCompatActivity
 
         etProblemDescription = (EditText) findViewById(R.id.etProblemDescription);
         cbSendLogFiles = (CheckBox) findViewById(R.id.cbSendLogFiles);
+        cbSendLogFiles.setVisibility(View.INVISIBLE);
     }
 
     @Override
