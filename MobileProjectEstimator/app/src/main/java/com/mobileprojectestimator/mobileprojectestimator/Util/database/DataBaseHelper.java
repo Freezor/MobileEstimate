@@ -26,10 +26,6 @@ import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Pro
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.ProjectProperties;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -40,7 +36,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -86,6 +81,16 @@ public class DataBaseHelper extends SQLiteOpenHelper
         }
         xmlHelper = new XmlHelper(context);
         this.context = context;
+    }
+
+    public String getDbPath()
+    {
+        return DB_PATH;
+    }
+
+    public String getDbName()
+    {
+        return DB_NAME;
     }
 
     /**
@@ -1956,7 +1961,6 @@ public class DataBaseHelper extends SQLiteOpenHelper
     }
 
 
-
     public ArrayList<Project> loadActiveProjectsByEstimationMethodAndInfluenceSet(String selectedEstimationMethod, String selectedInfluenceFactorSet)
     {
         ArrayList<Project> projects = new ArrayList<>();
@@ -2065,7 +2069,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         return projects;
     }
 
-    public ArrayList<PropertyProjects> loadPropertyStatistic(String tablename,String propertyColumnname)
+    public ArrayList<PropertyProjects> loadPropertyStatistic(String tablename, String propertyColumnname)
     {
         ArrayList<PropertyProjects> values = new ArrayList<>();
 
@@ -2147,5 +2151,29 @@ public class DataBaseHelper extends SQLiteOpenHelper
         }
         db.close();
         return projects;
+    }
+
+    public int completeDeleteProjects()
+    {
+        String selectQuery = "SELECT * FROM Projects WHERE is_deleted = 1;";
+
+        int project = 0;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                do
+                {
+                    project++;
+                    int id = c.getInt(c.getColumnIndex("_id"));
+                    deleteProjectFromDatabase(id);
+                } while (c.moveToNext());
+            }
+        }
+        db.close();
+        return project;
     }
 }

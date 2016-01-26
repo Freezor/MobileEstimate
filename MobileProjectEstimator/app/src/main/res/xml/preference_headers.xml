@@ -5,7 +5,7 @@
     <header
         android:fragment="com.mobileprojectestimator.mobileprojectestimator.Activities.SettingsActivity$UserPreferenceFragment"
         android:icon="@drawable/ic_action_user"
-        android:title="@string/preferences_user_informations"/>
+        android:title="@string/preferences_user_informations_key"/>
 
     <header
         android:fragment="com.mobileprojectestimator.mobileprojectestimator.Activities.SettingsActivity$SynchronisationPreferenceFragment"

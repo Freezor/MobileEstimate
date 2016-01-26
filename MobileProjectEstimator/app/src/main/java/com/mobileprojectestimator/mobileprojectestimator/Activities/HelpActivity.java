@@ -3,8 +3,10 @@ package com.mobileprojectestimator.mobileprojectestimator.Activities;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -240,10 +242,11 @@ public class HelpActivity extends DatabaseActivity
 
     private void onClickFeedback()
     {
-        //TODO: send feedback with extra intent and without mail app
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String userName = sharedPref.getString(getString(R.string.pref_key_user_name), "");
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                 "mailto", "frieso@fh-trier.de", null));
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.feedback_subject));
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, userName + ": " +getString(R.string.feedback_subject));
         startActivity(Intent.createChooser(emailIntent, getString(R.string.mail_feedback_intent_title)));
     }
 

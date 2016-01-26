@@ -30,6 +30,7 @@ import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Inf
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 import com.mobileprojectestimator.mobileprojectestimator.Server.ServerConnector;
+import com.mobileprojectestimator.mobileprojectestimator.Util.LoggingHelper;
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.ProjectListAdapter;
 
 import java.util.ArrayList;
@@ -49,11 +50,16 @@ public class ProjectOverviewActivity extends DatabaseActivity
     private ProjectListAdapter projectsAdapter;
     private TextView navigationDrawerUserNameTextView;
     private Menu menu;
+    private LoggingHelper logging;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        logging = new LoggingHelper(this);
+        logging.writeToLog("This is a Info",LoggingHelper.LOGLEVEL_INFO);
+        logging.writeToLog("This is a Warning",LoggingHelper.LOGLEVEL_WARNING);
+        logging.writeToLog("This is a Error",LoggingHelper.LOGLEVEL_ERROR);
         initDatabase();
         databaseHelper.logAllTableNames();
 

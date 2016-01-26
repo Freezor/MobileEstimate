@@ -18,8 +18,8 @@
         android:entries="@array/pref_sync_connection_option_titles"
         android:entryValues="@array/pref_sync_connection_option_values"
         android:key="@string/pref_key_sync_connection_option"
-        android:negativeButtonText="@string/dialog_ok"
-        android:positiveButtonText="@string/dialog_cancel"
+        android:negativeButtonText="@string/dialog_cancel"
+        android:positiveButtonText="@string/dialog_ok"
         android:title="@string/pref_title_sync_connection_option"/>
 
 

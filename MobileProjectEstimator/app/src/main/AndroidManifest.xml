@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="com.mobileprojectestimator.mobileprojectestimator"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest package="com.mobileprojectestimator.mobileprojectestimator"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          android:versionCode="1"
+          android:versionName="0.5">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+    android:allowBackup="true"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:supportsRtl="true"
+    android:theme="@style/AppTheme">
         <activity
             android:name=".Activities.ProjectOverviewActivity"
-            android:label="@string/title_activity_projects_overview"
+            android:label="@string/app_name"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -66,9 +69,9 @@
                 android:value=".Activities.FunctionPointProjectActivtiy"/>
         </activity>
         <activity
-            android:name="com.mobileprojectestimator.mobileprojectestimator.Activities.SettingsActivity"
+            android:name=".Activities.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName="com.mobileprojectestimator.mobileprojectestimator.Activities.ProjectOverviewActivity"
+            android:parentActivityName=".Activities.ProjectOverviewActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
             <meta-data
@@ -210,6 +213,65 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activities.ProjectOverviewActivity"/>
+        </activity>
+        <activity
+            android:name=".Activities.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:parentActivityName=".Activities.SettingsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.SettingsActivity"/>
+        </activity>
+        <activity
+            android:name=".Activities.UserInformationsActivity"
+            android:label="@string/title_activity_user_informations"
+            android:parentActivityName=".Activities.SettingsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.SettingsActivity"/>
+        </activity>
+        <activity
+            android:name=".Activities.AboutActivity"
+            android:label="@string/title_activity_about"
+            android:parentActivityName=".Activities.SettingsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.SettingsActivity"/>
+        </activity>
+        <activity
+            android:name=".Activities.LicenceActivity"
+            android:label="@string/title_activity_licence"
+            android:parentActivityName=".Activities.AboutActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.AboutActivity"/>
+        </activity>
+        <activity android:name=".Activities.ContactSupportActivity"
+                  android:label="@string/title_activity_contact_support"
+                  android:parentActivityName=".Activities.SettingsActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustPan">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.SettingsActivity"/>
         </activity>
     </application>
 

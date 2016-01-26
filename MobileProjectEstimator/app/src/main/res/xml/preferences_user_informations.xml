@@ -24,6 +24,6 @@
 
     <Preference
         android:title="@string/pref_user_info_title"
-        android:key="@string/preferences_user_informations"/>
+        android:key="@string/preferences_user_informations_key"/>
 
 </PreferenceScreen>
