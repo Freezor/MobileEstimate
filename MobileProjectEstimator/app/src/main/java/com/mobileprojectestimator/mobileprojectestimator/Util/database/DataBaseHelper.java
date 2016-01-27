@@ -24,6 +24,7 @@ import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Stati
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.ProjectProperties;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.ProjectFilter;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.io.File;
@@ -414,7 +415,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
      */
     public int getEstimationMethodId(String estimationMethod)
     {
-        String query = String.format("SELECT _id FROM EstimationMethod WHERE name = '%s';", getResourceNameByStringResourceValue(estimationMethod));
+        String query = String.format("SELECT _id FROM EstimationMethod WHERE name = \"%s\";", getResourceNameByStringResourceValue(estimationMethod));
         SQLiteDatabase db = this.getReadableDatabase();
 
         int estimationId;
@@ -2221,11 +2222,47 @@ public class DataBaseHelper extends SQLiteOpenHelper
         {
             SQLiteDatabase db = this.getWritableDatabase();
 
-            //Update Project Name
             ContentValues args = new ContentValues();
             args.put("is_deleted", 0);
             db.update("Projects", args, "_id=" + p.getProjectId(), null);
             db.close();
         }
+    }
+
+    public ArrayList<Project> getAllActiveProjectsWithFilter(Activity activity, ProjectFilter filter)
+    {
+        ArrayList<Project> projects = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM Projects WHERE is_deleted = 0";
+
+        if (!filter.getEstimationMethod().isEmpty() && !filter.getEstimationMethod().equals("") && !filter.getEstimationMethod().equals(context.getString(R.string.filter_none)))
+        {
+            selectQuery = selectQuery + " AND estimation_method_id = "+getEstimationMethodId(filter.getEstimationMethod())+";";
+
+        }
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                do
+                {
+                    Project p = new Project(activity.getBaseContext());
+                    p.setTitle(c.getString(c.getColumnIndex("name")));
+                    p.setEstimationMethod(getEstimationMethodNameById(c.getString(c.getColumnIndex("estimation_method_id"))));
+                    int detailsId = c.getInt(c.getColumnIndex("project_details_id"));
+
+                    p.setImage(loadProjectImageFromProjectDetails(detailsId));
+                    p.setCreationDate(c.getString(c.getColumnIndex("created_at")));
+
+                    p.setProjectId(c.getInt(c.getColumnIndex("_id")));
+                    projects.add(p);
+                } while (c.moveToNext());
+            }
+        }
+        db.close();
+        return projects;
     }
 }

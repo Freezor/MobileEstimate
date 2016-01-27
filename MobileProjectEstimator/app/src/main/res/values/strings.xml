@@ -327,6 +327,14 @@
     <string name="dialog_erase_projects_message">WARNING: There is absolutely no way to restore erased projects</string>
     <string name="erase_projects_successful">Projects successfully erased</string>
     <string name="action_de_select_all_projects">Deselect all</string>
+    <string name="filter_estimation_method_key">ESTIMATIONMETHODFILTER</string>
+    <string name="filter_is_active_key">FILTERISACTIVE</string>
+    <string name="title_activity_project_filter">Project Filter</string>
+    <string name="filter_activate">Activate Filter</string>
+    <string name="filter_estimation_method">Estimation Method</string>
+    <string name="filter_none">None</string>
+    <string name="filter_estimation_method_dialog_title">Set Estimation Method Filter</string>
+    <string name="SET_PROJECT_FILTER_REQUEST_CODE">7856</string>
     <string-array name="pref_sync_frequency_titles">
         <item>1 hour</item>
         <item>3 hours</item>

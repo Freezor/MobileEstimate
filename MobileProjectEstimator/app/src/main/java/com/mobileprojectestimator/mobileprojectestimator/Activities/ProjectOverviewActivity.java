@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.ProjectFilter;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 import com.mobileprojectestimator.mobileprojectestimator.Server.ServerConnector;
 import com.mobileprojectestimator.mobileprojectestimator.Util.LoggingHelper;
@@ -51,13 +52,15 @@ public class ProjectOverviewActivity extends DatabaseActivity
     private TextView navigationDrawerUserNameTextView;
     private Menu menu;
     private LoggingHelper logging;
+    private ProjectFilter filter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         logging = new LoggingHelper(this);
-
+        filter = new ProjectFilter();
+        filter.setIsActive(false);
         setTitle(getString(R.string.activity_project_overview_title));
 
         initDatabase();
@@ -71,7 +74,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
             serverConnector.synchronise();
         } else
         {
-            logging.writeToLog("Server connection failure",LoggingHelper.LOGLEVEL_ERROR);
+            logging.writeToLog("Server connection failure", LoggingHelper.LOGLEVEL_ERROR);
             Log.d("ERROR", "Server connection failure");
         }
 
@@ -228,7 +231,13 @@ public class ProjectOverviewActivity extends DatabaseActivity
         if (databaseHelper.hasProjects())
         {
             projectsList.clear();
-            projectsList.addAll(databaseHelper.getAllActiveProjects(this));
+            if (filter.isActive())
+            {
+                projectsList.addAll(databaseHelper.getAllActiveProjectsWithFilter(this,filter));
+            } else
+            {
+                projectsList.addAll(databaseHelper.getAllActiveProjects(this));
+            }
         } else
         {
             generateTestProject();
@@ -291,9 +300,9 @@ public class ProjectOverviewActivity extends DatabaseActivity
             @Override
             public boolean onQueryTextSubmit(String query)
             {
-                Log.d("INFO","Search query: "+query);
-                Intent i = new Intent(ProjectOverviewActivity.this,ProjectSearchResultsActivity.class);
-                i.putExtra(getString(R.string.PROJECT_SEARCH_QUERY),query);
+                Log.d("INFO", "Search query: " + query);
+                Intent i = new Intent(ProjectOverviewActivity.this, ProjectSearchResultsActivity.class);
+                i.putExtra(getString(R.string.PROJECT_SEARCH_QUERY), query);
                 startActivity(i);
                 return false;
             }
@@ -335,6 +344,13 @@ public class ProjectOverviewActivity extends DatabaseActivity
         {
             reloadProjectsFromDatabase();
             projectsAdapter.notifyDataSetChanged();
+        } else if (requestCode == Integer.parseInt((getString(R.string.SET_PROJECT_FILTER_REQUEST_CODE))))
+        {
+            Log.d("INFO","Filter Request");
+            if (resultCode == RESULT_OK)
+            {
+                loadProjectFilter();
+            }
         }
     }
 
@@ -358,11 +374,24 @@ public class ProjectOverviewActivity extends DatabaseActivity
         switch (item.getItemId())
         {
             case R.id.action_filter:
+                Intent i = new Intent(ProjectOverviewActivity.this, ProjectFilterActivity.class);
+                startActivityForResult(i, Integer.parseInt((getString(R.string.SET_PROJECT_FILTER_REQUEST_CODE))));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    private void loadProjectFilter()
+    {
+        filter = new ProjectFilter();
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        filter.setIsActive(sharedPref.getBoolean(getString(R.string.filter_is_active_key),false));
+        String estimationMethodFilter = sharedPref.getString(getString(R.string.filter_estimation_method_key), "");
+        filter.setEstimationMethod(estimationMethodFilter);
+
+        reloadProjectsFromDatabase();
     }
 
     private void changeProjectsView()

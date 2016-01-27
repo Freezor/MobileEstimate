@@ -272,16 +272,28 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activities.SettingsActivity"/>
         </activity>
-        <activity android:name=".Activities.DeletedProjectsActivity"
-                  android:label="@string/title_activity_deleted_projects"
-                  android:parentActivityName=".Activities.SettingsActivity"
+        <activity
+            android:name=".Activities.DeletedProjectsActivity"
+            android:label="@string/title_activity_deleted_projects"
+            android:parentActivityName=".Activities.SettingsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.SettingsActivity"/>
+        </activity>
+        <activity android:name=".Activities.ProjectFilterActivity"
+                  android:label="@string/title_activity_project_filter"
+                  android:parentActivityName=".Activities.ProjectOverviewActivity"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="adjustPan">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.SettingsActivity"/>
+                android:value=".Activities.ProjectOverviewActivity"/>
         </activity>
     </application>
 
