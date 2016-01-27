@@ -429,6 +429,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity
             initDatabase();
 
             final Preference databaseSize = (Preference) findPreference(getString(R.string.pref_database_size_key));
+            long size = new File(databaseHelper.getDbPath() + databaseHelper.getDbName()).length();
+            databaseSize.setSummary(formatSize(size));
             databaseSize.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
             {
                 @Override
@@ -457,6 +459,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                 }
             });
 
+
+            Preference viewDeletedProjects = (Preference) findPreference(getString(R.string.pref_deleted_projects_key));
+            viewDeletedProjects.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+            {
+                @Override
+                public boolean onPreferenceClick(Preference preference)
+                {
+                    Intent i = new Intent(getActivity(), DeletedProjectsActivity.class);
+                    startActivity(i);
+                    return true;
+                }
+            });
 
             final Preference completeDeleteProjects = (Preference) findPreference(getString(R.string.pref_delete_projects_key));
             completeDeleteProjects.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()

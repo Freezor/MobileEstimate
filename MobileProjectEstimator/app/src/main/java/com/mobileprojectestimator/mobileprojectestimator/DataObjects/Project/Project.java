@@ -42,6 +42,7 @@ public class Project implements Serializable
     private boolean isTerminated;
     private double finalPersonDays;
     private double evaluatedPoints;
+    private boolean selected;
 
     /**
      * Constructs a new instance of {@code Object}.
@@ -633,5 +634,15 @@ public class Project implements Serializable
             totalPoints += item.getTotalAmount();
         }
         return totalPoints;
+    }
+
+    public void setSelected(boolean selected)
+    {
+        this.selected = selected;
+    }
+
+    public boolean isSelected()
+    {
+        return selected;
     }
 }

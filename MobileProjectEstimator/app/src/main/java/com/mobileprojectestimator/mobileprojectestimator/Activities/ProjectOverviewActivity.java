@@ -329,6 +329,8 @@ public class ProjectOverviewActivity extends DatabaseActivity
             {
                 navigationDrawerUserNameTextView.setText(userName);
             }
+            reloadProjectsFromDatabase();
+            projectsAdapter.notifyDataSetChanged();
         } else if (requestCode == Integer.parseInt((getString(R.string.PROJECT_VIEW_CODE))))
         {
             reloadProjectsFromDatabase();

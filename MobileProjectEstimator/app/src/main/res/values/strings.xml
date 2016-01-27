@@ -285,7 +285,7 @@
     <string name="pref_title_sync_connection_option">Connection Options</string>
     <string name="pref_database_size">Database size</string>
     <string name="pref_database_size_key">DBSIZEKEY</string>
-    <string name="pref_deleted_projects">View deleted Project</string>
+    <string name="pref_deleted_projects">View deleted Projects</string>
     <string name="pref_deleted_projects_key">DELETEDPROJECTSKEY</string>
     <string name="pref_delete_projects">Erase deleted Projects</string>
     <string name="pref_delete_projects_key">COMPLETEDELETEKEY</string>
@@ -316,6 +316,17 @@
     <string name="problem_include_logs">Include Logfiles</string>
     <string name="support_message_too_short">Please give us a clearer description of your problem.</string>
     <string name="activity_project_overview_title">All Projects</string>
+    <string name="title_activity_deleted_projects">Deleted Projects</string>
+    <string name="erase_projects">Erase selected</string>
+    <string name="recover_projects">Recover selected</string>
+    <string name="action_select_all_projects">Select all</string>
+    <string name="dialog_recover_projects_title">Restore %d Projects</string>
+    <string name="dialog_recover_projects_message">The Selected Projects will be recovered and be available in the application again.</string>
+    <string name="recover_projects_successful">Projects recovered successful</string>
+    <string name="dialog_erase_projects_title">Erase %d Projects from the database</string>
+    <string name="dialog_erase_projects_message">WARNING: There is absolutely no way to restore erased projects</string>
+    <string name="erase_projects_successful">Projects successfully erased</string>
+    <string name="action_de_select_all_projects">Deselect all</string>
     <string-array name="pref_sync_frequency_titles">
         <item>1 hour</item>
         <item>3 hours</item>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/layoutDeletedProject"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.mobileprojectestimator.mobileprojectestimator.Activities.DeletedProjectsActivity">
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lvDeletedProjects"
+        android:scrollbarThumbVertical="@drawable/scrollbar_orange"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/bRecover"/>
+
+    <Button
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:text="@string/recover_projects"
+        android:id="@+id/bRecover"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:theme="@style/Base.Widget.AppCompat.ActionButton"
+        android:background="@color/standardButtonColor"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"/>
+
+    <Button
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:text="@string/erase_projects"
+        android:id="@+id/bErase"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:theme="@style/Base.Widget.AppCompat.ActionButton"
+        android:background="@color/standardButtonColor"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"/>
+
+</RelativeLayout>

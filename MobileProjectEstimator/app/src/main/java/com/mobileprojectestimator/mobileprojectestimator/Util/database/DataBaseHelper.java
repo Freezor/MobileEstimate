@@ -25,7 +25,6 @@ import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Inf
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.ProjectProperties;
 import com.mobileprojectestimator.mobileprojectestimator.R;
-import com.mobileprojectestimator.mobileprojectestimator.Util.LoggingHelper;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -2183,5 +2182,50 @@ public class DataBaseHelper extends SQLiteOpenHelper
         }
         db.close();
         return project;
+    }
+
+    public ArrayList<Project> getAllDeletedProjects(Activity activity)
+    {
+        ArrayList<Project> projects = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM Projects WHERE is_deleted = 1;";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                do
+                {
+                    Project p = new Project(activity.getBaseContext());
+                    p.setTitle(c.getString(c.getColumnIndex("name")));
+                    p.setEstimationMethod(getEstimationMethodNameById(c.getString(c.getColumnIndex("estimation_method_id"))));
+                    int detailsId = c.getInt(c.getColumnIndex("project_details_id"));
+
+                    p.setImage(loadProjectImageFromProjectDetails(detailsId));
+                    p.setCreationDate(c.getString(c.getColumnIndex("created_at")));
+
+                    p.setProjectId(c.getInt(c.getColumnIndex("_id")));
+                    projects.add(p);
+                } while (c.moveToNext());
+            }
+        }
+        db.close();
+        return projects;
+    }
+
+    public void recoverProjects(ArrayList<Project> recoverProjectsList)
+    {
+        for (Project p : recoverProjectsList)
+        {
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            //Update Project Name
+            ContentValues args = new ContentValues();
+            args.put("is_deleted", 0);
+            db.update("Projects", args, "_id=" + p.getProjectId(), null);
+            db.close();
+        }
     }
 }
