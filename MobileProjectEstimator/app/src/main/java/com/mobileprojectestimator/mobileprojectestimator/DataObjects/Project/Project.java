@@ -102,11 +102,11 @@ public class Project implements Serializable
         if (estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
         {
             this.estimationItems = new ArrayList<>();
-            this.estimationItems.add(new FunctionPointItem((context.getString(R.string.function_point_estimation_input_data)), 3, 4, 6));
-            this.estimationItems.add(new FunctionPointItem((context.getString(R.string.function_point_estimation_requests)), 3, 4, 6));
-            this.estimationItems.add(new FunctionPointItem((context.getString(R.string.function_point_estimation_output)), 4, 5, 7));
-            this.estimationItems.add(new FunctionPointItem((context.getString(R.string.function_point_estimation_dataset)), 7, 10, 15));
-            this.estimationItems.add(new FunctionPointItem((context.getString(R.string.function_point_estimation_reference_data)), 5, 7, 10));
+            this.estimationItems.add(new FunctionPointItem((context.getString(R.string.function_point_estimation_input_data)), 3, 4, 6));//0
+            this.estimationItems.add(new FunctionPointItem((context.getString(R.string.function_point_estimation_requests)), 3, 4, 6));//1
+            this.estimationItems.add(new FunctionPointItem((context.getString(R.string.function_point_estimation_output)), 4, 5, 7));//2
+            this.estimationItems.add(new FunctionPointItem((context.getString(R.string.function_point_estimation_dataset)), 7, 10, 15));//3
+            this.estimationItems.add(new FunctionPointItem((context.getString(R.string.function_point_estimation_reference_data)), 5, 7, 10));//4
         } else if (estimationMethod.equals(context.getString(R.string.estimation_method_cocomo)))
         {
             this.estimationItems = new ArrayList<>();

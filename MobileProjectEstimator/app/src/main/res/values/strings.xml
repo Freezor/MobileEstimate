@@ -335,6 +335,8 @@
     <string name="filter_none">None</string>
     <string name="filter_estimation_method_dialog_title">Set Estimation Method Filter</string>
     <string name="SET_PROJECT_FILTER_REQUEST_CODE">7856</string>
+    <string name="exported_project_toast">Exported %s to Excel File in Download Folder</string>
+    <string name="exported_project_error_toast">Project could not be exported</string>
     <string-array name="pref_sync_frequency_titles">
         <item>1 hour</item>
         <item>3 hours</item>

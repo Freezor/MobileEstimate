@@ -26,8 +26,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/export_settings"
-        android:id="@+id/bExportSettings"
+        android:text="@string/export_excel"
+        android:id="@+id/bExportExcel"
         android:background="@color/standardButtonColor"
         android:layout_below="@+id/projectSpinner"
         android:layout_centerHorizontal="true"
@@ -36,25 +36,4 @@
         android:textStyle="bold"
         android:theme="@style/Base.Widget.AppCompat.ActionButton"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/export_pdf"
-        android:id="@+id/tvExportPdf"
-        android:layout_below="@+id/bExportSettings"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/estimationType"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/export_excel"
-        android:id="@+id/tvExportExcel"
-        android:layout_below="@+id/tvExportPdf"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/estimationType"/>
 </RelativeLayout>
