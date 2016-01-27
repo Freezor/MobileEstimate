@@ -25,6 +25,7 @@ import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Inf
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.ProjectProperties;
 import com.mobileprojectestimator.mobileprojectestimator.R;
+import com.mobileprojectestimator.mobileprojectestimator.Util.LoggingHelper;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -75,6 +76,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public DataBaseHelper(Context context)
     {
         super(context, DB_NAME, null, 1);
+
         if (DataBaseHelper.resourcesIdMap == null)
         {
             DataBaseHelper.resourcesIdMap = new HashMap<>();
@@ -82,6 +84,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         xmlHelper = new XmlHelper(context);
         this.context = context;
     }
+
 
     public String getDbPath()
     {
@@ -120,6 +123,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
             } catch (IOException e)
             {
+
                 Log.d("Error", "Database Creation Error: " + e.getCause());
                 throw new Error("Error copying database");
 
@@ -372,6 +376,8 @@ public class DataBaseHelper extends SQLiteOpenHelper
                     influenceFactorItems.add(databaseInfluenceFactorItem);
                 } while (c.moveToNext());
             }
+        } catch (Exception e)
+        {
         }
         db.close();
         return influenceFactorItems;
@@ -393,6 +399,8 @@ public class DataBaseHelper extends SQLiteOpenHelper
                     c.moveToNext();
                 }
             }
+        } catch (Exception e)
+        {
         }
         db.close();
     }

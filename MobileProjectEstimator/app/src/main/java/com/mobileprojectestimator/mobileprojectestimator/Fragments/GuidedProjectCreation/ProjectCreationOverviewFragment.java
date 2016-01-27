@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.ProjectItemForCreation;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
+import com.mobileprojectestimator.mobileprojectestimator.Util.LoggingHelper;
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.ProjectCreationListAdapter;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
     protected ProjectCreationListAdapter projectCreationAdapter;
     protected ArrayList<ProjectItemForCreation> creationItems;
     private Project project;
+    private LoggingHelper loggingHelper;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -67,6 +69,7 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
                         initDatabase();
                     }
                     databaseHelper.saveNewProject(this.project);
+                    loggingHelper.writeToLog("Save Project in Database: "+this.project.getTitle(), LoggingHelper.LOGLEVEL_INFO);
                     getActivity().setResult(Activity.RESULT_OK);
                     getActivity().finish();
                 }
@@ -90,6 +93,7 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
     {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        loggingHelper = new LoggingHelper(getActivity());
         initDatabase();
     }
 
@@ -100,7 +104,7 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
         View rootView = inflater.inflate(R.layout.project_creation_overview_fragment, container, false);
         if (this.project == null)
         {
-
+            loggingHelper.writeToLog("ProjectCreationOverviewFragment: onCreateView - project is null",LoggingHelper.LOGLEVEL_ERROR);
             creationItems = new ArrayList<>();
             creationItems.add(new ProjectItemForCreation("Project Name: ", "ERROR"));
             creationItems.add(new ProjectItemForCreation("Project Description: ", "ERROR"));

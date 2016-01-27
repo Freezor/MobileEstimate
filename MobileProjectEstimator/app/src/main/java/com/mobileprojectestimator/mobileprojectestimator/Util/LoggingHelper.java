@@ -1,5 +1,6 @@
 package com.mobileprojectestimator.mobileprojectestimator.Util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
@@ -34,13 +35,12 @@ public class LoggingHelper
         openOrCreateLog();
     }
 
-    public boolean isExternalStorageWritable() {
-        String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
-            return true;
-        }
-        return false;
+    public LoggingHelper(Activity ac)
+    {
+        this.context = ac.getBaseContext();
+        openOrCreateLog();
     }
+
 
     private void openOrCreateLog()
     {

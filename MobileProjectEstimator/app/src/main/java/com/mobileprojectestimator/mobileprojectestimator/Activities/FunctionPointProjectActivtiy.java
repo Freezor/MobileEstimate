@@ -26,6 +26,7 @@ import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstima
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.FunctionPointProject.FunctionPointInfluenceFactorFragment;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.FunctionPointProject.FunctionPointMethodFragment;
 import com.mobileprojectestimator.mobileprojectestimator.R;
+import com.mobileprojectestimator.mobileprojectestimator.Util.LoggingHelper;
 
 import java.util.ArrayList;
 
@@ -47,6 +48,7 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
     @SuppressWarnings("FieldCanBeLocal")
     private Project project;
     private ViewPager mViewPager;
+    private LoggingHelper loggingHelper;
 
     public FunctionPointProjectActivtiy()
     {
@@ -107,6 +109,7 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_function_point_project_activtiy);
 
+        loggingHelper= new LoggingHelper(this);
         try
         {
             Toolbar toolbar = (Toolbar) findViewById(R.id.function_point_toolbar);
@@ -130,6 +133,7 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
         }
         if (projectId == null)
         {
+            loggingHelper.writeToLog("Loading Project from bundle Error",LoggingHelper.LOGLEVEL_ERROR);
             Log.d("ERROR", "Loading Project from bundle Error");
         } else
         {

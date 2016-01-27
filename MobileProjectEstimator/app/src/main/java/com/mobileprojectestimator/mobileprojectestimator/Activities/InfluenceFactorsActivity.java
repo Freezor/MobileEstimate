@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Database.DatabaseInfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.R;
+import com.mobileprojectestimator.mobileprojectestimator.Util.LoggingHelper;
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.InfluenceListAdapter;
 
 import java.util.ArrayList;
@@ -45,11 +46,13 @@ public class InfluenceFactorsActivity extends DatabaseActivity
     private InfluenceListAdapter influenceListAdapter;
     private ArrayList<String> influenceFactorNames;
     private ArrayAdapter<String> dataAdapter;
+    private LoggingHelper loggingHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        loggingHelper = new LoggingHelper(this);
         initDatabase();
 
         setContentView(R.layout.activity_influence_factors);
@@ -231,6 +234,7 @@ public class InfluenceFactorsActivity extends DatabaseActivity
         Intent i = new Intent(InfluenceFactorsActivity.this, CreateNewInfluenceFactorActivity.class);
         i.putExtra(getString(R.string.ISNEWFACTOR),true);
         i.putExtra(getString(R.string.NEWFACTORESTIMATIONMETHOD),selectedEstimationMethod);
+        loggingHelper.writeToLog("Start Intent CreateNewInfluenceFactorActivity: New Factor for "+selectedEstimationMethod,LoggingHelper.LOGLEVEL_INFO);
         startActivityForResult(i, Integer.parseInt(getString(R.string.new_influence_factor_request_code)));
     }
 
