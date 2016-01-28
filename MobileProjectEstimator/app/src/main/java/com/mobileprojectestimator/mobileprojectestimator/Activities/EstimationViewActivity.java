@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,15 +59,22 @@ public class EstimationViewActivity extends DatabaseActivity
         lvEstimationItems = (ListView) findViewById(R.id.lvEstimationItems);
 
         tvEvaluatedDays.setText(getString(R.string.function_point_estimation_evaluated_person_days) + " " + project.getEvaluatedPersonDays());
-        bTransferEvaluation.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                transferEvaluation();
-            }
-        });
 
+        if (relatedProject.getEstimationMethod().equals(project.getEstimationMethod()))
+        {
+            bTransferEvaluation.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    transferEvaluation();
+                }
+            });
+        } else
+        {
+            bTransferEvaluation.setText(getString(R.string.b_transfer_evaluation_not_possible));
+        }
+        
         loadEstimationItems();
 
         setTitle(project.getTitle());
@@ -99,9 +108,15 @@ public class EstimationViewActivity extends DatabaseActivity
                 {
                     public void onClick(DialogInterface dialog, int id)
                     {
-                        copyEstimationItems();
-                        databaseHelper.updateFunctionPointEstimationItems(relatedProject.getEstimationItems());
-                        Toast.makeText(EstimationViewActivity.this, R.string.transfer_evaluation_dialog_success, Toast.LENGTH_SHORT).show();
+                        if (relatedProject.getEstimationMethod().equals(getString(R.string.estimation_method_function_point)))
+                        {
+                            copyEstimationItems();
+                            databaseHelper.updateFunctionPointEstimationItems(relatedProject.getEstimationItems());
+                            Toast.makeText(EstimationViewActivity.this, R.string.transfer_evaluation_dialog_success, Toast.LENGTH_SHORT).show();
+                        } else
+                        {
+                            Toast.makeText(EstimationViewActivity.this, R.string.transfer_evaluation_dialog_not_possible, Toast.LENGTH_SHORT).show();
+                        }
                     }
                 })
                 .setNegativeButton(R.string.no, new DialogInterface.OnClickListener()

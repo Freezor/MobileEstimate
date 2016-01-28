@@ -347,6 +347,10 @@
     <string name="transfer_evaluation_dialog_title">Transfer Evaluation data to %s</string>
     <string name="transfer_evaluation_dialog_content">The existing evaluation data in %s will be overwritten</string>
     <string name="transfer_evaluation_dialog_success">Estimation items successfully transferred.</string>
+    <string name="transfer_evaluation_dialog_not_possible">Transfer of estimation items is not possible</string>
+    <string name="b_transfer_evaluation_not_possible">Transfer not possible</string>
+    <string name="action_show_all_relations">Show all</string>
+    <string name="action_show_only_relevant_relations">Show only relevant</string>
     <string-array name="pref_sync_frequency_titles">
         <item>1 hour</item>
         <item>3 hours</item>

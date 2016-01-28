@@ -2,12 +2,15 @@ package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,13 +41,16 @@ public class FindRelatedProjectsActivity extends DatabaseActivity
     private ListView lvRelatedProjects;
     private RelatedProjectsAdapter dataAdapter;
     private ArrayList<RelatedProject> projectsList;
+    private double percentageBorder;
+    private boolean isShowAll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_related_projects);
-
+        percentageBorder = 50.0;
+        isShowAll = false;
         initDatabase();
 
         Intent intent = getIntent();
@@ -113,7 +120,7 @@ public class FindRelatedProjectsActivity extends DatabaseActivity
     private void loadRelatedProjects()
     {
         ProjectRelationSolver solver = new ProjectRelationSolver(this, selectedProject, databaseHelper.getAllProjects(this));
-        projectsList = solver.getRelatedProject(50.0);
+        projectsList = solver.getRelatedProject(percentageBorder);
 
         if (projectsList.isEmpty() || projectsList.size() == 0)
         {
@@ -145,9 +152,30 @@ public class FindRelatedProjectsActivity extends DatabaseActivity
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.action_show_all_relations:
+                if(isShowAll){
+                    item.setTitle(getString(R.string.action_show_all_relations));
+                    isShowAll=false;
+                    percentageBorder=50.0;
+                }else {
+                    item.setTitle(getString(R.string.action_show_only_relevant_relations));
+                    isShowAll=true;
+                    percentageBorder=0.0;
+                }
+                loadRelatedProjects();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_find_related, menu);
+        return true;
     }
 
     public void finishView()
