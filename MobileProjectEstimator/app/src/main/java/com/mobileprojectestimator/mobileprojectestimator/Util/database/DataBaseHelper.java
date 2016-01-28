@@ -22,6 +22,7 @@ import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Influ
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Statistic.EstimatedProjectItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Statistic.PropertyProjects;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.ProgrammingLanguageProperty;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.ProjectProperties;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.ProjectFilter;
@@ -2298,5 +2299,72 @@ public class DataBaseHelper extends SQLiteOpenHelper
         db.close();
 
         return distance;
+    }
+
+    public int getPropertyDistance(String baseTable, String tableComparisonName,String column1,String column2,String idColumn, String market1, String market2)
+    {
+        int id1 = getPropertyIdFromTable(baseTable, market1);
+        int id2 = getPropertyIdFromTable(baseTable, market2);
+
+        int distance = 0;
+
+        String selectQuery1 = String.format("SELECT * FROM %s WHERE %s=%d AND %s=%d;", tableComparisonName, column1, id1, column2, id2);
+        String selectQuery2 = String.format("SELECT * FROM %s WHERE %s=%d AND %s=%d;", tableComparisonName, column1, id2, column2, id1);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        try (Cursor c = db.rawQuery(selectQuery1, null))
+        {
+            if (c.moveToFirst())
+            {
+                distance = c.getInt(c.getColumnIndex(idColumn));
+
+            } else {
+                try (Cursor c2 = db.rawQuery(selectQuery2, null))
+                {
+                    if (c2.moveToFirst())
+                    {
+                        distance = c2.getInt(c.getColumnIndex(idColumn));
+                    }
+                }
+            }
+        }
+        db.close();
+
+        return distance;
+    }
+
+    public ProgrammingLanguageProperty loadProgrammingLanguageProperty(String programmingLanguage)
+    {
+        ProgrammingLanguageProperty programmingLanguageProperty = new ProgrammingLanguageProperty();
+
+        int languageId = getPropertyIdFromTable("ProgrammingLanguages", programmingLanguage);
+
+        String selectQuery = String.format("SELECT * FROM ProgrammingLanguageProperties WHERE _id = %d", languageId);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                programmingLanguageProperty.setId(languageId);
+                programmingLanguageProperty.setImperative(c.getInt(c.getColumnIndex("imperative")));
+                programmingLanguageProperty.setObjectoriented(c.getInt(c.getColumnIndex("objectoriented")));
+                programmingLanguageProperty.setFunctional(c.getInt(c.getColumnIndex("functional")));
+                programmingLanguageProperty.setProcedural(c.getInt(c.getColumnIndex("procedural")));
+                programmingLanguageProperty.setGeneric(c.getInt(c.getColumnIndex("generic")));
+                programmingLanguageProperty.setReflective(c.getInt(c.getColumnIndex("reflective")));
+                programmingLanguageProperty.setEventdriven(c.getInt(c.getColumnIndex("eventdriven")));
+                programmingLanguageProperty.setFailsafe(c.getInt(c.getColumnIndex("failsafe")));
+                programmingLanguageProperty.setTypeSafety(c.getInt(c.getColumnIndex("type_safety")));
+                programmingLanguageProperty.setTypeExpression(c.getInt(c.getColumnIndex("type_expression")));
+                programmingLanguageProperty.setTypeCompatibility(c.getInt(c.getColumnIndex("type_compatibility")));
+                programmingLanguageProperty.setTypeChecking(c.getInt(c.getColumnIndex("type_checking")));
+
+            }
+        }
+        db.close();
+        return programmingLanguageProperty;
     }
 }

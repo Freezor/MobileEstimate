@@ -80,7 +80,7 @@ public class FindRelatedProjectsActivity extends DatabaseActivity
         if (projectsList.isEmpty() || projectsList.size() == 0)
         {
             RelatedProject p = new RelatedProject(this);
-            p.setTitle("No Related Projects found");
+            p.setTitle("No Projects found");
             p.setProjectId(-1);
             projectsList.add(p);
         }
