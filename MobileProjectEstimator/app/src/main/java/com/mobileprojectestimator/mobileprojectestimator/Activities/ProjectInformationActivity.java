@@ -161,6 +161,14 @@ public class ProjectInformationActivity extends DatabaseActivity
             this.project.setIconName(databaseHelper.getStringResourceValueByResourceName(map.get("name")));
             this.project.setImage(databaseHelper.loadProjectIcon(map.get("path")));
             updateContent();
+        } else if (requestCode == Integer.parseInt((getString(R.string.FIND_RELATED_PROJECT_REQUEST_CODE))))
+        {
+            Log.d("INFO", "Filter Request");
+            if (resultCode == RESULT_OK)
+            {
+                Intent intent = getIntent();
+                projectId = intent.getIntExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID), 0);
+            }
         }
 
     }
@@ -457,7 +465,10 @@ public class ProjectInformationActivity extends DatabaseActivity
             case R.id.action_change_estimation_method:
                 return super.onOptionsItemSelected(item);
             case R.id.action_find_related_project:
-                return super.onOptionsItemSelected(item);
+                Intent i = new Intent(ProjectInformationActivity.this, FindRelatedProjectsActivity.class);
+                i.putExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID), this.project.getProjectId());
+                startActivityForResult(i, Integer.parseInt((getString(R.string.FIND_RELATED_PROJECT_REQUEST_CODE))));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

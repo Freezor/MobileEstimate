@@ -653,6 +653,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
                 p.setProjectDescription(loadDescriptionById(description_id));
                 p.setInfluencingFactor(loadInfluenceFactorById(influence_factorset_id));
             }
+            Log.d("INFO","Load Estimation Items: "+estimation_items_id);
             p.setEstimationItems(loadEstimationItemsById(p.getEstimationMethod(), estimation_items_id));
             p.setProjectProperties(loadProjectPropertiesById(project_properties_id));
 
@@ -2264,5 +2265,38 @@ public class DataBaseHelper extends SQLiteOpenHelper
         }
         db.close();
         return projects;
+    }
+
+    public int getEstimationMethodDistance(String estimationMethod1, String estimationMethod2)
+    {
+        int id1 = getEstimationMethodId(estimationMethod1);
+        int id2 = getEstimationMethodId(estimationMethod2);
+
+        int distance = 0;
+
+        String selectQuery1 = String.format("SELECT * FROM EstimationMethodComparison WHERE em_id_1=%d AND em_id_2 =%d;", id1, id2);
+        String selectQuery2 = String.format("SELECT * FROM EstimationMethodComparison WHERE em_id_1=%d AND em_id_2 =%d;", id2, id1);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        try (Cursor c = db.rawQuery(selectQuery1, null))
+        {
+            if (c.moveToFirst())
+            {
+                distance = c.getInt(c.getColumnIndex("em_distance"));
+
+            } else {
+                try (Cursor c2 = db.rawQuery(selectQuery2, null))
+                {
+                    if (c2.moveToFirst())
+                    {
+                        distance = c2.getInt(c.getColumnIndex("em_distance"));
+                    }
+                }
+            }
+        }
+        db.close();
+
+        return distance;
     }
 }

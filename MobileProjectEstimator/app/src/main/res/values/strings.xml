@@ -1,6 +1,7 @@
 <resources>
 
-    <string name="app_name">PCMA</string>
+    <string name="app_name">MobileEstimate</string>
+    <string name="app_name_long">Project Cost Management Application</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -304,7 +305,6 @@
     <string name="alert_dialog_complete_delete_projects_title">Really Complete Delete Projects?</string>
     <string name="alert_dialog_complete_delete_projects_content">WARNING: These projects cannot be restored and cannot be recovered.</string>
     <string name="title_activity_about">About</string>
-    <string name="app_name_long">Project Cost Management Application</string>
     <string name="app_version">Version</string>
     <string name="copyright">© 2016 Oliver Fries</string>
     <string name="all_rights_reserved">All rights reserved</string>
@@ -337,6 +337,9 @@
     <string name="SET_PROJECT_FILTER_REQUEST_CODE">7856</string>
     <string name="exported_project_toast">Exported %s to Excel File in Download Folder</string>
     <string name="exported_project_error_toast">Project could not be exported</string>
+    <string name="title_activity_find_related_projects">Find related projects</string>
+    <string name="FIND_RELATED_PROJECT_REQUEST_CODE">9123</string>
+    <string name="related_projects">Related Projects</string>
     <string-array name="pref_sync_frequency_titles">
         <item>1 hour</item>
         <item>3 hours</item>

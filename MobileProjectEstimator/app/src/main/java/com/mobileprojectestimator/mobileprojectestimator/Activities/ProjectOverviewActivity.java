@@ -127,6 +127,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         ArrayList<String> infItems = new ArrayList<>();
         infItems.add("Project Informations");
+        infItems.add("Find Related Projects");
         infItems.add("Delete Project");
         final CharSequence[] items = infItems.toArray(new String[infItems.size()]);
         builder.setItems(items, new DialogInterface.OnClickListener()
@@ -142,6 +143,11 @@ public class ProjectOverviewActivity extends DatabaseActivity
                 } else if (optionItem.equals("Delete Project"))
                 {
                     showDeleteProjectDialog(position);
+                } else if (optionItem.equals("Find Related Projects"))
+                {
+                    Intent i = new Intent(ProjectOverviewActivity.this, FindRelatedProjectsActivity.class);
+                    i.putExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID), projectsList.get(position).getProjectId());
+                    startActivityForResult(i, Integer.parseInt((getString(R.string.FIND_RELATED_PROJECT_REQUEST_CODE))));
                 }
             }
         });
@@ -345,6 +351,13 @@ public class ProjectOverviewActivity extends DatabaseActivity
             reloadProjectsFromDatabase();
             projectsAdapter.notifyDataSetChanged();
         } else if (requestCode == Integer.parseInt((getString(R.string.SET_PROJECT_FILTER_REQUEST_CODE))))
+        {
+            Log.d("INFO","Filter Request");
+            if (resultCode == RESULT_OK)
+            {
+                loadProjectFilter();
+            }
+        }else if (requestCode == Integer.parseInt((getString(R.string.FIND_RELATED_PROJECT_REQUEST_CODE))))
         {
             Log.d("INFO","Filter Request");
             if (resultCode == RESULT_OK)

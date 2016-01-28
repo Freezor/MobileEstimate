@@ -409,8 +409,14 @@ public class Project implements Serializable
      */
     public ArrayList<EstimationItem> getEstimationItems()
     {
-        refreshItems();
-        return estimationItems;
+        if (estimationItems != null && !estimationItems.isEmpty())
+        {
+            refreshItems();
+            return estimationItems;
+        } else
+        {
+            return new ArrayList<EstimationItem>();
+        }
     }
 
     /**
@@ -454,9 +460,12 @@ public class Project implements Serializable
      */
     private void refreshItems()
     {
-        for (EstimationItem item : this.estimationItems)
+        if (estimationItems != null && !estimationItems.isEmpty())
         {
-            item.refresh();
+            for (EstimationItem item : this.estimationItems)
+            {
+                item.refresh();
+            }
         }
     }
 
@@ -621,6 +630,7 @@ public class Project implements Serializable
         this.evaluatedPoints = erg;
         return this.evaluatedPoints;
     }
+
     /**
      * Calculate the total function points
      *
