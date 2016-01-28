@@ -1,10 +1,11 @@
 package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -12,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -54,7 +54,7 @@ public class FindRelatedProjectsActivity extends DatabaseActivity
         ivProjectImage = (ImageView) findViewById(R.id.ivProjectImage);
         tvProjectTitle = (TextView) findViewById(R.id.tvProjectTitle);
         tvEstimationMethod = (TextView) findViewById(R.id.tvEstimationMethod);
-        lvRelatedProjects = (ListView) findViewById(R.id.lvRelatedProjects);
+        lvRelatedProjects = (ListView) findViewById(R.id.lvEstimationItems);
 
         ivProjectImage.setImageBitmap(selectedProject.getImage());
         tvProjectTitle.setText(selectedProject.getTitle());
@@ -65,16 +65,54 @@ public class FindRelatedProjectsActivity extends DatabaseActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                RelatedProject p = projectsList.get(position);
-                Toast.makeText(FindRelatedProjectsActivity.this,"Clicked "+p.getTitle(),Toast.LENGTH_SHORT).show();
+                onClickProject(position);
             }
         });
         loadRelatedProjects();
     }
 
+    private void onClickProject(final int position)
+    {
+        //RelatedProject p = projectsList.get(position);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        ArrayList<String> infItems = new ArrayList<>();
+        infItems.add("Project Informations");
+        infItems.add("View Estimation");
+        final CharSequence[] items = infItems.toArray(new String[infItems.size()]);
+        builder.setItems(items, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
+                String optionItem = items[item].toString();
+                if (optionItem.equals("Project Informations"))
+                {
+                    Intent i = new Intent(FindRelatedProjectsActivity.this, ProjectInformationActivity.class);
+                    i.putExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID), projectsList.get(position).getProjectId());
+                    startActivityForResult(i, Integer.parseInt((getString(R.string.CREATE_NEW_PROJECT_REQUEST_CODE))));
+                } else if (optionItem.equals("View Estimation"))
+                {
+                    Project p = projectsList.get(position);
+                    if (p.getEstimationMethod().equals(getString(R.string.estimation_method_function_point)))
+                    {
+                        Intent i = new Intent(FindRelatedProjectsActivity.this, EstimationViewActivity.class);
+                        i.putExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID), p.getProjectId());
+                        i.putExtra(getString(R.string.ACTIVITY_EXTRA_SELECTED_PROJECTID), selectedProject.getProjectId());
+                        startActivityForResult(i, Integer.parseInt((getString(R.string.ACTIVITY_ESTIMATION_VIEW_REQUEST_CODE))));
+                    } else
+                    {
+                        Toast.makeText(FindRelatedProjectsActivity.this, "This Estimation Method is currently not supported", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
     private void loadRelatedProjects()
     {
-        ProjectRelationSolver solver = new ProjectRelationSolver(this,selectedProject, databaseHelper.getAllProjects(this));
+        ProjectRelationSolver solver = new ProjectRelationSolver(this, selectedProject, databaseHelper.getAllProjects(this));
         projectsList = solver.getRelatedProject(50.0);
 
         if (projectsList.isEmpty() || projectsList.size() == 0)
@@ -175,5 +213,19 @@ public class FindRelatedProjectsActivity extends DatabaseActivity
 
         }
 
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == Integer.parseInt((getString(R.string.ACTIVITY_ESTIMATION_VIEW_REQUEST_CODE))))
+        {
+            if (resultCode == RESULT_OK)
+            {
+                //TODO: Check if result is null
+                Intent intent = getIntent();
+                projectId = intent.getIntExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID), 0);
+                loadRelatedProjects();
+            }
+        }
     }
 }

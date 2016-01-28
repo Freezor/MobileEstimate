@@ -108,7 +108,7 @@ public class ProjectRelationSolver
             @Override
             public int compare(RelatedProject p1, RelatedProject p2)
             {
-                return (int) (p1.getRelatedPercentage() - p2.getRelatedPercentage()); // Ascending
+                return (int) (p2.getRelatedPercentage() - p1.getRelatedPercentage()); // Descending
             }
 
         });

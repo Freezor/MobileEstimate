@@ -340,6 +340,13 @@
     <string name="title_activity_find_related_projects">Find related projects</string>
     <string name="FIND_RELATED_PROJECT_REQUEST_CODE">9123</string>
     <string name="related_projects">Related Projects</string>
+    <string name="ACTIVITY_ESTIMATION_VIEW_REQUEST_CODE">4563</string>
+    <string name="title_activity_estimation_view">Estimation View</string>
+    <string name="b_transfer_evaluation">Transfer Evaluation</string>
+    <string name="ACTIVITY_EXTRA_SELECTED_PROJECTID">SELECTEDPROJECTIDFORINTENT</string>
+    <string name="transfer_evaluation_dialog_title">Transfer Evaluation data to %s</string>
+    <string name="transfer_evaluation_dialog_content">The existing evaluation data in %s will be overwritten</string>
+    <string name="transfer_evaluation_dialog_success">Estimation items successfully transferred.</string>
     <string-array name="pref_sync_frequency_titles">
         <item>1 hour</item>
         <item>3 hours</item>

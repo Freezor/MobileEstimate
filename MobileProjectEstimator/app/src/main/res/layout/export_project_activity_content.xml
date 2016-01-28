@@ -27,12 +27,13 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/export_excel"
-        android:id="@+id/bExportExcel"
+        android:id="@+id/bTransferEvaluation"
         android:background="@color/standardButtonColor"
         android:layout_below="@+id/projectSpinner"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:textColor="#FFFFFF"
+        android:textAllCaps="true"
         android:textStyle="bold"
         android:theme="@style/Base.Widget.AppCompat.ActionButton"/>
 

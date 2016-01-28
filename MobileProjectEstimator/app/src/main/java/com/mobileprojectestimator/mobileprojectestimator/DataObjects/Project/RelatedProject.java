@@ -65,6 +65,7 @@ public class RelatedProject extends Project
 
     public void convertFromProject(Project project)
     {
+        this.setProjectId(project.getProjectId());
         this.setEstimationMethod(project.getEstimationMethod());
         this.setEvaluatedPersonDays(project.getEvaluatedPersonDays());
         this.setInfluencingFactor(project.getInfluencingFactor());

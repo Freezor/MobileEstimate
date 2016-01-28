@@ -2367,4 +2367,17 @@ public class DataBaseHelper extends SQLiteOpenHelper
         db.close();
         return programmingLanguageProperty;
     }
+
+    /**
+     * Updates all Items from Project to Function Point Tables
+     *
+     * WARNING: Only use with function point projects
+     * @param estimationItems
+     */
+    public void updateFunctionPointEstimationItems(ArrayList<EstimationItem> estimationItems)
+    {
+        for(EstimationItem item:estimationItems){
+            updateFunctionPointEstimationItem((FunctionPointItem) item);
+        }
+    }
 }

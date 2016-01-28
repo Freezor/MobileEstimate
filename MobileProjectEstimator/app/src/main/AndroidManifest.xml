@@ -299,16 +299,28 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activities.ProjectOverviewActivity"/>
         </activity>
-        <activity android:name=".Activities.FindRelatedProjectsActivity"
-                  android:label="@string/title_activity_find_related_projects"
-                  android:parentActivityName=".Activities.ProjectInformationActivity"
+        <activity
+            android:name=".Activities.FindRelatedProjectsActivity"
+            android:label="@string/title_activity_find_related_projects"
+            android:parentActivityName=".Activities.ProjectInformationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.ProjectInformationActivity"/>
+        </activity>
+        <activity android:name=".Activities.EstimationViewActivity"
+                  android:label="@string/title_activity_estimation_view"
+                  android:parentActivityName=".Activities.FindRelatedProjectsActivity"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="adjustPan">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.ProjectInformationActivity"/>
+                android:value=".Activities.FindRelatedProjectsActivity"/>
         </activity>
     </application>
 

@@ -13,7 +13,8 @@
         android:id="@+id/action_change_estimation_method"
         android:orderInCategory="110"
         android:title="@string/action_change_estimation_method"
-        app:showAsAction="never"/>
+        app:showAsAction="never"
+        android:visible="false"/>
     <item
         android:id="@+id/action_find_related_project"
         android:orderInCategory="120"

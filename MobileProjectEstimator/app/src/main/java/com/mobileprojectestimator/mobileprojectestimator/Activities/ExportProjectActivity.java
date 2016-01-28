@@ -59,7 +59,7 @@ public class ExportProjectActivity extends DatabaseActivity
 
         View articlesLayout = findViewById(R.id.exportProjectLayout);
 
-        exportExcel = (Button) articlesLayout.findViewById(R.id.bExportExcel);
+        exportExcel = (Button) articlesLayout.findViewById(R.id.bTransferEvaluation);
         projectsSpinner = (Spinner) articlesLayout.findViewById(R.id.projectSpinner);
 
         projectNames = new ArrayList<>();
