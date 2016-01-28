@@ -53,6 +53,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
     private Menu menu;
     private LoggingHelper logging;
     private ProjectFilter filter;
+    private MenuItem filterItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -320,6 +321,10 @@ public class ProjectOverviewActivity extends DatabaseActivity
                 return false;
             }
         });
+
+        filterItem = (MenuItem) menu.findItem(R.id.action_filter);
+        loadProjectFilter();
+
         return true;
     }
 
@@ -400,9 +405,15 @@ public class ProjectOverviewActivity extends DatabaseActivity
     {
         filter = new ProjectFilter();
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        filter.setIsActive(sharedPref.getBoolean(getString(R.string.filter_is_active_key),false));
+        filter.setIsActive(sharedPref.getBoolean(getString(R.string.filter_is_active_key), false));
         String estimationMethodFilter = sharedPref.getString(getString(R.string.filter_estimation_method_key), "");
         filter.setEstimationMethod(estimationMethodFilter);
+
+        if(filter.isActive()){
+            filterItem.setIcon(getDrawable(R.drawable.ic_action_filter_orange));
+        }else {
+            filterItem.setIcon(getDrawable(R.drawable.ic_action_filter_white));
+        }
 
         reloadProjectsFromDatabase();
     }

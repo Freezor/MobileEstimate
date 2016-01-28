@@ -11,8 +11,8 @@
         app:showAsAction="collapseActionView|ifRoom"/>
     <item
         android:id="@+id/action_filter"
-        android:icon="@drawable/ic_view_module_white"
+        android:icon="@drawable/ic_action_filter_white"
         android:orderInCategory="110"
         android:title="@string/action_filter"
-        app:showAsAction="never"/>
+        app:showAsAction="collapseActionView|ifRoom"/>
 </menu>

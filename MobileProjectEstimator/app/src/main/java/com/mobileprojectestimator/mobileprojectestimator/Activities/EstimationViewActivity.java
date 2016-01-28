@@ -74,7 +74,7 @@ public class EstimationViewActivity extends DatabaseActivity
         {
             bTransferEvaluation.setText(getString(R.string.b_transfer_evaluation_not_possible));
         }
-        
+
         loadEstimationItems();
 
         setTitle(project.getTitle());
