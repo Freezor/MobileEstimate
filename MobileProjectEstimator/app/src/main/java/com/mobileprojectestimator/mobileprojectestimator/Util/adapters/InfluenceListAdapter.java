@@ -1,5 +1,6 @@
 package com.mobileprojectestimator.mobileprojectestimator.Util.adapters;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,12 +20,12 @@ import java.util.ArrayList;
  */
 public class InfluenceListAdapter extends BaseAdapter
 {
-    private InfluenceFactorsActivity influenceFactorsActivity;
+    private Activity influenceFactorsActivity;
     private ArrayList<InfluenceFactorItem> influenceFactorItems;
     private LayoutInflater inflater;
     private ArrayList<String> factorNameArrayList;
 
-    public InfluenceListAdapter(InfluenceFactorsActivity influenceFactorsActivity, ArrayList<InfluenceFactorItem> influenceFactorItems)
+    public InfluenceListAdapter(Activity influenceFactorsActivity, ArrayList<InfluenceFactorItem> influenceFactorItems)
     {
         this.influenceFactorsActivity = influenceFactorsActivity;
         this.influenceFactorItems = influenceFactorItems;

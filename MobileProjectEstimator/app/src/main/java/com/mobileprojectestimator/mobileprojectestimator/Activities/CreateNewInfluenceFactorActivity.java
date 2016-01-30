@@ -6,15 +6,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
+import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.InfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.R;
-import com.mobileprojectestimator.mobileprojectestimator.Util.LoggingHelper;
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.NewInfluenceFactorListAdapter;
 
 import java.util.ArrayList;
@@ -77,6 +77,21 @@ public class CreateNewInfluenceFactorActivity extends DatabaseActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         loadInfluenceFactor();
+
+        factorItemsListView.setOnScrollListener(new AbsListView.OnScrollListener()
+        {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState)
+            {
+                influencingFactor.setInfluenceFactorItems(influenceListAdapter.getInfluenceFactorItems());
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
+            {
+                influencingFactor.setInfluenceFactorItems(influenceListAdapter.getInfluenceFactorItems());
+            }
+        });
     }
 
     public boolean onCreateOptionsMenu(Menu menu)
@@ -121,17 +136,49 @@ public class CreateNewInfluenceFactorActivity extends DatabaseActivity
     private void createNewInfluenceFactor()
     {
         Intent i = new Intent(CreateNewInfluenceFactorActivity.this, CreateNewInfluenceFactorActivity.class);
-        i.putExtra(getString(R.string.ISNEWFACTOR),true);
-        i.putExtra(getString(R.string.NEWFACTORESTIMATIONMETHOD),selectedEstimationMethod);
+        i.putExtra(getString(R.string.ISNEWFACTOR), true);
+        i.putExtra(getString(R.string.NEWFACTORESTIMATIONMETHOD), selectedEstimationMethod);
         startActivityForResult(i, Integer.parseInt(getString(R.string.new_influence_factor_request_code)));
         finish();
     }
 
     private void deleteInfluenceFactor()
     {
-        if(databaseHelper.deleteInfluenceFactor(influencingFactor.getDbId())){
-            Toast.makeText(this,"Influence Factor successfully deleted",Toast.LENGTH_SHORT).show();
+        if (databaseHelper.deleteInfluenceFactor(influencingFactor.getDbId()))
+        {
+            Toast.makeText(this, "Influence Factor successfully deleted", Toast.LENGTH_SHORT).show();
             finish();
+        }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == Integer.parseInt((getString(R.string.influence_factor_subitem_request_code))))
+        {
+            Bundle bundle = data.getExtras();
+            String itemName = bundle.getString("SUBITEMCATEGORYNAME");
+            ArrayList<String> itemNames = bundle.getStringArrayList("SUBITEMNAMES");
+            ArrayList<Integer> itemValues = bundle.getIntegerArrayList("SUBITEMVALUES");
+            int i = 0;
+            for (InfluenceFactorItem item : influencingFactor.getInfluenceFactorItems())
+            {
+                if (item.getName().equals(itemName))
+                {
+                    for (String name : itemNames)
+                    {
+                        for (InfluenceFactorItem subitem : item.getSubInfluenceFactorItemsList())
+                        {
+                            if (subitem.getName().equals(name))
+                            {
+                                subitem.setChosenValue(itemValues.get(i++));
+                                break;
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+            itemName = "";
         }
     }
 
@@ -150,7 +197,7 @@ public class CreateNewInfluenceFactorActivity extends DatabaseActivity
 
         if (factorName.getText().toString().equals(""))
         {
-            Toast.makeText(this,"No Factor Name set.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No Factor Name set.", Toast.LENGTH_SHORT).show();
         } else
         {
             influencingFactor.setName(factorName.getText().toString());

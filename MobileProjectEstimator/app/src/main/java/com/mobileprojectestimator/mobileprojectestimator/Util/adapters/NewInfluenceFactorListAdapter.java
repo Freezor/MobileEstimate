@@ -1,8 +1,10 @@
 package com.mobileprojectestimator.mobileprojectestimator.Util.adapters;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
@@ -17,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mobileprojectestimator.mobileprojectestimator.Activities.InfluenceFactorSubitemActivity;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.InfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 import com.mobileprojectestimator.mobileprojectestimator.Util.database.DataBaseHelper;
@@ -34,10 +37,13 @@ public class NewInfluenceFactorListAdapter extends ArrayAdapter<InfluenceFactorI
 
     private ArrayList<InfluenceFactorItem> influenceFactorItems;
 
+    private Context c;
+
     public NewInfluenceFactorListAdapter(Context context, int textViewResourceId,
                                          ArrayList<InfluenceFactorItem> items)
     {
         super(context, textViewResourceId, items);
+        this.c = context;
         initDatabase();
         this.influenceFactorItems = new ArrayList<>();
         this.influenceFactorItems.addAll(items);
@@ -119,7 +125,6 @@ public class NewInfluenceFactorListAdapter extends ArrayAdapter<InfluenceFactorI
     {
 
         ViewHolder holder = null;
-        Log.v("ConvertView", String.valueOf(position));
 
         InfluenceFactorItem item = influenceFactorItems.get(position);
 
@@ -149,7 +154,26 @@ public class NewInfluenceFactorListAdapter extends ArrayAdapter<InfluenceFactorI
                     public void onClick(View v)
                     {
                         InfluenceFactorItem item = influenceFactorItems.get(position);
-                        Toast.makeText(getContext(), "Show Sub Items Clicked " + item.getName(), Toast.LENGTH_SHORT).show();
+
+                        ArrayList<String> itemNames = new ArrayList<>();
+                        ArrayList<Integer> itemValues = new ArrayList<>();
+                        ArrayList<Integer> minItemValues = new ArrayList<>();
+                        ArrayList<Integer> maxItemValues = new ArrayList<>();
+
+                        for(InfluenceFactorItem sub:item.getSubInfluenceFactorItemsList()){
+                            itemNames.add(sub.getName());
+                            itemValues.add(sub.getChosenValue());
+                            minItemValues.add(sub.getMinValue());
+                            maxItemValues.add(sub.getMaxValue());
+                        }
+
+                        Intent i = new Intent(getContext(),InfluenceFactorSubitemActivity.class);
+                        i.putExtra("SUBITEMCATEGORYNAME",item.getName());
+                        i.putExtra("SUBITEMNAMES",itemNames);
+                        i.putExtra("SUBITEMVALUES",itemValues);
+                        i.putExtra("SUBITEMMIN",minItemValues);
+                        i.putExtra("SUBITEMMAX", maxItemValues);
+                        ((Activity)c).startActivityForResult(i, Integer.parseInt(getContext().getString(R.string.influence_factor_subitem_request_code)));
                     }
                 });
                 holder.infoImageView.setOnClickListener(new View.OnClickListener()
