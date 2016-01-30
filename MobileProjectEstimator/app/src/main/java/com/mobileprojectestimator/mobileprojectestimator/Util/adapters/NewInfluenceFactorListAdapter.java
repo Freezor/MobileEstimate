@@ -5,10 +5,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.text.Editable;
 import android.text.InputFilter;
+import android.text.InputType;
 import android.text.Spanned;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -115,7 +114,7 @@ public class NewInfluenceFactorListAdapter extends ArrayAdapter<InfluenceFactorI
     {
         boolean hasSubitems;
         TextView tvInfluenceName;
-        EditText etInfluenceValue;
+        TextView tvInfluenceValue;
         ImageView infoImageView;
         TextView tvShowSubitems;
     }
@@ -160,20 +159,21 @@ public class NewInfluenceFactorListAdapter extends ArrayAdapter<InfluenceFactorI
                         ArrayList<Integer> minItemValues = new ArrayList<>();
                         ArrayList<Integer> maxItemValues = new ArrayList<>();
 
-                        for(InfluenceFactorItem sub:item.getSubInfluenceFactorItemsList()){
+                        for (InfluenceFactorItem sub : item.getSubInfluenceFactorItemsList())
+                        {
                             itemNames.add(sub.getName());
                             itemValues.add(sub.getChosenValue());
                             minItemValues.add(sub.getMinValue());
                             maxItemValues.add(sub.getMaxValue());
                         }
 
-                        Intent i = new Intent(getContext(),InfluenceFactorSubitemActivity.class);
-                        i.putExtra("SUBITEMCATEGORYNAME",item.getName());
-                        i.putExtra("SUBITEMNAMES",itemNames);
-                        i.putExtra("SUBITEMVALUES",itemValues);
-                        i.putExtra("SUBITEMMIN",minItemValues);
+                        Intent i = new Intent(getContext(), InfluenceFactorSubitemActivity.class);
+                        i.putExtra("SUBITEMCATEGORYNAME", item.getName());
+                        i.putExtra("SUBITEMNAMES", itemNames);
+                        i.putExtra("SUBITEMVALUES", itemValues);
+                        i.putExtra("SUBITEMMIN", minItemValues);
                         i.putExtra("SUBITEMMAX", maxItemValues);
-                        ((Activity)c).startActivityForResult(i, Integer.parseInt(getContext().getString(R.string.influence_factor_subitem_request_code)));
+                        ((Activity) c).startActivityForResult(i, Integer.parseInt(getContext().getString(R.string.influence_factor_subitem_request_code)));
                     }
                 });
                 holder.infoImageView.setOnClickListener(new View.OnClickListener()
@@ -193,7 +193,7 @@ public class NewInfluenceFactorListAdapter extends ArrayAdapter<InfluenceFactorI
                 holder = new ViewHolder();
                 holder.hasSubitems = false;
                 holder.tvInfluenceName = (TextView) convertView.findViewById(R.id.tvInfluenceName);
-                holder.etInfluenceValue = (EditText) convertView.findViewById(R.id.etInfluenceValue);
+                holder.tvInfluenceValue = (TextView) convertView.findViewById(R.id.etInfluenceValue);
                 holder.infoImageView = (ImageView) convertView.findViewById(R.id.infoImageView);
 
                 if ((position % 2) != 0)
@@ -210,33 +210,15 @@ public class NewInfluenceFactorListAdapter extends ArrayAdapter<InfluenceFactorI
                         openFactorInfoDialog(String.valueOf(finalHolder.tvInfluenceName.getText()));
                     }
                 });
-                holder.etInfluenceValue.setFilters(new InputFilter[]{new InputFilterMinMax(item.getMinValue(), item.getMaxValue())});
-                holder.etInfluenceValue.addTextChangedListener(new TextWatcher()
+                holder.tvInfluenceValue.setOnClickListener(new View.OnClickListener()
                 {
                     @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after)
+                    public void onClick(View v)
                     {
-
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count)
-                    {
-
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s)
-                    {
-                        if (s.toString().equals(""))
-                        {
-                            influenceFactorItems.get(position).setChosenValue(0);
-                        } else
-                        {
-                            influenceFactorItems.get(position).setChosenValue(Integer.parseInt(s.toString()));
-                        }
+                        showValueDialog(position);
                     }
                 });
+
                 convertView.setTag(holder);
             }
         } else
@@ -252,12 +234,46 @@ public class NewInfluenceFactorListAdapter extends ArrayAdapter<InfluenceFactorI
         {
             if (item.getChosenValue() >= 0)
             {
-                holder.etInfluenceValue.setText(String.valueOf(item.getChosenValue()));
+                holder.tvInfluenceValue.setText(String.valueOf(item.getChosenValue()));
             }
         }
 
         return convertView;
 
+    }
+
+    private void showValueDialog(final int position)
+    {
+        InfluenceFactorItem item = influenceFactorItems.get(position);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(item.getName());
+        builder.setMessage("Change Influence Factor value.");
+        final EditText input = new EditText(getContext());
+        input.setInputType(InputType.TYPE_CLASS_NUMBER );
+        input.setText(String.valueOf(item.getChosenValue()));
+        InputFilterMinMax filter = new InputFilterMinMax(item.getMinValue(),item.getMaxValue());
+        input.setFilters((new InputFilter[] { filter }));
+        builder.setView(input);
+        builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                influenceFactorItems.get(position).setChosenValue(Integer.parseInt(input.getText().toString()));
+                notifyDataSetChanged();
+
+            }
+        });
+        builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+
+            }
+        });
+
+        builder.show();
     }
 
     private void openFactorInfoDialog(String item)
@@ -305,7 +321,7 @@ public class NewInfluenceFactorListAdapter extends ArrayAdapter<InfluenceFactorI
             } catch (NumberFormatException nfe)
             {
             }
-            Toast.makeText(getContext(), "Input value out of factor range. Maximum value is " + end + ".", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Input value out of factor range. Maximum value is " + this.max + ".", Toast.LENGTH_SHORT).show();
             return "";
         }
 
