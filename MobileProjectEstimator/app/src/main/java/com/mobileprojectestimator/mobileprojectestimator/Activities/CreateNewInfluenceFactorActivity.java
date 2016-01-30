@@ -3,16 +3,17 @@ package com.mobileprojectestimator.mobileprojectestimator.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.R;
+import com.mobileprojectestimator.mobileprojectestimator.Util.LoggingHelper;
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.NewInfluenceFactorListAdapter;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class CreateNewInfluenceFactorActivity extends DatabaseActivity
         {
             toolbar.setTitle("Edit Factor");
             oldFactorName = bundle.getString(getString(R.string.NEWFACTORINFLUENCESETNAME));
-            factorName.setText( oldFactorName);
+            factorName.setText(oldFactorName);
         }
         toolbar.setNavigationIcon(R.drawable.ic_action_cancel);
         setSupportActionBar(toolbar);
@@ -70,22 +71,33 @@ public class CreateNewInfluenceFactorActivity extends DatabaseActivity
     {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_create_new_influence_factor, menu);
+
+        return true;
+    }
+
+    public boolean onPrepareOptionsMenu(Menu menu)
+    {
+        MenuItem deleteInfluenceFactor = menu.findItem(R.id.action_delete_influence_factor);
+        MenuItem createNewInfluenceFactor = menu.findItem(R.id.action_create_new_influence_factor);
+        deleteInfluenceFactor.setVisible(!oldFactorName.isEmpty());
+        createNewInfluenceFactor.setVisible(!oldFactorName.isEmpty());
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        switch(item.getItemId()) {
+        switch (item.getItemId())
+        {
             case R.id.action_save_influence_factor:
                 saveFactorToDatabase();
-                finish();
                 break;
             case R.id.action_delete_influence_factor:
-                // another startActivity, this is for item with id "menu_item2"
+                deleteInfluenceFactor();
                 break;
             case R.id.action_create_new_influence_factor:
-                // another startActivity, this is for item with id "menu_item2"
+                createNewInfluenceFactor();
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -94,12 +106,26 @@ public class CreateNewInfluenceFactorActivity extends DatabaseActivity
         return true;
     }
 
+    private void createNewInfluenceFactor()
+    {
+        Intent i = new Intent(CreateNewInfluenceFactorActivity.this, CreateNewInfluenceFactorActivity.class);
+        i.putExtra(getString(R.string.ISNEWFACTOR),true);
+        i.putExtra(getString(R.string.NEWFACTORESTIMATIONMETHOD),selectedEstimationMethod);
+        startActivityForResult(i, Integer.parseInt(getString(R.string.new_influence_factor_request_code)));
+        finish();
+    }
+
+    private void deleteInfluenceFactor()
+    {
+        if(databaseHelper.deleteInfluenceFactor(influencingFactor.getInfluenceFactorSetName())){
+            Toast.makeText(this,"Influence Factor successfully deleted",Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+
     private void saveFactorToDatabase()
     {
-        View v;
-        EditText etValue;
-        TextView name;
-        int value= 0;
+        int value = 0;
         influencingFactor.setName(factorName.getText().toString());
         /*for (int i = 0; i < factorItemsListView.getCount(); i++) {
             v = factorItemsListView.getAdapter().getView(i, null, null);
@@ -110,21 +136,29 @@ public class CreateNewInfluenceFactorActivity extends DatabaseActivity
         }*/
         influencingFactor.setInfluenceFactorItems(influenceListAdapter.getInfluenceFactorItems());
 
-        if(oldFactorName.isEmpty() || oldFactorName.equals(""))
+        if (factorName.getText().toString().equals(""))
         {
-            databaseHelper.createNewInfluenceFactor(selectedEstimationMethod, influencingFactor);
-            Intent returnIntent = new Intent();
-            setResult(Integer.parseInt(getString(R.string.new_influence_factor_request_code)), returnIntent);
-        } else {
-            databaseHelper.updateExistingInfluenceFactor(selectedEstimationMethod,oldFactorName,influencingFactor);
-            Intent returnIntent = new Intent();
-            setResult(Integer.parseInt(getString(R.string.edit_influence_factor_request_code)), returnIntent);
+            Toast.makeText(this,"No Factor Name set.",Toast.LENGTH_SHORT).show();
+        } else
+        {
+            influencingFactor.setName(factorName.getText().toString());
+            if (oldFactorName.isEmpty() || oldFactorName.equals(""))
+            {
+                databaseHelper.createNewInfluenceFactor(selectedEstimationMethod, influencingFactor);
+                Intent returnIntent = new Intent();
+                setResult(Integer.parseInt(getString(R.string.new_influence_factor_request_code)), returnIntent);
+            } else
+            {
+                databaseHelper.updateExistingInfluenceFactor(selectedEstimationMethod, oldFactorName, influencingFactor);
+                Intent returnIntent = new Intent();
+                setResult(Integer.parseInt(getString(R.string.edit_influence_factor_request_code)), returnIntent);
+            }
+            finish();
         }
     }
 
     /**
      * Loads the influence factors from the database
-     *
      */
     private void loadInfluenceFactor()
     {
@@ -136,9 +170,9 @@ public class CreateNewInfluenceFactorActivity extends DatabaseActivity
             {
                 ArrayList<Integer> factorValues = databaseHelper.loadFunctionPointInfluenceValues(databaseHelper.getFactorItemId(oldFactorName));
                 influencingFactor.setFunctionPointValuesFromArrayList(factorValues);
+                influencingFactor.setName(oldFactorName);
             }
-
-            influenceListAdapter = new NewInfluenceFactorListAdapter(this, influencingFactor.getInfluenceFactorItems());
+            influenceListAdapter = new NewInfluenceFactorListAdapter(this, R.layout.function_point_influence_factorset_list_item, influencingFactor.getInfluenceFactorItems());
             factorItemsListView.setAdapter(influenceListAdapter);
             factorItemsListView.setScrollbarFadingEnabled(false);
             updateSumOfInfluences();

@@ -654,7 +654,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
                 p.setProjectDescription(loadDescriptionById(description_id));
                 p.setInfluencingFactor(loadInfluenceFactorById(influence_factorset_id));
             }
-            Log.d("INFO","Load Estimation Items: "+estimation_items_id);
+            Log.d("INFO", "Load Estimation Items: " + estimation_items_id);
             p.setEstimationItems(loadEstimationItemsById(p.getEstimationMethod(), estimation_items_id));
             p.setProjectProperties(loadProjectPropertiesById(project_properties_id));
 
@@ -2239,7 +2239,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
         if (!filter.getEstimationMethod().isEmpty() && !filter.getEstimationMethod().equals("") && !filter.getEstimationMethod().equals(context.getString(R.string.filter_none)))
         {
-            selectQuery = selectQuery + " AND estimation_method_id = "+getEstimationMethodId(filter.getEstimationMethod())+";";
+            selectQuery = selectQuery + " AND estimation_method_id = " + getEstimationMethodId(filter.getEstimationMethod()) + ";";
 
         }
 
@@ -2286,7 +2286,8 @@ public class DataBaseHelper extends SQLiteOpenHelper
             {
                 distance = c.getInt(c.getColumnIndex("em_distance"));
 
-            } else {
+            } else
+            {
                 try (Cursor c2 = db.rawQuery(selectQuery2, null))
                 {
                     if (c2.moveToFirst())
@@ -2301,7 +2302,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         return distance;
     }
 
-    public int getPropertyDistance(String baseTable, String tableComparisonName,String column1,String column2,String idColumn, String market1, String market2)
+    public int getPropertyDistance(String baseTable, String tableComparisonName, String column1, String column2, String idColumn, String market1, String market2)
     {
         int id1 = getPropertyIdFromTable(baseTable, market1);
         int id2 = getPropertyIdFromTable(baseTable, market2);
@@ -2319,7 +2320,8 @@ public class DataBaseHelper extends SQLiteOpenHelper
             {
                 distance = c.getInt(c.getColumnIndex(idColumn));
 
-            } else {
+            } else
+            {
                 try (Cursor c2 = db.rawQuery(selectQuery2, null))
                 {
                     if (c2.moveToFirst())
@@ -2370,14 +2372,52 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     /**
      * Updates all Items from Project to Function Point Tables
-     *
+     * <p/>
      * WARNING: Only use with function point projects
+     *
      * @param estimationItems
      */
     public void updateFunctionPointEstimationItems(ArrayList<EstimationItem> estimationItems)
     {
-        for(EstimationItem item:estimationItems){
+        for (EstimationItem item : estimationItems)
+        {
             updateFunctionPointEstimationItem((FunctionPointItem) item);
         }
+    }
+
+    public boolean deleteInfluenceFactor(String influenceFactorSetName)
+    {
+        boolean isDeleted = false;
+
+        String selectQuery = String.format("SELECT * FROM InfluenceFactors WHERE name = '%s'", influenceFactorSetName);
+        SQLiteDatabase db = this.getReadableDatabase();
+        int influenceFactorId = 0;
+        int influenceFactorDetailsId = 0;
+        String estimationMethod = null;
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                influenceFactorId = c.getInt(c.getColumnIndex("_id"));
+                influenceFactorDetailsId = c.getInt(c.getColumnIndex("influence_factor_id"));
+                estimationMethod = getEstimationMethodNameById(String.valueOf(c.getInt(c.getColumnIndex("estimation_method_id"))));
+                isDeleted = true;
+            }
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            isDeleted = false;
+        }
+        db = this.getWritableDatabase();
+        db.delete("InfluenceFactors", "_id = " + influenceFactorId, null);
+
+        if (estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
+        {
+
+            db = this.getWritableDatabase();
+            db.delete("FunctionPointInfluenceFactor", "_id = " + influenceFactorDetailsId, null);
+        }
+        db.close();
+        return isDeleted;
     }
 }

@@ -143,7 +143,17 @@ public class InfluenceFactorItem
 
     public void setChosenValue(int chosenValue)
     {
-        this.chosenValue = chosenValue;
+        if (chosenValue >= minValue && chosenValue <= maxValue)
+        {
+            this.chosenValue = chosenValue;
+        } else if (chosenValue > minValue)
+        {
+            this.chosenValue = minValue;
+        } else if (chosenValue > maxValue)
+        {
+            this.chosenValue = maxValue;
+        }
+
     }
 
     /**

@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Database.DatabaseInfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
@@ -22,8 +21,6 @@ import com.mobileprojectestimator.mobileprojectestimator.Util.LoggingHelper;
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.InfluenceListAdapter;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 public class InfluenceFactorsActivity extends DatabaseActivity
 {
@@ -42,7 +39,6 @@ public class InfluenceFactorsActivity extends DatabaseActivity
 
     private String selectedEstimationMethod;
 
-    private int totalSumOfInfluences;
     private InfluenceListAdapter influenceListAdapter;
     private ArrayList<String> influenceFactorNames;
     private ArrayAdapter<String> dataAdapter;
@@ -118,9 +114,9 @@ public class InfluenceFactorsActivity extends DatabaseActivity
             public void onClick(View v)
             {
                 Intent i = new Intent(InfluenceFactorsActivity.this, CreateNewInfluenceFactorActivity.class);
-                i.putExtra(getString(R.string.ISNEWFACTOR),false);
-                i.putExtra(getString(R.string.NEWFACTORESTIMATIONMETHOD),selectedEstimationMethod);
-                i.putExtra(getString(R.string.NEWFACTORINFLUENCESETNAME),influenceFactorNames.get(influenceFactorSetSpinner.getSelectedItemPosition()));
+                i.putExtra(getString(R.string.ISNEWFACTOR), false);
+                i.putExtra(getString(R.string.NEWFACTORESTIMATIONMETHOD), selectedEstimationMethod);
+                i.putExtra(getString(R.string.NEWFACTORINFLUENCESETNAME), influenceFactorNames.get(influenceFactorSetSpinner.getSelectedItemPosition()));
                 startActivityForResult(i, Integer.parseInt(getString(R.string.edit_influence_factor_request_code)));
             }
         });
@@ -129,6 +125,7 @@ public class InfluenceFactorsActivity extends DatabaseActivity
 
     /**
      * Loads the influence factors from the database
+     *
      * @param factorName
      */
     private void loadInfluenceFactor(String factorName)
@@ -136,9 +133,10 @@ public class InfluenceFactorsActivity extends DatabaseActivity
         if (selectedEstimationMethod.equals(getString(R.string.estimation_method_function_point)))
         {
             influencingFactor = new InfluencingFactor(this, InfluencingFactor.FUNCTIONPOINTFACTORS);
-            for (DatabaseInfluenceFactorItem item: dbInfluenceFactorItems)
+            for (DatabaseInfluenceFactorItem item : dbInfluenceFactorItems)
             {
-                if(item.get_name().equals(factorName)){
+                if (item.get_name().equals(factorName))
+                {
                     ArrayList<Integer> factorValues = databaseHelper.loadFunctionPointInfluenceValues(item.get_influenceFactorId());
                     influencingFactor.setFunctionPointValuesFromArrayList(factorValues);
                     break;
@@ -182,21 +180,25 @@ public class InfluenceFactorsActivity extends DatabaseActivity
                 android.R.layout.simple_spinner_item, influenceFactorNames);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         influenceFactorSetSpinner.setAdapter(dataAdapter);
-        influenceFactorSetSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        influenceFactorSetSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
                 loadInfluenceFactor(influenceFactorNames.get(position));
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onNothingSelected(AdapterView<?> parent)
+            {
 
             }
         });
     }
 
 
-    private void updateInfluenceFactorNames() {
+    private void updateInfluenceFactorNames()
+    {
         if (estimationMethodsList.isEmpty())
         {
             loadEstimationMethods();
@@ -232,21 +234,15 @@ public class InfluenceFactorsActivity extends DatabaseActivity
     private void onClickCreateNewInfluenceFactor()
     {
         Intent i = new Intent(InfluenceFactorsActivity.this, CreateNewInfluenceFactorActivity.class);
-        i.putExtra(getString(R.string.ISNEWFACTOR),true);
-        i.putExtra(getString(R.string.NEWFACTORESTIMATIONMETHOD),selectedEstimationMethod);
-        loggingHelper.writeToLog("Start Intent CreateNewInfluenceFactorActivity: New Factor for "+selectedEstimationMethod,LoggingHelper.LOGLEVEL_INFO);
+        i.putExtra(getString(R.string.ISNEWFACTOR), true);
+        i.putExtra(getString(R.string.NEWFACTORESTIMATIONMETHOD), selectedEstimationMethod);
+        loggingHelper.writeToLog("Start Intent CreateNewInfluenceFactorActivity: New Factor for " + selectedEstimationMethod, LoggingHelper.LOGLEVEL_INFO);
         startActivityForResult(i, Integer.parseInt(getString(R.string.new_influence_factor_request_code)));
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        if(resultCode == Integer.parseInt(getString(R.string.new_influence_factor_request_code)))
-        {
-            updateInfluenceFactorNames();
-        } else if(resultCode == Integer.parseInt(getString(R.string.edit_influence_factor_request_code)))
-        {
-            updateInfluenceFactorNames();
-        }
+        updateInfluenceFactorNames();
     }
 
 }

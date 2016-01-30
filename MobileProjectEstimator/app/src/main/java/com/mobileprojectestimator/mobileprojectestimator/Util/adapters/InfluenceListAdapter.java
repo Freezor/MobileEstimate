@@ -123,7 +123,7 @@ public class InfluenceListAdapter extends BaseAdapter
             convertView = inflater.inflate(R.layout.function_point_influence_factor_list_item, null);
 
         TextView itemNameTv = (TextView) convertView.findViewById(R.id.tvInfluenceName);
-        TextView itemValueTv = (TextView) convertView.findViewById(R.id.tvInfluenceValue);
+        TextView itemValueTv = (TextView) convertView.findViewById(R.id.etInfluenceValue);
 
         itemValueTv.setText(String.format("%d", loadInfluenceFactorChosenValue(factorNameArrayList.get(position))));
 
@@ -160,7 +160,13 @@ public class InfluenceListAdapter extends BaseAdapter
     {
         int sum = 0;
         for (InfluenceFactorItem item : influenceFactorItems){
-            sum += item.getChosenValue();
+            if(item.hasSubItems()){
+                for(InfluenceFactorItem subitem:item.getSubInfluenceFactorItemsList()){
+                    sum+=subitem.getChosenValue();
+                }
+            }else {
+                sum += item.getChosenValue();
+            }
         }
         return sum;
     }

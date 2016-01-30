@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:drawableRight="@drawable/ic_action_edit"
         android:text="Estimation Method Name"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/estimationType"/>

@@ -28,6 +28,7 @@
         layout="@layout/create_new_influencing_factor_overview_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="5dp"/>
 
 </android.support.design.widget.CoordinatorLayout>

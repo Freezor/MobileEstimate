@@ -4,18 +4,14 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.text.InputFilter;
-import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mobileprojectestimator.mobileprojectestimator.Activities.FunctionPointProjectActivtiy;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.InfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.FunctionPointProject.FunctionPointInfluenceFactorFragment;
@@ -189,7 +185,7 @@ public class FunctionPointInfluenceListAdapter extends BaseAdapter
             convertView = inflater.inflate(R.layout.function_point_influence_factor_list_item, null);
 
         TextView itemNameTv = (TextView) convertView.findViewById(R.id.tvInfluenceName);
-        TextView itemValueTv = (TextView) convertView.findViewById(R.id.tvInfluenceValue);
+        TextView itemValueTv = (TextView) convertView.findViewById(R.id.etInfluenceValue);
 
         itemValueTv.setText(String.format("%d", loadInfluenceFactorChosenValue(factorNameArrayList.get(position))));
 
