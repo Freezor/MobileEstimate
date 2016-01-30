@@ -146,7 +146,7 @@ public class InfluenceFactorItem
         if (chosenValue >= minValue && chosenValue <= maxValue)
         {
             this.chosenValue = chosenValue;
-        } else if (chosenValue > minValue)
+        } else if (chosenValue < minValue)
         {
             this.chosenValue = minValue;
         } else if (chosenValue > maxValue)

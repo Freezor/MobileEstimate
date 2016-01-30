@@ -13,8 +13,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Database.DatabaseInfluenceFactorItem;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.InfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.InfluencingFactor;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 import com.mobileprojectestimator.mobileprojectestimator.Util.LoggingHelper;
@@ -41,8 +43,10 @@ public class InfluenceFactorsActivity extends DatabaseActivity
 
     private InfluenceListAdapter influenceListAdapter;
     private ArrayList<String> influenceFactorNames;
+    private ArrayList<Integer> influenceFactorIds;
     private ArrayAdapter<String> dataAdapter;
     private LoggingHelper loggingHelper;
+    private ArrayList<String> factornames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -81,6 +85,15 @@ public class InfluenceFactorsActivity extends DatabaseActivity
 
         loadInfluenceFactor(influenceFactorNames.get(0));
 
+        influenceFactorItemsList.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                openFactorInfoDialog(factornames.get(position));
+            }
+        });
+
         estimationMethodName.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -117,11 +130,28 @@ public class InfluenceFactorsActivity extends DatabaseActivity
                 i.putExtra(getString(R.string.ISNEWFACTOR), false);
                 i.putExtra(getString(R.string.NEWFACTORESTIMATIONMETHOD), selectedEstimationMethod);
                 i.putExtra(getString(R.string.NEWFACTORINFLUENCESETNAME), influenceFactorNames.get(influenceFactorSetSpinner.getSelectedItemPosition()));
+                i.putExtra(getString(R.string.NEWFACTORINFLUENCESETID), influenceFactorIds.get(influenceFactorSetSpinner.getSelectedItemPosition()));
                 startActivityForResult(i, Integer.parseInt(getString(R.string.edit_influence_factor_request_code)));
             }
         });
     }
 
+    private void openFactorInfoDialog(String item)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(item);
+        builder.setMessage(databaseHelper.getXmlHelper().loadDescriptionText(item.replace(" ", "_").toLowerCase()));
+        builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+
+            }
+        });
+
+        builder.show();
+    }
 
     /**
      * Loads the influence factors from the database
@@ -133,6 +163,7 @@ public class InfluenceFactorsActivity extends DatabaseActivity
         if (selectedEstimationMethod.equals(getString(R.string.estimation_method_function_point)))
         {
             influencingFactor = new InfluencingFactor(this, InfluencingFactor.FUNCTIONPOINTFACTORS);
+            factornames = new ArrayList<String>();
             for (DatabaseInfluenceFactorItem item : dbInfluenceFactorItems)
             {
                 if (item.get_name().equals(factorName))
@@ -140,6 +171,16 @@ public class InfluenceFactorsActivity extends DatabaseActivity
                     ArrayList<Integer> factorValues = databaseHelper.loadFunctionPointInfluenceValues(item.get_influenceFactorId());
                     influencingFactor.setFunctionPointValuesFromArrayList(factorValues);
                     break;
+                }
+            }
+
+            for(InfluenceFactorItem item: influencingFactor.getInfluenceFactorItems()){
+                if(item.hasSubItems()){
+                    for(InfluenceFactorItem subitems:item.getSubInfluenceFactorItemsList()){
+                        factornames.add(subitems.getName());
+                    }
+                }else{
+                    factornames.add(item.getName());
                 }
             }
             influenceListAdapter = new InfluenceListAdapter(this, influencingFactor.getInfluenceFactorItems());
@@ -169,9 +210,11 @@ public class InfluenceFactorsActivity extends DatabaseActivity
         dbInfluenceFactorItems = databaseHelper.getInfluenceFactorItems(databaseHelper.getEstimationMethodId(selectedEstimationMethod));
 
         influenceFactorNames = new ArrayList<>();
+        influenceFactorIds = new ArrayList<>();
         for (DatabaseInfluenceFactorItem item : dbInfluenceFactorItems)
         {
             influenceFactorNames.add(item.get_name());
+            influenceFactorIds.add(item.get_id());
         }
 
         //Set Factors to spinner
@@ -204,13 +247,13 @@ public class InfluenceFactorsActivity extends DatabaseActivity
             loadEstimationMethods();
         }
         dbInfluenceFactorItems = databaseHelper.getInfluenceFactorItems(databaseHelper.getEstimationMethodId(selectedEstimationMethod));
+        loadInfluenceFactorNames();
 
         influenceFactorNames = new ArrayList<>();
         for (DatabaseInfluenceFactorItem item : dbInfluenceFactorItems)
         {
             influenceFactorNames.add(item.get_name());
         }
-
         //Set Factors to spinner
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dataAdapter.clear();

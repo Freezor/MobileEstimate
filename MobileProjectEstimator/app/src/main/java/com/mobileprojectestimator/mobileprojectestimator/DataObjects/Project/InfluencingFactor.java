@@ -30,6 +30,7 @@ public class InfluencingFactor
     public static final int COCOMO2FACTORS = 103;
     private final int influencingFactorId;
     private final Context context;
+    private int dbId;
     private String name;
 
     public void setInfluenceFactorItems(ArrayList<InfluenceFactorItem> influenceFactorItems) {
@@ -427,5 +428,15 @@ public class InfluencingFactor
                 }
             }
         }
+    }
+
+    public int getDbId()
+    {
+        return dbId;
+    }
+
+    public void setDbId(int dbId)
+    {
+        this.dbId = dbId;
     }
 }

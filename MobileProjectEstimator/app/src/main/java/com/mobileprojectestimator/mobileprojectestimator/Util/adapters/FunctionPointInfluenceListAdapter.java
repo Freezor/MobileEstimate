@@ -43,7 +43,7 @@ public class FunctionPointInfluenceListAdapter extends BaseAdapter
      */
     private LayoutInflater inflater;
     private ArrayList<String> factorNameArrayList;
-    private ImageView infoImageView;
+    //private ImageView infoImageView;
 
     /**
      * Standard constructor

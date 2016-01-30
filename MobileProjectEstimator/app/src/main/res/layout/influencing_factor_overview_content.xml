@@ -25,6 +25,7 @@
         android:id="@+id/lvInfluenceFactors"
         android:layout_width="wrap_content"
         android:layout_height="300dp"
+        android:descendantFocusability="blocksDescendants"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/influenceFactorSetSpinner"
         android:layout_marginTop="10dp"

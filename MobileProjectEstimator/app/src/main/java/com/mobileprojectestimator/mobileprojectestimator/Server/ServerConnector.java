@@ -240,14 +240,8 @@ public class ServerConnector
             xmlSerializer.endTag(null, "text");
 
             xmlSerializer.startTag(null, "text").attribute(null, "name", "processing_logic");
-            xmlSerializer.text("NOT DONE YET. The following values describe how the chosen value for this influence factor can be understood.\n" +
-                    "\n" +
-                    "0 -\n" +
-                    "2 -\n" +
-                    "4 -\n" +
-                    "6 -\n" +
-                    "8 -\n" +
-                    "10 -");
+            xmlSerializer.text("This is an influence factor with 4 subfactors. Those factors describe if the application has extensive logical or mathematical processing.\n" +
+                    "\n");
             xmlSerializer.endTag(null, "text");
 
             xmlSerializer.startTag(null, "text").attribute(null, "name", "reusability");

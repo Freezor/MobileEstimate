@@ -1,7 +1,11 @@
 package com.mobileprojectestimator.mobileprojectestimator.Util.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,7 +19,10 @@ import android.widget.Toast;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.InfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.R;
+import com.mobileprojectestimator.mobileprojectestimator.Util.database.DataBaseHelper;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -31,8 +38,47 @@ public class NewInfluenceFactorListAdapter extends ArrayAdapter<InfluenceFactorI
                                          ArrayList<InfluenceFactorItem> items)
     {
         super(context, textViewResourceId, items);
+        initDatabase();
         this.influenceFactorItems = new ArrayList<>();
         this.influenceFactorItems.addAll(items);
+    }
+
+    /**
+     * The Database Helper Object for sending queries to the database
+     */
+    protected DataBaseHelper databaseHelper;
+
+    /**
+     * Initialise the Database Helper class and loads the database
+     */
+    protected void initDatabase()
+    {
+        Log.d("Info", "Database Initialisation");
+        this.databaseHelper = new DataBaseHelper(getContext());
+
+        try
+        {
+
+            databaseHelper.createDataBase();
+
+        } catch (IOException ioe)
+        {
+
+            throw new Error("Unable to create database");
+
+        }
+
+        try
+        {
+
+            databaseHelper.openDataBase();
+
+        } catch (SQLException sqle)
+        {
+            Log.d("ERROR", sqle.toString());
+        }
+
+        databaseHelper.logDatabaseInformation();
     }
 
     public int getSumOfInfluences()
@@ -103,14 +149,14 @@ public class NewInfluenceFactorListAdapter extends ArrayAdapter<InfluenceFactorI
                     public void onClick(View v)
                     {
                         InfluenceFactorItem item = influenceFactorItems.get(position);
-                        Toast.makeText(getContext(), "Show Sub Items Clicked "+item.getName(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Show Sub Items Clicked " + item.getName(), Toast.LENGTH_SHORT).show();
                     }
                 });
                 holder.infoImageView.setOnClickListener(new View.OnClickListener()
                 {
                     public void onClick(View v)
                     {
-                        Toast.makeText(getContext(), "Info Clicked: " + finalHolder.tvInfluenceName.getText(), Toast.LENGTH_SHORT).show();
+                        openFactorInfoDialog(String.valueOf(finalHolder.tvInfluenceName.getText()));
                     }
                 });
 
@@ -131,14 +177,16 @@ public class NewInfluenceFactorListAdapter extends ArrayAdapter<InfluenceFactorI
                     convertView.setBackgroundResource(R.color.light_blue);
                 }
 
+
                 final ViewHolder finalHolder = holder;
                 holder.infoImageView.setOnClickListener(new View.OnClickListener()
                 {
                     public void onClick(View v)
                     {
-                        Toast.makeText(getContext(), "Info Clicked: " + finalHolder.tvInfluenceName.getText(), Toast.LENGTH_SHORT).show();
+                        openFactorInfoDialog(String.valueOf(finalHolder.tvInfluenceName.getText()));
                     }
                 });
+                holder.etInfluenceValue.setFilters(new InputFilter[]{new InputFilterMinMax(item.getMinValue(), item.getMaxValue())});
                 holder.etInfluenceValue.addTextChangedListener(new TextWatcher()
                 {
                     @Override
@@ -188,4 +236,58 @@ public class NewInfluenceFactorListAdapter extends ArrayAdapter<InfluenceFactorI
 
     }
 
+    private void openFactorInfoDialog(String item)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(item);
+        builder.setMessage(databaseHelper.getXmlHelper().loadDescriptionText(item.replace(" ", "_").toLowerCase()));
+        builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+
+            }
+        });
+
+        builder.show();
+    }
+
+    public class InputFilterMinMax implements InputFilter
+    {
+
+        private int min, max;
+
+        public InputFilterMinMax(int min, int max)
+        {
+            this.min = min;
+            this.max = max;
+        }
+
+        public InputFilterMinMax(String min, String max)
+        {
+            this.min = Integer.parseInt(min);
+            this.max = Integer.parseInt(max);
+        }
+
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend)
+        {
+            try
+            {
+                int input = Integer.parseInt(dest.toString() + source.toString());
+                if (isInRange(min, max, input))
+                    return null;
+            } catch (NumberFormatException nfe)
+            {
+            }
+            Toast.makeText(getContext(), "Input value out of factor range. Maximum value is " + end + ".", Toast.LENGTH_SHORT).show();
+            return "";
+        }
+
+        private boolean isInRange(int a, int b, int c)
+        {
+            return b > a ? c >= a && c <= b : c >= b && c <= a;
+        }
+    }
 }

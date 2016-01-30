@@ -120,7 +120,7 @@ public class InfluenceListAdapter extends BaseAdapter
         if (inflater == null)
             inflater = influenceFactorsActivity.getLayoutInflater();
         if (convertView == null)
-            convertView = inflater.inflate(R.layout.function_point_influence_factor_list_item, null);
+            convertView = inflater.inflate(R.layout.influence_factor_list_item, null);
 
         TextView itemNameTv = (TextView) convertView.findViewById(R.id.tvInfluenceName);
         TextView itemValueTv = (TextView) convertView.findViewById(R.id.etInfluenceValue);

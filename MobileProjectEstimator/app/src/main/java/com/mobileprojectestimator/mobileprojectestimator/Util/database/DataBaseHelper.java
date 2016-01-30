@@ -584,7 +584,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     }
 
-    public void updateExistingInfluenceFactor(String selectedEstimationMethod, String oldFactorName, InfluencingFactor influencingFactor)
+    public void updateExistingInfluenceFactor(String selectedEstimationMethod, int oldFactorId, InfluencingFactor influencingFactor)
     {
         //TODO: Create Statement to update existing Influence Factor
     }
@@ -2385,20 +2385,18 @@ public class DataBaseHelper extends SQLiteOpenHelper
         }
     }
 
-    public boolean deleteInfluenceFactor(String influenceFactorSetName)
+    public boolean deleteInfluenceFactor(int influenceFactorSetId)
     {
         boolean isDeleted = false;
 
-        String selectQuery = String.format("SELECT * FROM InfluenceFactors WHERE name = '%s'", influenceFactorSetName);
+        String selectQuery = String.format("SELECT * FROM InfluenceFactors WHERE _id = '%s'", influenceFactorSetId);
         SQLiteDatabase db = this.getReadableDatabase();
-        int influenceFactorId = 0;
         int influenceFactorDetailsId = 0;
         String estimationMethod = null;
         try (Cursor c = db.rawQuery(selectQuery, null))
         {
             if (c.moveToFirst())
             {
-                influenceFactorId = c.getInt(c.getColumnIndex("_id"));
                 influenceFactorDetailsId = c.getInt(c.getColumnIndex("influence_factor_id"));
                 estimationMethod = getEstimationMethodNameById(String.valueOf(c.getInt(c.getColumnIndex("estimation_method_id"))));
                 isDeleted = true;
@@ -2409,7 +2407,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
             isDeleted = false;
         }
         db = this.getWritableDatabase();
-        db.delete("InfluenceFactors", "_id = " + influenceFactorId, null);
+        db.delete("InfluenceFactors", "_id = " + influenceFactorSetId, null);
 
         if (estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
         {
@@ -2419,5 +2417,24 @@ public class DataBaseHelper extends SQLiteOpenHelper
         }
         db.close();
         return isDeleted;
+    }
+
+    public int getInfluenceFactorDetailsId(int oldFactorId)
+    {
+        int detailsId = 2001;
+        String selectQuery = String.format("SELECT * FROM InfluenceFactors WHERE _id = '%s'", oldFactorId);
+        SQLiteDatabase db = this.getReadableDatabase();
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                detailsId = c.getInt(c.getColumnIndex("influence_factor_id"));
+            }
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return detailsId ;
     }
 }

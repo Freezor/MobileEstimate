@@ -351,6 +351,7 @@
     <string name="b_transfer_evaluation_not_possible">Transfer not possible</string>
     <string name="action_show_all_relations">Show all</string>
     <string name="action_show_only_relevant_relations">Show only relevant</string>
+    <string name="NEWFACTORINFLUENCESETID">INFLUENCEFACTORSETID</string>
     <string-array name="pref_sync_frequency_titles">
         <item>1 hour</item>
         <item>3 hours</item>
