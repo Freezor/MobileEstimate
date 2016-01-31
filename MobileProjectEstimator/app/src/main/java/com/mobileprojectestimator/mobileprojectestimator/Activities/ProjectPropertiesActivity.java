@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-public class ProjectInformationActivity extends DatabaseActivity
+public class ProjectPropertiesActivity extends DatabaseActivity
 {
     private Project project;
     private TextView tvProjectName;
@@ -88,6 +89,70 @@ public class ProjectInformationActivity extends DatabaseActivity
                 openProjectIconDialog();
             }
         });
+        tvProjectName.setOnLongClickListener(new View.OnLongClickListener()
+        {
+            @Override
+            public boolean onLongClick(View v)
+            {
+                showValueToast(tvProjectName.getText().toString());
+                return true;
+            }
+        });
+        tvMarketValue.setOnLongClickListener(new View.OnLongClickListener()
+        {
+            @Override
+            public boolean onLongClick(View v)
+            {
+                showValueToast(tvMarketValue.getText().toString());
+                return true;
+            }
+        });
+        tvDevKindValue.setOnLongClickListener(new View.OnLongClickListener()
+        {
+            @Override
+            public boolean onLongClick(View v)
+            {
+                showValueToast(tvDevKindValue.getText().toString());
+                return true;
+            }
+        });
+        tvMethologyValue.setOnLongClickListener(new View.OnLongClickListener()
+        {
+            @Override
+            public boolean onLongClick(View v)
+            {
+                showValueToast(tvMethologyValue.getText().toString());
+                return true;
+            }
+        });
+        tvProgrammingLangValue.setOnLongClickListener(new View.OnLongClickListener()
+        {
+            @Override
+            public boolean onLongClick(View v)
+            {
+                showValueToast(tvProgrammingLangValue.getText().toString());
+                return true;
+            }
+        });
+        tvPlatformValue.setOnLongClickListener(new View.OnLongClickListener()
+        {
+            @Override
+            public boolean onLongClick(View v)
+            {
+                showValueToast(tvPlatformValue.getText().toString());
+                return true;
+            }
+        });
+        tvIndustrySectorValue.setOnLongClickListener(new View.OnLongClickListener()
+        {
+            @Override
+            public boolean onLongClick(View v)
+            {
+                showValueToast(tvIndustrySectorValue.getText().toString());
+                return true;
+            }
+        });
+
 
         tvProjectDescription.setOnClickListener(new View.OnClickListener()
         {
@@ -147,6 +212,11 @@ public class ProjectInformationActivity extends DatabaseActivity
         });
 
         loadPropertyValues();
+    }
+
+    private void showValueToast(String text)
+    {
+        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -465,7 +535,7 @@ public class ProjectInformationActivity extends DatabaseActivity
             case R.id.action_change_estimation_method:
                 return super.onOptionsItemSelected(item);
             case R.id.action_find_related_project:
-                Intent i = new Intent(ProjectInformationActivity.this, FindRelatedProjectsActivity.class);
+                Intent i = new Intent(ProjectPropertiesActivity.this, FindRelatedProjectsActivity.class);
                 i.putExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID), this.project.getProjectId());
                 startActivityForResult(i, Integer.parseInt((getString(R.string.FIND_RELATED_PROJECT_REQUEST_CODE))));
                 return true;
@@ -476,7 +546,7 @@ public class ProjectInformationActivity extends DatabaseActivity
 
     private void saveProject()
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(ProjectInformationActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ProjectPropertiesActivity.this);
         builder.setMessage(R.string.dialog_save_project_request)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
                 {

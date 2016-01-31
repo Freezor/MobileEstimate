@@ -2,7 +2,6 @@ package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,7 +17,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,6 +65,16 @@ public class FindRelatedProjectsActivity extends DatabaseActivity
         tvProjectTitle.setText(selectedProject.getTitle());
         tvEstimationMethod.setText(selectedProject.getEstimationMethod());
 
+        tvProjectTitle.setOnLongClickListener(new View.OnLongClickListener()
+        {
+            @Override
+            public boolean onLongClick(View v)
+            {
+                showValueToast(tvProjectTitle.getText().toString());
+                return true;
+            }
+        });
+
         lvRelatedProjects.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
@@ -76,6 +84,11 @@ public class FindRelatedProjectsActivity extends DatabaseActivity
             }
         });
         loadRelatedProjects();
+    }
+
+    private void showValueToast(String text)
+    {
+        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
     }
 
     private void onClickProject(final int position)
@@ -93,7 +106,7 @@ public class FindRelatedProjectsActivity extends DatabaseActivity
                 String optionItem = items[item].toString();
                 if (optionItem.equals("Project Informations"))
                 {
-                    Intent i = new Intent(FindRelatedProjectsActivity.this, ProjectInformationActivity.class);
+                    Intent i = new Intent(FindRelatedProjectsActivity.this, ProjectPropertiesActivity.class);
                     i.putExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID), projectsList.get(position).getProjectId());
                     startActivityForResult(i, Integer.parseInt((getString(R.string.CREATE_NEW_PROJECT_REQUEST_CODE))));
                 } else if (optionItem.equals("View Estimation"))

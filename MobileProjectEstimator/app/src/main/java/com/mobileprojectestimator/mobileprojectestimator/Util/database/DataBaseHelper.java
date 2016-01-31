@@ -732,11 +732,11 @@ public class DataBaseHelper extends SQLiteOpenHelper
                 c.moveToFirst();
 
             developmentMarktedId = c.getString(c.getColumnIndex("DevelopmentMarket_id"));
-            String developmentKindId = c.getString(c.getColumnIndex("DevelopmentMarket_id"));
-            String processMethologyId = c.getString(c.getColumnIndex("DevelopmentMarket_id"));
-            String programmingLanguageId = c.getString(c.getColumnIndex("DevelopmentMarket_id"));
-            String platformId = c.getString(c.getColumnIndex("DevelopmentMarket_id"));
-            String industrySectorId = c.getString(c.getColumnIndex("DevelopmentMarket_id"));
+            String developmentKindId = c.getString(c.getColumnIndex("DevelopmentKind_id"));
+            String processMethologyId = c.getString(c.getColumnIndex("ProcessMethology_id"));
+            String programmingLanguageId = c.getString(c.getColumnIndex("ProgrammingLanguage_id"));
+            String platformId = c.getString(c.getColumnIndex("Platform_id"));
+            String industrySectorId = c.getString(c.getColumnIndex("IndustrySector_id"));
             properties.setMarket(loadMarketNameById(developmentMarktedId));
             properties.setDevelopmentKind(loadDevelopmentKindNameById(developmentKindId));
             properties.setProgrammingLanguage(loadProgrammingLanguageNameById(programmingLanguageId));

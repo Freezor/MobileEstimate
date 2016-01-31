@@ -61,7 +61,7 @@ public class ProjectSearchResultsActivity extends DatabaseActivity
                 String optionItem = items[item].toString();
                 if (optionItem.equals("Project Informations"))
                 {
-                    Intent i = new Intent(ProjectSearchResultsActivity.this, ProjectInformationActivity.class);
+                    Intent i = new Intent(ProjectSearchResultsActivity.this, ProjectPropertiesActivity.class);
                     i.putExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID), projectsList.get(position).getProjectId());
                     startActivityForResult(i, Integer.parseInt((getString(R.string.CREATE_NEW_PROJECT_REQUEST_CODE))));
                 } else if (optionItem.equals("Delete Project"))

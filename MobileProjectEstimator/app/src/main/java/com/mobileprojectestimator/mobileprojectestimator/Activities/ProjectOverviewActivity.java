@@ -127,7 +127,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         ArrayList<String> infItems = new ArrayList<>();
-        infItems.add("Project Informations");
+        infItems.add("Project Properties");
         infItems.add("Find Related Projects");
         infItems.add("Delete Project");
         final CharSequence[] items = infItems.toArray(new String[infItems.size()]);
@@ -136,9 +136,9 @@ public class ProjectOverviewActivity extends DatabaseActivity
             public void onClick(DialogInterface dialog, int item)
             {
                 String optionItem = items[item].toString();
-                if (optionItem.equals("Project Informations"))
+                if (optionItem.equals("Project Properties"))
                 {
-                    Intent i = new Intent(ProjectOverviewActivity.this, ProjectInformationActivity.class);
+                    Intent i = new Intent(ProjectOverviewActivity.this, ProjectPropertiesActivity.class);
                     i.putExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID), projectsList.get(position).getProjectId());
                     startActivityForResult(i, Integer.parseInt((getString(R.string.CREATE_NEW_PROJECT_REQUEST_CODE))));
                 } else if (optionItem.equals("Delete Project"))

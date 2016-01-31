@@ -274,7 +274,7 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
 
     private void openProjectProperties()
     {
-        Intent i = new Intent(FunctionPointProjectActivtiy.this, ProjectInformationActivity.class);
+        Intent i = new Intent(FunctionPointProjectActivtiy.this, ProjectPropertiesActivity.class);
         i.putExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID), project.getProjectId());
         startActivityForResult(i, Integer.parseInt((getString(R.string.CREATE_NEW_PROJECT_REQUEST_CODE))));
     }

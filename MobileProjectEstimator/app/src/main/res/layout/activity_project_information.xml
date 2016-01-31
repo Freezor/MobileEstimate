@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:background="#fff"
     android:fitsSystemWindows="true"
-    tools:context=".Activities.ProjectInformationActivity">
+    tools:context=".Activities.ProjectPropertiesActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
