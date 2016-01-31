@@ -586,7 +586,39 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     public void updateExistingInfluenceFactor(String selectedEstimationMethod, int oldFactorId, InfluencingFactor influencingFactor)
     {
-        //TODO: Create Statement to update existing Influence Factor
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //Update Project Name
+        ContentValues args = new ContentValues();
+        args.put("name", influencingFactor.getInfluenceFactorSetName());
+        db.update("InfluenceFactors", args, "_id=" + oldFactorId, null);
+
+        int factorId = 0;
+        String selectCreatedIdQuery = String.format("SELECT * FROM InfluenceFactors WHERE _id= '%d';", oldFactorId);
+        try (Cursor c = db.rawQuery(selectCreatedIdQuery, null))
+        {
+            if (c != null)
+            {
+                c.moveToFirst();
+                factorId = c.getInt(c.getColumnIndex("influence_factor_id"));
+            }
+        }
+        if (selectedEstimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
+        {
+            ArrayList<InfluenceFactorItem> items = influencingFactor.getInfluenceFactorItems();
+            args = new ContentValues();
+            args.put("Integration", items.get(0).getChosenValue());
+            args.put("LocalDataProcessing", items.get(1).getChosenValue());
+            args.put("TransactionRate", items.get(2).getChosenValue());
+            args.put("ArithmeticOperation", items.get(3).getSubInfluenceFactorItemsList().get(0).getChosenValue());
+            args.put("ControlProcedure", items.get(3).getSubInfluenceFactorItemsList().get(1).getChosenValue());
+            args.put("ExceptionalRule", items.get(3).getSubInfluenceFactorItemsList().get(2).getChosenValue());
+            args.put("Logic", items.get(3).getSubInfluenceFactorItemsList().get(3).getChosenValue());
+            args.put("Reusability", items.get(4).getChosenValue());
+            args.put("StockConversion", items.get(5).getChosenValue());
+            args.put("Adaptability", items.get(6).getChosenValue());
+            db.update("FunctionPointInfluenceFactor", args, "_id=" + factorId, null);
+        }
     }
 
     /**
@@ -2435,6 +2467,6 @@ public class DataBaseHelper extends SQLiteOpenHelper
             e.printStackTrace();
         }
 
-        return detailsId ;
+        return detailsId;
     }
 }

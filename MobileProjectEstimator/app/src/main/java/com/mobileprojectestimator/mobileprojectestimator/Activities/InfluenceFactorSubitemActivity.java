@@ -120,6 +120,16 @@ public class InfluenceFactorSubitemActivity extends DatabaseActivity
 
     private void closeActivity()
     {
+        ArrayList<InfluenceFactorItem> items = influenceListAdapter.getInfluenceFactorItems();
+        itemNames = new ArrayList<>();
+        itemValues = new ArrayList<>();
+
+        for (InfluenceFactorItem i : items)
+        {
+            itemNames.add(i.getName());
+            itemValues.add(i.getChosenValue());
+        }
+
         Intent i = new Intent();
         i.putExtra("SUBITEMCATEGORYNAME", itemName);
         i.putExtra("SUBITEMNAMES", itemNames);

@@ -110,6 +110,11 @@ public class NewInfluenceFactorListAdapter extends ArrayAdapter<InfluenceFactorI
         return influenceFactorItems;
     }
 
+    public void setInfluenceFactorItems(ArrayList<InfluenceFactorItem> influenceFactorItems)
+    {
+        this.influenceFactorItems = influenceFactorItems;
+    }
+
     private class ViewHolder
     {
         boolean hasSubitems;

@@ -6,7 +6,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -77,21 +76,6 @@ public class CreateNewInfluenceFactorActivity extends DatabaseActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         loadInfluenceFactor();
-
-        factorItemsListView.setOnScrollListener(new AbsListView.OnScrollListener()
-        {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState)
-            {
-                influencingFactor.setInfluenceFactorItems(influenceListAdapter.getInfluenceFactorItems());
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
-            {
-                influencingFactor.setInfluenceFactorItems(influenceListAdapter.getInfluenceFactorItems());
-            }
-        });
     }
 
     public boolean onCreateOptionsMenu(Menu menu)
@@ -178,21 +162,13 @@ public class CreateNewInfluenceFactorActivity extends DatabaseActivity
                     break;
                 }
             }
-            itemName = "";
+            influenceListAdapter.setInfluenceFactorItems(influencingFactor.getInfluenceFactorItems());
         }
+        updateSumOfInfluences();
     }
 
     private void saveFactorToDatabase()
     {
-        int value = 0;
-        influencingFactor.setName(factorName.getText().toString());
-        /*for (int i = 0; i < factorItemsListView.getCount(); i++) {
-            v = factorItemsListView.getAdapter().getView(i, null, null);
-            etValue = (EditText) v.findViewById(R.id.tvInfluenceValue);
-            name = (TextView) v.findViewById(R.id.tvInfluenceName);
-            value = Integer.parseInt(influenceListAdapter.checkInputSize(String.valueOf(etValue.getText()),name.getText().toString()));
-            influencingFactor.setChosenValueOfItem(value,name.getText().toString());
-        }*/
         influencingFactor.setInfluenceFactorItems(influenceListAdapter.getInfluenceFactorItems());
 
         if (factorName.getText().toString().equals(""))
@@ -201,6 +177,7 @@ public class CreateNewInfluenceFactorActivity extends DatabaseActivity
         } else
         {
             influencingFactor.setName(factorName.getText().toString());
+            influencingFactor.setInfluenceFactorItems(influenceListAdapter.getInfluenceFactorItems());
             if (oldFactorName.isEmpty() || oldFactorName.equals(""))
             {
                 databaseHelper.createNewInfluenceFactor(selectedEstimationMethod, influencingFactor);
