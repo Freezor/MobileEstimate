@@ -356,7 +356,9 @@ public class AnalysisActivity extends DatabaseActivity
             selectedInfluenceFactorSet = influenceItems.get(0).get_name();
         }
         Log.d("INFO", "AnalysisActivity: loadProjectData: selectedEstimationMethod " + selectedEstimationMethod + " selectedInfluenceFactor " + selectedInfluenceFactorSet);
+
         selectedProjects = databaseHelper.loadActiveProjectsByEstimationMethodAndInfluenceSet(selectedEstimationMethod, selectedInfluenceFactorSet);
+
         Collections.sort(selectedProjects, new Comparator<Project>()
         {
             @Override
@@ -567,6 +569,7 @@ public class AnalysisActivity extends DatabaseActivity
                     {
                         influenceSetNames.add(item.get_name());
                     }
+                    influenceSetNames.add(0, "All");
                     final CharSequence[] items = influenceSetNames.toArray(new String[influenceSetNames.size()]);
                     builder.setItems(items, new DialogInterface.OnClickListener()
                     {

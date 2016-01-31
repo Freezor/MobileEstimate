@@ -2018,10 +2018,14 @@ public class DataBaseHelper extends SQLiteOpenHelper
                 do
                 {
                     Project p = loadProjectById(context, String.valueOf(c.getInt(c.getColumnIndex("_id"))));
-                    if (p.getInfluencingFactor().getInfluenceFactorSetName().equals(selectedInfluenceFactorSet))
+                    if (selectedInfluenceFactorSet.equals("All"))
+                    {
+                        projects.add(p);
+                    } else if (p.getInfluencingFactor().getInfluenceFactorSetName().equals(selectedInfluenceFactorSet))
                     {
                         projects.add(p);
                     }
+
                 } while (c.moveToNext());
             }
         }
@@ -2417,7 +2421,8 @@ public class DataBaseHelper extends SQLiteOpenHelper
         }
     }
 
-    public boolean setDeleteFlagForInfluenceFactor(int influenceFactorSetId){
+    public boolean setDeleteFlagForInfluenceFactor(int influenceFactorSetId)
+    {
 
         SQLiteDatabase db = this.getWritableDatabase();
         //Update Project Icon and evaluated days

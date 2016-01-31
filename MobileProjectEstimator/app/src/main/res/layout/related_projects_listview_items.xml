@@ -15,7 +15,9 @@
 
     <TextView
         android:id="@+id/tvProjectName"
-        android:layout_width="240dp"
+        android:layout_width="220dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"

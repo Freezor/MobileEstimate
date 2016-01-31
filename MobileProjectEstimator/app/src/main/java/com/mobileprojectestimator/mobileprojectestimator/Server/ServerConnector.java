@@ -143,19 +143,39 @@ public class ServerConnector
 
             xmlSerializer.startTag(null, "category").attribute(null, "name", "function_point_estimation_items");
             xmlSerializer.startTag(null, "text").attribute(null, "name", "input_data_description");
-            xmlSerializer.text("External Inputs (EI) - is an elementary process in which data crosses the boundary from outside to inside.  This data may come from a data input screen or another application. The data may be used to maintain one or more internal logical files.  The data can be either control information or business information.  If the data is control information it does not have to update an internal logical file.");
+            xmlSerializer.text("External Inputs (EI) - is an elementary process in which data crosses the boundary from outside to inside.  This data may come from a data input screen or another application. The data may be used to maintain one or more internal logical files.  The data can be either control information or business information.  If the data is control information it does not have to update an internal logical file.\n\n " +
+                    "Multiplikatoren:\n " +
+                    "simple = *3\n" +
+                    "medium = *4\n" +
+                    "complex = *6.");
             xmlSerializer.endTag(null, "text");
             xmlSerializer.startTag(null, "text").attribute(null, "name", "request_description");
-            xmlSerializer.text("External Inquiry (EQ) - an elementary process with both input and output components that result in data retrieval from one or more internal logical files and external interface files.  The input process does not update any Internal Logical Files, and the output side does not contain derived data.");
+            xmlSerializer.text("External Inquiry (EQ) - an elementary process with both input and output components that result in data retrieval from one or more internal logical files and external interface files.  The input process does not update any Internal Logical Files, and the output side does not contain derived data.\n\n" +
+                    "Multiplikatoren:\n " +
+                    "simple = *3\n" +
+                    "medium = *4\n" +
+                    "complex = *6.");
             xmlSerializer.endTag(null, "text");
             xmlSerializer.startTag(null, "text").attribute(null, "name", "output_description");
-            xmlSerializer.text("External Outputs (EO) - an elementary process in which derived data passes across the boundary from inside to outside.   Additionally, an EO may update an ILF.  The data creates reports or output files sent to other applications.  These reports and files are created from one or more internal logical files and external interface file.");
+            xmlSerializer.text("External Outputs (EO) - an elementary process in which derived data passes across the boundary from inside to outside.   Additionally, an EO may update an ILF.  The data creates reports or output files sent to other applications.  These reports and files are created from one or more internal logical files and external interface file.\n\n" +
+                    "Multiplikatoren:\n " +
+                    "simple = *4\n" +
+                    "medium = *5\n" +
+                    "complex = *7.");
             xmlSerializer.endTag(null, "text");
             xmlSerializer.startTag(null, "text").attribute(null, "name", "dataset_description");
-            xmlSerializer.text("Internal Logical Files (ILF’s) - a user identifiable group of logically related data that resides entirely within the applications boundary and is maintained through external inputs.");
+            xmlSerializer.text("Internal Logical Files (ILF’s) - a user identifiable group of logically related data that resides entirely within the applications boundary and is maintained through external inputs." +
+                    "Multiplikatoren:\n " +
+                    "simple = *7\n" +
+                    "medium = *10\n" +
+                    "complex = *15.");
             xmlSerializer.endTag(null, "text");
             xmlSerializer.startTag(null, "text").attribute(null, "name", "reference_data_description");
-            xmlSerializer.text("External Interface Files (EIF’s) - a user identifiable group of logically related data that is used for reference purposes only. The data resides entirely outside the application and is maintained by another application. The external interface file is an internal logical file for another application.");
+            xmlSerializer.text("External Interface Files (EIF’s) - a user identifiable group of logically related data that is used for reference purposes only. The data resides entirely outside the application and is maintained by another application. The external interface file is an internal logical file for another application.\n\n" +
+                    "Multiplikatoren:\n " +
+                    "simple = *5\n" +
+                    "medium = *7\n" +
+                    "complex = *10.");
             xmlSerializer.endTag(null, "text");
             xmlSerializer.endTag(null, "category");
 
