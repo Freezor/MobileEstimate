@@ -1,5 +1,7 @@
 package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -128,11 +130,31 @@ public class CreateNewInfluenceFactorActivity extends DatabaseActivity
 
     private void deleteInfluenceFactor()
     {
-        if (databaseHelper.deleteInfluenceFactor(influencingFactor.getDbId()))
-        {
-            Toast.makeText(this, "Influence Factor successfully deleted", Toast.LENGTH_SHORT).show();
-            finish();
-        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(oldFactorName);
+        builder.setMessage(R.string.dialog_delete_influence_factor)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+
+                        if (databaseHelper.setDeleteFlagForInfluenceFactor(influencingFactor.getDbId()))
+                        {
+                            Toast.makeText(CreateNewInfluenceFactorActivity.this, "Influence Factor successfully deleted", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    }
+                })
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        // User cancelled the dialog
+                    }
+                });
+        // Create the AlertDialog object and return it
+        builder.create();
+        builder.show();
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data)

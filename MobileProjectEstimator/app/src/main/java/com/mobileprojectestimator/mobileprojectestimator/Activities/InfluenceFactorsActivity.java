@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Database.DatabaseInfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.InfluenceFactorItem;
@@ -207,7 +206,7 @@ public class InfluenceFactorsActivity extends DatabaseActivity
         {
             loadEstimationMethods();
         }
-        dbInfluenceFactorItems = databaseHelper.getInfluenceFactorItems(databaseHelper.getEstimationMethodId(selectedEstimationMethod));
+        dbInfluenceFactorItems = databaseHelper.getActiveInfluenceFactorItems(databaseHelper.getEstimationMethodId(selectedEstimationMethod));
 
         influenceFactorNames = new ArrayList<>();
         influenceFactorIds = new ArrayList<>();
@@ -246,7 +245,7 @@ public class InfluenceFactorsActivity extends DatabaseActivity
         {
             loadEstimationMethods();
         }
-        dbInfluenceFactorItems = databaseHelper.getInfluenceFactorItems(databaseHelper.getEstimationMethodId(selectedEstimationMethod));
+        dbInfluenceFactorItems = databaseHelper.getActiveInfluenceFactorItems(databaseHelper.getEstimationMethodId(selectedEstimationMethod));
         loadInfluenceFactorNames();
 
         influenceFactorNames = new ArrayList<>();

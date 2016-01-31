@@ -429,7 +429,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.estimation_method_hint));
 
-        influenceFactorItems =  databaseHelper.getInfluenceFactorItems(databaseHelper.getEstimationMethodId(projectNew.getEstimationMethod()));
+        influenceFactorItems =  databaseHelper.getActiveInfluenceFactorItems(databaseHelper.getEstimationMethodId(projectNew.getEstimationMethod()));
         ArrayList<String> infItems = new ArrayList<>();
         for(DatabaseInfluenceFactorItem i : influenceFactorItems){
             infItems.add(i.get_name());
@@ -983,7 +983,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
         influencingFactorItems = new ArrayList<>();
 
         int estimationMethodDbId = databaseHelper.getEstimationMethodId(projectNew.getEstimationMethod());
-        dbInfluenceFactorItems = databaseHelper.getInfluenceFactorItems(estimationMethodDbId);
+        dbInfluenceFactorItems = databaseHelper.getActiveInfluenceFactorItems(estimationMethodDbId);
 
 
         if (!dbInfluenceFactorItems.isEmpty())

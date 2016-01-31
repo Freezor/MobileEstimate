@@ -355,11 +355,11 @@ public class DataBaseHelper extends SQLiteOpenHelper
      * @param estimationId
      * @return
      */
-    public ArrayList<DatabaseInfluenceFactorItem> getInfluenceFactorItems(int estimationId)
+    public ArrayList<DatabaseInfluenceFactorItem> getActiveInfluenceFactorItems(int estimationId)
     {
         ArrayList<DatabaseInfluenceFactorItem> influenceFactorItems = new ArrayList<>();
 
-        String selectQuery = String.format("SELECT * FROM InfluenceFactors WHERE estimation_method_id = %d ORDER BY lower(name) ASC;", estimationId);
+        String selectQuery = String.format("SELECT * FROM InfluenceFactors WHERE estimation_method_id = %d AND is_deleted = 0 ORDER BY lower(name) ASC;", estimationId);
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -2415,6 +2415,16 @@ public class DataBaseHelper extends SQLiteOpenHelper
         {
             updateFunctionPointEstimationItem((FunctionPointItem) item);
         }
+    }
+
+    public boolean setDeleteFlagForInfluenceFactor(int influenceFactorSetId){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        //Update Project Icon and evaluated days
+        ContentValues args = new ContentValues();
+        args.put("is_deleted", 1);
+        db.update("InfluenceFactors", args, "_id=" + influenceFactorSetId, null);
+        return true;
     }
 
     public boolean deleteInfluenceFactor(int influenceFactorSetId)

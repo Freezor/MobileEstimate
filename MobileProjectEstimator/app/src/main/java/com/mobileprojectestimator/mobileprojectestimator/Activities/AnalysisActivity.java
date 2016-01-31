@@ -29,6 +29,8 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Database.DatabaseInfluenceFactorItem;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.EstimationItem;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
@@ -56,18 +58,18 @@ public class AnalysisActivity extends DatabaseActivity
     private BarDataSet barDataSet;
     private String projectId;
     private TextView tvProjectName;
-    private TextView tvFinalPersonDays;
+    private TextView tvEvaluatedPoints;
     private TextView tvEvaluatedPersonDays;
     private Project chosenProject;
     private View layout;
-    private boolean isArrangementFinalDays;
+    private boolean isArrangementEvaluatedPoints;
     private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        isArrangementFinalDays = false;
+        isArrangementEvaluatedPoints = false;
         setContentView(R.layout.activity_analysis);
         projectId = "";
         initDatabase();
@@ -89,15 +91,15 @@ public class AnalysisActivity extends DatabaseActivity
         loadProjectData();
 
         tvProjectName = (TextView) findViewById(R.id.tvProjectName);
-        tvFinalPersonDays = (TextView) findViewById(R.id.tvFinalPersonDays);
+        tvEvaluatedPoints = (TextView) findViewById(R.id.tvFinalPersonDays);
         tvEvaluatedPersonDays = (TextView) findViewById(R.id.tvEvaluatedPersonDays);
         layout = findViewById(R.id.analysis_layout);
-        tvFinalPersonDays.setOnClickListener(new View.OnClickListener()
+        tvEvaluatedPoints.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                openChangeTerminatedPersonDaysDialog();
+                openChangeEvaluatedPointsDialog();
             }
         });
         tvEvaluatedPersonDays.setOnClickListener(new View.OnClickListener()
@@ -122,7 +124,7 @@ public class AnalysisActivity extends DatabaseActivity
                 Log.d("INFO", "Selected Value: " + entry.toString() + " index: " + i + " highlight " + highlight.toString());
                 chosenProject = selectedProjects.get(entry.getXIndex());
                 tvProjectName.setText(chosenProject.getTitle());
-                tvFinalPersonDays.setText(String.valueOf(chosenProject.getFinalPersonDays()));
+                tvEvaluatedPoints.setText(String.valueOf(chosenProject.getEvaluatedPoints()));
                 tvEvaluatedPersonDays.setText(String.valueOf(chosenProject.getEvaluatedPersonDays()));
             }
 
@@ -142,7 +144,7 @@ public class AnalysisActivity extends DatabaseActivity
         if (projectId == null || projectId.equals(""))
         {
             tvProjectName.setText("");
-            tvFinalPersonDays.setText("");
+            tvEvaluatedPoints.setText("");
             tvEvaluatedPersonDays.setText("");
         } else
         {
@@ -154,7 +156,7 @@ public class AnalysisActivity extends DatabaseActivity
                     projectFound = true;
                     chosenProject = p;
                     tvProjectName.setText(chosenProject.getTitle());
-                    tvFinalPersonDays.setText(String.valueOf(chosenProject.getFinalPersonDays()));
+                    tvEvaluatedPoints.setText(String.valueOf(chosenProject.getEvaluatedPoints()));
                     tvEvaluatedPersonDays.setText(String.valueOf(chosenProject.getEvaluatedPoints()));
                     break;
                 }
@@ -162,32 +164,34 @@ public class AnalysisActivity extends DatabaseActivity
             if (!projectFound)
             {
                 tvProjectName.setText("");
-                tvFinalPersonDays.setText("");
+                tvEvaluatedPoints.setText("");
                 tvEvaluatedPersonDays.setText("");
             }
         }
     }
 
-    private void openChangeTerminatedPersonDaysDialog()
+    private void openChangeEvaluatedPointsDialog()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.dialog_change_final_person_days_title));
-        builder.setMessage(getString(R.string.dialog_change_final_person_days_message));
+        builder.setTitle(getString(R.string.dialog_change_evaluated_points_title));
+        builder.setMessage(getString(R.string.dialog_change_evaluated_points_message));
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         input.setSingleLine(true);
-        input.setText("" + chosenProject.getFinalPersonDays());
+        input.setText("" + chosenProject.getEvaluatedPoints());
         builder.setView(input);
         builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener()
         {
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                chosenProject.setFinalPersonDays(Double.parseDouble(input.getText().toString()));
-                tvFinalPersonDays.setText(String.valueOf(chosenProject.getFinalPersonDays()));
+                chosenProject.setEvaluatedPoints(Double.parseDouble(input.getText().toString()));
+                tvEvaluatedPoints.setText(String.valueOf(chosenProject.getEvaluatedPoints()));
                 reEvaluatePersonDaysForAllProjects();
-                for (Project p:selectedProjects){
-                    if(p.getProjectId() == chosenProject.getProjectId()){
+                for (Project p : selectedProjects)
+                {
+                    if (p.getProjectId() == chosenProject.getProjectId())
+                    {
                         selectedProjects.remove(p);
                         selectedProjects.add(chosenProject);
                         Collections.sort(selectedProjects, new Comparator<Project>()
@@ -302,8 +306,10 @@ public class AnalysisActivity extends DatabaseActivity
             {
                 chosenProject.setEvaluatedPersonDays(Double.parseDouble(input.getText().toString()));
                 tvEvaluatedPersonDays.setText(String.valueOf(chosenProject.getEvaluatedPersonDays()));
-                for (Project p:selectedProjects){
-                    if(p.getProjectId() == chosenProject.getProjectId()){
+                for (Project p : selectedProjects)
+                {
+                    if (p.getProjectId() == chosenProject.getProjectId())
+                    {
                         selectedProjects.remove(p);
                         selectedProjects.add(chosenProject);
                         Collections.sort(selectedProjects, new Comparator<Project>()
@@ -391,14 +397,14 @@ public class AnalysisActivity extends DatabaseActivity
 
         CombinedData data = new CombinedData(projectNames);
 
-        data.setData(loadLineDataTerminatedPersonDays());
+        data.setData(loadLineDataEvaluatedPoints());
         data.setData(loadBarDataEstimatedPersonDays());
 
         personDaysChart.setData(data);
         personDaysChart.invalidate();
     }
 
-    private LineData loadLineDataTerminatedPersonDays()
+    private LineData loadLineDataEvaluatedPoints()
     {
 
         LineData d = new LineData();
@@ -406,9 +412,9 @@ public class AnalysisActivity extends DatabaseActivity
         ArrayList<Entry> entries = new ArrayList<Entry>();
 
         for (int index = 0; index < selectedProjects.size(); index++)
-            entries.add(new Entry((float) selectedProjects.get(index).getFinalPersonDays(), index));
+            entries.add(new Entry((float) selectedProjects.get(index).getEvaluatedPoints(), index));
 
-        lineDataSet = new LineDataSet(entries, "Terminated Person Days");
+        lineDataSet = new LineDataSet(entries, "Evaluated Points");
         lineDataSet.setColor(ContextCompat.getColor(this, R.color.even_darker_orange));
         lineDataSet.setLineWidth(2.5f);
         lineDataSet.setCircleColor(ContextCompat.getColor(this, R.color.dark_orange));
@@ -467,8 +473,8 @@ public class AnalysisActivity extends DatabaseActivity
             reloadChartData();
         }
         MenuItem arrangementMenuItem = menu.findItem(R.id.action_change_analysis_sort);
-        arrangementMenuItem.setTitle(getString(R.string.action_change_analysis_sort_final_days));
-        isArrangementFinalDays = false;
+        arrangementMenuItem.setTitle(getString(R.string.action_change_analysis_sort_evaluated_points));
+        isArrangementEvaluatedPoints = false;
     }
 
     private void refreshCharData()
@@ -499,7 +505,7 @@ public class AnalysisActivity extends DatabaseActivity
 
         CombinedData data = new CombinedData(projectNames);
 
-        data.setData(loadLineDataTerminatedPersonDays());
+        data.setData(loadLineDataEvaluatedPoints());
         data.setData(loadBarDataEstimatedPersonDays());
         personDaysChart.setData(data);
 
@@ -507,8 +513,8 @@ public class AnalysisActivity extends DatabaseActivity
         personDaysChart.invalidate();
 
         MenuItem arrangementMenuItem = menu.findItem(R.id.action_change_analysis_sort);
-        arrangementMenuItem.setTitle(getString(R.string.action_change_analysis_sort_final_days));
-        isArrangementFinalDays = false;
+        arrangementMenuItem.setTitle(getString(R.string.action_change_analysis_sort_evaluated_points));
+        isArrangementEvaluatedPoints = false;
 
         layout.invalidate();
     }
@@ -522,7 +528,7 @@ public class AnalysisActivity extends DatabaseActivity
         loadProjectData();
         CombinedData data = new CombinedData(projectNames);
 
-        data.setData(loadLineDataTerminatedPersonDays());
+        data.setData(loadLineDataEvaluatedPoints());
         data.setData(loadBarDataEstimatedPersonDays());
         personDaysChart.setData(data);
 
@@ -537,7 +543,7 @@ public class AnalysisActivity extends DatabaseActivity
         {
             selectedEstimationMethod = estimationMethods.get(0);
         }
-        influenceItems = databaseHelper.getInfluenceFactorItems(databaseHelper.getEstimationMethodId(selectedEstimationMethod));
+        influenceItems = databaseHelper.getActiveInfluenceFactorItems(databaseHelper.getEstimationMethodId(selectedEstimationMethod));
         if (tvInfluenceFactorSet == null)
         {
             tvInfluenceFactorSet = (TextView) findViewById(R.id.tvInfluenceFactorSet);
@@ -668,15 +674,16 @@ public class AnalysisActivity extends DatabaseActivity
     private void changeDiagrammArrangement()
     {
         MenuItem arrangementMenuItem = menu.findItem(R.id.action_change_analysis_sort);
-        if(!isArrangementFinalDays){
-            isArrangementFinalDays = true;
+        if (!isArrangementEvaluatedPoints)
+        {
+            isArrangementEvaluatedPoints = true;
             arrangementMenuItem.setTitle(getString(R.string.action_change_analysis_sort_estimated_days));
             Collections.sort(selectedProjects, new Comparator<Project>()
             {
                 @Override
                 public int compare(Project p1, Project p2)
                 {
-                    return Double.compare(p1.getFinalPersonDays(), p2.getFinalPersonDays());
+                    return Double.compare(p1.getEvaluatedPoints(), p2.getEvaluatedPoints());
                 }
 
             });
@@ -685,9 +692,10 @@ public class AnalysisActivity extends DatabaseActivity
             {
                 projectNames.add(proj.getTitle());
             }
-        } else {
-            isArrangementFinalDays = false;
-            arrangementMenuItem.setTitle(getString(R.string.action_change_analysis_sort_final_days));
+        } else
+        {
+            isArrangementEvaluatedPoints = false;
+            arrangementMenuItem.setTitle(getString(R.string.action_change_analysis_sort_evaluated_points));
             Collections.sort(selectedProjects, new Comparator<Project>()
             {
                 @Override
@@ -705,7 +713,7 @@ public class AnalysisActivity extends DatabaseActivity
         }
         CombinedData data = new CombinedData(projectNames);
 
-        data.setData(loadLineDataTerminatedPersonDays());
+        data.setData(loadLineDataEvaluatedPoints());
         data.setData(loadBarDataEstimatedPersonDays());
         personDaysChart.setData(data);
 
@@ -717,33 +725,53 @@ public class AnalysisActivity extends DatabaseActivity
     private void generateDemoValues()
     {
         tvProjectName.setText("");
-        tvFinalPersonDays.setText("");
+        tvEvaluatedPoints.setText("");
         tvEvaluatedPersonDays.setText("");
 
         selectedProjects = new ArrayList<>();
 
         Random r = new Random();
         int maxPoint = 4000;
-        int maxDays = 4000;
+        int maxDays = 200;
 
         for (int i = 0; i < 40; i++)
         {
-            int min = r.nextInt((i+60) - 20 + 1) + 20;
+            int min = r.nextInt((i + 60) - 20 + 1) + 20;
 
             Project p = new Project(this);
             p.setTitle("Project " + i);
             p.setEvaluatedPoints(r.nextInt(maxPoint - min + 1) + min);
             int evaluatedDays = r.nextInt(maxDays - min + 1) + min;
-            p.setEvaluatedPersonDays(evaluatedDays);
-            double fakt =  r.nextInt(80 - 5 + 1) + 5;
-            fakt = (fakt/100) + 1;
-            p.setFinalPersonDays(evaluatedDays*fakt);
-
-            p.initialiseEstimationItems(getString(R.string.estimation_method_function_point));
-            p.getEstimationItems();
-
+            double fakt = r.nextInt(80 - 5 + 1) + 5;
+            fakt = (fakt / 100) + 1;
+            p.setFinalPersonDays(evaluatedDays * fakt);
             p.setEstimationMethod(getString(R.string.estimation_method_function_point));
-            p.setInfluencingFactor(databaseHelper.loadInfluenceFactorById(2001));
+            p.initialiseEstimationItems(getString(R.string.estimation_method_function_point));
+
+            int minEstimationItemValue = 0;
+            int maxEstimationItemValueSimple = 30;
+            int maxEstimationItemValueMedium = 10;
+            int maxEstimationItemValueComplex = 5;
+            for (EstimationItem item : p.getEstimationItems())
+            {
+                //int minVal = r.nextInt(maxEstimationItemValue - minEstimationItemValue + 1) + minEstimationItemValue;
+                ((FunctionPointItem) item).setSimpleValue(r.nextInt(maxEstimationItemValueSimple - minEstimationItemValue + 1) + minEstimationItemValue);
+                //((FunctionPointItem) item).setSimpleValue(r.nextInt(evaluatedDays - minVal + 1) + minVal);
+                ((FunctionPointItem) item).setMediumValue(r.nextInt(maxEstimationItemValueMedium - minEstimationItemValue + 1) + minEstimationItemValue);
+                //((FunctionPointItem) item).setMediumValue(r.nextInt(evaluatedDays - minVal + 1) + minVal);
+                ((FunctionPointItem) item).setComplexValue(r.nextInt(maxEstimationItemValueComplex - minEstimationItemValue + 1) + minEstimationItemValue);
+                //((FunctionPointItem) item).setComplexValue(r.nextInt(evaluatedDays - minVal + 1) + minVal);
+            }
+            p.setInfluencingFactor(databaseHelper.loadInfluenceFactorById(2005));
+            p.setEvaluatedPoints(p.getEvaluatedPoints());
+            int terminatedProject = databaseHelper.getAmountTerminatedFunctionPointProject();
+            if (terminatedProject < 1)
+            {
+                p.setEvaluatedPersonDays(databaseHelper.evaluateFunctionPointPersonDaysWithBaseProductivity(p));
+            } else
+            {
+                p.setEvaluatedPersonDays(databaseHelper.evaluateFunctionPointPersonDaysWithExistingProductivity(p));
+            }
 
             selectedProjects.add(p);
         }

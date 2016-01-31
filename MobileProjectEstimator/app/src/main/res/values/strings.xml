@@ -250,11 +250,11 @@
     <string name="dialog_change_estimation_method_title">Change Estimation Method</string>
     <string name="action_open_statistics">Open Statistics</string>
     <string name="action_generate_demo_values">Generate Demo Values</string>
-    <string name="dialog_change_final_person_days_title">Change the final person days</string>
-    <string name="dialog_change_final_person_days_message">This changes are only visible in the diagramm and will not be saved.</string>
+    <string name="dialog_change_evaluated_points_title">Change the evaluated points</string>
+    <string name="dialog_change_evaluated_points_message">This changes are only visible in the diagramm and will not be saved.</string>
     <string name="dialog_change_evaluated_person_days_title">Change the evaluated person days</string>
     <string name="dialog_change_evaluated_person_days_message">This changes are only visible in the diagramm and will not be saved.</string>
-    <string name="action_change_analysis_sort_final_days">Arrange Final Days</string>
+    <string name="action_change_analysis_sort_evaluated_points">Arrange Evaluated Points</string>
     <string name="action_change_analysis_sort_estimated_days">Arrange Estimated Days</string>
     <string name="title_activity_statistics">Statistics</string>
     <string name="section_format">Hello World from section: %1$d</string>
@@ -353,6 +353,7 @@
     <string name="action_show_only_relevant_relations">Show only relevant</string>
     <string name="NEWFACTORINFLUENCESETID">INFLUENCEFACTORSETID</string>
     <string name="influence_factor_subitem_request_code">5679</string>
+    <string name="dialog_delete_influence_factor">Do you really want to delete this influence factor?</string>
     <string-array name="pref_sync_frequency_titles">
         <item>1 hour</item>
         <item>3 hours</item>

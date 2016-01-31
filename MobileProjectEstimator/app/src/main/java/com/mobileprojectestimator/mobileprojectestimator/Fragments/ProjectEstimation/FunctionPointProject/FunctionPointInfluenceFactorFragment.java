@@ -107,7 +107,7 @@ public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFrag
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle(getString(R.string.estimation_method_hint));
 
-        influenceFactorItems = databaseHelper.getInfluenceFactorItems(databaseHelper.getEstimationMethodId(project.getEstimationMethod()));
+        influenceFactorItems = databaseHelper.getActiveInfluenceFactorItems(databaseHelper.getEstimationMethodId(project.getEstimationMethod()));
         ArrayList<String> infItems = new ArrayList<>();
         for (DatabaseInfluenceFactorItem i : influenceFactorItems)
         {
