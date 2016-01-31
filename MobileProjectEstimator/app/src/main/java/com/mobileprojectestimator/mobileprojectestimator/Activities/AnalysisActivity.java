@@ -412,9 +412,9 @@ public class AnalysisActivity extends DatabaseActivity
         ArrayList<Entry> entries = new ArrayList<Entry>();
 
         for (int index = 0; index < selectedProjects.size(); index++)
-            entries.add(new Entry((float) selectedProjects.get(index).getEvaluatedPoints(), index));
+            entries.add(new Entry((float) selectedProjects.get(index).getEvaluatedPersonDays(), index));
 
-        lineDataSet = new LineDataSet(entries, "Evaluated Points");
+        lineDataSet = new LineDataSet(entries, "Estimated Person Days");
         lineDataSet.setColor(ContextCompat.getColor(this, R.color.even_darker_orange));
         lineDataSet.setLineWidth(2.5f);
         lineDataSet.setCircleColor(ContextCompat.getColor(this, R.color.dark_orange));
@@ -437,12 +437,12 @@ public class AnalysisActivity extends DatabaseActivity
 
         BarData d = new BarData();
 
-        ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
+        ArrayList<BarEntry> entries = new ArrayList<>();
 
         for (int index = 0; index < selectedProjects.size(); index++)
-            entries.add(new BarEntry((float) selectedProjects.get(index).getEvaluatedPersonDays(), index));
+            entries.add(new BarEntry((float) selectedProjects.get(index).getEvaluatedPoints(), index));
 
-        barDataSet = new BarDataSet(entries, "Estimated Person Days");
+        barDataSet = new BarDataSet(entries, "Evaluated Points");
         barDataSet.setColor(ContextCompat.getColor(this, R.color.light_blue));
         barDataSet.setValueTextColor(ContextCompat.getColor(this, R.color.dark_blue));
         barDataSet.setValueTextSize(10f);
