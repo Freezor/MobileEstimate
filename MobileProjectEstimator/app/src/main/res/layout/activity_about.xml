@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ivAppIcon"
-        android:src="@drawable/project"
+        android:src="@mipmap/ic_launcher"
         android:layout_below="@+id/tvVersion"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="43dp"/>
