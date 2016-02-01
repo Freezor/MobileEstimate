@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation.GuidedCreationFragment;
+import com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation.ProjectInfoFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter
 
     private Project project;
     private ArrayList<GuidedCreationFragment> guidedCreationFragmentsArrayList;
+    private int iconId;
 
     public SectionsPagerAdapter(FragmentManager fm, Project proj)
     {
@@ -40,6 +43,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter
     public Fragment getItem(int position)
     {
         GuidedCreationFragment f = guidedCreationFragmentsArrayList.get(position);
+        Log.d("INFO","Create new Instance of fragment: "+ position);
         guidedCreationFragmentsArrayList.set(position, f.newInstance(this.project));
         return f;
     }
@@ -49,6 +53,26 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter
     {
         // Show 6 total pages.
         return guidedCreationFragmentsArrayList.size();
+    }
+
+
+    public void updateIconId(int iconId)
+    {
+        this.iconId = iconId;
+        notifyDataSetChanged();
+    }
+
+
+
+    @Override
+    public int getItemPosition(Object object)
+    {
+        if (object instanceof ProjectInfoFragment)
+        {
+            ((ProjectInfoFragment) object).updateChosenIcon(iconId);
+        }
+        //don't return POSITION_NONE, avoid fragment recreation.
+        return super.getItemPosition(object);
     }
 
     @Override

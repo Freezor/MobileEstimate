@@ -1,7 +1,9 @@
 package com.mobileprojectestimator.mobileprojectestimator.Util.adapters;
 
 /**
- * Created by Oliver Fries on 25.10.2015.
+ * Created by Oliver Fries on 25.10.2015, 17:46.
+ * Project: MobileProjectEstimator
+ * Adapter for the projects
  */
 
 import android.app.Activity;
@@ -13,9 +15,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -33,6 +36,16 @@ public class ProjectListAdapter extends BaseAdapter
      * The layout that the adapter can access  the layout
      */
     private LayoutInflater inflater;
+
+    public ArrayList<String> getProjectNamesList()
+    {
+        ArrayList<String> names = new ArrayList<String>();
+        for(Project p:this.projectsList){
+            names.add(p.getTitle());
+        }
+        return names;
+    }
+
     /**
      * Project List with all projects that will be displayed
      */

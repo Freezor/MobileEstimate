@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/project_list_row_selector"
-    android:padding="8dp" >
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/project_list_row_selector"
+                android:padding="8dp">
 
     <!-- Project Image -->
     <ImageView
@@ -11,7 +11,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginRight="8dp" />
+        android:layout_marginRight="8dp"/>
 
     <!-- Project Title -->
     <TextView
@@ -20,8 +20,11 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/projectIcon"
         android:layout_toRightOf="@+id/projectIcon"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:textSize="@dimen/projectListTitle"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
+
     <TextView
         android:id="@+id/estimationType"
         android:layout_width="fill_parent"
@@ -30,9 +33,8 @@
         android:layout_marginTop="1dip"
         android:layout_toRightOf="@+id/projectIcon"
         android:textColor="@color/estimationType"
-        android:textSize="@dimen/estimationType" />
+        android:textSize="@dimen/estimationType"/>
 
-    <!-- Genre -->
     <TextView
         android:id="@+id/creationDate"
         android:layout_width="fill_parent"
@@ -41,6 +43,6 @@
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/projectIcon"
         android:textColor="@color/creationDate"
-        android:textSize="@dimen/creationDate" />
+        android:textSize="@dimen/creationDate"/>
 
 </RelativeLayout>

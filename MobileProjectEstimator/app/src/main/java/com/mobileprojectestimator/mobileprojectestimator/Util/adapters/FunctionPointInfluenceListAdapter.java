@@ -1,16 +1,19 @@
 package com.mobileprojectestimator.mobileprojectestimator.Util.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.InfluenceFactorItem;
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.InfluenceFactorItem;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.FunctionPointProject.FunctionPointInfluenceFactorFragment;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
@@ -24,21 +27,23 @@ import java.util.ArrayList;
 public class FunctionPointInfluenceListAdapter extends BaseAdapter
 {
     /**
+     * The Project object, where we get the information from
+     */
+    final Project project;
+    /**
      * The fragment, where the adapter is used
      */
-    private FunctionPointInfluenceFactorFragment fragment;
+    public final FunctionPointInfluenceFactorFragment fragment;
     /**
      * Array List with all influence factor items
      */
-    private ArrayList<InfluenceFactorItem> fpInfluenceItems;
+    private final ArrayList<InfluenceFactorItem> fpInfluenceItems;
     /**
      * The Inflater object
      */
     private LayoutInflater inflater;
-    /**
-     * The Project object, where we get the information from
-     */
-    Project project;
+    private ArrayList<String> factorNameArrayList;
+    //private ImageView infoImageView;
 
     /**
      * Standard constructor
@@ -52,14 +57,36 @@ public class FunctionPointInfluenceListAdapter extends BaseAdapter
         this.fragment = projectInfluenceFactorFragment;
         this.fpInfluenceItems = fpInfluenceItems;
         this.project = project;
+
+        initFactorArrayList();
+    }
+
+    private void initFactorArrayList()
+    {
+        factorNameArrayList = new ArrayList<String>();
+        for (InfluenceFactorItem item : fpInfluenceItems)
+        {
+            if (item.hasSubItems())
+            {
+                for (InfluenceFactorItem subitems : item.getSubInfluenceFactorItemsList())
+                {
+                    factorNameArrayList.add(subitems.getName());
+                }
+            } else
+            {
+                factorNameArrayList.add(item.getName());
+            }
+        }
     }
 
     /**
      * Updates all values from the Project values
+     *
      * @param context
      */
     public void updateChosenValues(Context context)
     {
+        //TODO: Check Loading Error. Some values are not right set here
         try
         {
             for (InfluenceFactorItem item : fpInfluenceItems)
@@ -123,7 +150,18 @@ public class FunctionPointInfluenceListAdapter extends BaseAdapter
     @Override
     public int getCount()
     {
-        return fpInfluenceItems.size();
+        int sum = 0;
+        for (InfluenceFactorItem item : fpInfluenceItems)
+        {
+            if (item.hasSubItems())
+            {
+                sum += item.getSubInfluenceFactorItemsList().size();
+            } else
+            {
+                sum += 1;
+            }
+        }
+        return sum;
     }
 
     @Override
@@ -147,20 +185,33 @@ public class FunctionPointInfluenceListAdapter extends BaseAdapter
             convertView = inflater.inflate(R.layout.function_point_influence_factor_list_item, null);
 
         TextView itemNameTv = (TextView) convertView.findViewById(R.id.tvInfluenceName);
-        TextView itemValueTv = (TextView) convertView.findViewById(R.id.tvInfluenceValue);
+        TextView itemValueTv = (TextView) convertView.findViewById(R.id.etInfluenceValue);
 
-        if (fpInfluenceItems.get(position).getChosenValue() >= 0)
-        {
-            itemValueTv.setText(String.format("%d", fpInfluenceItems.get(position).getChosenValue()));
-        } else
-        {
-            itemValueTv.setText(R.string.factor_value_standard_value);
-        }
-        itemNameTv.setText(fpInfluenceItems.get(position).getName());
+        itemValueTv.setText(String.format("%d", loadInfluenceFactorChosenValue(factorNameArrayList.get(position))));
+
+        itemNameTv.setText(factorNameArrayList.get(position));
 
 
         setListViewBackgroundColor(position, convertView);
         return convertView;
+    }
+
+    private void openFactorInfoDialog(View v)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+        builder.setTitle(v.getResources().getString(R.string.project_creation_project_name));
+
+        builder.setMessage("");
+        builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+
+            }
+        });
+
+        builder.show();
     }
 
     /**
@@ -179,6 +230,38 @@ public class FunctionPointInfluenceListAdapter extends BaseAdapter
         {
             convertView.setBackgroundColor(Color.TRANSPARENT);
         }
+    }
+
+    /**
+     * Load the influence Factor items and sets an item for each subitem
+     * @param factorName
+     * @return
+     */
+    private int loadInfluenceFactorChosenValue(String factorName)
+    {
+        int value = 0;
+        for (InfluenceFactorItem item : fpInfluenceItems)
+        {
+            if (item.hasSubItems())
+            {
+                for (InfluenceFactorItem subitems : item.getSubInfluenceFactorItemsList())
+                {
+                    if (subitems.getName().equals(factorName))
+                    {
+                        value = subitems.getChosenValue();
+                        break;
+                    }
+                }
+            } else
+            {
+                if (item.getName().equals(factorName))
+                {
+                    value = item.getChosenValue();
+                    break;
+                }
+            }
+        }
+        return value;
     }
 }
 

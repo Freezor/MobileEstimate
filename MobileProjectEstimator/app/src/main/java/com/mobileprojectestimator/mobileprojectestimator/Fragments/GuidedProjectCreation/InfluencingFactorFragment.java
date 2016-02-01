@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.util.ArrayList;
@@ -29,10 +29,10 @@ public class InfluencingFactorFragment extends GuidedCreationFragment
     public Project project;
     protected TextView estimationMethodTitelTV;
     protected View rootView;
+    protected ViewGroup container;
     private ArrayList<String> influencingFactorItems;
     private String text;
     private ArrayAdapter<String> influencingFactorsAdapter;
-    protected ViewGroup container;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -43,7 +43,6 @@ public class InfluencingFactorFragment extends GuidedCreationFragment
         InfluencingFactorFragment fragment = new InfluencingFactorFragment();
         Bundle args = new Bundle();
         project = proj;
-        //TODO: Projekt als Json mitgeben
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,8 +51,8 @@ public class InfluencingFactorFragment extends GuidedCreationFragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        //Log.d("INFO", "onCreate");
-
+        Log.d("INFO", "InfluencingFactorFragment: onCreate");
+        initDatabase();
     }
 
     @Override
@@ -87,6 +86,7 @@ public class InfluencingFactorFragment extends GuidedCreationFragment
                 Toast.makeText(project.getContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
             }
         });
+
         return rootView;
     }
 
@@ -102,27 +102,9 @@ public class InfluencingFactorFragment extends GuidedCreationFragment
 
     public void setNewInfluencingFactorItems(ArrayList<String> items)
     {
-        influencingFactorItems = new ArrayList<String>();
+        influencingFactorItems = new ArrayList<>();
         influencingFactorItems = items;
-        influencingFactorsAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, influencingFactorItems);
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause()
-    {
-        super.onPause();
-    }
-
-    @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
+        influencingFactorsAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, influencingFactorItems);
     }
 
     @Override

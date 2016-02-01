@@ -1,7 +1,6 @@
 package com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,13 +12,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.ProjectItemForCreation;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.ProjectItemForCreation;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
+import com.mobileprojectestimator.mobileprojectestimator.Util.LoggingHelper;
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.ProjectCreationListAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by Oliver Fries on 01.11.2015, 16:01.
@@ -27,11 +26,11 @@ import java.util.HashMap;
  */
 public class ProjectCreationOverviewFragment extends GuidedCreationFragment
 {
-    private Project project;
     protected ListView projectCreationListView;
     protected ProjectCreationListAdapter projectCreationAdapter;
     protected ArrayList<ProjectItemForCreation> creationItems;
-
+    private Project project;
+    private LoggingHelper loggingHelper;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -39,6 +38,10 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
      */
     public ProjectCreationOverviewFragment newInstance(Project project)
     {
+        if (databaseHelper == null)
+        {
+            initDatabase();
+        }
         ProjectCreationOverviewFragment fragment = new ProjectCreationOverviewFragment();
         Bundle args = new Bundle();
         this.project = project;
@@ -60,10 +63,14 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
                     Toast.makeText(this.getActivity().getBaseContext(), "Please Insert a Project Name", Toast.LENGTH_SHORT).show();
                 } else
                 {
-                    Intent intent = new Intent();
-                    HashMap<String, String> projectHashMap = project.toHashMap();
-                    intent.putExtra(this.getString(R.string.NewProjectIntentValueParam), projectHashMap);
-                    getActivity().setResult(Activity.RESULT_OK, intent);
+                    this.project.initialiseEstimationItems(this.project.getEstimationMethod());
+                    if (databaseHelper == null)
+                    {
+                        initDatabase();
+                    }
+                    databaseHelper.saveNewProject(this.project);
+                    loggingHelper.writeToLog("Save Project in Database: "+this.project.getTitle(), LoggingHelper.LOGLEVEL_INFO);
+                    getActivity().setResult(Activity.RESULT_OK);
                     getActivity().finish();
                 }
                 return true;
@@ -86,6 +93,8 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
     {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        loggingHelper = new LoggingHelper(getActivity());
+        initDatabase();
     }
 
     @Override
@@ -93,9 +102,10 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
                              Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.project_creation_overview_fragment, container, false);
-        if(this.project == null){
-
-            creationItems = new ArrayList<ProjectItemForCreation>();
+        if (this.project == null)
+        {
+            loggingHelper.writeToLog("ProjectCreationOverviewFragment: onCreateView - project is null",LoggingHelper.LOGLEVEL_ERROR);
+            creationItems = new ArrayList<>();
             creationItems.add(new ProjectItemForCreation("Project Name: ", "ERROR"));
             creationItems.add(new ProjectItemForCreation("Project Description: ", "ERROR"));
             creationItems.add(new ProjectItemForCreation("Project Icon: ", "ERROR"));
@@ -107,19 +117,26 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
             creationItems.add(new ProjectItemForCreation("Industry Sector: ", "ERROR"));
             creationItems.add(new ProjectItemForCreation("Estimation Method: ", "ERROR"));
             creationItems.add(new ProjectItemForCreation("Influencing Factor: ", "ERROR"));
-        } else {
-            creationItems = new ArrayList<ProjectItemForCreation>();
+        } else
+        {
+            creationItems = new ArrayList<>();
             creationItems.add(new ProjectItemForCreation("Project Name: ", this.project.getTitle()));
             creationItems.add(new ProjectItemForCreation("Project Description: ", this.project.getProjectDescription()));
             creationItems.add(new ProjectItemForCreation("Project Icon: ", this.project.getIconName()));
-            creationItems.add(new ProjectItemForCreation("Project Market: ",this.project.getProjectProperties().getMarket() ));
+            creationItems.add(new ProjectItemForCreation("Project Market: ", this.project.getProjectProperties().getMarket()));
             creationItems.add(new ProjectItemForCreation("Development Kind: ", this.project.getProjectProperties().getDevelopmentKind()));
             creationItems.add(new ProjectItemForCreation("Process Methology: ", this.project.getProjectProperties().getProcessMethology()));
             creationItems.add(new ProjectItemForCreation("Programming Language: ", this.project.getProjectProperties().getProgrammingLanguage()));
             creationItems.add(new ProjectItemForCreation("Platform: ", this.project.getProjectProperties().getPlatform()));
             creationItems.add(new ProjectItemForCreation("Industry Sector: ", this.project.getProjectProperties().getIndustrySector()));
             creationItems.add(new ProjectItemForCreation("Estimation Method: ", this.project.getEstimationMethod()));
-            creationItems.add(new ProjectItemForCreation("Influencing Factor: ", this.project.getInfluencingFactor().getInfluenceFactorSetName()));
+            if (this.project.getInfluencingFactor() != null)
+            {
+                creationItems.add(new ProjectItemForCreation("Influencing Factor: ", this.project.getInfluencingFactor().getInfluenceFactorSetName()));
+            } else
+            {
+                creationItems.add(new ProjectItemForCreation("Influencing Factor: ", getContext().getString(R.string.property_not_set)));
+            }
         }
 
         projectCreationListView = (ListView) rootView.findViewById(R.id.lvProjectCreation);

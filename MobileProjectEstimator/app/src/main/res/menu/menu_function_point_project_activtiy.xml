@@ -1,11 +1,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.mobileprojectestimator.mobileprojectestimator.FunctionPointProjectActivtiy">
-    <item android:id="@+id/action_person_days_overview" android:title="@string/action_person_days_overview"
-        android:orderInCategory="102" app:showAsAction="never" android:icon="@drawable/ic_person" />
-    <item android:id="@+id/action_project_properties" android:title="@string/action_project_properties"
-        android:orderInCategory="101" app:showAsAction="never" android:icon="@drawable/ic_settings" />
-    <item android:id="@+id/action_terminate" android:title="@string/action_terminate_project"
-        android:orderInCategory="100" app:showAsAction="never" android:icon="@drawable/ic_cancel" />
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context=".Activities.FunctionPointProjectActivtiy">
+    <item
+        android:id="@+id/action_person_days_overview"
+        android:icon="@drawable/ic_person"
+        android:orderInCategory="102"
+        android:title="@string/action_person_days_overview"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_project_properties"
+        android:icon="@drawable/ic_settings"
+        android:orderInCategory="101"
+        android:title="@string/action_project_properties"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_terminate"
+        android:icon="@drawable/ic_cancel"
+        android:orderInCategory="100"
+        android:title="@string/action_terminate_project"
+        app:showAsAction="never"/>
 </menu>

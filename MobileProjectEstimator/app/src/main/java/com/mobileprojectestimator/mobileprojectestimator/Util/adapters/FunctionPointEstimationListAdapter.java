@@ -1,7 +1,9 @@
 package com.mobileprojectestimator.mobileprojectestimator.Util.adapters;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +11,15 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.FunctionPointEstimationItem;
+import com.mobileprojectestimator.mobileprojectestimator.Activities.FunctionPointEstimationValueActivity;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointItem;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.RowViewHolder;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.ProjectEstimation.FunctionPointProject.FunctionPointMethodFragment;
-import com.mobileprojectestimator.mobileprojectestimator.FunctionPointEstimationValueActivity;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Oliver Fries on 02.11.2015.
@@ -25,25 +29,21 @@ import java.util.ArrayList;
 public class FunctionPointEstimationListAdapter extends BaseAdapter
 {
 
-    private FunctionPointMethodFragment fragment;
+    /**
+     * local fragment manager
+     */
+    final FragmentManager fm;
+    private final FunctionPointMethodFragment fragment;
     /**
      * array list for all items to estimate
      */
-    private ArrayList<FunctionPointEstimationItem> fpEstimationItems;
-    private LayoutInflater inflater;
+    private ArrayList<FunctionPointItem> fpEstimationItems;
+    private final HashMap<Integer, RowViewHolder> rowViewHolderHashMap;
     /**
      * the project object
      */
     private Project project;
-    /**
-     * Name of the item
-     */
-    private String itemName;
-
-    /**
-     * local fragment manager
-     */
-    FragmentManager fm;
+    private LayoutInflater inflater;
 
     /**
      * Standard constructor
@@ -53,12 +53,20 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter
      * @param fm
      * @param project
      */
-    public FunctionPointEstimationListAdapter(FunctionPointMethodFragment projectCreationOverviewFragment, ArrayList<FunctionPointEstimationItem> fpEstimationItems, FragmentManager fm, Project project)
+    public FunctionPointEstimationListAdapter(FunctionPointMethodFragment projectCreationOverviewFragment, ArrayList<FunctionPointItem> fpEstimationItems, FragmentManager fm, Project project)
     {
         this.fragment = projectCreationOverviewFragment;
         this.fpEstimationItems = fpEstimationItems;
         this.fm = fm;
         this.project = project;
+        rowViewHolderHashMap = new HashMap<>();
+    }
+
+    public void updateProject(Project p)
+    {
+        this.project = p;
+        this.fpEstimationItems = p.getFunctionPointItems();
+
     }
 
     @Override
@@ -80,41 +88,56 @@ public class FunctionPointEstimationListAdapter extends BaseAdapter
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
+    public View getView(final int position, View convertView, ViewGroup parent)
     {
         if (inflater == null)
             inflater = fragment.getActivity().getLayoutInflater();
-        if (convertView == null)
-            convertView = inflater.inflate(R.layout.function_point_estimation_list_item, null);
+        convertView = inflater.inflate(R.layout.function_point_estimation_list_item, null);
 
-        TextView itemValueTv = (TextView) convertView.findViewById(R.id.tvValue);
-        TextView itemNameTv = (TextView) convertView.findViewById(R.id.tvEstimationCategory);
+        RowViewHolder holder = new RowViewHolder();
 
-        // title
-        itemName = fpEstimationItems.get(position).getName();
-        itemValueTv.setText(String.format("%d", fpEstimationItems.get(position).getValue()));
-        itemNameTv.setText(itemName);
+        holder.itemValueTv = (TextView) convertView.findViewById(R.id.tvValue);
+        holder.itemNameTv = (TextView) convertView.findViewById(R.id.tvEstimationCategory);
+
+        holder.item = fpEstimationItems.get(position);
+        holder.itemValueTv.setText(String.format("%d", fpEstimationItems.get(position).getTotalAmount()));
+        holder.itemNameTv.setText(holder.item.getItemName());
 
         //TODO: Button wird nicht für jedes Element einzeln gesetzt.
-        ImageView editButton = (ImageView) convertView.findViewById(R.id.ivEditButton);//TODO: Zugriff immer auf alle EditButtons. Es muss auf jedes Listelement zugegriffen werden.
+        holder.editButton = (ImageView) convertView.findViewById(R.id.ivEditButton);//TODO: Zugriff immer auf alle EditButtons. Es muss auf jedes Listelement zugegriffen werden.
         //ImageView editButton = (ImageView) convertView.findViewById(R.id.ivEditButton);
-        editButton.setOnClickListener(new View.OnClickListener()
+        holder.editButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(v.getContext(), FunctionPointEstimationValueActivity.class);
-                intent.putExtra("TITLE", itemName);
-
-                intent.putExtra("NEWPROJECT", project.toHashMap());
-                fragment.startActivityForResult(intent, 1);
+                if (project.isTerminated())
+                {
+                    openProjectIsTerminatedDialog();
+                } else
+                {
+                    Log.d("INFO", "FunctionPointEstimationListAdapter: onClick");
+                    Intent intent = new Intent(v.getContext(), FunctionPointEstimationValueActivity.class);
+                    intent.putExtra("TITLE", rowViewHolderHashMap.get(position).item.getItemName());
+                    intent.putExtra("NEWPROJECT", project.getProjectId());
+                    fragment.startActivityForResult(intent, Integer.parseInt((v.getContext().getString(R.string.PROJECT_VIEW_CODE))));
+                }
             }
         });
 
-        convertView.setTag(123);
-
+        convertView.setTag(holder);
+        rowViewHolderHashMap.put(position, holder);
         setListViewBackgroundColor(position, convertView);
         return convertView;
+    }
+
+    private void openProjectIsTerminatedDialog()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(fragment.getContext());
+        builder.setTitle(fragment.getContext().getString(R.string.dialog_project_ist_terminated_title));
+        builder.setMessage(R.string.dialog_project_ist_terminated_text);
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     /**

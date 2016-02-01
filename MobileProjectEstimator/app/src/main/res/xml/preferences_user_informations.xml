@@ -1,0 +1,29 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:inputType="text"
+        android:key="@string/pref_key_user_name"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="@string/pref_user_name_summary"
+        android:title="@string/pref_user_name_title"/>
+
+    <EditTextPreference
+        android:inputType="textPassword"
+        android:key="@string/pref_key_user_password"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="@string/pref_password_summary"
+        android:title="@string/pref_user_password_title"/>
+
+    <Preference
+        android:title="@string/pref_check_login"
+        android:key="@string/pref_check_login"/>
+
+    <Preference
+        android:title="@string/pref_user_info_title"
+        android:key="@string/preferences_user_informations_key"/>
+
+</PreferenceScreen>

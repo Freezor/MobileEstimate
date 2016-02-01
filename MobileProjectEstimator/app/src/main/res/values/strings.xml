@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">Project Estimator</string>
+
+    <string name="app_name">MobileEstimate</string>
+    <string name="app_name_long">Project Cost Management Application</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -7,24 +9,21 @@
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
     <string name="action_sort">Sort</string>
-    <string name="functionPoint">Function Point</string>
     <string name="search_hint">Search a Project</string>
     <string name="title_activity_guided_project_creation">Create Project</string>
-    <string name="section_format">Hello World from section: %1$d</string>
     <string name="action_list_creation">List Creation</string>
     <string name="cancel_project_creation">Do you really want to quit the creation Process? All changes will be lost.</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="action_save_project">Save Project</string>
-    <string name="NewProjectIntentValueParam">NEWPROJECT</string>
+    <string name="NewProjectIntentValueParam" translatable="false">NEWPROJECT</string>
     <string name="title_activity_function_point_project">Function Point Activity</string>
-    <string name="title_activity_function_point_project_activtiy">FunctionPointProjectActivtiy
-    </string>
+    <string name="title_activity_function_point_project_activtiy">Function Point Project</string>
     <string name="action_person_days_overview">Person Days Overview</string>
     <string name="action_terminate_project">Terminate Project</string>
     <string name="action_project_properties">Project Properties</string>
     <string name="project_created_text_part">"Created: "</string>
-    <string name="factor_value_standard_value">0</string>
+    <string name="factor_value_standard_value" translatable="false">0</string>
     <string name="function_point_influence_factor_item_integration">Integration into other applications</string>
     <string name="function_point_influence_factor_item_local_data">Local Data Processing</string>
     <string name="function_point_influence_factor_item_transaction_rate">Transaction Rate</string>
@@ -36,20 +35,351 @@
     <string name="function_point_influence_factor_item_reusability">Reusability</string>
     <string name="function_point_influence_factor_item_stock_conversion">Stock Conversion</string>
     <string name="function_point_influence_factor_item_adaptability">Adaptability</string>
-    <string name="project_hashmap_item_influencing_factors">INFLUENCINGFACTORS</string>
-    <string name="project_hashmap_item_properties">PROPERTIES</string>
-    <string name="project_hashmap_item_title">TITLE</string>
-    <string name="project_hashmap_item_image">IMAGE</string>
-    <string name="project_hashmap_item_iconname">ICONNAME</string>
-    <string name="project_hashmap_item_creation_date">CREATIONDATE</string>
-    <string name="project_hashmap_item_description">PROJECTDESCRIPTION</string>
-    <string name="project_hashmap_item_estimation_method">ESTIMATIONMETHOD</string>
-    <string name="PROJECT_VIEW_CODE">1001</string>
-    <string name="FRAGMENT_REQUEST_CODE">1002</string>
+    <string name="project_hashmap_item_influencing_factors" translatable="false">INFLUENCINGFACTORS</string>
+    <string name="project_hashmap_item_properties" translatable="false">PROPERTIES</string>
+    <string name="project_hashmap_item_title" translatable="false">TITLE</string>
+    <string name="project_hashmap_item_image" translatable="false">IMAGE</string>
+    <string name="project_hashmap_item_iconname" translatable="false">ICONNAME</string>
+    <string name="project_hashmap_item_creation_date" translatable="false">CREATIONDATE</string>
+    <string name="project_hashmap_item_description" translatable="false">PROJECTDESCRIPTION</string>
+    <string name="project_hashmap_item_estimation_method" translatable="false">ESTIMATIONMETHOD</string>
+    <string name="PROJECT_VIEW_CODE" translatable="false">1001</string>
+    <string name="CREATE_NEW_PROJECT_REQUEST_CODE" translatable="false">1002</string>
     <string name="msg_guided_project_creation_no_estimation_method">You have chosen no Estimation Method.</string>
     <string name="msg_guided_project_creation_chosen_estimation_method">You have chosen the %s Estimation Method.</string>
+    <string name="error_this_should_not_happen">THIS SHOULD NOT HAPPEN!</string>
+    <string name="function_point_estimation_input_data">Input Data</string>
+    <string name="function_point_estimation_requests">"Requests "</string>
+    <string name="function_point_estimation_output">Output</string>
+    <string name="function_point_estimation_dataset">Dataset</string>
+    <string name="function_point_estimation_reference_data">Reference Data</string>
+    <string name="project_information">Project Information</string>
+    <string name="project_analysis">Analysis</string>
+    <string name="my_projects">My Projects</string>
+    <string name="influencing_factors">Influencing Factors</string>
+    <string name="export">Export</string>
+    <string name="help">Help</string>
+    <string name="settings">Settings</string>
+    <string name="influence_factor_sample_name">Integration into other applications</string>
+    <string name="influence_factor_sample_value" translatable="false">10</string>
+    <string name="project_creation_overview_hint">Please Check all your input information.</string>
+    <string name="function_point_estimation_sample_value" translatable="false">999</string>
+    <string name="nav_header_project_name_hint">Project Name</string>
+    <string name="nav_header_user">User: testuser</string>
+    <string name="function_point_sum_of_influences">Sum of Influences: </string>
+    <string name="function_point_influence_rating">Factor Influence Rating: </string>
+    <string name="function_point_change_factor_set_button">Change Factor Set</string>
+    <string name="project_creation_influence_factor_title">Influencing Factors</string>
+    <string name="influence_factor_chosen_method_hint">You have chosen METHOD</string>
+    <string name="influence_factor_question_text">Which set of influencing factors want you to use?</string>
+    <string name="influence_factor_set_button">New Influencing Factor set</string>
+    <string name="project_creation_market">For which market will the project be developed?</string>
+    <string name="project_creation_development_kind">What kind of development?</string>
+    <string name="project_creation_methology">What process methology will be used?</string>
+    <string name="project_creation_programming_language">What programming language will be used?</string>
+    <string name="project_creation_platform">For what platform will be developed?</string>
+    <string name="project_creation_industry_sector">In which industry sector will be the project established?</string>
+    <string name="project_creation_project_name">Enter a project Name</string>
+    <string name="project_creation_description">Enter a project description</string>
+    <string name="project_creation_image_name">ImageName</string>
+    <string name="project_creation_change_icon">Change Project Icon</string>
+    <string name="estimation_item_name">Reference Data</string>
+    <string name="estimation_item_unweighted_points">Unweighted Points:</string>
+    <string name="estimation_item_sample_value" translatable="false">10</string>
+    <string name="influence_factor_list_item_base_value">Integration into other applications</string>
+    <string name="influence_factor_list_item_value" translatable="false">0</string>
+    <string name="project_list_creation_name">Item Name:</string>
+    <string name="project_list_creation_value">Item Value</string>
+    <string name="function_point_estimation_simple">Simple</string>
+    <string name="function_point_estimation_medium">Medium</string>
+    <string name="function_point_estimation_complex">Complex</string>
+    <string name="function_point_estimation_description" translatable="false">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum.</string>
+    <string name="estimation_method_hint">Choose the estimation method you want to use.</string>
+    <string name="function_point_estimation_total_points">Total Points: </string>
+    <string name="function_point_estimation_evaluated_total_points">Evaluated Function Points: </string>
+    <string name="function_point_estimation_evaluated_person_days">Evaluated Person Days: </string>
+    <string name="function_point_estimation_calculate_person_days_button">Calculate Person Days</string>
+    <string name="project_hash_suffix_simple" translatable="false">_SIMPLE</string>
+    <string name="project_hash_suffix_medium" translatable="false">_MEDIUM</string>
+    <string name="project_hash_suffix_complex" translatable="false">_COMPLEX</string>
+    <string name="project_hash_suffix_total_amount" translatable="false">_TOTAL_AMOUNT</string>
+    <string name="pref_user_info_title" translatable="false">User Informations</string>
+    <string name="pref_user_name_summary" translatable="false">Set username</string>
+    <string name="pref_password_summary" translatable="false">Set password</string>
+    <string name="pref_user_name_title" translatable="false">Username</string>
+    <string name="pref_user_password_title" translatable="false">Password</string>
+    <string name="pref_update_settings" translatable="false">UPDATE SETTINGS</string>
+    <string name="pref_send_report_summary" translatable="false">Helps to fix bugs</string>
+    <string name="pref_send_report" translatable="false">Send crash reports</string>
+    <string name="pref_sync_frequency_summary" translatable="false">Set the synchronisation frequency</string>
+    <string name="pref_sync_frequency" translatable="false">Synchronisation</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_activity_settings">Settings</string>
+    <string name="settings_title">Settings</string>
+    <string name="RESULT_SETTINGS_REQUEST_CODE" translatable="false">1003</string>
+    <string name="pref_key_user_name" translatable="false">pref_key_user_name</string>
+    <string name="pref_key_user_password" translatable="false">pref_key_user_password</string>
+    <string name="pref_key_send_crash_report" translatable="false">pref_key_send_crash_report</string>
+    <string name="user_name_error">Username: NOT SET</string>
+    <string name="title_activity_help_and_feedback" translatable="false"><![CDATA[Help & Feedback]]></string>
+    <string name="help_activity_article_headline">Article</string>
+    <string name="help_activity_show_all_articles">Show All Articles</string>
+    <string name="help_activity_feedback">Feedback</string>
+    <string name="title_activity_export_project">Export</string>
+    <string name="export_excel">Export Excel</string>
+    <string name="export_pdf">Export PDF</string>
+    <string name="export_settings">Settings</string>
+    <string name="export_choose_project">Choose a project</string>
+    <string name="ProjectsNameList" translatable="false">LISTWITHPROJECTNAMES</string>
+    <string name="title_activity_influence_factors">Influencing Factors</string>
+    <string name="INFLUENCEFACTORACTIVITYREQUESTCODE" translatable="false">1006</string>
+    <string name="title_activity_create_new_influence_factor">New Factor</string>
+    <string name="action_save_factor">Save</string>
+    <string name="action_delete_factor">Delete Factor from database</string>
+    <string name="action_create_new_factor">Create New Factor</string>
+    <string name="hint_factor_name">Factor Name</string>
+    <string name="new_influence_factor_request_code" translatable="false">31246</string>
+    <string name="ISNEWFACTOR" translatable="false">ISNEWFACTOR</string>
+    <string name="NEWFACTORESTIMATIONMETHOD" translatable="false">ESTIMATIONMETHOD</string>
+    <string name="NEWFACTORINFLUENCESETNAME" translatable="false">INFLUENCEFACTORNAME</string>
+    <string name="edit_influence_factor_request_code" translatable="false">42365</string>
+    <string name="SELECTEDPROJECTID" translatable="false">Selected_Project_id</string>
+
+    <!-- Development Markets -->
+    <string name="Anonymous_Market_string">Anonymous Market</string>
+    <string name="Customer_string">Customer</string>
+    <string name="Inhouse_string">Inhouse</string>
+
+    <!-- Development Types -->
+    <string name="Research_Project_string">Research Project</string>
+    <string name="Extension_Project_string">Extension Project</string>
+    <string name="New_Project_string">New Project</string>
+
+    <!-- Estimation Methods -->
     <string name="estimation_method_function_point">Function Point</string>
     <string name="estimation_method_cocomo">COCOMO</string>
     <string name="estimation_method_cocomo_2">COCOMO 2</string>
-    <string name="error_this_should_not_happen">THIS SHOULD NOT HAPPEN!</string>
+
+    <!-- Industry Sectors -->
+    <string name="Agriculture_string">Agriculture</string>
+    <string name="Automotive_string">Automotive</string>
+    <string name="Banking_string">Banking</string>
+    <string name="Bars_and_Restaurants_string">Bars and Restaurants</string>
+    <string name="Business_Service_string">Business Service</string>
+    <string name="Construction_string">Construction</string>
+    <string name="Electronics_string">Electronics</string>
+    <string name="Entertainment_string">Entertainment</string>
+    <string name="Finance_string">Finance</string>
+    <string name="Health_string">Health</string>
+    <string name="Internet_string">Internet</string>
+    <string name="Music_Production_string">Music Production</string>
+    <string name="Education_string">Education</string>
+    <string name="Other_string">Other</string>
+
+    <!-- Platforms -->
+    <string name="Android_string">Android</string>
+    <string name="IOS_string">IOS</string>
+    <string name="Windows_7_string">Windows 7</string>
+    <string name="Windows_8_string">Windows 8</string>
+    <string name="Windows_10_string">Windows 10</string>
+    <string name="Linux_string">Linux</string>
+    <string name="Windows_Universal_App_string">Windows Universal App</string>
+    <string name="Windows_Phone_string">Windows Phone</string>
+    <string name="Web_Development_string">Web Development</string>
+    <string name="Mac_OS_string">Mac OS</string>
+
+    <!-- Process Methologies -->
+    <string name="V_Model_string">V Model</string>
+    <string name="Scrum_string">Scrum</string>
+    <string name="Waterfall_string">Waterfall Model</string>
+    <string name="Spiral_string">Spiral Model</string>
+    <string name="Iterativ_string">Iterativ Development</string>
+    <string name="Prototyping_string">Prototyping</string>
+
+    <!-- Programming Languages -->
+    <string name="C_string">C</string>
+    <string name="Csharp_string">C#</string>
+    <string name="Cpp_string">C++</string>
+    <string name="Clojure_string">Clojure</string>
+    <string name="COBOL_string">COBOL</string>
+    <string name="Java_string">Java</string>
+    <string name="Javascript_string">Javascript</string>
+    <string name="Matlab_string">Matlab</string>
+    <string name="Objective_C_string">Objective-C</string>
+    <string name="PHP_string">PHP</string>
+    <string name="Prolog_string">Prolog</string>
+    <string name="Python_string">Python</string>
+    <string name="Scala_string">Scala</string>
+
+    <!-- Project Icon Names -->
+    <string name="standard_icon_string">Project</string>
+    <string name="android_icon_string">Android</string>
+    <string name="pizza_icon_string">Pizza Project</string>
+    <string name="visualstudio_icon_string">VisualStudio</string>
+    <string name="title_activity_choose_project_icon">Choose a project icon</string>
+    <string name="action_import_new_icon">Import new icon</string>
+    <string name="PROJECT_ICON_DIALOG_CODE">7723</string>
+    <string name="property_not_set">Not set yet</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="longclick_project">Project Information for</string>
+    <string name="dialog_delete_project_request">Do you really want to delete this project? You can restore deleted projects in the settings.</string>
+    <string name="title_activity_project_information">Project Informations</string>
+    <string name="action_change_estimation_method">Change Estimation Method</string>
+    <string name="action_find_related_project">Find related projects</string>
+    <string name="ACTIVITY_EXTRA_PROJECTID">PROJECTID</string>
+    <string name="action_save">Save</string>
+    <string name="dialog_save_project_request">Do you really want to save this project? This will overwrite the existing project.</string>
+    <string name="dialog_project_ist_terminated_title">This Project is Terminated</string>
+    <string name="dialog_project_ist_terminated_text">An already terminated project cannot be edited anymore.</string>
+    <string name="dialog_terminate_project_title">Terminate Project</string>
+    <string name="dialog_terminate_project_message">To terminate the project insert the total amount of person days the project took and click on OK. WARNING: A terminated project cannot be edited anymore.</string>
+    <string name="toast_terminate_project_error">You inserted a wrong amount of person days. Project NOT terminated.</string>
+    <string name="dialog_terminated_project_title">Final Person Days</string>
+    <string name="dialog_terminated_project_message">Project terminated with %s person days.</string>
+    <string name="mail_feedback_intent_title">Send feedback...</string>
+    <string name="feedback_subject">Feedback</string>
+    <string name="help_activity_show_relevant_articles">Show only relevant Articles</string>
+    <string name="intent_extra_help_article_name_tag">HELPARTIKLEID</string>
+    <string name="help_activity_search_hint">Search Help Articles</string>
+    <string name="help_activity_search_results">Search results</string>
+    <string name="help_activity_reset_search">Reset Search</string>
+    <string name="title_activity_analysis">Analysis</string>
+    <string name="dialog_change_influence_Factor_title">Change Influence Factor Set</string>
+    <string name="dialog_change_estimation_method_title">Change Estimation Method</string>
+    <string name="action_open_statistics">Open Statistics</string>
+    <string name="action_generate_demo_values">Generate Demo Values</string>
+    <string name="dialog_change_evaluated_points_title">Change the evaluated points</string>
+    <string name="dialog_change_evaluated_points_message">This changes are only visible in the diagramm and will not be saved.</string>
+    <string name="dialog_change_evaluated_person_days_title">Change the evaluated person days</string>
+    <string name="dialog_change_evaluated_person_days_message">This changes are only visible in the diagramm and will not be saved.</string>
+    <string name="action_change_analysis_sort_evaluated_points">Arrange Evaluated Points</string>
+    <string name="action_change_analysis_sort_estimated_days">Arrange Estimated Days</string>
+    <string name="title_activity_statistics">Statistics</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="fragment_statistic_estimation_projects_title">Estimation Method Statistic</string>
+    <string name="fragment_statistic_development_kind_title">Development Kind</string>
+    <string name="fragment_statistic_development_market_title">Development Market</string>
+    <string name="fragment_statistic_industry_sector_title">Industry Sector</string>
+    <string name="fragment_statistic_platform_title">Platform</string>
+    <string name="fragment_statistic_process_methology_title">Process Methology</string>
+    <string name="fragment_statistic_programming_language_title">Programming Language</string>
+    <string name="fragment_statistic_projects_title">Projects</string>
+    <string name="action_filter">Filter Projects</string>
+    <string name="title_activity_project_search_results">Search Results</string>
+    <string name="PROJECT_SEARCH_QUERY">PROJECTSEARCHQUERY</string>
+    <string name="no_search_results">No search results found</string>
+    <string name="error">Error</string>
+
+    <!-- Strings related to Settings -->
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string name="preferences_user_informations_key">User Informations</string>
+    <string name="preferences_database_settings">Database Settings</string>
+    <string name="preferences_support">Help</string>
+    <string name="pref_check_login">Check Login</string>
+    <string name="preferences_synchronisation">Synchronisation</string>
+    <string name="pref_key_sync_frequency">SYNCFREQUENCY</string>
+    <string name="preferences_auto_synch">Automatic Synchronisation</string>
+    <string name="pref_key_auto_sync">AUTOSYNCH</string>
+    <string name="pref_key_sync_connection_option">SYNCOPTIONS</string>
+    <string name="pref_title_sync_connection_option">Connection Options</string>
+    <string name="pref_database_size">Database size</string>
+    <string name="pref_database_size_key">DBSIZEKEY</string>
+    <string name="pref_deleted_projects">View deleted Projects</string>
+    <string name="pref_deleted_projects_key">DELETEDPROJECTSKEY</string>
+    <string name="pref_delete_projects">Erase deleted Projects</string>
+    <string name="pref_delete_projects_key">COMPLETEDELETEKEY</string>
+    <string name="pref_send_crash_reports_automatically">Send crash reports automatically</string>
+    <string name="pref_send_crash_reports_automatically_key">AUTOMATICCRASHREPORTKEX</string>
+    <string name="pref_ask_question">Ask a question</string>
+    <string name="pref_ask_question_key">ASKQUESTIONKEY</string>
+    <string name="pref_about">About</string>
+    <string name="pref_about_key">ABOUTKEY</string>
+    <string name="pref_password_is_set_summary">Password is set</string>
+    <string name="title_activity_login">Login</string>
+    <string name="activity_login_summary">Server Connection is not implemented in this version.</string>
+    <string name="title_activity_user_informations">User Informations</string>
+    <string name="alert_dialog_database_size_title">Database Size</string>
+    <string name="alert_dialog_database_size_content">"The size of the Database is "</string>
+    <string name="alert_dialog_complete_delete_projects_title">Really Complete Delete Projects?</string>
+    <string name="alert_dialog_complete_delete_projects_content">WARNING: These projects cannot be restored and cannot be recovered.</string>
+    <string name="title_activity_about">About</string>
+    <string name="app_version">Version</string>
+    <string name="copyright">© 2016 Oliver Fries</string>
+    <string name="all_rights_reserved">All rights reserved</string>
+    <string name="licence">Licence</string>
+    <string name="title_activity_licence">Licence</string>
+    <string name="title_activity_contact_support">Contact us</string>
+    <string name="action_contact_support_forward">forward</string>
+    <string name="problem_hint">Please describe your problem</string>
+    <string name="problem_include_logs">Include Logfiles</string>
+    <string name="support_message_too_short">Please give us a clearer description of your problem.</string>
+    <string name="activity_project_overview_title">All Projects</string>
+    <string name="title_activity_deleted_projects">Deleted Projects</string>
+    <string name="erase_projects">Erase selected</string>
+    <string name="recover_projects">Recover selected</string>
+    <string name="action_select_all_projects">Select all</string>
+    <string name="dialog_recover_projects_title">Restore %d Projects</string>
+    <string name="dialog_recover_projects_message">The Selected Projects will be recovered and be available in the application again.</string>
+    <string name="recover_projects_successful">Projects recovered successful</string>
+    <string name="dialog_erase_projects_title">Erase %d Projects from the database</string>
+    <string name="dialog_erase_projects_message">WARNING: There is absolutely no way to restore erased projects</string>
+    <string name="erase_projects_successful">Projects successfully erased</string>
+    <string name="action_de_select_all_projects">Deselect all</string>
+    <string name="filter_estimation_method_key">ESTIMATIONMETHODFILTER</string>
+    <string name="filter_is_active_key">FILTERISACTIVE</string>
+    <string name="title_activity_project_filter">Project Filter</string>
+    <string name="filter_activate">Activate Filter</string>
+    <string name="filter_estimation_method">Estimation Method</string>
+    <string name="filter_none">None</string>
+    <string name="filter_estimation_method_dialog_title">Set Estimation Method Filter</string>
+    <string name="SET_PROJECT_FILTER_REQUEST_CODE">7856</string>
+    <string name="exported_project_toast">Exported %s to Excel File in Download Folder</string>
+    <string name="exported_project_error_toast">Project could not be exported</string>
+    <string name="title_activity_find_related_projects">Find related projects</string>
+    <string name="FIND_RELATED_PROJECT_REQUEST_CODE">9123</string>
+    <string name="related_projects">Related Projects</string>
+    <string name="ACTIVITY_ESTIMATION_VIEW_REQUEST_CODE">4563</string>
+    <string name="title_activity_estimation_view">Estimation View</string>
+    <string name="b_transfer_evaluation">Transfer Evaluation</string>
+    <string name="ACTIVITY_EXTRA_SELECTED_PROJECTID">SELECTEDPROJECTIDFORINTENT</string>
+    <string name="transfer_evaluation_dialog_title">Transfer Evaluation data to %s</string>
+    <string name="transfer_evaluation_dialog_content">The existing evaluation data in %s will be overwritten</string>
+    <string name="transfer_evaluation_dialog_success">Estimation items successfully transferred.</string>
+    <string name="transfer_evaluation_dialog_not_possible">Transfer of estimation items is not possible</string>
+    <string name="b_transfer_evaluation_not_possible">Transfer not possible</string>
+    <string name="action_show_all_relations">Show all</string>
+    <string name="action_show_only_relevant_relations">Show only relevant</string>
+    <string name="NEWFACTORINFLUENCESETID">INFLUENCEFACTORSETID</string>
+    <string name="influence_factor_subitem_request_code">5679</string>
+    <string name="dialog_delete_influence_factor">Do you really want to delete this influence factor?</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>daily</item>
+        <item>weekly</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>1</item>
+        <item>3</item>
+        <item>6</item>
+        <item>24</item>
+        <item>168</item>
+    </string-array>
+    <string-array name="pref_sync_connection_option_titles">
+        <item>WLAN</item>
+        <item>Mobile Connection</item>
+        <item>Roaming</item>
+    </string-array>
+    <string-array name="pref_sync_connection_option_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string-array name="pref_sync_connection_option_values_default">
+        <item>1</item>
+    </string-array>
+
 </resources>
