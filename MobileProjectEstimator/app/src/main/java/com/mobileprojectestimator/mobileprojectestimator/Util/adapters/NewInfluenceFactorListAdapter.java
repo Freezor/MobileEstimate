@@ -254,17 +254,23 @@ public class NewInfluenceFactorListAdapter extends ArrayAdapter<InfluenceFactorI
         builder.setTitle(item.getName());
         builder.setMessage("Change Influence Factor value.");
         final EditText input = new EditText(getContext());
-        input.setInputType(InputType.TYPE_CLASS_NUMBER );
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
         input.setText(String.valueOf(item.getChosenValue()));
-        InputFilterMinMax filter = new InputFilterMinMax(item.getMinValue(),item.getMaxValue());
-        input.setFilters((new InputFilter[] { filter }));
+        InputFilterMinMax filter = new InputFilterMinMax(item.getMinValue(), item.getMaxValue());
+        input.setFilters((new InputFilter[]{filter}));
         builder.setView(input);
         builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener()
         {
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                influenceFactorItems.get(position).setChosenValue(Integer.parseInt(input.getText().toString()));
+                if (input.getText().toString().isEmpty() || input.getText().toString().equals(""))
+                {
+                    influenceFactorItems.get(position).setChosenValue(0);
+                } else
+                {
+                    influenceFactorItems.get(position).setChosenValue(Integer.parseInt(input.getText().toString()));
+                }
                 notifyDataSetChanged();
 
             }
@@ -326,7 +332,7 @@ public class NewInfluenceFactorListAdapter extends ArrayAdapter<InfluenceFactorI
             } catch (NumberFormatException nfe)
             {
             }
-            Toast.makeText(getContext(), "Input value out of factor range. Maximum value is " + this.max + ".", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Input value out of factor range. Must be between " + this.min + " and " + this.max + ".", Toast.LENGTH_SHORT).show();
             return "";
         }
 
