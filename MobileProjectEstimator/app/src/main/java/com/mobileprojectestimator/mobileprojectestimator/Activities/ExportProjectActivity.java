@@ -579,7 +579,7 @@ public class ExportProjectActivity extends DatabaseActivity
         c.setCellValue("medium");
 
         c = row.createCell(3);
-        c.setCellValue("3");
+        c.setCellValue("4");
 
         c = row.createCell(4);
         c.setCellValue(inputData.getMediumValue() * 4);
@@ -595,7 +595,7 @@ public class ExportProjectActivity extends DatabaseActivity
         c.setCellValue("complex");
 
         c = row.createCell(3);
-        c.setCellValue("3");
+        c.setCellValue("6");
 
         c = row.createCell(4);
         c.setCellValue(inputData.getComplexValue() * 6);
@@ -633,7 +633,7 @@ public class ExportProjectActivity extends DatabaseActivity
         c.setCellValue("medium");
 
         c = row.createCell(3);
-        c.setCellValue("3");
+        c.setCellValue("4");
 
         c = row.createCell(4);
         c.setCellValue(requestData.getMediumValue() * 4);
@@ -649,7 +649,7 @@ public class ExportProjectActivity extends DatabaseActivity
         c.setCellValue("complex");
 
         c = row.createCell(3);
-        c.setCellValue("3");
+        c.setCellValue("6");
 
         c = row.createCell(4);
         c.setCellValue(requestData.getComplexValue() * 6);
@@ -671,7 +671,7 @@ public class ExportProjectActivity extends DatabaseActivity
         c.setCellValue("simple");
 
         c = row.createCell(3);
-        c.setCellValue("3");
+        c.setCellValue("4");
 
         c = row.createCell(4);
         c.setCellValue(outputData.getSimpleValue() * 4);
@@ -687,7 +687,7 @@ public class ExportProjectActivity extends DatabaseActivity
         c.setCellValue("medium");
 
         c = row.createCell(3);
-        c.setCellValue("3");
+        c.setCellValue("5");
 
         c = row.createCell(4);
         c.setCellValue(outputData.getMediumValue() * 5);
@@ -703,7 +703,7 @@ public class ExportProjectActivity extends DatabaseActivity
         c.setCellValue("complex");
 
         c = row.createCell(3);
-        c.setCellValue("3");
+        c.setCellValue("7");
 
         c = row.createCell(4);
         c.setCellValue(outputData.getComplexValue() * 7);
@@ -725,7 +725,7 @@ public class ExportProjectActivity extends DatabaseActivity
         c.setCellValue("simple");
 
         c = row.createCell(3);
-        c.setCellValue("3");
+        c.setCellValue("7");
 
         c = row.createCell(4);
         c.setCellValue(datasetData.getSimpleValue() * 7);
@@ -741,7 +741,7 @@ public class ExportProjectActivity extends DatabaseActivity
         c.setCellValue("medium");
 
         c = row.createCell(3);
-        c.setCellValue("3");
+        c.setCellValue("10");
 
         c = row.createCell(4);
         c.setCellValue(datasetData.getMediumValue() * 10);
@@ -757,7 +757,7 @@ public class ExportProjectActivity extends DatabaseActivity
         c.setCellValue("complex");
 
         c = row.createCell(3);
-        c.setCellValue("3");
+        c.setCellValue("15");
 
         c = row.createCell(4);
         c.setCellValue(datasetData.getComplexValue() * 15);
@@ -780,7 +780,7 @@ public class ExportProjectActivity extends DatabaseActivity
         c.setCellValue("simple");
 
         c = row.createCell(3);
-        c.setCellValue("3");
+        c.setCellValue("5");
 
         c = row.createCell(4);
         c.setCellValue(referenceData.getSimpleValue() * 5);
@@ -796,7 +796,7 @@ public class ExportProjectActivity extends DatabaseActivity
         c.setCellValue("medium");
 
         c = row.createCell(3);
-        c.setCellValue("3");
+        c.setCellValue("7");
 
         c = row.createCell(4);
         c.setCellValue(referenceData.getMediumValue() * 7);
@@ -812,7 +812,7 @@ public class ExportProjectActivity extends DatabaseActivity
         c.setCellValue("complex");
 
         c = row.createCell(3);
-        c.setCellValue("3");
+        c.setCellValue("10");
 
         c = row.createCell(4);
         c.setCellValue(referenceData.getComplexValue() * 10);
@@ -988,7 +988,7 @@ public class ExportProjectActivity extends DatabaseActivity
         erg = (double) Math.round(erg * 10000d) / 10000d;
 
         c = row.createCell(4);
-        c.setCellValue(selectedProject.getFactorInfluenceRating());
+        c.setCellValue(erg);
 
         //~~~~~CREATE SHEET 2~~~~~~~\\
         rowCount = 0;

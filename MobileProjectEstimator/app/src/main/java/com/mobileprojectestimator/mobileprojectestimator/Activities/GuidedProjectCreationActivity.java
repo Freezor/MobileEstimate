@@ -204,6 +204,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
             {
                 updateProjectCreationOverviewFragment(5);
             }
+
         }
 
     }
@@ -429,18 +430,23 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.estimation_method_hint));
 
-        influenceFactorItems =  databaseHelper.getActiveInfluenceFactorItems(databaseHelper.getEstimationMethodId(projectNew.getEstimationMethod()));
+        influenceFactorItems = databaseHelper.getActiveInfluenceFactorItems(databaseHelper.getEstimationMethodId(projectNew.getEstimationMethod()));
         ArrayList<String> infItems = new ArrayList<>();
-        for(DatabaseInfluenceFactorItem i : influenceFactorItems){
+        for (DatabaseInfluenceFactorItem i : influenceFactorItems)
+        {
             infItems.add(i.get_name());
         }
 
         final CharSequence[] items = infItems.toArray(new String[infItems.size()]);
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
+        builder.setItems(items, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
                 String factorName = items[item].toString();
-                for(DatabaseInfluenceFactorItem i : influenceFactorItems){
-                    if(i.get_name().equals(factorName)){
+                for (DatabaseInfluenceFactorItem i : influenceFactorItems)
+                {
+                    if (i.get_name().equals(factorName))
+                    {
                         projectNew.setInfluencingFactor(databaseHelper.loadInfluenceFactorById(i.get_id()));
                         updateProjectCreationOverviewFragment(5);
                         break;
@@ -461,8 +467,10 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
         builder.setTitle(getString(R.string.estimation_method_hint));
 
         final CharSequence[] items = estimationMethodItems.toArray(new String[estimationMethodItems.size()]);
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
+        builder.setItems(items, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
                 projectNew.setEstimationMethod(items[item].toString());
                 updateProjectCreationOverviewFragment(5);
             }
@@ -487,8 +495,10 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
                 // User cancelled the dialog
             }
         });
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
+        builder.setItems(items, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
                 projectNew.getProjectProperties().setIndustrySector(items[item].toString());
                 updateProjectCreationOverviewFragment(5);
             }
@@ -513,8 +523,10 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
                 // User cancelled the dialog
             }
         });
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
+        builder.setItems(items, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
                 projectNew.getProjectProperties().setPlatform(items[item].toString());
                 updateProjectCreationOverviewFragment(5);
             }
@@ -539,8 +551,10 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
                 // User cancelled the dialog
             }
         });
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
+        builder.setItems(items, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
                 projectNew.getProjectProperties().setProgrammingLanguage(items[item].toString());
                 updateProjectCreationOverviewFragment(5);
             }
@@ -558,8 +572,10 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
         builder.setTitle(getString(R.string.project_creation_methology));
 
         final CharSequence[] items = processMethologieItems.toArray(new String[processMethologieItems.size()]);
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
+        builder.setItems(items, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
                 projectNew.getProjectProperties().setProcessMethology(items[item].toString());
                 updateProjectCreationOverviewFragment(5);
             }
@@ -577,8 +593,10 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
         builder.setTitle(getString(R.string.project_creation_development_kind));
 
         final CharSequence[] items = developmentKindItems.toArray(new String[developmentKindItems.size()]);
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
+        builder.setItems(items, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
                 projectNew.getProjectProperties().setDevelopmentKind(items[item].toString());
                 updateProjectCreationOverviewFragment(5);
             }
@@ -596,8 +614,10 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
         builder.setTitle(getString(R.string.project_creation_market));
 
         final CharSequence[] items = developmentMarketItems.toArray(new String[developmentMarketItems.size()]);
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
+        builder.setItems(items, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
                 projectNew.getProjectProperties().setMarket(items[item].toString());
                 updateProjectCreationOverviewFragment(5);
             }
@@ -773,6 +793,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
             projectDescriptionET = (EditText) projectInfoFragment.getView().findViewById(R.id.projectDescriptionET);
             projectIcon = (ImageView) projectInfoFragment.getView().findViewById(R.id.projectIconIV);
             projInfoIconName = (TextView) projectInfoFragment.getView().findViewById(R.id.tvProjectImageName);
+
             setProjectInfoValues();
         } catch (Exception e)
         {

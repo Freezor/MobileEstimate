@@ -5,10 +5,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
+import android.widget.EditText;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation.GuidedCreationFragment;
 import com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation.ProjectInfoFragment;
+import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,6 +39,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter
         String formattedDate = df.format(c.getTime());
         this.project.setCreationDate(formattedDate);
         guidedCreationFragmentsArrayList = new ArrayList<>();
+
     }
 
     @Override

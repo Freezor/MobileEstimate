@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.mobileprojectestimator.mobileprojectestimator.Activities.InfluenceFactorSubitemActivity;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.InfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.R;
+import com.mobileprojectestimator.mobileprojectestimator.Util.InputFilterMinMax;
 import com.mobileprojectestimator.mobileprojectestimator.Util.database.DataBaseHelper;
 
 import java.io.IOException;
@@ -247,6 +248,19 @@ public class NewInfluenceFactorListAdapter extends ArrayAdapter<InfluenceFactorI
 
     }
 
+    public static boolean isNumeric(String str)
+    {
+        try
+        {
+            double d = Double.parseDouble(str);
+        }
+        catch(NumberFormatException nfe)
+        {
+            return false;
+        }
+        return true;
+    }
+
     private void showValueDialog(final int position)
     {
         InfluenceFactorItem item = influenceFactorItems.get(position);
@@ -254,17 +268,23 @@ public class NewInfluenceFactorListAdapter extends ArrayAdapter<InfluenceFactorI
         builder.setTitle(item.getName());
         builder.setMessage("Change Influence Factor value.");
         final EditText input = new EditText(getContext());
-        input.setInputType(InputType.TYPE_CLASS_NUMBER );
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
         input.setText(String.valueOf(item.getChosenValue()));
-        InputFilterMinMax filter = new InputFilterMinMax(item.getMinValue(),item.getMaxValue());
-        input.setFilters((new InputFilter[] { filter }));
+        InputFilterMinMax filter = new InputFilterMinMax(getContext(), item.getMinValue(), item.getMaxValue());
+        input.setFilters((new InputFilter[]{filter}));
         builder.setView(input);
         builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener()
         {
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                influenceFactorItems.get(position).setChosenValue(Integer.parseInt(input.getText().toString()));
+                if (input.getText().toString().isEmpty() || input.getText().toString().equals("")||!isNumeric(input.getText().toString()))
+                {
+                    influenceFactorItems.get(position).setChosenValue(0);
+                } else
+                {
+                    influenceFactorItems.get(position).setChosenValue(Integer.parseInt(input.getText().toString()));
+                }
                 notifyDataSetChanged();
 
             }
@@ -298,41 +318,4 @@ public class NewInfluenceFactorListAdapter extends ArrayAdapter<InfluenceFactorI
         builder.show();
     }
 
-    public class InputFilterMinMax implements InputFilter
-    {
-
-        private int min, max;
-
-        public InputFilterMinMax(int min, int max)
-        {
-            this.min = min;
-            this.max = max;
-        }
-
-        public InputFilterMinMax(String min, String max)
-        {
-            this.min = Integer.parseInt(min);
-            this.max = Integer.parseInt(max);
-        }
-
-        @Override
-        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend)
-        {
-            try
-            {
-                int input = Integer.parseInt(dest.toString() + source.toString());
-                if (isInRange(min, max, input))
-                    return null;
-            } catch (NumberFormatException nfe)
-            {
-            }
-            Toast.makeText(getContext(), "Input value out of factor range. Maximum value is " + this.max + ".", Toast.LENGTH_SHORT).show();
-            return "";
-        }
-
-        private boolean isInRange(int a, int b, int c)
-        {
-            return b > a ? c >= a && c <= b : c >= b && c <= a;
-        }
-    }
 }

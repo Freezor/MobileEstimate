@@ -285,6 +285,11 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
         {
             instanciateInfluenceItems(position);
 
+        } else if (fragmentsList.get(position) instanceof FunctionPointMethodFragment)
+        {
+            FunctionPointMethodFragment functionPointMethodFragment = (FunctionPointMethodFragment) mSectionsPagerAdapter.instantiateItem(mViewPager, position);
+            functionPointMethodFragment.update(databaseHelper.loadProjectById(this, String.valueOf(project.getProjectId())));
+            functionPointMethodFragment.updateEstimationItems();
         }
     }
 
@@ -399,6 +404,7 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
                     openFactorInfoDialog(v, getString(R.string.function_point_influence_factor_item_adaptability));
                 }
             });
+
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -460,6 +466,7 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
             if (object instanceof FunctionPointMethodFragment)
             {
                 ((FunctionPointMethodFragment) object).update(project);
+                ((FunctionPointMethodFragment) object).updateEstimationItems();
             }
             //don't return POSITION_NONE, avoid fragment recreation.
             return super.getItemPosition(object);

@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,7 +29,7 @@ public class HelpActivity extends DatabaseActivity
 
     private HelpArticlesListAdapter helpArticlesAdapter;
     private ListView articlesListView;
-    private TextView showAllArticlesListView;
+    private TextView tvShowAllArticlesInListView;
     private boolean allArticlesShown;
     private View articlesLayout;
     private SearchView searchView;
@@ -65,10 +64,20 @@ public class HelpActivity extends DatabaseActivity
 
         articlesLayout = (View) findViewById(R.id.articlesLayout);
         articlesListView = (ListView) articlesLayout.findViewById(R.id.listViewHelpArticles);
-        showAllArticlesListView = (TextView) articlesLayout.findViewById(R.id.tvAllArticles);
+        tvShowAllArticlesInListView = (TextView) articlesLayout.findViewById(R.id.tvAllArticles);
         searchView = (SearchView) articlesLayout.findViewById(R.id.searchView);
         tvArtikel = (TextView) articlesLayout.findViewById(R.id.tvArtikel);
         feedbackView = (View) articlesLayout.findViewById(R.id.help_activity_feedback);
+
+        tvShowAllArticlesInListView.setText(R.string.help_activity_reset_search);
+        tvShowAllArticlesInListView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                resetSearch();
+            }
+        });
 
         if (!isSearched)
         {
@@ -123,8 +132,8 @@ public class HelpActivity extends DatabaseActivity
         Log.d("INFO", "Help View Search Query: " + query);
 
         tvArtikel.setText(R.string.help_activity_search_results);
-        showAllArticlesListView.setText(R.string.help_activity_reset_search);
-        showAllArticlesListView.setOnClickListener(new View.OnClickListener()
+        tvShowAllArticlesInListView.setText(R.string.help_activity_reset_search);
+        tvShowAllArticlesInListView.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -206,8 +215,8 @@ public class HelpActivity extends DatabaseActivity
         });
 
         allArticlesShown = false;
-        showAllArticlesListView.setText(R.string.help_activity_show_relevant_articles);
-        showAllArticlesListView.setOnClickListener(new View.OnClickListener()
+        tvShowAllArticlesInListView.setText(R.string.help_activity_show_all_articles);
+        tvShowAllArticlesInListView.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -215,14 +224,14 @@ public class HelpActivity extends DatabaseActivity
                 if (allArticlesShown)
                 {
                     allArticlesShown = false;
-                    showAllArticlesListView.setText(R.string.help_activity_show_all_articles);
+                    tvShowAllArticlesInListView.setText(R.string.help_activity_show_all_articles);
                     helpArticlesAdapter.setHelpArticles(helpArticleItems);
                     helpArticlesAdapter.notifyDataSetChanged();
                     articlesLayout.invalidate();
                 } else
                 {
                     allArticlesShown = true;
-                    showAllArticlesListView.setText(R.string.help_activity_show_relevant_articles);
+                    tvShowAllArticlesInListView.setText(R.string.help_activity_show_relevant_articles);
                     helpArticlesAdapter.setAllHelpArticles(helpArticleItems);
                     helpArticlesAdapter.notifyDataSetChanged();
                     articlesLayout.invalidate();
