@@ -3,8 +3,8 @@ package com.mobileprojectestimator.mobileprojectestimator.Activities;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -34,7 +34,7 @@ public class AboutActivity extends AppCompatActivity
         }
         String version = info.versionName;
         tvVersion = (TextView) findViewById(R.id.tvVersion);
-        tvVersion.setText(getString(R.string.app_version)+ " " +version+" - "+getString(R.string.app_version_tag_name));
+        tvVersion.setText(getString(R.string.app_version) + " " + version + " - " + getString(R.string.app_version_tag_name));
 
         bLicence = (Button) findViewById(R.id.bLicence);
         bLicence.setOnClickListener(new View.OnClickListener()
@@ -42,7 +42,7 @@ public class AboutActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                Intent i = new Intent(AboutActivity.this,LicenceActivity.class);
+                Intent i = new Intent(AboutActivity.this, LicenceActivity.class);
                 startActivity(i);
             }
         });

@@ -240,7 +240,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
             projectsList.clear();
             if (filter.isActive())
             {
-                projectsList.addAll(databaseHelper.getAllActiveProjectsWithFilter(this,filter));
+                projectsList.addAll(databaseHelper.getAllActiveProjectsWithFilter(this, filter));
             } else
             {
                 projectsList.addAll(databaseHelper.getAllActiveProjects(this));
@@ -357,14 +357,14 @@ public class ProjectOverviewActivity extends DatabaseActivity
             projectsAdapter.notifyDataSetChanged();
         } else if (requestCode == Integer.parseInt((getString(R.string.SET_PROJECT_FILTER_REQUEST_CODE))))
         {
-            Log.d("INFO","Filter Request");
+            Log.d("INFO", "Filter Request");
             if (resultCode == RESULT_OK)
             {
                 loadProjectFilter();
             }
-        }else if (requestCode == Integer.parseInt((getString(R.string.FIND_RELATED_PROJECT_REQUEST_CODE))))
+        } else if (requestCode == Integer.parseInt((getString(R.string.FIND_RELATED_PROJECT_REQUEST_CODE))))
         {
-            Log.d("INFO","Filter Request");
+            Log.d("INFO", "Filter Request");
             if (resultCode == RESULT_OK)
             {
                 loadProjectFilter();
@@ -409,9 +409,11 @@ public class ProjectOverviewActivity extends DatabaseActivity
         String estimationMethodFilter = sharedPref.getString(getString(R.string.filter_estimation_method_key), "");
         filter.setEstimationMethod(estimationMethodFilter);
 
-        if(filter.isActive()){
+        if (filter.isActive())
+        {
             filterItem.setIcon(getDrawable(R.drawable.ic_action_filter_orange));
-        }else {
+        } else
+        {
             filterItem.setIcon(getDrawable(R.drawable.ic_action_filter_white));
         }
 
