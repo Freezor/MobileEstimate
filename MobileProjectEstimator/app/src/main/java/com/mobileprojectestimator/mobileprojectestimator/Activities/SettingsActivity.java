@@ -205,9 +205,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newVal)
                 {
-                    String userName = newVal.toString();
-                    if (userName.isEmpty() || userName.equals(""))
+                    Log.d("INFO","Shared pref User name new val: "+newVal.toString());
+                    String userName = newVal.toString().trim();
+                    if (userName.isEmpty() || userName.length() == 0 || userName.equals("") || userName == null)
                     {
+                        SharedPreferences.Editor prefsEditor = sharedPref.edit();
+                        prefsEditor.putString(getString(R.string.pref_key_user_name), "");
+                        prefsEditor.commit();
                         usernamePref.setSummary(getString(R.string.pref_user_name_summary));
                     } else
                     {
@@ -232,8 +236,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                 public boolean onPreferenceChange(Preference preference, Object newVal)
                 {
                     String userName = newVal.toString();
-                    if (userName.isEmpty() || userName.equals(""))
+                    if (userName.isEmpty() || userName.length() == 0 || userName.equals("") || userName == null)
                     {
+                        SharedPreferences.Editor prefsEditor = sharedPref.edit();
+                        prefsEditor.putString(getString(R.string.pref_key_user_password), "");
+                        prefsEditor.commit();
                         passwordPref.setSummary(getString(R.string.pref_password_summary));
                     } else
                     {
