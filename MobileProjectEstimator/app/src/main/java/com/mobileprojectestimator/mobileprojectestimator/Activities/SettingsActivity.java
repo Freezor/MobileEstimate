@@ -225,7 +225,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
             {
                 bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_user_name)));
             }
-            Preference passwordPref = (Preference) findPreference(getString(R.string.pref_key_user_password));
+            final Preference passwordPref = (Preference) findPreference(getString(R.string.pref_key_user_password));
             passwordPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
             {
                 @Override
@@ -234,10 +234,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                     String userName = newVal.toString();
                     if (userName.isEmpty() || userName.equals(""))
                     {
-                        usernamePref.setSummary(getString(R.string.pref_password_summary));
+                        passwordPref.setSummary(getString(R.string.pref_password_summary));
                     } else
                     {
-                        usernamePref.setSummary(getString(R.string.pref_password_is_set_summary));
+                        passwordPref.setSummary(getString(R.string.pref_password_is_set_summary));
                     }
                     return true;
                 }
