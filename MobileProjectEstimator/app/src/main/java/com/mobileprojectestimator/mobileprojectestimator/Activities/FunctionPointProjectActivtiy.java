@@ -109,7 +109,7 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_function_point_project_activtiy);
 
-        loggingHelper= new LoggingHelper(this);
+        loggingHelper = new LoggingHelper(this);
         try
         {
             Toolbar toolbar = (Toolbar) findViewById(R.id.function_point_toolbar);
@@ -133,7 +133,7 @@ public class FunctionPointProjectActivtiy extends DatabaseActivity
         }
         if (projectId == null)
         {
-            loggingHelper.writeToLog("Loading Project from bundle Error",LoggingHelper.LOGLEVEL_ERROR);
+            loggingHelper.writeToLog("Loading Project from bundle Error", LoggingHelper.LOGLEVEL_ERROR);
             Log.d("ERROR", "Loading Project from bundle Error");
         } else
         {

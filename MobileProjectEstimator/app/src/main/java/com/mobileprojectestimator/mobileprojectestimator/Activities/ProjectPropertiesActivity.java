@@ -216,7 +216,7 @@ public class ProjectPropertiesActivity extends DatabaseActivity
 
     private void showValueToast(String text)
     {
-        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data)
