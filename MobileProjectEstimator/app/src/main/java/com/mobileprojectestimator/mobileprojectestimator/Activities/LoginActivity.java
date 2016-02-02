@@ -1,7 +1,7 @@
 package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.mobileprojectestimator.mobileprojectestimator.R;
 import com.mobileprojectestimator.mobileprojectestimator.Server.ServerConnector;

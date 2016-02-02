@@ -109,7 +109,8 @@ public class ExportProjectActivity extends DatabaseActivity
 
         if (selectedProject.getEstimationMethod().equals(getString(R.string.estimation_method_function_point)))
         {
-            if(generateFunctionPointExcel()){
+            if (generateFunctionPointExcel())
+            {
                 Toast.makeText(this, String.format(getString(R.string.exported_project_toast), selectedProject.getTitle()), Toast.LENGTH_SHORT).show();
                 Intent i = new Intent();
                 //i.setDataAndType(Uri.fromFile(outputFile), "text/csv");
@@ -118,7 +119,8 @@ public class ExportProjectActivity extends DatabaseActivity
             }
         } else if (selectedProject.getEstimationMethod().equals(getString(R.string.estimation_method_cocomo)))
         {
-            if(generateCocomoPointExcel()){
+            if (generateCocomoPointExcel())
+            {
                 Toast.makeText(this, String.format(getString(R.string.exported_project_toast), selectedProject.getTitle()), Toast.LENGTH_SHORT).show();
                 Intent i = new Intent();
                 //i.setDataAndType(Uri.fromFile(outputFile), "text/csv");
@@ -127,7 +129,8 @@ public class ExportProjectActivity extends DatabaseActivity
             }
         } else if (selectedProject.getEstimationMethod().equals(getString(R.string.estimation_method_cocomo_2)))
         {
-            if(generateCocomo2PointExcel()){
+            if (generateCocomo2PointExcel())
+            {
                 Toast.makeText(this, String.format(getString(R.string.exported_project_toast), selectedProject.getTitle()), Toast.LENGTH_SHORT).show();
                 Intent i = new Intent();
                 //i.setDataAndType(Uri.fromFile(outputFile), "text/csv");

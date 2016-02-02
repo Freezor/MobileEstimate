@@ -1,7 +1,7 @@
 package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
 
@@ -38,7 +38,8 @@ public class LicenceActivity extends AppCompatActivity
         String mLine;
         try
         {
-            while ((mLine = reader.readLine()) != null) {
+            while ((mLine = reader.readLine()) != null)
+            {
 
                 text.append(mLine);
                 text.append('\n');
@@ -48,6 +49,7 @@ public class LicenceActivity extends AppCompatActivity
             e.printStackTrace();
         }
         tvLicence.setText(text);
-        tvLicence.setMovementMethod(new ScrollingMovementMethod());;
+        tvLicence.setMovementMethod(new ScrollingMovementMethod());
+        ;
     }
 }
