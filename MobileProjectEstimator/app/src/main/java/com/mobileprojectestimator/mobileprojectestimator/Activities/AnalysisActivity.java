@@ -779,6 +779,7 @@ public class AnalysisActivity extends DatabaseActivity
             int min = r.nextInt((i + 60) - 20 + 1) + 20;
 
             Project p = new Project(this);
+            p.setProjectId(i);
             p.setTitle("Project " + i);
             p.setEvaluatedPoints(r.nextInt(maxPoint - min + 1) + min);
             int evaluatedDays = r.nextInt(maxDays - min + 1) + min;
