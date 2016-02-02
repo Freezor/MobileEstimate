@@ -969,6 +969,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
             if (c != null)
                 c.moveToFirst();
 
+            int dbId = c.getInt(c.getColumnIndex("_id"));
             String name = c.getString(c.getColumnIndex("name"));
             String estimationMethod = getEstimationMethodNameById(c.getString(c.getColumnIndex("estimation_method_id")));
             String influenceFactorId = c.getString(c.getColumnIndex("influence_factor_id"));
@@ -977,6 +978,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
             {
                 factor = new InfluencingFactor(this.context, InfluencingFactor.FUNCTIONPOINTFACTORS);
                 factor.setName(name);
+                factor.setDbId(dbId);
                 query = String.format("SELECT * FROM FunctionPointInfluenceFactor where _id = '%s'", influenceFactorId);
                 db = this.getReadableDatabase();
                 try (Cursor c2 = db.rawQuery(query, null))
@@ -1000,9 +1002,13 @@ public class DataBaseHelper extends SQLiteOpenHelper
             } else if (estimationMethod.equals(this.context.getString(R.string.estimation_method_cocomo)))
             {
                 factor = new InfluencingFactor(this.context, InfluencingFactor.COCOMOFACTORS);
+                factor.setName(name);
+                factor.setDbId(dbId);
             } else if (estimationMethod.equals(this.context.getString(R.string.estimation_method_cocomo_2)))
             {
                 factor = new InfluencingFactor(this.context, InfluencingFactor.COCOMO2FACTORS);
+                factor.setName(name);
+                factor.setDbId(dbId);
             }
         }
 

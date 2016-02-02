@@ -472,6 +472,8 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
             public void onClick(DialogInterface dialog, int item)
             {
                 projectNew.setEstimationMethod(items[item].toString());
+                influenceFactorItems = databaseHelper.getActiveInfluenceFactorItems(databaseHelper.getEstimationMethodId(projectNew.getEstimationMethod()));
+                projectNew.setInfluencingFactor(databaseHelper.loadInfluenceFactorById(influenceFactorItems.get(0).get_id()));
                 updateProjectCreationOverviewFragment(5);
             }
         });
@@ -739,6 +741,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
             platform.setText(projectNew.getProjectProperties().getPlatform());
             industrySector.setText(projectNew.getProjectProperties().getIndustrySector());
             estimationMethod.setText(projectNew.getEstimationMethod());
+            //TODO if factor not in list of possible factors set factor to first in list
             if (projectNew.getInfluencingFactor() == null)
             {
                 influenceFactor.setText(getString(R.string.property_not_set));
