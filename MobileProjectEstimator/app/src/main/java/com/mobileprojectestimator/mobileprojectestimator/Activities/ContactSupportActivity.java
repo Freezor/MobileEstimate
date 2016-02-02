@@ -23,7 +23,7 @@ public class ContactSupportActivity extends AppCompatActivity
     private EditText etProblemDescription;
     private CheckBox cbSendLogFiles;
 
-    private static int MINWORDCOUNT = 50;
+    private static int MINWORDCOUNT = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

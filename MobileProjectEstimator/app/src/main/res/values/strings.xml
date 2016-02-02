@@ -325,7 +325,7 @@
     <string name="action_contact_support_forward">forward</string>
     <string name="problem_hint">Please describe your problem</string>
     <string name="problem_include_logs">Include Logfiles</string>
-    <string name="support_message_too_short">Please give us a clearer description of your problem.</string>
+    <string name="support_message_too_short">Please give us a clearer description of your problem. Minimal 10 words are required.</string>
     <string name="activity_project_overview_title">All Projects</string>
     <string name="title_activity_deleted_projects">Deleted Projects</string>
     <string name="erase_projects">Erase selected</string>
