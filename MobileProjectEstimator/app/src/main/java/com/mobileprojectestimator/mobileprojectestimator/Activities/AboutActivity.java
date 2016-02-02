@@ -34,7 +34,7 @@ public class AboutActivity extends AppCompatActivity
         }
         String version = info.versionName;
         tvVersion = (TextView) findViewById(R.id.tvVersion);
-        tvVersion.setText(getString(R.string.app_version)+ " " +version);
+        tvVersion.setText(getString(R.string.app_version)+ " " +version+" - "+getString(R.string.app_version_tag_name));
 
         bLicence = (Button) findViewById(R.id.bLicence);
         bLicence.setOnClickListener(new View.OnClickListener()

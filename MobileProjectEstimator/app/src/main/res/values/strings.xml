@@ -2,6 +2,8 @@
 
     <string name="app_name">MobileEstimate</string>
     <string name="app_name_long">Project Cost Management Application</string>
+    <string name="app_version_tag_name">Achelois</string>
+
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
