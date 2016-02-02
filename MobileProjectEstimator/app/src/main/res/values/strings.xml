@@ -256,8 +256,8 @@
     <string name="dialog_change_estimation_method_title">Change Estimation Method</string>
     <string name="action_open_statistics">Open Statistics</string>
     <string name="action_generate_demo_values">Generate Demo Values</string>
-    <string name="dialog_change_evaluated_points_title">Change the evaluated points</string>
-    <string name="dialog_change_evaluated_points_message">This changes are only visible in the diagramm and will not be saved.</string>
+    <string name="dialog_change_final_person_days_title">Change the final person days</string>
+    <string name="dialog_change_final_person_days_message">This changes are only visible in the diagramm and will not be saved.</string>
     <string name="dialog_change_evaluated_person_days_title">Change the evaluated person days</string>
     <string name="dialog_change_evaluated_person_days_message">This changes are only visible in the diagramm and will not be saved.</string>
     <string name="action_change_analysis_sort_evaluated_points">Arrange Evaluated Points</string>
