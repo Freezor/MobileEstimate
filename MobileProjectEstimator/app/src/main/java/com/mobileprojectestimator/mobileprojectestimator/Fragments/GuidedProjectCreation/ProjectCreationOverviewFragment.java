@@ -58,6 +58,7 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
         switch (item.getItemId())
         {
             case R.id.action_save_project:
+                project.setTitle(project.getTitle().trim());
                 if (project.getTitle().equals("") || project.getTitle().isEmpty())
                 {
                     Toast.makeText(this.getActivity().getBaseContext(), "Please Insert a Project Name", Toast.LENGTH_SHORT).show();
@@ -69,7 +70,7 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
                         initDatabase();
                     }
                     databaseHelper.saveNewProject(this.project);
-                    loggingHelper.writeToLog("Save Project in Database: "+this.project.getTitle(), LoggingHelper.LOGLEVEL_INFO);
+                    loggingHelper.writeToLog("Save Project in Database: " + project.getTitle(), LoggingHelper.LOGLEVEL_INFO);
                     getActivity().setResult(Activity.RESULT_OK);
                     getActivity().finish();
                 }
@@ -104,7 +105,7 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
         View rootView = inflater.inflate(R.layout.project_creation_overview_fragment, container, false);
         if (this.project == null)
         {
-            loggingHelper.writeToLog("ProjectCreationOverviewFragment: onCreateView - project is null",LoggingHelper.LOGLEVEL_ERROR);
+            loggingHelper.writeToLog("ProjectCreationOverviewFragment: onCreateView - project is null", LoggingHelper.LOGLEVEL_ERROR);
             creationItems = new ArrayList<>();
             creationItems.add(new ProjectItemForCreation("Project Name: ", "ERROR"));
             creationItems.add(new ProjectItemForCreation("Project Description: ", "ERROR"));

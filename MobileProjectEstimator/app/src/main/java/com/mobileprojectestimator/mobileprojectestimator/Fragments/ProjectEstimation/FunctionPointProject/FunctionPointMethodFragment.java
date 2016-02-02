@@ -33,6 +33,7 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
     private TextView totalPoints;
     private TextView evaluatedFunctionPoints;
     private TextView evaluatedPersonDays;
+    private View rootView;
 
 
     @Override
@@ -51,7 +52,7 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
     {
         initDatabase();
         Log.d("INFO", "FunctionPointMethodFragment: onCreateViews");
-        View rootView = inflater.inflate(R.layout.fragment_function_point_project_activtiy, container, false);
+        rootView = inflater.inflate(R.layout.fragment_function_point_project_activtiy, container, false);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         functionPointEstimationItems = this.project.getFunctionPointItems();
 
@@ -112,11 +113,13 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
         evaluatedFunctionPoints.setText(String.format("%s %s", getContext().getString(R.string.function_point_estimation_evaluated_total_points), getEvaluatedPoints()));
         evaluatedPersonDays.setText(String.format("%s %s", getContext().getString(R.string.function_point_estimation_evaluated_person_days), this.project.getEvaluatedPersonDays()));
 
+        Log.d("INFO", "FunctionPointMethodFragment: Influence Factor = " + this.project.getInfluencingFactor().getInfluenceFactorSetName());
         evaluatePersonDays();
-        databaseHelper.updateExistingProjectInformations(project);
+        //databaseHelper.updateExistingProjectInformations(project);
         evaluatedPersonDays.setText(String.format("%s %s", getContext().getString(R.string.function_point_estimation_evaluated_person_days), project.getEvaluatedPersonDays()));
 
         databaseHelper.updateExistingProjectInformations(project);
+        rootView.invalidate();
     }
 
     private void evaluatePersonDays()

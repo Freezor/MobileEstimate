@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
@@ -33,6 +34,8 @@ import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estim
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
+import com.mobileprojectestimator.mobileprojectestimator.Util.InputFilterMinMax;
+import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.NewInfluenceFactorListAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -58,12 +61,13 @@ public class AnalysisActivity extends DatabaseActivity
     private BarDataSet barDataSet;
     private String projectId;
     private TextView tvProjectName;
-    private TextView tvEvaluatedPoints;
+    private TextView tvFinalPersonDays;
     private TextView tvEvaluatedPersonDays;
     private Project chosenProject;
     private View layout;
     private boolean isArrangementEvaluatedPoints;
     private Menu menu;
+    private Double MAXDAYS=1999.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -91,15 +95,18 @@ public class AnalysisActivity extends DatabaseActivity
         loadProjectData();
 
         tvProjectName = (TextView) findViewById(R.id.tvProjectName);
-        tvEvaluatedPoints = (TextView) findViewById(R.id.tvFinalPersonDays);
+        tvFinalPersonDays = (TextView) findViewById(R.id.tvFinalPersonDays);
         tvEvaluatedPersonDays = (TextView) findViewById(R.id.tvEvaluatedPersonDays);
         layout = findViewById(R.id.analysis_layout);
-        tvEvaluatedPoints.setOnClickListener(new View.OnClickListener()
+        tvFinalPersonDays.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                openChangeEvaluatedPointsDialog();
+                if (chosenProject != null)
+                {
+                    openChangeFinalPersonDays();
+                }
             }
         });
         tvEvaluatedPersonDays.setOnClickListener(new View.OnClickListener()
@@ -124,7 +131,7 @@ public class AnalysisActivity extends DatabaseActivity
                 Log.d("INFO", "Selected Value: " + entry.toString() + " index: " + i + " highlight " + highlight.toString());
                 chosenProject = selectedProjects.get(entry.getXIndex());
                 tvProjectName.setText(chosenProject.getTitle());
-                tvEvaluatedPoints.setText(String.valueOf(chosenProject.getEvaluatedPoints()));
+                tvFinalPersonDays.setText(String.valueOf(chosenProject.getFinalPersonDays()));
                 tvEvaluatedPersonDays.setText(String.valueOf(chosenProject.getEvaluatedPersonDays()));
             }
 
@@ -144,7 +151,7 @@ public class AnalysisActivity extends DatabaseActivity
         if (projectId == null || projectId.equals(""))
         {
             tvProjectName.setText("");
-            tvEvaluatedPoints.setText("");
+            tvFinalPersonDays.setText("");
             tvEvaluatedPersonDays.setText("");
         } else
         {
@@ -156,7 +163,7 @@ public class AnalysisActivity extends DatabaseActivity
                     projectFound = true;
                     chosenProject = p;
                     tvProjectName.setText(chosenProject.getTitle());
-                    tvEvaluatedPoints.setText(String.valueOf(chosenProject.getEvaluatedPoints()));
+                    tvFinalPersonDays.setText(String.valueOf(chosenProject.getFinalPersonDays()));
                     tvEvaluatedPersonDays.setText(String.valueOf(chosenProject.getEvaluatedPoints()));
                     break;
                 }
@@ -164,29 +171,51 @@ public class AnalysisActivity extends DatabaseActivity
             if (!projectFound)
             {
                 tvProjectName.setText("");
-                tvEvaluatedPoints.setText("");
+                tvFinalPersonDays.setText("");
                 tvEvaluatedPersonDays.setText("");
             }
         }
     }
 
-    private void openChangeEvaluatedPointsDialog()
+    public static boolean isNumeric(String str)
+    {
+        try
+        {
+            double d = Double.parseDouble(str);
+        } catch (NumberFormatException nfe)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    private void openChangeFinalPersonDays()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.dialog_change_evaluated_points_title));
-        builder.setMessage(getString(R.string.dialog_change_evaluated_points_message));
+        builder.setTitle(getString(R.string.dialog_change_final_person_days_title));
+        builder.setMessage(getString(R.string.dialog_change_final_person_days_message));
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         input.setSingleLine(true);
-        input.setText("" + chosenProject.getEvaluatedPoints());
+        InputFilterMinMax filter = new InputFilterMinMax(getBaseContext(),0.0, MAXDAYS);
+        input.setFilters((new InputFilter[]{filter}));
+        input.setText("" + chosenProject.getFinalPersonDays());
         builder.setView(input);
         builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener()
         {
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                chosenProject.setEvaluatedPoints(Double.parseDouble(input.getText().toString()));
-                tvEvaluatedPoints.setText(String.valueOf(chosenProject.getEvaluatedPoints()));
+                if (!isNumeric(input.getText().toString()) || Double.parseDouble(input.getText().toString()) < 0)
+                {
+                    chosenProject.setFinalPersonDays(0);
+
+                } else
+                {
+                    chosenProject.setFinalPersonDays(Double.parseDouble(input.getText().toString()));
+
+                }
+                tvFinalPersonDays.setText(String.valueOf(chosenProject.getFinalPersonDays()));
                 reEvaluatePersonDaysForAllProjects();
                 for (Project p : selectedProjects)
                 {
@@ -297,6 +326,8 @@ public class AnalysisActivity extends DatabaseActivity
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         input.setSingleLine(true);
+        InputFilterMinMax filter = new InputFilterMinMax(getBaseContext(),0.0, MAXDAYS);
+        input.setFilters((new InputFilter[]{filter}));
         input.setText("" + chosenProject.getEvaluatedPersonDays());
         builder.setView(input);
         builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener()
@@ -304,7 +335,13 @@ public class AnalysisActivity extends DatabaseActivity
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                chosenProject.setEvaluatedPersonDays(Double.parseDouble(input.getText().toString()));
+                if (!isNumeric(input.getText().toString()) || Double.parseDouble(input.getText().toString()) < 0)
+                {
+                    chosenProject.setEvaluatedPersonDays(0);
+                } else
+                {
+                    chosenProject.setEvaluatedPersonDays(Double.parseDouble(input.getText().toString()));
+                }
                 tvEvaluatedPersonDays.setText(String.valueOf(chosenProject.getEvaluatedPersonDays()));
                 for (Project p : selectedProjects)
                 {
@@ -728,7 +765,7 @@ public class AnalysisActivity extends DatabaseActivity
     private void generateDemoValues()
     {
         tvProjectName.setText("");
-        tvEvaluatedPoints.setText("");
+        tvFinalPersonDays.setText("");
         tvEvaluatedPersonDays.setText("");
 
         selectedProjects = new ArrayList<>();
@@ -742,12 +779,12 @@ public class AnalysisActivity extends DatabaseActivity
             int min = r.nextInt((i + 60) - 20 + 1) + 20;
 
             Project p = new Project(this);
+            p.setProjectId(i);
             p.setTitle("Project " + i);
             p.setEvaluatedPoints(r.nextInt(maxPoint - min + 1) + min);
             int evaluatedDays = r.nextInt(maxDays - min + 1) + min;
             double fakt = r.nextInt(80 - 5 + 1) + 5;
             fakt = (fakt / 100) + 1;
-            p.setFinalPersonDays(evaluatedDays * fakt);
             p.setEstimationMethod(getString(R.string.estimation_method_function_point));
             p.initialiseEstimationItems(getString(R.string.estimation_method_function_point));
 
@@ -775,6 +812,7 @@ public class AnalysisActivity extends DatabaseActivity
             {
                 p.setEvaluatedPersonDays(databaseHelper.evaluateFunctionPointPersonDaysWithExistingProductivity(p));
             }
+            p.setFinalPersonDays(p.getEvaluatedPersonDays() * fakt);
 
             selectedProjects.add(p);
         }

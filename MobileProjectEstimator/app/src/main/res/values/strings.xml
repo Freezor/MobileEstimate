@@ -213,12 +213,18 @@
     <string name="Scala_string">Scala</string>
 
     <!-- Project Icon Names -->
-    <string name="standard_icon_string">Project</string>
-    <string name="android_icon_string">Android</string>
-    <string name="pizza_icon_string">Pizza Project</string>
-    <string name="visualstudio_icon_string">VisualStudio</string>
+    <string name="standard_icon_string">Project Icon</string>
+    <string name="android_icon_string">Android Icon</string>
+    <string name="pizza_icon_string">Pizza Project Icon</string>
+    <string name="visualstudio_icon_string">Visual Studio Icon</string>
+    <string name="apple_icon_string">Apple Icon</string>
+    <string name="linux_icon_string">Linux Icon</string>
+    <string name="raspberry_icon_string">Raspberry Icon</string>
+    <string name="web_icon_string">Web Icon</string>
+    <string name="windows_icon_string">Windows Icon</string>
+
+
     <string name="title_activity_choose_project_icon">Choose a project icon</string>
-    <string name="action_import_new_icon">Import new icon</string>
     <string name="PROJECT_ICON_DIALOG_CODE">7723</string>
     <string name="property_not_set">Not set yet</string>
     <string name="dialog_ok">OK</string>
@@ -250,8 +256,8 @@
     <string name="dialog_change_estimation_method_title">Change Estimation Method</string>
     <string name="action_open_statistics">Open Statistics</string>
     <string name="action_generate_demo_values">Generate Demo Values</string>
-    <string name="dialog_change_evaluated_points_title">Change the evaluated points</string>
-    <string name="dialog_change_evaluated_points_message">This changes are only visible in the diagramm and will not be saved.</string>
+    <string name="dialog_change_final_person_days_title">Change the final person days</string>
+    <string name="dialog_change_final_person_days_message">This changes are only visible in the diagramm and will not be saved.</string>
     <string name="dialog_change_evaluated_person_days_title">Change the evaluated person days</string>
     <string name="dialog_change_evaluated_person_days_message">This changes are only visible in the diagramm and will not be saved.</string>
     <string name="action_change_analysis_sort_evaluated_points">Arrange Evaluated Points</string>
