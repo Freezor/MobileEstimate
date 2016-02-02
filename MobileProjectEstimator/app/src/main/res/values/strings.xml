@@ -213,10 +213,19 @@
     <string name="Scala_string">Scala</string>
 
     <!-- Project Icon Names -->
-    <string name="standard_icon_string">Project</string>
-    <string name="android_icon_string">Android</string>
-    <string name="pizza_icon_string">Pizza Project</string>
-    <string name="visualstudio_icon_string">VisualStudio</string>
+    <string name="standard_icon_string">Project Icon</string>
+    <string name="android_icon_string">Android Icon</string>
+    <string name="pizza_icon_string">Pizza Project Icon</string>
+    <string name="visualstudio_icon_string">Visual Studio Icon</string>
+    <string name="apple_icon_string">Apple Icon</string>
+    <string name="linux_icon_string">Linux Icon</string>
+    <string name="raspberry_icon_string">Raspberry Icon</string>
+    <string name="web_icon_string">Web Icon</string>
+    <string name="windows_icon_string">Windows Icon</string>
+    <string name="ios_icon_string">IOS Icon</string>
+
+
+
     <string name="title_activity_choose_project_icon">Choose a project icon</string>
     <string name="action_import_new_icon">Import new icon</string>
     <string name="PROJECT_ICON_DIALOG_CODE">7723</string>

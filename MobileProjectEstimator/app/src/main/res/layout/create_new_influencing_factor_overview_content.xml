@@ -8,6 +8,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/etInfluenceFactorName"
         android:hint="@string/hint_factor_name"
+        android:singleLine="true"
+        android:maxLength="50"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"/>
 
