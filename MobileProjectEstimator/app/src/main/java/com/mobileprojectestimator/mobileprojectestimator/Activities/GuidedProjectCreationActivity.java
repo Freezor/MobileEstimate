@@ -8,8 +8,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -773,6 +775,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
             projectDescriptionET = (EditText) projectInfoFragment.getView().findViewById(R.id.projectDescriptionET);
             projectIcon = (ImageView) projectInfoFragment.getView().findViewById(R.id.projectIconIV);
             projInfoIconName = (TextView) projectInfoFragment.getView().findViewById(R.id.tvProjectImageName);
+
             setProjectInfoValues();
         } catch (Exception e)
         {
