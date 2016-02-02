@@ -1,10 +1,13 @@
 package com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.InfluenceFactorItem;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -386,7 +389,7 @@ public class InfluencingFactor
                 influenceItemSum += item.getChosenValue();
             }
         }
-
+        Log.d("Info","Sum of Influence = "+influenceItemSum);
         return influenceItemSum;
     }
 
@@ -397,7 +400,25 @@ public class InfluencingFactor
         double erg = influenceSum / 100.0;
         erg += 0.7;
 
-        return erg;
+        return roundDoubleTwoDecimals(erg);
+    }
+
+    /**
+     * Round a double value to two  decimal numbers
+     * <p/>
+     * e.g. 3.34
+     *
+     * @param d
+     * @return
+     */
+    public double roundDoubleTwoDecimals(double d)
+    {
+        //DecimalFormat twoDForm = new DecimalFormat("#.##");
+        //return Double.valueOf(twoDForm.format(d));
+        //Changed to new rounding method because of some Exception java.lang.NumberFormatException: Invalid double: "0,78"
+        BigDecimal bd = new BigDecimal(d);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 
     /**
