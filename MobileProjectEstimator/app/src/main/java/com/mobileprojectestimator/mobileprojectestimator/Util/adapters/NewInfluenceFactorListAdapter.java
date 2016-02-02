@@ -247,6 +247,19 @@ public class NewInfluenceFactorListAdapter extends ArrayAdapter<InfluenceFactorI
 
     }
 
+    public static boolean isNumeric(String str)
+    {
+        try
+        {
+            double d = Double.parseDouble(str);
+        }
+        catch(NumberFormatException nfe)
+        {
+            return false;
+        }
+        return true;
+    }
+
     private void showValueDialog(final int position)
     {
         InfluenceFactorItem item = influenceFactorItems.get(position);
@@ -264,7 +277,7 @@ public class NewInfluenceFactorListAdapter extends ArrayAdapter<InfluenceFactorI
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                if (input.getText().toString().isEmpty() || input.getText().toString().equals(""))
+                if (input.getText().toString().isEmpty() || input.getText().toString().equals("")||!isNumeric(input.getText().toString()))
                 {
                     influenceFactorItems.get(position).setChosenValue(0);
                 } else
