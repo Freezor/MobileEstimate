@@ -126,6 +126,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
     public void onLongClickProject(final int position)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(projectsList.get(position).getTitle());
         ArrayList<String> infItems = new ArrayList<>();
         infItems.add("Project Properties");
         infItems.add("Find Related Projects");
