@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
@@ -33,6 +34,8 @@ import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estim
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
+import com.mobileprojectestimator.mobileprojectestimator.Util.InputFilterMinMax;
+import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.NewInfluenceFactorListAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -64,6 +67,7 @@ public class AnalysisActivity extends DatabaseActivity
     private View layout;
     private boolean isArrangementEvaluatedPoints;
     private Menu menu;
+    private Double MAXDAYS=1999.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -173,6 +177,18 @@ public class AnalysisActivity extends DatabaseActivity
         }
     }
 
+    public static boolean isNumeric(String str)
+    {
+        try
+        {
+            double d = Double.parseDouble(str);
+        } catch (NumberFormatException nfe)
+        {
+            return false;
+        }
+        return true;
+    }
+
     private void openChangeFinalPersonDays()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -181,6 +197,8 @@ public class AnalysisActivity extends DatabaseActivity
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         input.setSingleLine(true);
+        InputFilterMinMax filter = new InputFilterMinMax(getBaseContext(),0.0, MAXDAYS);
+        input.setFilters((new InputFilter[]{filter}));
         input.setText("" + chosenProject.getFinalPersonDays());
         builder.setView(input);
         builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener()
@@ -188,8 +206,16 @@ public class AnalysisActivity extends DatabaseActivity
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                chosenProject.setFinalPersonDays(Double.parseDouble(input.getText().toString()));
-                tvFinalPersonDays.setText(String.valueOf(chosenProject.getEvaluatedPoints()));
+                if (!isNumeric(input.getText().toString()) || Double.parseDouble(input.getText().toString()) < 0)
+                {
+                    chosenProject.setFinalPersonDays(0);
+
+                } else
+                {
+                    chosenProject.setFinalPersonDays(Double.parseDouble(input.getText().toString()));
+
+                }
+                tvFinalPersonDays.setText(String.valueOf(chosenProject.getFinalPersonDays()));
                 reEvaluatePersonDaysForAllProjects();
                 for (Project p : selectedProjects)
                 {
@@ -300,6 +326,8 @@ public class AnalysisActivity extends DatabaseActivity
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         input.setSingleLine(true);
+        InputFilterMinMax filter = new InputFilterMinMax(getBaseContext(),0.0, MAXDAYS);
+        input.setFilters((new InputFilter[]{filter}));
         input.setText("" + chosenProject.getEvaluatedPersonDays());
         builder.setView(input);
         builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener()
@@ -307,7 +335,13 @@ public class AnalysisActivity extends DatabaseActivity
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                chosenProject.setEvaluatedPersonDays(Double.parseDouble(input.getText().toString()));
+                if (!isNumeric(input.getText().toString()) || Double.parseDouble(input.getText().toString()) < 0)
+                {
+                    chosenProject.setEvaluatedPersonDays(0);
+                } else
+                {
+                    chosenProject.setEvaluatedPersonDays(Double.parseDouble(input.getText().toString()));
+                }
                 tvEvaluatedPersonDays.setText(String.valueOf(chosenProject.getEvaluatedPersonDays()));
                 for (Project p : selectedProjects)
                 {
