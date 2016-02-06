@@ -124,7 +124,6 @@
             android:ellipsize="end"
             android:textColor="@color/dark_orange"
             android:id="@+id/tvFinalPersonDays"
-            android:drawableRight="@drawable/ic_action_edit"
             android:layout_alignTop="@+id/tvPoints"
             android:layout_alignStart="@+id/tvProjectName"/>
 
@@ -137,7 +136,6 @@
             android:id="@+id/tvEvaluatedPersonDays"
             android:singleLine="true"
             android:ellipsize="end"
-            android:drawableRight="@drawable/ic_action_edit"
             android:layout_alignTop="@+id/tvEstimatedDays"
             android:layout_alignStart="@+id/tvFinalPersonDays"/>
 

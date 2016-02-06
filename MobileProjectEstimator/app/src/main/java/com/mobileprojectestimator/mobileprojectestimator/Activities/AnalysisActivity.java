@@ -7,14 +7,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
-import android.text.InputFilter;
-import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.CombinedChart;
@@ -34,7 +31,6 @@ import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estim
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.FunctionPointItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
-import com.mobileprojectestimator.mobileprojectestimator.Util.InputFilterMinMax;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -66,7 +62,7 @@ public class AnalysisActivity extends DatabaseActivity
     private View layout;
     private boolean isArrangementEvaluatedPoints;
     private Menu menu;
-    private Double MAXDAYS=1999.0;
+    private Double MAXDAYS = 1999.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -97,28 +93,6 @@ public class AnalysisActivity extends DatabaseActivity
         tvFinalPersonDays = (TextView) findViewById(R.id.tvFinalPersonDays);
         tvEvaluatedPersonDays = (TextView) findViewById(R.id.tvEvaluatedPersonDays);
         layout = findViewById(R.id.analysis_layout);
-        tvFinalPersonDays.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if (chosenProject != null)
-                {
-                    openChangeFinalPersonDays();
-                }
-            }
-        });
-        tvEvaluatedPersonDays.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if (chosenProject != null)
-                {
-                    openChangeEvaluatedPersonDaysDialog();
-                }
-            }
-        });
 
         personDaysChart = (CombinedChart) findViewById(R.id.personDaysChart);
         initPersonDaysChart();
@@ -130,7 +104,14 @@ public class AnalysisActivity extends DatabaseActivity
                 Log.d("INFO", "Selected Value: " + entry.toString() + " index: " + i + " highlight " + highlight.toString());
                 chosenProject = selectedProjects.get(entry.getXIndex());
                 tvProjectName.setText(chosenProject.getTitle());
-                tvFinalPersonDays.setText(String.valueOf(chosenProject.getFinalPersonDays()));
+                if (chosenProject.getFinalPersonDays() > 0.0)
+                {
+
+                    tvFinalPersonDays.setText(String.valueOf(chosenProject.getFinalPersonDays()));
+                } else
+                {
+                    tvFinalPersonDays.setText(R.string.project_not_terminated);
+                }
                 tvEvaluatedPersonDays.setText(String.valueOf(chosenProject.getEvaluatedPersonDays()));
             }
 
@@ -162,7 +143,14 @@ public class AnalysisActivity extends DatabaseActivity
                     projectFound = true;
                     chosenProject = p;
                     tvProjectName.setText(chosenProject.getTitle());
-                    tvFinalPersonDays.setText(String.valueOf(chosenProject.getFinalPersonDays()));
+                    if (chosenProject.getFinalPersonDays() > 0.0)
+                    {
+
+                        tvFinalPersonDays.setText(String.valueOf(chosenProject.getFinalPersonDays()));
+                    } else
+                    {
+                        tvFinalPersonDays.setText(R.string.project_not_terminated);
+                    }
                     tvEvaluatedPersonDays.setText(String.valueOf(chosenProject.getEvaluatedPoints()));
                     break;
                 }
@@ -186,193 +174,6 @@ public class AnalysisActivity extends DatabaseActivity
             return false;
         }
         return true;
-    }
-
-    private void openChangeFinalPersonDays()
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.dialog_change_final_person_days_title));
-        builder.setMessage(getString(R.string.dialog_change_final_person_days_message));
-        final EditText input = new EditText(this);
-        input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        input.setSingleLine(true);
-        InputFilterMinMax filter = new InputFilterMinMax(getBaseContext(),0.0, MAXDAYS);
-        input.setFilters((new InputFilter[]{filter}));
-        input.setText("" + chosenProject.getFinalPersonDays());
-        builder.setView(input);
-        builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener()
-        {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-                if (!isNumeric(input.getText().toString()) || Double.parseDouble(input.getText().toString()) < 0)
-                {
-                    chosenProject.setFinalPersonDays(0);
-
-                } else
-                {
-                    chosenProject.setFinalPersonDays(Double.parseDouble(input.getText().toString()));
-
-                }
-                tvFinalPersonDays.setText(String.valueOf(chosenProject.getFinalPersonDays()));
-                reEvaluatePersonDaysForAllProjects();
-                for (Project p : selectedProjects)
-                {
-                    if (p.getProjectId() == chosenProject.getProjectId())
-                    {
-                        selectedProjects.remove(p);
-                        selectedProjects.add(chosenProject);
-                        Collections.sort(selectedProjects, new Comparator<Project>()
-                        {
-                            @Override
-                            public int compare(Project p1, Project p2)
-                            {
-                                return Double.compare(p1.getEvaluatedPoints(), p2.getEvaluatedPoints());
-                            }
-
-                        });
-                        break;
-                    }
-                }
-                refreshCharData();
-            }
-        });
-        builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
-        {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-                dialog.cancel();
-            }
-        });
-
-        builder.show();
-    }
-
-    private void reEvaluatePersonDaysForAllProjects()
-    {
-        ArrayList<Project> tempProjects = new ArrayList<>();
-        for (Project p : selectedProjects)
-        {
-            if (p.getProjectId() != chosenProject.getProjectId())
-            {
-                int terminatedProject = databaseHelper.getAmountTerminatedFunctionPointProject();
-                if (terminatedProject < 1)
-                {
-                    p.setEvaluatedPersonDays(databaseHelper.evaluateFunctionPointPersonDaysWithBaseProductivity(p));
-                } else
-                {
-                    Project smaller = null;
-                    Project bigger = null;
-                    for (Project proj : selectedProjects)
-                    {
-                        if (proj.getEvaluatedPersonDays() < p.getEvaluatedPersonDays())
-                        {
-                            if (smaller == null)
-                            {
-                                smaller = proj;
-                            } else if (smaller.getEvaluatedPersonDays() < proj.getEvaluatedPersonDays())
-                            {
-                                smaller = proj;
-                            }
-                        } else if (proj.getEvaluatedPersonDays() > p.getEvaluatedPersonDays())
-                        {
-
-                            if (bigger == null)
-                            {
-                                bigger = proj;
-                            } else if (bigger.getEvaluatedPersonDays() > proj.getEvaluatedPersonDays())
-                            {
-                                bigger = proj;
-                            }
-                        }
-                    }
-                    if (smaller == null)
-                    {
-                        smaller = p;
-                    }
-                    if (bigger == null)
-                    {
-                        bigger = p;
-                    }
-                    double smallPointsPerDay = smaller.getEvaluatedPoints() / smaller.getEvaluatedPersonDays();
-                    double bigPointsPerDay = bigger.getEvaluatedPoints() / bigger.getEvaluatedPersonDays();
-
-                    double averagePointsPerDay = (smallPointsPerDay + bigPointsPerDay) / 2;
-                    averagePointsPerDay = databaseHelper.roundDoubleTwoDecimals(averagePointsPerDay);
-
-                    p.setEvaluatedPersonDays(databaseHelper.roundDoubleTwoDecimals(p.getEvaluatedPoints() / averagePointsPerDay));
-                }
-            }
-            tempProjects.add(p);
-        }
-        int terminatedProject = databaseHelper.getAmountTerminatedFunctionPointProject();
-        if (terminatedProject < 1)
-        {
-            chosenProject.setEvaluatedPersonDays(databaseHelper.evaluateFunctionPointPersonDaysWithBaseProductivity(chosenProject));
-        } else
-        {
-            chosenProject.setEvaluatedPersonDays(databaseHelper.evaluateFunctionPointPersonDaysWithExistingProductivity(chosenProject));
-        }
-        selectedProjects = tempProjects;
-    }
-
-    private void openChangeEvaluatedPersonDaysDialog()
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.dialog_change_evaluated_person_days_title));
-        builder.setMessage(getString(R.string.dialog_change_evaluated_person_days_message));
-        final EditText input = new EditText(this);
-        input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        input.setSingleLine(true);
-        InputFilterMinMax filter = new InputFilterMinMax(getBaseContext(),0.0, MAXDAYS);
-        input.setFilters((new InputFilter[]{filter}));
-        input.setText("" + chosenProject.getEvaluatedPersonDays());
-        builder.setView(input);
-        builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener()
-        {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-                if (!isNumeric(input.getText().toString()) || Double.parseDouble(input.getText().toString()) < 0)
-                {
-                    chosenProject.setEvaluatedPersonDays(0);
-                } else
-                {
-                    chosenProject.setEvaluatedPersonDays(Double.parseDouble(input.getText().toString()));
-                }
-                tvEvaluatedPersonDays.setText(String.valueOf(chosenProject.getEvaluatedPersonDays()));
-                for (Project p : selectedProjects)
-                {
-                    if (p.getProjectId() == chosenProject.getProjectId())
-                    {
-                        selectedProjects.remove(p);
-                        selectedProjects.add(chosenProject);
-                        Collections.sort(selectedProjects, new Comparator<Project>()
-                        {
-                            @Override
-                            public int compare(Project p1, Project p2)
-                            {
-                                return Double.compare(p1.getEvaluatedPoints(), p2.getEvaluatedPoints());
-                            }
-
-                        });
-                        break;
-                    }
-                }
-                refreshCharData();
-            }
-        });
-        builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
-        {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-                dialog.cancel();
-            }
-        });
-
-        builder.show();
     }
 
     /**
@@ -483,6 +284,7 @@ public class AnalysisActivity extends DatabaseActivity
         barDataSet = new BarDataSet(entries, "Evaluated Points");
         barDataSet.setColor(ContextCompat.getColor(this, R.color.light_blue));
         barDataSet.setValueTextColor(ContextCompat.getColor(this, R.color.dark_blue));
+        barDataSet.setHighLightColor(ContextCompat.getColor(this, R.color.dark_blue));
         barDataSet.setValueTextSize(10f);
         d.addDataSet(barDataSet);
 
