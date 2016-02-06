@@ -147,6 +147,60 @@
     <string name="NEWFACTORINFLUENCESETNAME" translatable="false">INFLUENCEFACTORNAME</string>
     <string name="edit_influence_factor_request_code" translatable="false">42365</string>
     <string name="SELECTEDPROJECTID" translatable="false">Selected_Project_id</string>
+    <string name="title_activity_choose_project_icon">Choose a project icon</string>
+    <string name="action_import_new_icon">Import new icon</string>
+    <string name="PROJECT_ICON_DIALOG_CODE">7723</string>
+    <string name="property_not_set">Not set yet</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="longclick_project">Project Information for</string>
+    <string name="dialog_delete_project_request">Do you really want to delete this project? You can restore deleted projects in the settings.</string>
+    <string name="title_activity_project_information">Project Informations</string>
+    <string name="action_change_estimation_technique">Change Estimation Technique</string>
+    <string name="action_find_related_project">Find related projects</string>
+    <string name="ACTIVITY_EXTRA_PROJECTID">PROJECTID</string>
+    <string name="action_save">Save</string>
+    <string name="dialog_save_project_request">Do you really want to save this project? This will overwrite the existing project.</string>
+    <string name="dialog_project_ist_terminated_title">This Project is Terminated</string>
+    <string name="dialog_project_ist_terminated_text">An already terminated project cannot be edited anymore.</string>
+    <string name="dialog_terminate_project_title">Terminate Project</string>
+    <string name="dialog_terminate_project_message">To terminate the project insert the total amount of person days the project took and click on OK. WARNING: A terminated project cannot be edited anymore.</string>
+    <string name="toast_terminate_project_error">You inserted a wrong amount of person days. Project NOT terminated.</string>
+    <string name="dialog_terminated_project_title">Final Person Days</string>
+    <string name="dialog_terminated_project_message">Project terminated with %s person days.</string>
+    <string name="mail_feedback_intent_title">Send feedback...</string>
+    <string name="feedback_subject">Feedback</string>
+    <string name="help_activity_show_relevant_articles">Show only relevant Articles</string>
+    <string name="intent_extra_help_article_name_tag">HELPARTIKLEID</string>
+    <string name="help_activity_search_hint">Search Help Articles</string>
+    <string name="help_activity_search_results">Search results</string>
+    <string name="help_activity_reset_search">Reset Search</string>
+    <string name="title_activity_analysis">Analysis</string>
+    <string name="dialog_change_influence_Factor_title">Change Influence Factor Set</string>
+    <string name="dialog_change_technique_method_title">Change Estimation Technique</string>
+    <string name="action_open_statistics">Open Statistics</string>
+    <string name="action_generate_demo_values">Generate Demo Values</string>
+    <string name="dialog_change_final_person_days_title">Change the final person days</string>
+    <string name="dialog_change_final_person_days_message">This changes are only visible in the diagramm and will not be saved.</string>
+    <string name="dialog_change_evaluated_person_days_title">Change the evaluated person days</string>
+    <string name="dialog_change_evaluated_person_days_message">This changes are only visible in the diagramm and will not be saved.</string>
+    <string name="action_change_analysis_sort_final_days">Arrange Final Days</string>
+    <string name="action_change_analysis_sort_estimated_days">Arrange Estimated Days</string>
+    <string name="title_activity_statistics">Statistics</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="fragment_statistic_estimation_projects_title">Technique Statistic</string>
+    <string name="fragment_statistic_development_kind_title">Development Kind</string>
+    <string name="fragment_statistic_development_market_title">Development Market</string>
+    <string name="fragment_statistic_industry_sector_title">Industry Sector</string>
+    <string name="fragment_statistic_platform_title">Platform</string>
+    <string name="fragment_statistic_process_methology_title">Process Methology</string>
+    <string name="fragment_statistic_programming_language_title">Programming Language</string>
+    <string name="fragment_statistic_projects_title">Projects</string>
+    <string name="action_filter">Filter Projects</string>
+    <string name="title_activity_project_search_results">Search Results</string>
+    <string name="PROJECT_SEARCH_QUERY">PROJECTSEARCHQUERY</string>
+    <string name="no_search_results">No search results found</string>
+    <string name="error">Error</string>
 
     <!-- Development Markets -->
     <string name="Anonymous_Market_string">Anonymous Market</string>
@@ -226,62 +280,22 @@
     <string name="windows_icon_string">Windows Icon</string>
     <string name="ios_icon_string">IOS Icon</string>
 
+    <!-- Software Architecture Names -->
+    <string name="layered_architecture_string">Layered Architectur</string>
+    <string name="soa_architecture_string">Serviceoriented Architecture (SOA)</string>
+    <string name="space_based_architecture_string">Space Based Architecture</string>
+    <string name="client_server_architecture_string">Client-Server</string>
+    <string name="microservices_architecture_string">Microservices</string>
+    <string name="mvc_architecture_string">Model View Controller</string>
+    <string name="eventdriven_architecture_string">Eventdriven Architecture</string>
+    <string name="microkernel_architecture_string">Microkernel</string>
+    <string name="other_architecture_string">Other Architecture</string>
 
-
-    <string name="title_activity_choose_project_icon">Choose a project icon</string>
-    <string name="action_import_new_icon">Import new icon</string>
-    <string name="PROJECT_ICON_DIALOG_CODE">7723</string>
-    <string name="property_not_set">Not set yet</string>
-    <string name="dialog_ok">OK</string>
-    <string name="dialog_cancel">Cancel</string>
-    <string name="longclick_project">Project Information for</string>
-    <string name="dialog_delete_project_request">Do you really want to delete this project? You can restore deleted projects in the settings.</string>
-    <string name="title_activity_project_information">Project Informations</string>
-    <string name="action_change_estimation_technique">Change Estimation Technique</string>
-    <string name="action_find_related_project">Find related projects</string>
-    <string name="ACTIVITY_EXTRA_PROJECTID">PROJECTID</string>
-    <string name="action_save">Save</string>
-    <string name="dialog_save_project_request">Do you really want to save this project? This will overwrite the existing project.</string>
-    <string name="dialog_project_ist_terminated_title">This Project is Terminated</string>
-    <string name="dialog_project_ist_terminated_text">An already terminated project cannot be edited anymore.</string>
-    <string name="dialog_terminate_project_title">Terminate Project</string>
-    <string name="dialog_terminate_project_message">To terminate the project insert the total amount of person days the project took and click on OK. WARNING: A terminated project cannot be edited anymore.</string>
-    <string name="toast_terminate_project_error">You inserted a wrong amount of person days. Project NOT terminated.</string>
-    <string name="dialog_terminated_project_title">Final Person Days</string>
-    <string name="dialog_terminated_project_message">Project terminated with %s person days.</string>
-    <string name="mail_feedback_intent_title">Send feedback...</string>
-    <string name="feedback_subject">Feedback</string>
-    <string name="help_activity_show_relevant_articles">Show only relevant Articles</string>
-    <string name="intent_extra_help_article_name_tag">HELPARTIKLEID</string>
-    <string name="help_activity_search_hint">Search Help Articles</string>
-    <string name="help_activity_search_results">Search results</string>
-    <string name="help_activity_reset_search">Reset Search</string>
-    <string name="title_activity_analysis">Analysis</string>
-    <string name="dialog_change_influence_Factor_title">Change Influence Factor Set</string>
-    <string name="dialog_change_technique_method_title">Change Estimation Technique</string>
-    <string name="action_open_statistics">Open Statistics</string>
-    <string name="action_generate_demo_values">Generate Demo Values</string>
-    <string name="dialog_change_final_person_days_title">Change the final person days</string>
-    <string name="dialog_change_final_person_days_message">This changes are only visible in the diagramm and will not be saved.</string>
-    <string name="dialog_change_evaluated_person_days_title">Change the evaluated person days</string>
-    <string name="dialog_change_evaluated_person_days_message">This changes are only visible in the diagramm and will not be saved.</string>
-    <string name="action_change_analysis_sort_final_days">Arrange Final Days</string>
-    <string name="action_change_analysis_sort_estimated_days">Arrange Estimated Days</string>
-    <string name="title_activity_statistics">Statistics</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-    <string name="fragment_statistic_estimation_projects_title">Technique Statistic</string>
-    <string name="fragment_statistic_development_kind_title">Development Kind</string>
-    <string name="fragment_statistic_development_market_title">Development Market</string>
-    <string name="fragment_statistic_industry_sector_title">Industry Sector</string>
-    <string name="fragment_statistic_platform_title">Platform</string>
-    <string name="fragment_statistic_process_methology_title">Process Methology</string>
-    <string name="fragment_statistic_programming_language_title">Programming Language</string>
-    <string name="fragment_statistic_projects_title">Projects</string>
-    <string name="action_filter">Filter Projects</string>
-    <string name="title_activity_project_search_results">Search Results</string>
-    <string name="PROJECT_SEARCH_QUERY">PROJECTSEARCHQUERY</string>
-    <string name="no_search_results">No search results found</string>
-    <string name="error">Error</string>
+    <!-- Software Architecture Category Names -->
+    <string name="mud_to_structure_string">Mud-to-Structure</string>
+    <string name="distributed_string">Distributed System</string>
+    <string name="interactive_string">Interactive System</string>
+    <string name="adaptive_string">Adaptive System</string>
 
     <!-- Strings related to Settings -->
     <string name="pref_title_sync_frequency">Sync frequency</string>
