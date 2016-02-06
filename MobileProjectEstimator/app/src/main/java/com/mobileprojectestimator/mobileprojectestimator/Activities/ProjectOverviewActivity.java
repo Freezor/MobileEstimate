@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -21,6 +22,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -126,10 +128,11 @@ public class ProjectOverviewActivity extends DatabaseActivity
     public void onLongClickProject(final int position)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(projectsList.get(position).getTitle());
         ArrayList<String> infItems = new ArrayList<>();
         infItems.add("Project Properties");
         infItems.add("Find Related Projects");
-        infItems.add("Delete Project");
+        //infItems.add("Delete Project");
         final CharSequence[] items = infItems.toArray(new String[infItems.size()]);
         builder.setItems(items, new DialogInterface.OnClickListener()
         {
@@ -141,9 +144,6 @@ public class ProjectOverviewActivity extends DatabaseActivity
                     Intent i = new Intent(ProjectOverviewActivity.this, ProjectPropertiesActivity.class);
                     i.putExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID), projectsList.get(position).getProjectId());
                     startActivityForResult(i, Integer.parseInt((getString(R.string.CREATE_NEW_PROJECT_REQUEST_CODE))));
-                } else if (optionItem.equals("Delete Project"))
-                {
-                    showDeleteProjectDialog(position);
                 } else if (optionItem.equals("Find Related Projects"))
                 {
                     Intent i = new Intent(ProjectOverviewActivity.this, FindRelatedProjectsActivity.class);
@@ -152,9 +152,31 @@ public class ProjectOverviewActivity extends DatabaseActivity
                 }
             }
         });
-
         AlertDialog alert = builder.create();
+        /*alert.setButton(AlertDialog.BUTTON_NEGATIVE, "FIND RELATED",
+                new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                    }
+                });*/
+        alert.setButton(AlertDialog.BUTTON_POSITIVE, "DELETE",
+                new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        showDeleteProjectDialog(position);
+                    }
+                });
         alert.show();
+
+        /*Button bRelated = alert.getButton(AlertDialog.BUTTON_NEGATIVE);
+        bRelated.setCompoundDrawablesWithIntrinsicBounds(this.getResources().getDrawable(R.drawable.ic_find_related, null), null, null, null);
+        bRelated.setText("");*/
+
+        Button bDelete = alert.getButton(AlertDialog.BUTTON_POSITIVE);
+        bDelete.setCompoundDrawablesWithIntrinsicBounds(this.getResources().getDrawable(R.drawable.ic_action_trash, null), null, null, null);
+        bDelete.setText("");
     }
 
     /**
@@ -197,18 +219,18 @@ public class ProjectOverviewActivity extends DatabaseActivity
      */
     private void onClickProject(int position)
     {
-        if (projectsList.get(position).getEstimationMethod().equals(getString(R.string.estimation_method_function_point)))
+        if (projectsList.get(position).getEstimationMethod().equals(getString(R.string.estimation_technique_function_point)))
         {
             Intent intent = new Intent(getApplicationContext(), FunctionPointProjectActivtiy.class);
             intent.putExtra(getString(R.string.SELECTEDPROJECTID), projectsList.get(position).getProjectId());
             startActivityForResult(intent, Integer.parseInt((getString(R.string.PROJECT_VIEW_CODE))));
-        } else if (projectsList.get(position).getEstimationMethod().equals(getString(R.string.estimation_method_cocomo)))
+        } else if (projectsList.get(position).getEstimationMethod().equals(getString(R.string.estimation_technique_cocomo)))
         {
             Toast.makeText(this, "This Estimation Method is not supported at the moment", Toast.LENGTH_SHORT).show();
             /*Intent intent = new Intent(getApplicationContext(), FunctionPointProjectActivtiy.class);
             intent.putExtra(getString(R.string.SELECTEDPROJECTID), projectsList.get(position).getProjectId());
             startActivityForResult(intent, Integer.parseInt((getString(R.string.PROJECT_VIEW_CODE))));*/
-        } else if (projectsList.get(position).getEstimationMethod().equals(getString(R.string.estimation_method_cocomo_2)))
+        } else if (projectsList.get(position).getEstimationMethod().equals(getString(R.string.estimation_technique_cocomo_2)))
         {
             Toast.makeText(this, "This Estimation Method is not supported at the moment", Toast.LENGTH_SHORT).show();
             /*Intent intent = new Intent(getApplicationContext(), FunctionPointProjectActivtiy.class);
@@ -245,6 +267,9 @@ public class ProjectOverviewActivity extends DatabaseActivity
             {
                 projectsList.addAll(databaseHelper.getAllActiveProjects(this));
             }
+            if(projectsList.isEmpty()){
+                generateEmptyProject();
+            }
         } else
         {
             generateTestProject();
@@ -257,7 +282,30 @@ public class ProjectOverviewActivity extends DatabaseActivity
      */
     private void generateTestProject()
     {
-        Project p = new Project(this, "Demo Project", "20.04.2009", getResources().getString(R.string.estimation_method_function_point));
+        Project p = new Project(this, "Demo Project", "20.04.2009", getResources().getString(R.string.estimation_technique_function_point));
+        p.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.project));
+        InfluencingFactor factor = new InfluencingFactor(this, InfluencingFactor.FUNCTIONPOINTFACTORS);
+        factor.setName("Team Mates");
+        factor.getInfluenceFactorItems().get(0).setChosenValue(2);
+        factor.getInfluenceFactorItems().get(1).setChosenValue(2);
+        factor.getInfluenceFactorItems().get(2).setChosenValue(2);
+
+        factor.getInfluenceFactorItems().get(3).getSubInfluenceFactorItemsList().get(0).setChosenValue(8);
+        factor.getInfluenceFactorItems().get(3).getSubInfluenceFactorItemsList().get(1).setChosenValue(2);
+        factor.getInfluenceFactorItems().get(3).getSubInfluenceFactorItemsList().get(2).setChosenValue(5);
+        factor.getInfluenceFactorItems().get(3).getSubInfluenceFactorItemsList().get(3).setChosenValue(1);
+
+        factor.getInfluenceFactorItems().get(3).setChosenValue(0);
+        factor.getInfluenceFactorItems().get(5).setChosenValue(3);
+        factor.getInfluenceFactorItems().get(6).setChosenValue(5);
+
+        p.setInfluencingFactor(factor);
+        projectsList.add(p);
+    }
+
+    private void generateEmptyProject()
+    {
+        Project p = new Project(this, "No Project found", "-", "Check Project filter or create a new project");
         p.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.project));
         InfluencingFactor factor = new InfluencingFactor(this, InfluencingFactor.FUNCTIONPOINTFACTORS);
         factor.setName("Team Mates");
@@ -406,7 +454,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
         filter = new ProjectFilter();
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         filter.setIsActive(sharedPref.getBoolean(getString(R.string.filter_is_active_key), false));
-        String estimationMethodFilter = sharedPref.getString(getString(R.string.filter_estimation_method_key), "");
+        String estimationMethodFilter = sharedPref.getString(getString(R.string.filter_estimation_technique_key), "");
         filter.setEstimationMethod(estimationMethodFilter);
 
         if (filter.isActive())

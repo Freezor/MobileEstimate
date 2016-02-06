@@ -66,7 +66,7 @@ public class ProjectStatisticFragment extends StatisticFragment
 
         // enable rotation of the chart by touch
         mChart.setRotationAngle(0);
-        mChart.setRotationEnabled(true);
+        mChart.setRotationEnabled(false);
 
         // set a chart value selected listener
         mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
@@ -106,8 +106,8 @@ public class ProjectStatisticFragment extends StatisticFragment
         {
             yVals1.add(new Entry(projects.get(i), i));
         }
-        xVals.add("Active");
         xVals.add("Terminated");
+        xVals.add("Active");
 
         // create pie data set
         PieDataSet dataSet = new PieDataSet(yVals1, "Project Status");

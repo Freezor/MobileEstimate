@@ -13,7 +13,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
-        android:text="@string/estimation_method_hint"
+        android:text="@string/estimation_technique_hint"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <ScrollView
@@ -33,14 +33,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="@string/estimation_method_cocomo"/>
+                android:text="@string/estimation_technique_cocomo"/>
 
             <RadioButton
                 android:id="@+id/rbCocomo2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="@string/estimation_method_cocomo_2"/>
+                android:text="@string/estimation_technique_cocomo_2"/>
 
             <RadioButton
                 android:id="@+id/rbFunctionPoint"
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:checked="true"
-                android:text="@string/estimation_method_function_point"/>
+                android:text="@string/estimation_technique_function_point"/>
         </RadioGroup>
     </ScrollView>
 

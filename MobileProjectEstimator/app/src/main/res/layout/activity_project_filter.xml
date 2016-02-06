@@ -25,18 +25,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/filter_estimation_method"
+        android:text="@string/filter_estimation_technique"
         android:id="@+id/tvMethod"
         android:layout_below="@+id/sFilterActive"
         android:layout_alignParentStart="true"/>
 
     <TextView
-        android:layout_width="170dp"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text=""
         android:singleLine="true"
-        android:drawableLeft="@drawable/ic_action_edit"
+        android:drawableRight="@drawable/ic_action_edit"
         android:ellipsize="end"
         android:textColor="@color/dark_orange"
         android:id="@+id/tvMethodName"

@@ -12,7 +12,7 @@
     <item
         android:id="@+id/action_change_estimation_method"
         android:orderInCategory="110"
-        android:title="@string/action_change_estimation_method"
+        android:title="@string/action_change_estimation_technique"
         app:showAsAction="never"
         android:visible="false"/>
     <item

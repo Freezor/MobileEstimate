@@ -2,11 +2,9 @@ package com.mobileprojectestimator.mobileprojectestimator.Activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,7 +37,7 @@ public class ProjectFilterActivity extends DatabaseActivity
         filter = new ProjectFilter();
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         filter.setIsActive(sharedPref.getBoolean(getString(R.string.filter_is_active_key), false));
-        String estimationMethodFilter = sharedPref.getString(getString(R.string.filter_estimation_method_key), "");
+        String estimationMethodFilter = sharedPref.getString(getString(R.string.filter_estimation_technique_key), "");
         filter.setEstimationMethod(estimationMethodFilter);
 
         sFilterActive = (Switch) findViewById(R.id.sFilterActive);
@@ -83,7 +81,7 @@ public class ProjectFilterActivity extends DatabaseActivity
     private void showEstimationMethodDialog()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.filter_estimation_method_dialog_title));
+        builder.setTitle(getString(R.string.filter_estimation_technique_dialog_title));
         builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
         {
             public void onClick(DialogInterface dialog, int id)
@@ -136,7 +134,7 @@ public class ProjectFilterActivity extends DatabaseActivity
         //SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putBoolean(getString(R.string.filter_is_active_key), filter.isActive());
-        editor.putString(getString(R.string.filter_estimation_method_key), filter.getEstimationMethod());
+        editor.putString(getString(R.string.filter_estimation_technique_key), filter.getEstimationMethod());
         editor.commit();
     }
 }

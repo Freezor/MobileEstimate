@@ -127,7 +127,7 @@ public class InfluenceFactorsActivity extends DatabaseActivity
             {
                 Intent i = new Intent(InfluenceFactorsActivity.this, CreateNewInfluenceFactorActivity.class);
                 i.putExtra(getString(R.string.ISNEWFACTOR), false);
-                i.putExtra(getString(R.string.NEWFACTORESTIMATIONMETHOD), selectedEstimationMethod);
+                i.putExtra(getString(R.string.NEWFACTORESTIMATIONTECHNIQUE), selectedEstimationMethod);
                 i.putExtra(getString(R.string.NEWFACTORINFLUENCESETNAME), influenceFactorNames.get(influenceFactorSetSpinner.getSelectedItemPosition()));
                 i.putExtra(getString(R.string.NEWFACTORINFLUENCESETID), influenceFactorIds.get(influenceFactorSetSpinner.getSelectedItemPosition()));
                 startActivityForResult(i, Integer.parseInt(getString(R.string.edit_influence_factor_request_code)));
@@ -159,7 +159,7 @@ public class InfluenceFactorsActivity extends DatabaseActivity
      */
     private void loadInfluenceFactor(String factorName)
     {
-        if (selectedEstimationMethod.equals(getString(R.string.estimation_method_function_point)))
+        if (selectedEstimationMethod.equals(getString(R.string.estimation_technique_function_point)))
         {
             influencingFactor = new InfluencingFactor(this, InfluencingFactor.FUNCTIONPOINTFACTORS);
             factornames = new ArrayList<String>();
@@ -277,7 +277,7 @@ public class InfluenceFactorsActivity extends DatabaseActivity
     {
         Intent i = new Intent(InfluenceFactorsActivity.this, CreateNewInfluenceFactorActivity.class);
         i.putExtra(getString(R.string.ISNEWFACTOR), true);
-        i.putExtra(getString(R.string.NEWFACTORESTIMATIONMETHOD), selectedEstimationMethod);
+        i.putExtra(getString(R.string.NEWFACTORESTIMATIONTECHNIQUE), selectedEstimationMethod);
         loggingHelper.writeToLog("Start Intent CreateNewInfluenceFactorActivity: New Factor for " + selectedEstimationMethod, LoggingHelper.LOGLEVEL_INFO);
         startActivityForResult(i, Integer.parseInt(getString(R.string.new_influence_factor_request_code)));
     }

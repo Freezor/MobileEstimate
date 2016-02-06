@@ -59,7 +59,7 @@ public class CreateNewInfluenceFactorActivity extends DatabaseActivity
 
         Bundle bundle = getIntent().getExtras();
         isNewFactor = bundle.getBoolean(getString(R.string.ISNEWFACTOR));
-        selectedEstimationMethod = bundle.getString(getString(R.string.NEWFACTORESTIMATIONMETHOD));
+        selectedEstimationMethod = bundle.getString(getString(R.string.NEWFACTORESTIMATIONTECHNIQUE));
         if (isNewFactor)
         {
             toolbar.setTitle("New Factor");
@@ -123,7 +123,7 @@ public class CreateNewInfluenceFactorActivity extends DatabaseActivity
     {
         Intent i = new Intent(CreateNewInfluenceFactorActivity.this, CreateNewInfluenceFactorActivity.class);
         i.putExtra(getString(R.string.ISNEWFACTOR), true);
-        i.putExtra(getString(R.string.NEWFACTORESTIMATIONMETHOD), selectedEstimationMethod);
+        i.putExtra(getString(R.string.NEWFACTORESTIMATIONTECHNIQUE), selectedEstimationMethod);
         startActivityForResult(i, Integer.parseInt(getString(R.string.new_influence_factor_request_code)));
         finish();
     }
@@ -220,7 +220,7 @@ public class CreateNewInfluenceFactorActivity extends DatabaseActivity
      */
     private void loadInfluenceFactor()
     {
-        if (selectedEstimationMethod.equals(getString(R.string.estimation_method_function_point)))
+        if (selectedEstimationMethod.equals(getString(R.string.estimation_technique_function_point)))
         {
             influencingFactor = new InfluencingFactor(this, InfluencingFactor.FUNCTIONPOINTFACTORS);
 

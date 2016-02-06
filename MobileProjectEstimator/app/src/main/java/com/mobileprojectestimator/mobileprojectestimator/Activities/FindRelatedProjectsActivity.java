@@ -112,7 +112,7 @@ public class FindRelatedProjectsActivity extends DatabaseActivity
                 } else if (optionItem.equals("View Estimation"))
                 {
                     Project p = projectsList.get(position);
-                    if (p.getEstimationMethod().equals(getString(R.string.estimation_method_function_point)))
+                    if (p.getEstimationMethod().equals(getString(R.string.estimation_technique_function_point)))
                     {
                         Intent i = new Intent(FindRelatedProjectsActivity.this, EstimationViewActivity.class);
                         i.putExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID), p.getProjectId());

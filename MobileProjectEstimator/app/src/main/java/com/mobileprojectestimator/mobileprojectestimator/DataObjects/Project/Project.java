@@ -99,7 +99,7 @@ public class Project implements Serializable
 
     public void initialiseEstimationItems(String estimationMethod)
     {
-        if (estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
+        if (estimationMethod.equals(context.getString(R.string.estimation_technique_function_point)))
         {
             this.estimationItems = new ArrayList<>();
             this.estimationItems.add(new FunctionPointItem((context.getString(R.string.function_point_estimation_input_data)), 3, 4, 6));//0
@@ -107,7 +107,7 @@ public class Project implements Serializable
             this.estimationItems.add(new FunctionPointItem((context.getString(R.string.function_point_estimation_output)), 4, 5, 7));//2
             this.estimationItems.add(new FunctionPointItem((context.getString(R.string.function_point_estimation_dataset)), 7, 10, 15));//3
             this.estimationItems.add(new FunctionPointItem((context.getString(R.string.function_point_estimation_reference_data)), 5, 7, 10));//4
-        } else if (estimationMethod.equals(context.getString(R.string.estimation_method_cocomo)))
+        } else if (estimationMethod.equals(context.getString(R.string.estimation_technique_cocomo)))
         {
             this.estimationItems = new ArrayList<>();
         }
@@ -208,10 +208,10 @@ public class Project implements Serializable
         //Create new item with sample estimation method that the methods on the object work fine
         this.influencingFactor = new InfluencingFactor(getContext(), InfluencingFactor.FUNCTIONPOINTFACTORS);
         //Select the creation of the influencing factor on the estimation method
-        if (this.estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
+        if (this.estimationMethod.equals(context.getString(R.string.estimation_technique_function_point)))
         {
             this.influencingFactor.setValuesFromHashMap(objectHash, InfluencingFactor.FUNCTIONPOINTFACTORS);
-        } else if (this.estimationMethod.equals(context.getString(R.string.estimation_method_cocomo)))
+        } else if (this.estimationMethod.equals(context.getString(R.string.estimation_technique_cocomo)))
         {
             this.influencingFactor.setValuesFromHashMap(objectHash, InfluencingFactor.COCOMOFACTORS);
         }
@@ -274,7 +274,7 @@ public class Project implements Serializable
         valuesMap.put(context.getString(R.string.project_hashmap_item_iconname), iconName);
         valuesMap.put(context.getString(R.string.project_hashmap_item_creation_date), creationDate);
         valuesMap.put(context.getString(R.string.project_hashmap_item_description), projectDescription);
-        valuesMap.put(context.getString(R.string.project_hashmap_item_estimation_method), estimationMethod);
+        valuesMap.put(context.getString(R.string.project_hashmap_item_estimation_technique), estimationMethod);
 
         valuesMap.putAll(estimationItemsToHashMap());
 
@@ -285,7 +285,7 @@ public class Project implements Serializable
     {
         HashMap<String, String> valuesMap = new HashMap<>();
 
-        if (this.estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
+        if (this.estimationMethod.equals(context.getString(R.string.estimation_technique_function_point)))
         {
             for (EstimationItem item : estimationItems)
             {
@@ -314,7 +314,7 @@ public class Project implements Serializable
         this.setIconName(objectHash.get(context.getString(R.string.project_hashmap_item_iconname)));
         this.setCreationDate(objectHash.get(context.getString(R.string.project_hashmap_item_creation_date)));
         this.setProjectDescription(objectHash.get(context.getString(R.string.project_hashmap_item_description)));
-        this.setEstimationMethod(objectHash.get(context.getString(R.string.project_hashmap_item_estimation_method)));
+        this.setEstimationMethod(objectHash.get(context.getString(R.string.project_hashmap_item_estimation_technique)));
         byte[] decodedByte = Base64.decode(objectHash.get(context.getString(R.string.project_hashmap_item_image)), 0);
         this.setImage(BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length));
 
@@ -333,7 +333,7 @@ public class Project implements Serializable
      */
     private void setEstimationItemsValue(HashMap<String, String> objectHash)
     {
-        if (this.estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
+        if (this.estimationMethod.equals(context.getString(R.string.estimation_technique_function_point)))
         {
             //zwischenschritt neue arraylist erstellen und die alte damit ersetzen, da sonst nur werte in die arralist eingefügt werden
             ArrayList<EstimationItem> estimationItemsNew = new ArrayList<>();
@@ -389,7 +389,7 @@ public class Project implements Serializable
         {
             if (estimationItem.getItemName().equals(title))
             {
-                if (estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
+                if (estimationMethod.equals(context.getString(R.string.estimation_technique_function_point)))
                 {
                     FunctionPointItem item = (FunctionPointItem) estimationItem;
                     return item.getTotalAmount();
@@ -511,7 +511,7 @@ public class Project implements Serializable
     {
         sumOfInfluences = 0;
 
-        if (this.estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
+        if (this.estimationMethod.equals(context.getString(R.string.estimation_technique_function_point)))
         {
             sumOfInfluences = this.influencingFactor.getSumOfInfluences();
         }
@@ -534,7 +534,7 @@ public class Project implements Serializable
     {
         influenceFactorRating = 0;
 
-        if (this.estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
+        if (this.estimationMethod.equals(context.getString(R.string.estimation_technique_function_point)))
         {
             influenceFactorRating = this.influencingFactor.getFactorInfluenceRating();
         }

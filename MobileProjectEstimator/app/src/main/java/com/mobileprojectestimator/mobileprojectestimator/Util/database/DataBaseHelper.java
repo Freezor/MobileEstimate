@@ -532,7 +532,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         int estimationMethodId = 0;
         SQLiteDatabase db = this.getWritableDatabase();
 
-        if (selectedEstimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
+        if (selectedEstimationMethod.equals(context.getString(R.string.estimation_technique_function_point)))
         {
             ArrayList<InfluenceFactorItem> items = influencingFactor.getInfluenceFactorItems();
             int integration = items.get(0).getChosenValue();
@@ -603,7 +603,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
                 factorId = c.getInt(c.getColumnIndex("influence_factor_id"));
             }
         }
-        if (selectedEstimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
+        if (selectedEstimationMethod.equals(context.getString(R.string.estimation_technique_function_point)))
         {
             ArrayList<InfluenceFactorItem> items = influencingFactor.getInfluenceFactorItems();
             args = new ContentValues();
@@ -692,7 +692,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
             if (p.isTerminated())
             {
-                if (p.getEstimationMethod().equals(context.getString(R.string.estimation_method_function_point)))
+                if (p.getEstimationMethod().equals(context.getString(R.string.estimation_technique_function_point)))
                 {
                     query = String.format("SELECT * FROM FunctionPointProductivity where project_id = '%s'", p.getProjectId());
                     db = this.getReadableDatabase();
@@ -867,7 +867,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     {
         ArrayList<EstimationItem> estimationItems = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        if (estimationMethod.equals(this.context.getString(R.string.estimation_method_function_point)))
+        if (estimationMethod.equals(this.context.getString(R.string.estimation_technique_function_point)))
         {
             String query = String.format("SELECT * FROM FunctionPointEstimationItems where _id = '%s'", estimation_items_id);
             FunctionPointItem item;
@@ -969,14 +969,16 @@ public class DataBaseHelper extends SQLiteOpenHelper
             if (c != null)
                 c.moveToFirst();
 
+            int dbId = c.getInt(c.getColumnIndex("_id"));
             String name = c.getString(c.getColumnIndex("name"));
             String estimationMethod = getEstimationMethodNameById(c.getString(c.getColumnIndex("estimation_method_id")));
             String influenceFactorId = c.getString(c.getColumnIndex("influence_factor_id"));
 
-            if (estimationMethod.equals(this.context.getString(R.string.estimation_method_function_point)))
+            if (estimationMethod.equals(this.context.getString(R.string.estimation_technique_function_point)))
             {
                 factor = new InfluencingFactor(this.context, InfluencingFactor.FUNCTIONPOINTFACTORS);
                 factor.setName(name);
+                factor.setDbId(dbId);
                 query = String.format("SELECT * FROM FunctionPointInfluenceFactor where _id = '%s'", influenceFactorId);
                 db = this.getReadableDatabase();
                 try (Cursor c2 = db.rawQuery(query, null))
@@ -997,12 +999,16 @@ public class DataBaseHelper extends SQLiteOpenHelper
                     factor.setChosenValueOfItem(c2.getInt(c2.getColumnIndex("Adaptability")), context.getString(R.string.function_point_influence_factor_item_adaptability));
                 }
 
-            } else if (estimationMethod.equals(this.context.getString(R.string.estimation_method_cocomo)))
+            } else if (estimationMethod.equals(this.context.getString(R.string.estimation_technique_cocomo)))
             {
                 factor = new InfluencingFactor(this.context, InfluencingFactor.COCOMOFACTORS);
-            } else if (estimationMethod.equals(this.context.getString(R.string.estimation_method_cocomo_2)))
+                factor.setName(name);
+                factor.setDbId(dbId);
+            } else if (estimationMethod.equals(this.context.getString(R.string.estimation_technique_cocomo_2)))
             {
                 factor = new InfluencingFactor(this.context, InfluencingFactor.COCOMO2FACTORS);
+                factor.setName(name);
+                factor.setDbId(dbId);
             }
         }
 
@@ -1341,7 +1347,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
         //Create Estimation Items
         int estimationItemsId = 0;
-        if (project.getEstimationMethod().equals(this.context.getString(R.string.estimation_method_function_point)))
+        if (project.getEstimationMethod().equals(this.context.getString(R.string.estimation_technique_function_point)))
         {
             int inputDataItemId = getNextIdFromTable("InputDataItems");
             ContentValues inputDataValues = new ContentValues();
@@ -1631,7 +1637,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         db.delete("ProjectDescriptions", "_id = " + descriptionId, null);
         db.delete("ProjectProperties", "_id = " + propertiesId, null);
 
-        if (estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
+        if (estimationMethod.equals(context.getString(R.string.estimation_technique_function_point)))
         {
             int inputId = 0;
             int requestId = 0;
@@ -1786,7 +1792,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         ContentValues args = new ContentValues();
         args.put("is_terminated", 1);
         db.update("Projects", args, "_id=" + project.getProjectId(), null);
-        if (project.getEstimationMethod().equals(context.getString(R.string.estimation_method_function_point)))
+        if (project.getEstimationMethod().equals(context.getString(R.string.estimation_technique_function_point)))
         {
             int tableId = getNextIdFromTable("FunctionPointProductivity");
             if (tableId < 10)
@@ -2456,7 +2462,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         db = this.getWritableDatabase();
         db.delete("InfluenceFactors", "_id = " + influenceFactorSetId, null);
 
-        if (estimationMethod.equals(context.getString(R.string.estimation_method_function_point)))
+        if (estimationMethod.equals(context.getString(R.string.estimation_technique_function_point)))
         {
 
             db = this.getWritableDatabase();

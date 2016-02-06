@@ -107,7 +107,7 @@ public class ExportProjectActivity extends DatabaseActivity
     {
         selectedProject = databaseHelper.loadProjectById(this, String.valueOf(selectedProject.getProjectId()));
 
-        if (selectedProject.getEstimationMethod().equals(getString(R.string.estimation_method_function_point)))
+        if (selectedProject.getEstimationMethod().equals(getString(R.string.estimation_technique_function_point)))
         {
             if (generateFunctionPointExcel())
             {
@@ -117,7 +117,7 @@ public class ExportProjectActivity extends DatabaseActivity
                 i.setDataAndType(Uri.fromFile(outputFile), "application/vnd.ms-excel");
                 startActivity(i);
             }
-        } else if (selectedProject.getEstimationMethod().equals(getString(R.string.estimation_method_cocomo)))
+        } else if (selectedProject.getEstimationMethod().equals(getString(R.string.estimation_technique_cocomo)))
         {
             if (generateCocomoPointExcel())
             {
@@ -127,7 +127,7 @@ public class ExportProjectActivity extends DatabaseActivity
                 i.setDataAndType(Uri.fromFile(outputFile), "application/vnd.ms-excel");
                 startActivity(i);
             }
-        } else if (selectedProject.getEstimationMethod().equals(getString(R.string.estimation_method_cocomo_2)))
+        } else if (selectedProject.getEstimationMethod().equals(getString(R.string.estimation_technique_cocomo_2)))
         {
             if (generateCocomo2PointExcel())
             {

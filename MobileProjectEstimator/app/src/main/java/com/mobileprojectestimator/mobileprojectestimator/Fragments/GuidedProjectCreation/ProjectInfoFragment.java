@@ -147,6 +147,16 @@ public class ProjectInfoFragment extends GuidedCreationFragment
             }
         });
 
+        ImageView projectImage = (ImageView) rootView.findViewById(R.id.projectIconIV);
+        projectImage.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(v.getContext(), ChooseProjectIconActivity.class);
+                startActivityForResult(intent, Integer.parseInt((v.getContext().getString(R.string.PROJECT_ICON_DIALOG_CODE))));
+            }
+        });
         return rootView;
     }
 
