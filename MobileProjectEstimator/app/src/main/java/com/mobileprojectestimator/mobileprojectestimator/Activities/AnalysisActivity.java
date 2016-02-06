@@ -268,6 +268,25 @@ public class AnalysisActivity extends DatabaseActivity
 
         d.addDataSet(lineDataSet);
 
+        entries = new ArrayList<>();
+        for (int index = 0; index < selectedProjects.size(); index++)
+            entries.add(new Entry((float) selectedProjects.get(index).getFinalPersonDays(), index));
+
+        lineDataSet = new LineDataSet(entries, "Final Person Days");
+        lineDataSet.setColor(ContextCompat.getColor(this, R.color.light_green));
+        lineDataSet.setLineWidth(2.5f);
+        lineDataSet.setCircleColor(ContextCompat.getColor(this, R.color.dark_green));
+        //set.setCircleRadius(5f);
+        lineDataSet.setFillColor(ContextCompat.getColor(this, R.color.dark_green));
+        lineDataSet.setDrawCubic(true);
+        lineDataSet.setDrawValues(true);
+        lineDataSet.setValueTextSize(10f);
+        lineDataSet.setValueTextColor(ContextCompat.getColor(this, R.color.dark_green));
+
+        lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+
+        d.addDataSet(lineDataSet);
+
         return d;
     }
 
