@@ -47,7 +47,7 @@ public class EstimationMethodFragment extends GuidedCreationFragment
         dot4.setBackgroundResource(R.drawable.circle_blue);
 
         if (project.getEstimationMethod().isEmpty() || project.getEstimationMethod() == null){
-            project.setEstimationMethod(getString(R.string.estimation_method_function_point));
+            project.setEstimationMethod(getString(R.string.estimation_technique_function_point));
         }
 
         final RadioGroup estimationMethodRadioGroup = (RadioGroup) rootView.findViewById(R.id.estimationMethodRadioGroup);

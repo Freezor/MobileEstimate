@@ -35,7 +35,6 @@ import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estim
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 import com.mobileprojectestimator.mobileprojectestimator.Util.InputFilterMinMax;
-import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.NewInfluenceFactorListAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -643,7 +642,7 @@ public class AnalysisActivity extends DatabaseActivity
                 public void onClick(View v)
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(AnalysisActivity.this);
-                    builder.setTitle(getString(R.string.dialog_change_estimation_method_title));
+                    builder.setTitle(getString(R.string.dialog_change_technique_method_title));
                     builder.setCancelable(false);
                     builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
                     {
@@ -785,8 +784,8 @@ public class AnalysisActivity extends DatabaseActivity
             int evaluatedDays = r.nextInt(maxDays - min + 1) + min;
             double fakt = r.nextInt(80 - 5 + 1) + 5;
             fakt = (fakt / 100) + 1;
-            p.setEstimationMethod(getString(R.string.estimation_method_function_point));
-            p.initialiseEstimationItems(getString(R.string.estimation_method_function_point));
+            p.setEstimationMethod(getString(R.string.estimation_technique_function_point));
+            p.initialiseEstimationItems(getString(R.string.estimation_technique_function_point));
 
             int minEstimationItemValue = 0;
             int maxEstimationItemValueSimple = 30;
@@ -831,7 +830,7 @@ public class AnalysisActivity extends DatabaseActivity
             projectNames.add(p.getTitle());
         }
 
-        tvEstimationMethod.setText(getString(R.string.estimation_method_function_point));
+        tvEstimationMethod.setText(getString(R.string.estimation_technique_function_point));
         tvInfluenceFactorSet.setText("Demo Factor");
         chosenProject = selectedProjects.get(0);
         refreshAnalysis();

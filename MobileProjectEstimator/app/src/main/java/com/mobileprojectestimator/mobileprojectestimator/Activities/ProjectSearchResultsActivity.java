@@ -110,18 +110,18 @@ public class ProjectSearchResultsActivity extends DatabaseActivity
 
     private void onClickProject(int position)
     {
-        if (projectsList.get(position).getEstimationMethod().equals(getString(R.string.estimation_method_function_point)))
+        if (projectsList.get(position).getEstimationMethod().equals(getString(R.string.estimation_technique_function_point)))
         {
             Intent intent = new Intent(getApplicationContext(), FunctionPointProjectActivtiy.class);
             intent.putExtra(getString(R.string.SELECTEDPROJECTID), projectsList.get(position).getProjectId());
             startActivityForResult(intent, Integer.parseInt((getString(R.string.PROJECT_VIEW_CODE))));
-        } else if (projectsList.get(position).getEstimationMethod().equals(getString(R.string.estimation_method_cocomo)))
+        } else if (projectsList.get(position).getEstimationMethod().equals(getString(R.string.estimation_technique_cocomo)))
         {
             Toast.makeText(this, "This Estimation Method is not supported at the moment", Toast.LENGTH_SHORT).show();
             /*Intent intent = new Intent(getApplicationContext(), FunctionPointProjectActivtiy.class);
             intent.putExtra(getString(R.string.SELECTEDPROJECTID), projectsList.get(position).getProjectId());
             startActivityForResult(intent, Integer.parseInt((getString(R.string.PROJECT_VIEW_CODE))));*/
-        } else if (projectsList.get(position).getEstimationMethod().equals(getString(R.string.estimation_method_cocomo_2)))
+        } else if (projectsList.get(position).getEstimationMethod().equals(getString(R.string.estimation_technique_cocomo_2)))
         {
             Toast.makeText(this, "This Estimation Method is not supported at the moment", Toast.LENGTH_SHORT).show();
             /*Intent intent = new Intent(getApplicationContext(), FunctionPointProjectActivtiy.class);

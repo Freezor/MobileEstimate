@@ -116,7 +116,7 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
             creationItems.add(new ProjectItemForCreation("Programming Language: ", "ERROR"));
             creationItems.add(new ProjectItemForCreation("Platform: ", "ERROR"));
             creationItems.add(new ProjectItemForCreation("Industry Sector: ", "ERROR"));
-            creationItems.add(new ProjectItemForCreation("Estimation Method: ", "ERROR"));
+            creationItems.add(new ProjectItemForCreation("Estimation Technique: ", "ERROR"));
             creationItems.add(new ProjectItemForCreation("Influencing Factor: ", "ERROR"));
         } else
         {
@@ -130,7 +130,7 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
             creationItems.add(new ProjectItemForCreation("Programming Language: ", this.project.getProjectProperties().getProgrammingLanguage()));
             creationItems.add(new ProjectItemForCreation("Platform: ", this.project.getProjectProperties().getPlatform()));
             creationItems.add(new ProjectItemForCreation("Industry Sector: ", this.project.getProjectProperties().getIndustrySector()));
-            creationItems.add(new ProjectItemForCreation("Estimation Method: ", this.project.getEstimationMethod()));
+            creationItems.add(new ProjectItemForCreation("Estimation Technique: ", this.project.getEstimationMethod()));
             if (this.project.getInfluencingFactor() != null)
             {
                 creationItems.add(new ProjectItemForCreation("Influencing Factor: ", this.project.getInfluencingFactor().getInfluenceFactorSetName()));

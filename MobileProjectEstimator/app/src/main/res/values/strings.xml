@@ -44,11 +44,11 @@
     <string name="project_hashmap_item_iconname" translatable="false">ICONNAME</string>
     <string name="project_hashmap_item_creation_date" translatable="false">CREATIONDATE</string>
     <string name="project_hashmap_item_description" translatable="false">PROJECTDESCRIPTION</string>
-    <string name="project_hashmap_item_estimation_method" translatable="false">ESTIMATIONMETHOD</string>
+    <string name="project_hashmap_item_estimation_technique" translatable="false">ESTIMATIONTECHNIQUE</string>
     <string name="PROJECT_VIEW_CODE" translatable="false">1001</string>
     <string name="CREATE_NEW_PROJECT_REQUEST_CODE" translatable="false">1002</string>
-    <string name="msg_guided_project_creation_no_estimation_method">You have chosen no Estimation Method.</string>
-    <string name="msg_guided_project_creation_chosen_estimation_method">You have chosen the %s Estimation Method.</string>
+    <string name="msg_guided_project_creation_no_estimation_technique">You have chosen no Estimation Technique.</string>
+    <string name="msg_guided_project_creation_chosen_estimation_technique">You have chosen the %s Estimation Technique.</string>
     <string name="error_this_should_not_happen">THIS SHOULD NOT HAPPEN!</string>
     <string name="function_point_estimation_input_data">Input Data</string>
     <string name="function_point_estimation_requests">"Requests "</string>
@@ -96,7 +96,7 @@
     <string name="function_point_estimation_medium">Medium</string>
     <string name="function_point_estimation_complex">Complex</string>
     <string name="function_point_estimation_description" translatable="false">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim detailsId est laborum.</string>
-    <string name="estimation_method_hint">Choose the estimation method you want to use.</string>
+    <string name="estimation_technique_hint">Choose the estimation technique you want to use.</string>
     <string name="function_point_estimation_total_points">Total Points: </string>
     <string name="function_point_estimation_evaluated_total_points">Evaluated Function Points: </string>
     <string name="function_point_estimation_evaluated_person_days">Evaluated Person Days: </string>
@@ -143,7 +143,7 @@
     <string name="hint_factor_name">Factor Name</string>
     <string name="new_influence_factor_request_code" translatable="false">31246</string>
     <string name="ISNEWFACTOR" translatable="false">ISNEWFACTOR</string>
-    <string name="NEWFACTORESTIMATIONMETHOD" translatable="false">ESTIMATIONMETHOD</string>
+    <string name="NEWFACTORESTIMATIONTECHNIQUE" translatable="false">ESTIMATIONTECHNIQUE</string>
     <string name="NEWFACTORINFLUENCESETNAME" translatable="false">INFLUENCEFACTORNAME</string>
     <string name="edit_influence_factor_request_code" translatable="false">42365</string>
     <string name="SELECTEDPROJECTID" translatable="false">Selected_Project_id</string>
@@ -158,10 +158,10 @@
     <string name="Extension_Project_string">Extension Project</string>
     <string name="New_Project_string">New Project</string>
 
-    <!-- Estimation Methods -->
-    <string name="estimation_method_function_point">Function Point</string>
-    <string name="estimation_method_cocomo">COCOMO</string>
-    <string name="estimation_method_cocomo_2">COCOMO 2</string>
+    <!-- Estimation techniques -->
+    <string name="estimation_technique_function_point">Function Point</string>
+    <string name="estimation_technique_cocomo">COCOMO</string>
+    <string name="estimation_technique_cocomo_2">COCOMO 2</string>
 
     <!-- Industry Sectors -->
     <string name="Agriculture_string">Agriculture</string>
@@ -237,7 +237,7 @@
     <string name="longclick_project">Project Information for</string>
     <string name="dialog_delete_project_request">Do you really want to delete this project? You can restore deleted projects in the settings.</string>
     <string name="title_activity_project_information">Project Informations</string>
-    <string name="action_change_estimation_method">Change Estimation Method</string>
+    <string name="action_change_estimation_technique">Change Estimation Technique</string>
     <string name="action_find_related_project">Find related projects</string>
     <string name="ACTIVITY_EXTRA_PROJECTID">PROJECTID</string>
     <string name="action_save">Save</string>
@@ -258,7 +258,7 @@
     <string name="help_activity_reset_search">Reset Search</string>
     <string name="title_activity_analysis">Analysis</string>
     <string name="dialog_change_influence_Factor_title">Change Influence Factor Set</string>
-    <string name="dialog_change_estimation_method_title">Change Estimation Method</string>
+    <string name="dialog_change_technique_method_title">Change Estimation Technique</string>
     <string name="action_open_statistics">Open Statistics</string>
     <string name="action_generate_demo_values">Generate Demo Values</string>
     <string name="dialog_change_final_person_days_title">Change the final person days</string>
@@ -269,7 +269,7 @@
     <string name="action_change_analysis_sort_estimated_days">Arrange Estimated Days</string>
     <string name="title_activity_statistics">Statistics</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="fragment_statistic_estimation_projects_title">Estimation Method Statistic</string>
+    <string name="fragment_statistic_estimation_projects_title">Estimation Technique Statistic</string>
     <string name="fragment_statistic_development_kind_title">Development Kind</string>
     <string name="fragment_statistic_development_market_title">Development Market</string>
     <string name="fragment_statistic_industry_sector_title">Industry Sector</string>
@@ -338,13 +338,13 @@
     <string name="dialog_erase_projects_message">WARNING: There is absolutely no way to restore erased projects</string>
     <string name="erase_projects_successful">Projects successfully erased</string>
     <string name="action_de_select_all_projects">Deselect all</string>
-    <string name="filter_estimation_method_key">ESTIMATIONMETHODFILTER</string>
+    <string name="filter_estimation_technique_key">ESTIMATIONTECHNIQUEFILTER</string>
     <string name="filter_is_active_key">FILTERISACTIVE</string>
     <string name="title_activity_project_filter">Project Filter</string>
     <string name="filter_activate">Activate Filter</string>
-    <string name="filter_estimation_method">Estimation Method</string>
+    <string name="filter_estimation_technique">Estimation Technique</string>
     <string name="filter_none">None</string>
-    <string name="filter_estimation_method_dialog_title">Set Estimation Method Filter</string>
+    <string name="filter_estimation_technique_dialog_title">Set Estimation Technique Filter</string>
     <string name="SET_PROJECT_FILTER_REQUEST_CODE">7856</string>
     <string name="exported_project_toast">Exported %s to Excel File in Download Folder</string>
     <string name="exported_project_error_toast">Project could not be exported</string>

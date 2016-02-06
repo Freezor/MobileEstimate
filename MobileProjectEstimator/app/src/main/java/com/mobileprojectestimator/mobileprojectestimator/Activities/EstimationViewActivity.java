@@ -8,8 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,7 +106,7 @@ public class EstimationViewActivity extends DatabaseActivity
                 {
                     public void onClick(DialogInterface dialog, int id)
                     {
-                        if (relatedProject.getEstimationMethod().equals(getString(R.string.estimation_method_function_point)))
+                        if (relatedProject.getEstimationMethod().equals(getString(R.string.estimation_technique_function_point)))
                         {
                             copyEstimationItems();
                             databaseHelper.updateFunctionPointEstimationItems(relatedProject.getEstimationItems());
@@ -134,7 +132,7 @@ public class EstimationViewActivity extends DatabaseActivity
 
     private void copyEstimationItems()
     {
-        if (project.getEstimationMethod().equals(getString(R.string.estimation_method_function_point)))
+        if (project.getEstimationMethod().equals(getString(R.string.estimation_technique_function_point)))
         {
             for (EstimationItem i : project.getEstimationItems())
             {
@@ -227,7 +225,7 @@ public class EstimationViewActivity extends DatabaseActivity
                 holder = (ViewHolder) convertView.getTag();
             }
 
-            if (estimationMethod.equals(getString(R.string.estimation_method_function_point)))
+            if (estimationMethod.equals(getString(R.string.estimation_technique_function_point)))
             {
                 FunctionPointItem item = (FunctionPointItem) estimationItemsList.get(position);
 

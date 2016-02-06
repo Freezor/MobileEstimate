@@ -428,7 +428,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
     private void editInfluenceFactor()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.estimation_method_hint));
+        builder.setTitle(getString(R.string.estimation_technique_hint));
 
         influenceFactorItems = databaseHelper.getActiveInfluenceFactorItems(databaseHelper.getEstimationMethodId(projectNew.getEstimationMethod()));
         ArrayList<String> infItems = new ArrayList<>();
@@ -464,7 +464,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
     private void editEstimationMethod()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.estimation_method_hint));
+        builder.setTitle(getString(R.string.estimation_technique_hint));
 
         final CharSequence[] items = estimationMethodItems.toArray(new String[estimationMethodItems.size()]);
         builder.setItems(items, new DialogInterface.OnClickListener()
@@ -812,10 +812,10 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
         initialiseInfluencingFactorFragment(position);
         if (influencingFactorFragment == null)
         {
-            infFactorTextViewEstimationMethod.setText(String.format(getString(R.string.msg_guided_project_creation_chosen_estimation_method), new Object[]{projectNew.getEstimationMethod()}));
+            infFactorTextViewEstimationMethod.setText(String.format(getString(R.string.msg_guided_project_creation_chosen_estimation_technique), new Object[]{projectNew.getEstimationMethod()}));
         } else
         {
-            infFactorTextViewEstimationMethod.setText(String.format(getString(R.string.msg_guided_project_creation_chosen_estimation_method), new Object[]{projectNew.getEstimationMethod()}));
+            infFactorTextViewEstimationMethod.setText(String.format(getString(R.string.msg_guided_project_creation_chosen_estimation_technique), new Object[]{projectNew.getEstimationMethod()}));
         }
     }
 
@@ -839,7 +839,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
             influencingFactorsAdapterSpinner.setAdapter(influencingFactorsAdapter);
             if (projectNew.getEstimationMethod() == null)
             {
-                projectNew.setEstimationMethod(getBaseContext().getString(R.string.estimation_method_function_point));
+                projectNew.setEstimationMethod(getBaseContext().getString(R.string.estimation_technique_function_point));
             }
             influencingFactorsAdapterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
             {
@@ -863,7 +863,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
 
             if (projectNew.getEstimationMethod().equals(""))
             {
-                infFactorTextViewEstimationMethod.setText(R.string.msg_guided_project_creation_no_estimation_method);
+                infFactorTextViewEstimationMethod.setText(R.string.msg_guided_project_creation_no_estimation_technique);
             }
         } catch (Exception e)
         {
@@ -883,13 +883,13 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
         //TODO: change when loading from database
         InfluencingFactor influencingFactor;
 
-        if (estimationMethod.equals(getString(R.string.estimation_method_function_point)))
+        if (estimationMethod.equals(getString(R.string.estimation_technique_function_point)))
         {
             influencingFactor = loadFunctionPointInfluencingFactors(itemName);
-        } else if (estimationMethod.equals(getString(R.string.estimation_method_cocomo)))
+        } else if (estimationMethod.equals(getString(R.string.estimation_technique_cocomo)))
         {
             influencingFactor = loadCocomoInfluencingFactors(itemName);
-        } else if (estimationMethod.equals(getString(R.string.estimation_method_cocomo_2)))
+        } else if (estimationMethod.equals(getString(R.string.estimation_technique_cocomo_2)))
         {
             influencingFactor = loadCocomo2InfluencingFactors(itemName);
         } else

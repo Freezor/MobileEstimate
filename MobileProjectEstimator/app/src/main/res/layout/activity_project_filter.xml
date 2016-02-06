@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/filter_estimation_method"
+        android:text="@string/filter_estimation_technique"
         android:id="@+id/tvMethod"
         android:layout_below="@+id/sFilterActive"
         android:layout_alignParentStart="true"/>

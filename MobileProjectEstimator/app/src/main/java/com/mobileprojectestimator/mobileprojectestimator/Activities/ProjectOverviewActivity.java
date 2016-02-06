@@ -198,18 +198,18 @@ public class ProjectOverviewActivity extends DatabaseActivity
      */
     private void onClickProject(int position)
     {
-        if (projectsList.get(position).getEstimationMethod().equals(getString(R.string.estimation_method_function_point)))
+        if (projectsList.get(position).getEstimationMethod().equals(getString(R.string.estimation_technique_function_point)))
         {
             Intent intent = new Intent(getApplicationContext(), FunctionPointProjectActivtiy.class);
             intent.putExtra(getString(R.string.SELECTEDPROJECTID), projectsList.get(position).getProjectId());
             startActivityForResult(intent, Integer.parseInt((getString(R.string.PROJECT_VIEW_CODE))));
-        } else if (projectsList.get(position).getEstimationMethod().equals(getString(R.string.estimation_method_cocomo)))
+        } else if (projectsList.get(position).getEstimationMethod().equals(getString(R.string.estimation_technique_cocomo)))
         {
             Toast.makeText(this, "This Estimation Method is not supported at the moment", Toast.LENGTH_SHORT).show();
             /*Intent intent = new Intent(getApplicationContext(), FunctionPointProjectActivtiy.class);
             intent.putExtra(getString(R.string.SELECTEDPROJECTID), projectsList.get(position).getProjectId());
             startActivityForResult(intent, Integer.parseInt((getString(R.string.PROJECT_VIEW_CODE))));*/
-        } else if (projectsList.get(position).getEstimationMethod().equals(getString(R.string.estimation_method_cocomo_2)))
+        } else if (projectsList.get(position).getEstimationMethod().equals(getString(R.string.estimation_technique_cocomo_2)))
         {
             Toast.makeText(this, "This Estimation Method is not supported at the moment", Toast.LENGTH_SHORT).show();
             /*Intent intent = new Intent(getApplicationContext(), FunctionPointProjectActivtiy.class);
@@ -258,7 +258,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
      */
     private void generateTestProject()
     {
-        Project p = new Project(this, "Demo Project", "20.04.2009", getResources().getString(R.string.estimation_method_function_point));
+        Project p = new Project(this, "Demo Project", "20.04.2009", getResources().getString(R.string.estimation_technique_function_point));
         p.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.project));
         InfluencingFactor factor = new InfluencingFactor(this, InfluencingFactor.FUNCTIONPOINTFACTORS);
         factor.setName("Team Mates");
@@ -407,7 +407,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
         filter = new ProjectFilter();
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         filter.setIsActive(sharedPref.getBoolean(getString(R.string.filter_is_active_key), false));
-        String estimationMethodFilter = sharedPref.getString(getString(R.string.filter_estimation_method_key), "");
+        String estimationMethodFilter = sharedPref.getString(getString(R.string.filter_estimation_technique_key), "");
         filter.setEstimationMethod(estimationMethodFilter);
 
         if (filter.isActive())
