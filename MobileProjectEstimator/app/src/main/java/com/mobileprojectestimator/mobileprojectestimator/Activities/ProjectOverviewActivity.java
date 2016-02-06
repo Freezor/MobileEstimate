@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -21,6 +22,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -130,7 +132,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
         ArrayList<String> infItems = new ArrayList<>();
         infItems.add("Project Properties");
         infItems.add("Find Related Projects");
-        infItems.add("Delete Project");
+        //infItems.add("Delete Project");
         final CharSequence[] items = infItems.toArray(new String[infItems.size()]);
         builder.setItems(items, new DialogInterface.OnClickListener()
         {
@@ -142,9 +144,6 @@ public class ProjectOverviewActivity extends DatabaseActivity
                     Intent i = new Intent(ProjectOverviewActivity.this, ProjectPropertiesActivity.class);
                     i.putExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID), projectsList.get(position).getProjectId());
                     startActivityForResult(i, Integer.parseInt((getString(R.string.CREATE_NEW_PROJECT_REQUEST_CODE))));
-                } else if (optionItem.equals("Delete Project"))
-                {
-                    showDeleteProjectDialog(position);
                 } else if (optionItem.equals("Find Related Projects"))
                 {
                     Intent i = new Intent(ProjectOverviewActivity.this, FindRelatedProjectsActivity.class);
@@ -153,9 +152,31 @@ public class ProjectOverviewActivity extends DatabaseActivity
                 }
             }
         });
-
         AlertDialog alert = builder.create();
+        /*alert.setButton(AlertDialog.BUTTON_NEGATIVE, "FIND RELATED",
+                new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                    }
+                });*/
+        alert.setButton(AlertDialog.BUTTON_POSITIVE, "DELETE",
+                new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        showDeleteProjectDialog(position);
+                    }
+                });
         alert.show();
+
+        /*Button bRelated = alert.getButton(AlertDialog.BUTTON_NEGATIVE);
+        bRelated.setCompoundDrawablesWithIntrinsicBounds(this.getResources().getDrawable(R.drawable.ic_find_related, null), null, null, null);
+        bRelated.setText("");*/
+
+        Button bDelete = alert.getButton(AlertDialog.BUTTON_POSITIVE);
+        bDelete.setCompoundDrawablesWithIntrinsicBounds(this.getResources().getDrawable(R.drawable.ic_action_trash, null), null, null, null);
+        bDelete.setText("");
     }
 
     /**
