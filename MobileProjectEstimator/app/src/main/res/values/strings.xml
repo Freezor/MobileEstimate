@@ -65,7 +65,7 @@
     <string name="influence_factor_sample_name">Integration into other applications</string>
     <string name="influence_factor_sample_value" translatable="false">10</string>
     <string name="project_creation_overview_hint">Please Check all your input information.</string>
-    <string name="function_point_estimation_sample_value" translatable="false">999</string>
+    <string name="function_point_estimation_sample_value" translatable="false">1000</string>
     <string name="nav_header_project_name_hint">Project Name</string>
     <string name="nav_header_user">User: testuser</string>
     <string name="function_point_sum_of_influences">Sum of Influences: </string>
