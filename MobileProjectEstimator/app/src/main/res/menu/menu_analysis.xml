@@ -12,7 +12,7 @@
     <item
         android:id="@+id/action_change_analysis_sort"
         android:orderInCategory="110"
-        android:title="@string/action_change_analysis_sort_evaluated_points"
+        android:title="@string/action_change_analysis_sort_final_days"
         app:showAsAction="never"/>
     <item
         android:id="@+id/action_generate_demo_values"

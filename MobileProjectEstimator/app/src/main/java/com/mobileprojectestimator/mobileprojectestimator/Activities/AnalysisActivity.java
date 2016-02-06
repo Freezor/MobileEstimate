@@ -332,7 +332,7 @@ public class AnalysisActivity extends DatabaseActivity
             reloadChartData();
         }
         MenuItem arrangementMenuItem = menu.findItem(R.id.action_change_analysis_sort);
-        arrangementMenuItem.setTitle(getString(R.string.action_change_analysis_sort_evaluated_points));
+        arrangementMenuItem.setTitle(getString(R.string.action_change_analysis_sort_final_days));
         isArrangementEvaluatedPoints = false;
     }
 
@@ -372,7 +372,7 @@ public class AnalysisActivity extends DatabaseActivity
         personDaysChart.invalidate();
 
         MenuItem arrangementMenuItem = menu.findItem(R.id.action_change_analysis_sort);
-        arrangementMenuItem.setTitle(getString(R.string.action_change_analysis_sort_evaluated_points));
+        arrangementMenuItem.setTitle(getString(R.string.action_change_analysis_sort_final_days));
         isArrangementEvaluatedPoints = false;
 
         layout.invalidate();
@@ -543,7 +543,7 @@ public class AnalysisActivity extends DatabaseActivity
                 @Override
                 public int compare(Project p1, Project p2)
                 {
-                    return Double.compare(p1.getEvaluatedPoints(), p2.getEvaluatedPoints());
+                    return Double.compare(p1.getFinalPersonDays(), p2.getFinalPersonDays());
                 }
 
             });
@@ -555,7 +555,7 @@ public class AnalysisActivity extends DatabaseActivity
         } else
         {
             isArrangementEvaluatedPoints = false;
-            arrangementMenuItem.setTitle(getString(R.string.action_change_analysis_sort_evaluated_points));
+            arrangementMenuItem.setTitle(getString(R.string.action_change_analysis_sort_final_days));
             Collections.sort(selectedProjects, new Comparator<Project>()
             {
                 @Override

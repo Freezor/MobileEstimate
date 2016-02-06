@@ -265,7 +265,7 @@
     <string name="dialog_change_final_person_days_message">This changes are only visible in the diagramm and will not be saved.</string>
     <string name="dialog_change_evaluated_person_days_title">Change the evaluated person days</string>
     <string name="dialog_change_evaluated_person_days_message">This changes are only visible in the diagramm and will not be saved.</string>
-    <string name="action_change_analysis_sort_evaluated_points">Arrange Evaluated Points</string>
+    <string name="action_change_analysis_sort_final_days">Arrange Final Days</string>
     <string name="action_change_analysis_sort_estimated_days">Arrange Estimated Days</string>
     <string name="title_activity_statistics">Statistics</string>
     <string name="section_format">Hello World from section: %1$d</string>
