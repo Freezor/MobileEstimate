@@ -267,6 +267,9 @@ public class ProjectOverviewActivity extends DatabaseActivity
             {
                 projectsList.addAll(databaseHelper.getAllActiveProjects(this));
             }
+            if(projectsList.isEmpty()){
+                generateEmptyProject();
+            }
         } else
         {
             generateTestProject();
@@ -280,6 +283,29 @@ public class ProjectOverviewActivity extends DatabaseActivity
     private void generateTestProject()
     {
         Project p = new Project(this, "Demo Project", "20.04.2009", getResources().getString(R.string.estimation_technique_function_point));
+        p.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.project));
+        InfluencingFactor factor = new InfluencingFactor(this, InfluencingFactor.FUNCTIONPOINTFACTORS);
+        factor.setName("Team Mates");
+        factor.getInfluenceFactorItems().get(0).setChosenValue(2);
+        factor.getInfluenceFactorItems().get(1).setChosenValue(2);
+        factor.getInfluenceFactorItems().get(2).setChosenValue(2);
+
+        factor.getInfluenceFactorItems().get(3).getSubInfluenceFactorItemsList().get(0).setChosenValue(8);
+        factor.getInfluenceFactorItems().get(3).getSubInfluenceFactorItemsList().get(1).setChosenValue(2);
+        factor.getInfluenceFactorItems().get(3).getSubInfluenceFactorItemsList().get(2).setChosenValue(5);
+        factor.getInfluenceFactorItems().get(3).getSubInfluenceFactorItemsList().get(3).setChosenValue(1);
+
+        factor.getInfluenceFactorItems().get(3).setChosenValue(0);
+        factor.getInfluenceFactorItems().get(5).setChosenValue(3);
+        factor.getInfluenceFactorItems().get(6).setChosenValue(5);
+
+        p.setInfluencingFactor(factor);
+        projectsList.add(p);
+    }
+
+    private void generateEmptyProject()
+    {
+        Project p = new Project(this, "No Project found", "-", "Check Project filter or create a new project");
         p.setImage(BitmapFactory.decodeResource(getResources(), R.drawable.project));
         InfluencingFactor factor = new InfluencingFactor(this, InfluencingFactor.FUNCTIONPOINTFACTORS);
         factor.setName("Team Mates");
