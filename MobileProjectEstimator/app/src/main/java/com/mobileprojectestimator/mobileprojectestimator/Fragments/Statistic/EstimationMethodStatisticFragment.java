@@ -17,9 +17,7 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Estimation.EstimationItem;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Statistic.EstimatedProjectItem;
-import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Statistic.PropertyProjects;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
 import java.util.ArrayList;
@@ -33,9 +31,6 @@ public class EstimationMethodStatisticFragment extends StatisticFragment
     private View rootView;
     private TextView tvTitle;
     private PieChart mChart;
-
-    //private float[] yData = { 5, 10, 15, 30, 40 };
-    //private String[] xData = { "Sony", "Huawei", "LG", "Apple", "Samsung" };
 
     public StatisticFragment reloadStatistic()
     {
@@ -56,10 +51,9 @@ public class EstimationMethodStatisticFragment extends StatisticFragment
         tvTitle.setText(R.string.fragment_statistic_estimation_projects_title);
 
         mChart = (PieChart) rootView.findViewById(R.id.estimationMethodProjectsChart);
-
         // configure pie chart
         mChart.setUsePercentValues(true);
-        mChart.setDescription("Projects Estimation Method Share");
+        mChart.setDescription("Projects Estimation Technique Share");
 
         // enable hole and configure
         mChart.setDrawHoleEnabled(true);
@@ -69,7 +63,7 @@ public class EstimationMethodStatisticFragment extends StatisticFragment
 
         // enable rotation of the chart by touch
         mChart.setRotationAngle(0);
-        mChart.setRotationEnabled(true);
+        mChart.setRotationEnabled(false);
 
         // set a chart value selected listener
         mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener()
@@ -108,10 +102,24 @@ public class EstimationMethodStatisticFragment extends StatisticFragment
         ArrayList<EstimatedProjectItem> values = databaseHelper.loadProjectsEstimationMethodStatistic();
         ArrayList<String> xVals = new ArrayList<String>();
 
+        boolean zeroValues = false;
+
         for (int i = 0; i < values.size(); i++)
         {
-            yVals1.add(new Entry(values.get(i).getNumberOfProjects(), i));
-            xVals.add(values.get(i).getEstimationMethod());
+            if (values.get(i).getNumberOfProjects() > 0)
+            {
+                yVals1.add(new Entry(values.get(i).getNumberOfProjects(), i));
+                xVals.add(values.get(i).getEstimationMethod());
+            } else
+            {
+                zeroValues = true;
+            }
+        }
+
+        if (zeroValues)
+        {
+            yVals1.add(new Entry(0, yVals1.size()+1));
+            xVals.add("Other");
         }
 
         // create pie data set

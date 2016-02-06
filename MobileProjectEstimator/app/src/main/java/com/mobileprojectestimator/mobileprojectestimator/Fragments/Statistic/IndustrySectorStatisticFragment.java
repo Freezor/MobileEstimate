@@ -68,7 +68,7 @@ public class IndustrySectorStatisticFragment extends StatisticFragment
 
         // enable rotation of the chart by touch
         mChart.setRotationAngle(0);
-        mChart.setRotationEnabled(true);
+        mChart.setRotationEnabled(false);
 
         // set a chart value selected listener
         mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
@@ -104,12 +104,25 @@ public class IndustrySectorStatisticFragment extends StatisticFragment
         ArrayList<String> xVals = new ArrayList<String>();
         ArrayList<PropertyProjects> values = databaseHelper.loadPropertyStatistic("IndustrySectors","IndustrySector_id");
 
+        boolean zeroValues = false;
+
         for (int i = 0; i < values.size(); i++)
         {
-            yVals1.add(new Entry(values.get(i).getNumberOfProjects(), i));
-            xVals.add(values.get(i).getPropertyName());
+            if (values.get(i).getNumberOfProjects() > 0)
+            {
+                yVals1.add(new Entry(values.get(i).getNumberOfProjects(), i));
+                xVals.add(values.get(i).getPropertyName());
+            } else
+            {
+                zeroValues = true;
+            }
         }
 
+        if (zeroValues)
+        {
+            yVals1.add(new Entry(0, yVals1.size()+1));
+            xVals.add("Other");
+        }
         // create pie data set
         PieDataSet dataSet = new PieDataSet(yVals1, "Industry Sectors");
         dataSet.setSliceSpace(3);
