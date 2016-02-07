@@ -103,7 +103,6 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
     private ImageView projectIcon;
     private TextView projInfoIconName;
     private InfluencingFactorFragment influencingFactorFragment;
-    private TextView infFactorTextViewEstimationMethod;
     private Spinner influencingFactorsAdapterSpinner;
     private ArrayList<DatabaseInfluenceFactorItem> dbInfluenceFactorItems;
     private ArrayList<String> developmentMarketItems;
@@ -116,6 +115,9 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
     private ArrayList<DatabaseInfluenceFactorItem> influenceFactorItems;
     private Spinner spEstimationTechnique;
     private ArrayAdapter<String> influencingFactorsAdapter;
+    private TextView architecture;
+    private ImageView editArchitecture;
+    private ArrayList<String> softwareArchitectureItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -187,6 +189,9 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
 
         industrySectorItems = databaseHelper.loadAllPropertiesByName("IndustrySectors");
         Collections.sort(industrySectorItems);
+
+        softwareArchitectureItems = databaseHelper.loadAllPropertiesByName("SoftwareArchitecturePatterns");
+        Collections.sort(softwareArchitectureItems);
 
         estimationMethodItems = databaseHelper.getEstimationMethodNames();
         Collections.sort(estimationMethodItems);
@@ -295,7 +300,8 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
                 }
             });
             //Set Project Description
-            sublayout = (RelativeLayout) creationItemsListView.getChildAt(1);
+            int childPosition = 1;
+            sublayout = (RelativeLayout) creationItemsListView.getChildAt(childPosition++);
             projDescription = (TextView) sublayout.findViewById(tvItemValue);
             editDescription = (ImageView) sublayout.findViewById(ivEditItem);
             editDescription.setOnClickListener(new View.OnClickListener()
@@ -307,7 +313,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
                 }
             });
             //Set Project Icon
-            sublayout = (RelativeLayout) creationItemsListView.getChildAt(2);
+            sublayout = (RelativeLayout) creationItemsListView.getChildAt(childPosition++);
             iconName = (TextView) sublayout.findViewById(tvItemValue);
             editIconName = (ImageView) sublayout.findViewById(ivEditItem);
             editIconName.setOnClickListener(new View.OnClickListener()
@@ -319,7 +325,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
                 }
             });
             //Set Project Market
-            sublayout = (RelativeLayout) creationItemsListView.getChildAt(3);
+            sublayout = (RelativeLayout) creationItemsListView.getChildAt(childPosition++);
             projectMarket = (TextView) sublayout.findViewById(tvItemValue);
             editProjectMarket = (ImageView) sublayout.findViewById(ivEditItem);
             editProjectMarket.setOnClickListener(new View.OnClickListener()
@@ -331,7 +337,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
                 }
             });
             //Set Project Development Kind
-            sublayout = (RelativeLayout) creationItemsListView.getChildAt(4);
+            sublayout = (RelativeLayout) creationItemsListView.getChildAt(childPosition++);
             developmentKind = (TextView) sublayout.findViewById(tvItemValue);
             editDevelopmentKind = (ImageView) sublayout.findViewById(ivEditItem);
             editDevelopmentKind.setOnClickListener(new View.OnClickListener()
@@ -343,7 +349,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
                 }
             });
             //Set Process Methology
-            sublayout = (RelativeLayout) creationItemsListView.getChildAt(5);
+            sublayout = (RelativeLayout) creationItemsListView.getChildAt(childPosition++);
             processModel = (TextView) sublayout.findViewById(tvItemValue);
             editProcessModel = (ImageView) sublayout.findViewById(ivEditItem);
             editProcessModel.setOnClickListener(new View.OnClickListener()
@@ -355,7 +361,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
                 }
             });
             //Set Programming Language
-            sublayout = (RelativeLayout) creationItemsListView.getChildAt(6);
+            sublayout = (RelativeLayout) creationItemsListView.getChildAt(childPosition++);
             programmingLanguage = (TextView) sublayout.findViewById(tvItemValue);
             editProgrammingLanguage = (ImageView) sublayout.findViewById(ivEditItem);
             editProgrammingLanguage.setOnClickListener(new View.OnClickListener()
@@ -367,7 +373,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
                 }
             });
             //Set Platform
-            sublayout = (RelativeLayout) creationItemsListView.getChildAt(7);
+            sublayout = (RelativeLayout) creationItemsListView.getChildAt(childPosition++);
             platform = (TextView) sublayout.findViewById(tvItemValue);
             editPlatform = (ImageView) sublayout.findViewById(ivEditItem);
             editPlatform.setOnClickListener(new View.OnClickListener()
@@ -379,7 +385,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
                 }
             });
             //Set Industry Sector
-            sublayout = (RelativeLayout) creationItemsListView.getChildAt(8);
+            sublayout = (RelativeLayout) creationItemsListView.getChildAt(childPosition++);
             industrySector = (TextView) sublayout.findViewById(tvItemValue);
             editIndustrySector = (ImageView) sublayout.findViewById(ivEditItem);
             editIndustrySector.setOnClickListener(new View.OnClickListener()
@@ -390,8 +396,20 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
                     editIndustrySector();
                 }
             });
+            //Set Software Architecture
+            sublayout = (RelativeLayout) creationItemsListView.getChildAt(childPosition++);
+            architecture = (TextView) sublayout.findViewById(tvItemValue);
+            editArchitecture = (ImageView) sublayout.findViewById(ivEditItem);
+            editArchitecture.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    editArchitecture();
+                }
+            });
             //Set Estimation Method
-            sublayout = (RelativeLayout) creationItemsListView.getChildAt(9);
+            sublayout = (RelativeLayout) creationItemsListView.getChildAt(childPosition++);
             estimationMethod = (TextView) sublayout.findViewById(tvItemValue);
             editEstimationMethod = (ImageView) sublayout.findViewById(ivEditItem);
             editEstimationMethod.setOnClickListener(new View.OnClickListener()
@@ -403,7 +421,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
                 }
             });
             //Set Influence Factor Set
-            sublayout = (RelativeLayout) creationItemsListView.getChildAt(10);
+            sublayout = (RelativeLayout) creationItemsListView.getChildAt(childPosition++);
             influenceFactor = (TextView) sublayout.findViewById(tvItemValue);
             editInfluenceFactor = (ImageView) sublayout.findViewById(ivEditItem);
             editInfluenceFactor.setOnClickListener(new View.OnClickListener()
@@ -422,6 +440,31 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
         {
             Log.d("Error", "instanciateOverviewViewItems: " + e.toString());
         }
+    }
+
+    private void editArchitecture()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.project_creation_architecture));
+
+        final CharSequence[] items = softwareArchitectureItems.toArray(new String[softwareArchitectureItems.size()]);
+        builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int id)
+            {
+                // User cancelled the dialog
+            }
+        });
+        builder.setItems(items, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
+                projectNew.getProjectProperties().setArchitecture(items[item].toString());
+                updateProjectCreationOverviewFragment(5);
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     /**
@@ -742,6 +785,7 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
             programmingLanguage.setText(projectNew.getProjectProperties().getProgrammingLanguage());
             platform.setText(projectNew.getProjectProperties().getPlatform());
             industrySector.setText(projectNew.getProjectProperties().getIndustrySector());
+            architecture.setText(projectNew.getProjectProperties().getArchitecture());
             estimationMethod.setText(projectNew.getEstimationMethod());
             //TODO if factor not in list of possible factors set factor to first in list
             if (projectNew.getInfluencingFactor() == null)
@@ -833,11 +877,12 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
             spEstimationTechnique.setSelection(estimationTechniques.getPosition(projectNew.getEstimationMethod()));
         }
         influencingFactorsAdapter = new ArrayAdapter<>(influencingFactorFragment.getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, loadInfluencingFactorsSetList());
-        if(loadInfluencingFactorsSetList().contains(projectNew.getInfluencingFactor()))
+        if (loadInfluencingFactorsSetList().contains(projectNew.getInfluencingFactor()))
         {
             influencingFactorsAdapterSpinner.setSelection(influencingFactorsAdapter.getPosition(projectNew.getInfluencingFactor().getInfluenceFactorSetName()));
 
-        }else{
+        } else
+        {
             influencingFactorsAdapterSpinner.setSelection(0);
         }
         influencingFactorsAdapterSpinner.setAdapter(influencingFactorsAdapter);
@@ -855,10 +900,6 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
         try
         {
             influencingFactorFragment = (InfluencingFactorFragment) mSectionsPagerAdapter.instantiateItem(mViewPager, position);
-
-            //noinspection ConstantConditions
-            infFactorTextViewEstimationMethod = (TextView) influencingFactorFragment.getView().findViewById(R.id.textViewChosenEstimationMethod);
-
 
             final ArrayAdapter<String> estimationTechniques = new ArrayAdapter<String>(influencingFactorFragment.getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, databaseHelper.getEstimationMethodNames());
             spEstimationTechnique = (Spinner) influencingFactorFragment.getView().findViewById(R.id.spEstimationTechnique);
@@ -910,10 +951,6 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
                 influencingFactorsAdapterSpinner.setSelection(influencingFactorsAdapter.getPosition(projectNew.getInfluencingFactor().getInfluenceFactorSetName()));
             }
 
-            if (projectNew.getEstimationMethod().equals(""))
-            {
-                infFactorTextViewEstimationMethod.setText(R.string.msg_guided_project_creation_no_estimation_technique);
-            }
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -1125,9 +1162,10 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
                 cancelCreationDialog();
                 return true;
             case R.id.action_list_creation:
-                projectNew.getProjectProperties().setProgrammingLanguage("C");
-                projectNew.getProjectProperties().setPlatform("Android");
-                projectNew.getProjectProperties().setIndustrySector("Agriculture");
+                projectNew.getProjectProperties().setProgrammingLanguage(programmingLanguageItems.get(0));
+                projectNew.getProjectProperties().setPlatform(platformItems.get(0));
+                projectNew.getProjectProperties().setIndustrySector(industrySectorItems.get(0));
+                projectNew.getProjectProperties().setArchitecture(softwareArchitectureItems.get(0));
                 mViewPager.setCurrentItem(5);
                 return true;
             default:

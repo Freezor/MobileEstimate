@@ -380,6 +380,7 @@
     <string name="influence_factor_subitem_request_code">5679</string>
     <string name="dialog_delete_influence_factor">Do you really want to delete this influence factor?</string>
     <string name="project_not_terminated">N.T.</string>
+    <string name="project_creation_architecture">What architecture will you use?</string>
     <string-array name="pref_sync_frequency_titles">
         <item>1 hour</item>
         <item>3 hours</item>

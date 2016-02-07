@@ -74,9 +74,6 @@ public class InfluencingFactorFragment extends GuidedCreationFragment
         ImageView dot5 = (ImageView) rootView.findViewById(R.id.dot5);
         dot5.setBackgroundResource(R.drawable.circle_blue);
 
-        estimationMethodTitelTV = (TextView) rootView.findViewById(R.id.textViewChosenEstimationMethod);
-        estimationMethodTitelTV.setText(text);
-
         return rootView;
     }
 

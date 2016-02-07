@@ -17,6 +17,7 @@ public class ProjectProperties
     private static final String PROGRAMMINGLANGUAGE_STRING = "PROGRAMMINGLANGUAGE";
     private static final String PLATFORM_STRING = "PLATFORM";
     private static final String INDUSTRYSECTOR_STRING = "INDUSTRYSECTOR";
+    private static final String ARCHITECUTRE_STRING = "ARCHITECTURE";
 
     /**
      * The market of the project
@@ -42,6 +43,8 @@ public class ProjectProperties
      * The sector for which the project is developed
      */
     private String industrySector;
+
+    private String architecture;
 
     public String getMarket()
     {
@@ -118,6 +121,7 @@ public class ProjectProperties
         objectHash.put(PROGRAMMINGLANGUAGE_STRING, this.programmingLanguage);
         objectHash.put(PLATFORM_STRING, this.platform);
         objectHash.put(INDUSTRYSECTOR_STRING, this.industrySector);
+        objectHash.put(ARCHITECUTRE_STRING, this.architecture);
         return objectHash;
     }
 
@@ -141,5 +145,15 @@ public class ProjectProperties
         {
             e.printStackTrace();
         }
+    }
+
+    public String getArchitecture()
+    {
+        return architecture;
+    }
+
+    public void setArchitecture(String architecture)
+    {
+        this.architecture = architecture;
     }
 }

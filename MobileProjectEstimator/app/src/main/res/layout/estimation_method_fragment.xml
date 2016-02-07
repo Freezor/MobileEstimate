@@ -7,50 +7,26 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tvChooseEstMethod"
+        android:id="@+id/tvChooseArchitecture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
-        android:text="@string/estimation_technique_hint"
+        android:text="@string/project_creation_architecture"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tvChooseEstMethod">
-
-        <RadioGroup
-            android:id="@+id/estimationMethodRadioGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
-
-            <RadioButton
-                android:id="@+id/rbCocomo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/estimation_technique_cocomo"/>
-
-            <RadioButton
-                android:id="@+id/rbCocomo2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/estimation_technique_cocomo_2"/>
-
-            <RadioButton
-                android:id="@+id/rbFunctionPoint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:checked="true"
-                android:text="@string/estimation_technique_function_point"/>
-        </RadioGroup>
-    </ScrollView>
+    <Spinner
+        android:id="@+id/architecture"
+        style="@style/spinner_style"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:elevation="2dp"
+        android:spinnerMode="dropdown"
+        android:textSize="15sp"
+        android:layout_below="@+id/tvChooseArchitecture"
+        android:layout_centerHorizontal="true"/>
 
     <include
         layout="@layout/dotted_progress_bar"
