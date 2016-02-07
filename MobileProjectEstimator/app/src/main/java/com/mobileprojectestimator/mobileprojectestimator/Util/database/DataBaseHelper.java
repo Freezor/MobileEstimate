@@ -1739,7 +1739,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         int langId = getPropertyIdFromTable("ProgrammingLanguages", project.getProjectProperties().getProgrammingLanguage());
         int platformId = getPropertyIdFromTable("Platforms", project.getProjectProperties().getPlatform());
         int industrySectId = getPropertyIdFromTable("IndustrySectors", project.getProjectProperties().getIndustrySector());
-        int architectureId = getPropertyIdFromTable("SoftwareAchitecturePatterns", project.getProjectProperties().getArchitecture());
+        int architectureId = getPropertyIdFromTable("SoftwareArchitecturePatterns", project.getProjectProperties().getArchitecture());
         db.close();
 
         //TODO: Property Werte werden nicht übernommen. Werte richtig jedoch für jede Spalte 1. Fehler beim Daten holen

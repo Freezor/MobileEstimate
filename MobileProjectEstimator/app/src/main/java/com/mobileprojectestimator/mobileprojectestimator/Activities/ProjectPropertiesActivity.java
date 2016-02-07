@@ -45,6 +45,8 @@ public class ProjectPropertiesActivity extends DatabaseActivity
     private ArrayList<String> programmingLanguageItems;
     private ArrayList<String> platformItems;
     private ArrayList<String> industrySectorItems;
+    private TextView tvArchitectureValue;
+    private ArrayList<String> architectureItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -67,6 +69,7 @@ public class ProjectPropertiesActivity extends DatabaseActivity
         tvProgrammingLangValue = (TextView) findViewById(R.id.tvProgLangValue);
         tvPlatformValue = (TextView) findViewById(R.id.tvPlatformValue);
         tvIndustrySectorValue = (TextView) findViewById(R.id.tvIndustrySectorValue);
+        tvArchitectureValue = (TextView) findViewById(R.id.tvArchitectureValue);
 
         Intent intent = getIntent();
         projectId = intent.getIntExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID), 0);
@@ -152,7 +155,15 @@ public class ProjectPropertiesActivity extends DatabaseActivity
                 return true;
             }
         });
-
+        tvArchitectureValue.setOnLongClickListener(new View.OnLongClickListener()
+        {
+            @Override
+            public boolean onLongClick(View v)
+            {
+                showValueToast(tvArchitectureValue.getText().toString());
+                return true;
+            }
+        });
 
         tvProjectDescription.setOnClickListener(new View.OnClickListener()
         {
@@ -210,8 +221,39 @@ public class ProjectPropertiesActivity extends DatabaseActivity
                 openProjectIndustrySectorDialog();
             }
         });
-
+        tvArchitectureValue.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                openSoftwareArchitectureDialog();
+            }
+        });
         loadPropertyValues();
+    }
+
+    private void openSoftwareArchitectureDialog()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.project_creation_architecture));
+        builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int id)
+            {
+                // User cancelled the dialog
+            }
+        });
+        final CharSequence[] items = architectureItems.toArray(new String[architectureItems.size()]);
+        builder.setItems(items, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
+                project.getProjectProperties().setArchitecture(items[item].toString());
+                updateContent();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void showValueToast(String text)
@@ -268,6 +310,10 @@ public class ProjectPropertiesActivity extends DatabaseActivity
 
         estimationMethodItems = databaseHelper.getEstimationMethodNames();
         Collections.sort(estimationMethodItems);
+
+        architectureItems = databaseHelper.loadAllPropertiesByName("SoftwareArchitecturePatterns");
+        Collections.sort(architectureItems);
+
     }
 
     /**
@@ -294,6 +340,7 @@ public class ProjectPropertiesActivity extends DatabaseActivity
         tvProgrammingLangValue.setText(project.getProjectProperties().getProgrammingLanguage());
         tvPlatformValue.setText(project.getProjectProperties().getPlatform());
         tvIndustrySectorValue.setText(project.getProjectProperties().getIndustrySector());
+        tvArchitectureValue.setText(project.getProjectProperties().getArchitecture());
     }
 
     private void openProjectNameDialog()

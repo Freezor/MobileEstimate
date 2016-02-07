@@ -212,5 +212,28 @@
             android:textColor="@color/dark_orange"
             android:layout_alignTop="@+id/tvIndustrySector"
             android:layout_alignStart="@+id/tvPlatformValue"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Architecture"
+            android:id="@+id/textView"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/tvIndustrySectorValue"
+            android:layout_alignStart="@+id/tvIndustrySector"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text=""
+            android:drawableLeft="@drawable/ic_action_edit"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:id="@+id/tvArchitectureValue"
+            android:textColor="@color/dark_orange"
+            android:layout_alignTop="@+id/textView"
+            android:layout_alignStart="@+id/tvIndustrySectorValue"/>
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
