@@ -160,7 +160,7 @@
     <string name="action_find_related_project">Find related projects</string>
     <string name="ACTIVITY_EXTRA_PROJECTID">PROJECTID</string>
     <string name="action_save">Save</string>
-    <string name="dialog_save_project_request">Do you really want to save this project? This will overwrite the existing project.</string>
+    <string name="dialog_undo_project_request">Do you really want to undo the last change? This will overwrite the existing project.</string>
     <string name="dialog_project_ist_terminated_title">This Project is Terminated</string>
     <string name="dialog_project_ist_terminated_text">An already terminated project cannot be edited anymore.</string>
     <string name="dialog_terminate_project_title">Terminate Project</string>
@@ -381,6 +381,7 @@
     <string name="dialog_delete_influence_factor">Do you really want to delete this influence factor?</string>
     <string name="project_not_terminated">N.T.</string>
     <string name="project_creation_architecture">What architecture will you use?</string>
+    <string name="action_undo">Undo</string>
     <string-array name="pref_sync_frequency_titles">
         <item>1 hour</item>
         <item>3 hours</item>
