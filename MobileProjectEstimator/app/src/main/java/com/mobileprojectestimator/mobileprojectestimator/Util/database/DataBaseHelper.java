@@ -25,6 +25,7 @@ import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Inf
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.ProgrammingLanguageProperty;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.ProjectProperties;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.SoftwareArchitectureProperty;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.ProjectFilter;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
@@ -2514,5 +2515,34 @@ public class DataBaseHelper extends SQLiteOpenHelper
         }
 
         return detailsId;
+    }
+
+    public SoftwareArchitectureProperty loadArchitectureProperty(String architecture)
+    {
+        SoftwareArchitectureProperty softwareArchitectureProperty = new SoftwareArchitectureProperty();
+
+        int architectureId = getPropertyIdFromTable("SoftwareArchitecturePatterns", architecture);
+
+        String selectQuery = String.format("SELECT * FROM SoftwareArchitecturePatternsProperties WHERE _id = %d", architectureId);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                softwareArchitectureProperty.setId(architectureId);
+                softwareArchitectureProperty.setCategory(c.getInt(c.getColumnIndex("category_id")));
+                softwareArchitectureProperty.setOverallAgility(c.getInt(c.getColumnIndex("overallAgility")));
+                softwareArchitectureProperty.setEaseOfDeployment(c.getInt(c.getColumnIndex("easeOfDeployment")));
+                softwareArchitectureProperty.setTestability(c.getInt(c.getColumnIndex("testability")));
+                softwareArchitectureProperty.setPerformance(c.getInt(c.getColumnIndex("performance")));
+                softwareArchitectureProperty.setScalability(c.getInt(c.getColumnIndex("scalability")));
+                softwareArchitectureProperty.setEaseOfDevelopment(c.getInt(c.getColumnIndex("easeOfDevelopment")));
+
+            }
+        }
+        db.close();
+        return softwareArchitectureProperty;
     }
 }
