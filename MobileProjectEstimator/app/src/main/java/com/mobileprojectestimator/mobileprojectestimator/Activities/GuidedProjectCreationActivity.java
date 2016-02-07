@@ -114,6 +114,8 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
     private ArrayList<String> platformItems;
     private ArrayList<String> industrySectorItems;
     private ArrayList<DatabaseInfluenceFactorItem> influenceFactorItems;
+    private Spinner spEstimationTechnique;
+    private ArrayAdapter<String> influencingFactorsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -809,14 +811,37 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
      */
     private void updateInfluencingFactorFragment(int position)
     {
-        initialiseInfluencingFactorFragment(position);
-        if (influencingFactorFragment == null)
+        if (this.influencingFactorFragment != null)
         {
-            infFactorTextViewEstimationMethod.setText(String.format(getString(R.string.msg_guided_project_creation_chosen_estimation_technique), new Object[]{projectNew.getEstimationMethod()}));
+            updateInfluenceFactorFragment();
         } else
         {
-            infFactorTextViewEstimationMethod.setText(String.format(getString(R.string.msg_guided_project_creation_chosen_estimation_technique), new Object[]{projectNew.getEstimationMethod()}));
+            initialiseInfluencingFactorFragment(position);
         }
+
+
+    }
+
+    private void updateInfluenceFactorFragment()
+    {
+        final ArrayAdapter<String> estimationTechniques = new ArrayAdapter<String>(influencingFactorFragment.getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, databaseHelper.getEstimationMethodNames());
+        if (projectNew.getEstimationMethod() == null || projectNew.getEstimationMethod().equals(""))
+        {
+            projectNew.setEstimationMethod(estimationTechniques.getItem(0));
+        } else
+        {
+            spEstimationTechnique.setSelection(estimationTechniques.getPosition(projectNew.getEstimationMethod()));
+        }
+        influencingFactorsAdapter = new ArrayAdapter<>(influencingFactorFragment.getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, loadInfluencingFactorsSetList());
+        if(loadInfluencingFactorsSetList().contains(projectNew.getInfluencingFactor()))
+        {
+            influencingFactorsAdapterSpinner.setSelection(influencingFactorsAdapter.getPosition(projectNew.getInfluencingFactor().getInfluenceFactorSetName()));
+
+        }else{
+            influencingFactorsAdapterSpinner.setSelection(0);
+        }
+        influencingFactorsAdapterSpinner.setAdapter(influencingFactorsAdapter);
+        influencingFactorsAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -834,13 +859,37 @@ public class GuidedProjectCreationActivity extends DatabaseActivity
             //noinspection ConstantConditions
             infFactorTextViewEstimationMethod = (TextView) influencingFactorFragment.getView().findViewById(R.id.textViewChosenEstimationMethod);
 
-            ArrayAdapter<String> influencingFactorsAdapter = new ArrayAdapter<>(influencingFactorFragment.getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, loadInfluencingFactorsSetList());
+
+            final ArrayAdapter<String> estimationTechniques = new ArrayAdapter<String>(influencingFactorFragment.getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, databaseHelper.getEstimationMethodNames());
+            spEstimationTechnique = (Spinner) influencingFactorFragment.getView().findViewById(R.id.spEstimationTechnique);
+            spEstimationTechnique.setAdapter(estimationTechniques);
+            spEstimationTechnique.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+            {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+                {
+                    projectNew.setEstimationMethod(estimationTechniques.getItem(position));
+                    updateInfluencingFactorFragment(guidedCreationFragmentsArrayList.indexOf(influencingFactorFragment));
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent)
+                {
+
+                }
+            });
+
+            if (projectNew.getEstimationMethod() == null || projectNew.getEstimationMethod().equals(""))
+            {
+                projectNew.setEstimationMethod(estimationTechniques.getItem(0));
+            } else
+            {
+                spEstimationTechnique.setSelection(estimationTechniques.getPosition(projectNew.getEstimationMethod()));
+            }
+
+            influencingFactorsAdapter = new ArrayAdapter<>(influencingFactorFragment.getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, loadInfluencingFactorsSetList());
             influencingFactorsAdapterSpinner = (Spinner) influencingFactorFragment.getView().findViewById(R.id.influencingSet);
             influencingFactorsAdapterSpinner.setAdapter(influencingFactorsAdapter);
-            if (projectNew.getEstimationMethod() == null)
-            {
-                projectNew.setEstimationMethod(getBaseContext().getString(R.string.estimation_technique_function_point));
-            }
             influencingFactorsAdapterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
             {
                 @Override

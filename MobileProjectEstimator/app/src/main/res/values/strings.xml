@@ -71,7 +71,7 @@
     <string name="function_point_sum_of_influences">Sum of Influences: </string>
     <string name="function_point_influence_rating">Factor Influence Rating: </string>
     <string name="function_point_change_factor_set_button">Change Factor Set</string>
-    <string name="project_creation_influence_factor_title">Influencing Factors</string>
+    <string name="project_creation_estimation_technique_title">Estimation Technique</string>
     <string name="influence_factor_chosen_method_hint">You have chosen METHOD</string>
     <string name="influence_factor_question_text">Which set of influencing factors want you to use?</string>
     <string name="influence_factor_set_button">New Influencing Factor set</string>

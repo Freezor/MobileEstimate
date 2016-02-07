@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
-                android:text="@string/project_creation_influence_factor_title"
+                android:text="@string/project_creation_estimation_technique_title"
                 android:textAppearance="?android:attr/textAppearanceLarge"/>
 
             <TextView
@@ -34,9 +34,19 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="20dp"
-                android:text="@string/influence_factor_chosen_method_hint"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/estimationType"/>
+                android:text="@string/estimation_technique_hint"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <Spinner
+                android:id="@+id/spEstimationTechnique"
+                style="@style/spinner_style"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:elevation="2dp"
+                android:spinnerMode="dropdown"
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/textViewInfSet"
@@ -60,21 +70,6 @@
                 android:spinnerMode="dropdown"
                 android:textSize="15sp"/>
 
-
-            <Button
-                android:id="@+id/influencingFactorSetButton"
-                android:layout_width="247dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="60dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/standardButtonColor"
-                android:text="@string/influence_factor_set_button"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:visibility="invisible"
-                android:theme="@style/Base.Widget.AppCompat.ActionButton"
-                />
 
         </LinearLayout>
     </ScrollView>
