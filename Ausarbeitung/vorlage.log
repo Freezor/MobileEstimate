@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/W32TeX) (preloaded format=pdflatex 2016.2.2)  11 FEB 2016 20:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/W32TeX) (preloaded format=pdflatex 2016.2.2)  11 FEB 2016 21:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1059,7 +1059,7 @@ bibgerm.sty: (n)german.sty 2.5b detected
 <fhlogo_new.pdf, id=120, 208.22191pt x 64.9889pt>
 File: fhlogo_new.pdf Graphic file (type pdf)
  <use fhlogo_new.pdf>
-Package pdftex.def Info: fhlogo_new.pdf used on input line 106.
+Package pdftex.def Info: fhlogo_new.pdf used on input line 107.
 (pdftex.def)             Requested size: 209.12683pt x 65.27133pt.
  [1
 
@@ -1102,21 +1102,21 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--1
 
 ] [2]
 Chapter 2.
-<images/estimationProcess.PNG, id=229, 749.04843pt x 621.82312pt>
+<images/estimationProcess.PNG, id=231, 749.04843pt x 621.82312pt>
 File: images/estimationProcess.PNG Graphic file (type png)
 
 <use images/estimationProcess.PNG>
-Package pdftex.def Info: images/estimationProcess.PNG used on input line 23.
+Package pdftex.def Info: images/estimationProcess.PNG used on input line 24.
 (pdftex.def)             Requested size: 369.88582pt x 307.05856pt.
  [3
 
 
 ] [4 <./images/estimationProcess.PNG>]
-<images/Einsatzzeitpunkte2.PNG, id=249, 795.2109pt x 507.5763pt>
+<images/Einsatzzeitpunkte2.PNG, id=250, 795.2109pt x 507.5763pt>
 File: images/Einsatzzeitpunkte2.PNG Graphic file (type png)
 
 <use images/Einsatzzeitpunkte2.PNG>
-Package pdftex.def Info: images/Einsatzzeitpunkte2.PNG used on input line 39.
+Package pdftex.def Info: images/Einsatzzeitpunkte2.PNG used on input line 40.
 (pdftex.def)             Requested size: 369.88582pt x 236.09798pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 36--45
@@ -1134,95 +1134,34 @@ Underfull \hbox (badness 10000) in paragraph at lines 55--57
  []
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 72--75
+Underfull \hbox (badness 10000) in paragraph at lines 73--76
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 78--80
+Underfull \hbox (badness 10000) in paragraph at lines 79--81
 
  []
 
 [7] [8]
-Underfull \hbox (badness 10000) in paragraph at lines 122--138
+Underfull \hbox (badness 10000) in paragraph at lines 123--139
 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 141--142
-
- []
-
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 145--148
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 151--153
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 154--177
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 154--177
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 154--177
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 154--177
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 154--177
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 154--177
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 154--177
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 154--177
+Underfull \hbox (badness 10000) in paragraph at lines 152--154
 
  []
 
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 180--183
 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 180--183
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 189--211
-
- []
+LaTeX Warning: `h' float specifier changed to `ht'.
 
 [11]
-Underfull \hbox (badness 2913) in paragraph at lines 229--229
+Underfull \hbox (badness 2913) in paragraph at lines 216--216
 \OT1/cmr/m/n/12 ex-pe-ri-ences in sub-jec-tions are
  []
 
@@ -1230,11 +1169,16 @@ Underfull \hbox (badness 2913) in paragraph at lines 229--229
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 238--242
+Underfull \hbox (badness 10000) in paragraph at lines 225--229
 
  []
 
-[12] [13] [14]
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 237--264
+
+ []
+
+[13] [14]
 Overfull \hbox (5.16pt too wide) in paragraph at lines 305--312
 \OT1/cmr/m/n/12 and man-ag-ing com-plex soft-ware projects" (galorath.com/produ
 cts/software/SEER-
@@ -1246,13 +1190,13 @@ Overfull \hbox (100.78958pt too wide) in paragraph at lines 305--312
 cmr/m/n/12 s in-tu-itive, window-based interface"(http://galorath.com/wp-
  []
 
-
+[15]
 Overfull \hbox (4.61137pt too wide) in paragraph at lines 315--322
 \OT1/cmr/m/n/12 vel-ops "multi-faceted cost es-ti-mat-ing so-lu-tions" (http://
 www.pricesystems.com/en-
  []
 
-[15] [16]) (./chapters/Concept.tex [17] [18]
+[16]) (./chapters/Concept.tex [17] [18]
 Chapter 3.
 [19
 
@@ -1339,27 +1283,27 @@ Underfull \hbox (badness 10000) in paragraph at lines 6--7
 
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 143.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 143.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 144.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 144.
  (./vorlage.aux (./chapters/Selbststaendigkeitserklaerung.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 143.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 143.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 144.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 144.
 Package rerunfilecheck Info: File `vorlage.out' has not changed.
-(rerunfilecheck)             Checksum: 3E23A6B1030B692E70244E7A3068744E;1842.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 143.
+(rerunfilecheck)             Checksum: 94CDE881FE9B1E26FFF2435C0629E9F6;1842.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 144.
  )
 (\end occurred inside a group at level 1)
 
 ### simple group (level 1) entered at line 1061 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 11103 strings out of 493042
- 157307 string characters out of 6138228
- 293506 words of memory out of 5000000
- 14285 multiletter control sequences out of 15000+600000
+ 11117 strings out of 493042
+ 157485 string characters out of 6138228
+ 293606 words of memory out of 5000000
+ 14286 multiletter control sequences out of 15000+600000
  11256 words of font info for 42 fonts, out of 8000000 for 9000
  1148 hyphenation exceptions out of 8191
- 29i,10n,32p,1116b,3333s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 29i,10n,32p,1116b,3361s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2015/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t
 s1.enc}<c:/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c
 :/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/texliv
@@ -1369,14 +1313,15 @@ fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2015/texmf-dist/fonts/type
 1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2015/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmr17.pfb><c:/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmr8.pfb><c:/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb><
-c:/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><c:/texliv
-e/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb><c:/texlive/2015/te
-xmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2015/texmf-
-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on vorlage.pdf (31 pages, 644367 bytes).
+c:/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texliv
+e/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><c:/texlive/2015/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb><c:/texlive/2015/texmf-dist/
+fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2015/texmf-dist/font
+s/type1/public/cm-super/sfrm1200.pfb>
+Output written on vorlage.pdf (31 pages, 656894 bytes).
 PDF statistics:
- 552 PDF objects out of 1000 (max. 8388607)
- 482 compressed objects within 5 object streams
- 156 named destinations out of 1000 (max. 500000)
+ 575 PDF objects out of 1000 (max. 8388607)
+ 503 compressed objects within 6 object streams
+ 169 named destinations out of 1000 (max. 500000)
  248 words of extra memory for PDF output out of 10000 (max. 10000000)
 

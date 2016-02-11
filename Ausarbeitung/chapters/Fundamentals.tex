@@ -17,7 +17,8 @@ While projects are a living thing, the effort may change due to unexpected diffi
 
 \subsection{Estimation Process}
 
-It is common to create the first cost estimation before the system design, but also for monitoring purposes, milestones or if the client wants an overview of the project. Each time an actual cost estimation is needed the estimation process is executed which is a set of techniques and procedures that are used to derive the software cost estimate. Kathleen Peters described the basic process, as seen in \ref{fig:basicEstimationProcess}, of an estimation as it is common in the industry \cite{estimationProcess}.\\
+It is common to create the first cost estimation before the system design, but also for monitoring purposes, milestones or if the client wants an overview of the project. Each time an actual cost estimation is needed the estimation process is executed which is a set of techniques and procedures that are used to derive the software cost estimate. Kathleen Peters described the basic process, as seen in \ref{fig:basicEstimationProcess}, of an estimation as it is common in the industry \cite{estimationProcess}.
+As can bee seen from figure \ref{fig:basicEstimationProcess}, there are seven steps in the estimation process. The first part is to collect the initial requirements which is essential to know what the project is about and evaluate the approximate project size. With an selected estimation method, which are described in section \ref{chapter:estimationmethods}, the evaluated size of the project is then estimated. Afterwards the effort in man-days is calculated from which the cost schedule is created. Data from older projects can be included into the evaluation. In the process step to approve the estimation, it comes to the decision, if the costs are acceptable or if there has to be decided in the range of functions and the re-estimation has to bee started. If the cost estimation is acceptable the development of the product can start or continue.\\
 \begin{figure}[h] 
 	\centering 
 	\includegraphics[width=13cm]{images/estimationProcess.PNG} 
@@ -25,7 +26,6 @@ It is common to create the first cost estimation before the system design, but a
 	Source: Peters, Kathleen - Software Project Estimation, Page 3  
 	\label{fig:basicEstimationProcess}
 \end{figure}\\
-As can bee seen from figure \ref{fig:basicEstimationProcess}, there are seven steps in the estimation process. The first part is to collect the initial requirements which is essential to know what the project is about and evaluate the approximate project size. With an selected estimation method, which are described in section \ref{chapter:estimationmethods}, the evaluated size of the project is then estimated. Afterwards the effort in man-days is calculated from which the cost schedule is created. Data from older projects can be included into the evaluation. In the process step to approve the estimation, it comes to the decision, if the costs are acceptable or if there has to be decided in the range of functions and the re-estimation has to bee started. If the cost estimation is acceptable the development of the product can start or continue.\\
 In this classical view of the estimation process, it will generate four outputs - size (1.), loading (2.), duration (3.) and efforts (4.). The output can be described as following:
 \begin{enumerate}
 	\item Actual Size - the size of the project as a numerical value to make it comparable.
@@ -34,6 +34,7 @@ In this classical view of the estimation process, it will generate four outputs 
 	\item Effort - the amount of effort required to complete the project is usually measured in units as man-days (MD) or person-months (PM).
 \end{enumerate}
 As described before, the estimation process can be triggered at any time in the project to re-estimate the costs. Depending on the project stage another estimation method than used before can be more precise.\\
+The overview shown in \ref{fig:estimationMethodInStage} shows that the SLIM method, for example, is more suitable at the beginning of a project, whereas the ZKP method is more suitable after the system design stage. Most of the estimation methods can be used after the study stage. This is because after the study stage a rough overview of the project size exists. Different estimation methods may also change the evaluation output, which is one of the difficulties of cost estimations.\\
 \begin{figure}[h] 
 	\centering 
 	\includegraphics[width=13cm]{images/Einsatzzeitpunkte2.PNG} 
@@ -41,7 +42,6 @@ As described before, the estimation process can be triggered at any time in the 
 	Source: \url{http://winfwiki.wi-fom.de}
 	\label{fig:estimationMethodInStage}
 \end{figure}\\
-The overview shown in \ref{fig:estimationMethodInStage} shows that the SLIM method, for example, is more suitable at the beginning of a project, whereas the ZKP method is more suitable after the system design stage. Most of the estimation methods can be used after the study stage. This is because after the study stage a rough overview of the project size exists. Different estimation methods may also change the evaluation output, which is one of the difficulties of cost estimations.\\
 
 \subsection{Difficulty of estimations}
 
@@ -58,10 +58,11 @@ All estimation techniques have in common, that only with a combined use of these
 \subsubsection{Algorithmic Method}
 
 The algorithmic method uses a closed formula, which is based on empiric evaluation of already terminated projects or on existing mathematically models. Different forms of this method are the weight and the sampling method, which only differ in their usage.\\
-The accuracy of the estimation depends primarily on the precision of the influence factors \cite{itplanung}. The algorithmic method always connects measurable project sizes, such as lines of code and implementable features, with influencing factors to get the result, represented as required effort in personnel costs. The basic formula, as described by Wieczorrek \cite{itplanung}, for this calculation is:\\
-\fbox{
-	\textit{Personnel costs = f(result quantity, influencing factors)} \\
-}
+The accuracy of the estimation depends primarily on the precision of the influence factors \cite{itplanung}. The algorithmic method always connects measurable project sizes, such as lines of code and implementable features, with influencing factors to get the result, represented as required effort in personnel costs. The basic formula, as described by Wieczorrek \cite{itplanung}, for this calculation is:
+
+\begin{equation}
+	Personnel costs = f(result quantity, influencing factors)
+\end{equation}
 
 \subsubsection{Comparative Method}
 
@@ -138,60 +139,46 @@ The following table is described by Wieczorrek and are standard values for the f
 
 \subsubsection{ Calculating the amount of Function-Points}
 
-After the evaluation there is an amount of components for each of the categories from above. To get the number of function points each category has to be multiplied according to the selected weigh and all categories are summed. This results in the following equation:\\
+After the evaluation there is an amount of components for each of the categories from above. To get the number of function points each category has to be multiplied according to the selected weigh and all categories are summed. This results in the following equation:
 
-\fbox{
-	\textit{E1 =  \(\sum \limits_{1}^n \)  (Function * Difficulty) } \label{fp:E1}
-}\\
-\\
+\begin{equation}
+	E1 =  \sum \limits_{1}^n  (Function * Difficulty) \label{fp:E1}
+\end{equation}
+
 Function is the respective category and difficulty is the weigh from table \ref{tab:pointvalues}. The resulted value E1 is necessary for evaluating the estimated points with the influence factor.
 
 \subsubsection{ Classification of Influence Factors}
 
 Do get a more realistic estimation, all influences that can affect the project surroundings are measured. For the Function Point estimation there are seven defined influence factors \cite{Softwaremanagement}, which are described below.\\
 Each of the influence factor has a value between zero and five which describes how much the factor influences the project.\\
-\paragraph{Integration into other applications}
-The system will work with different applications and will send and receive data from other applications. This states if there is a cooperation with other applications and if the communication exists online or offline. 
-\\
-\\
-\textbf{Local Data Processing}\\
-This factor describes if the system will work with distributed data. Zero means that the system does not work with other applications and five means that there is an integration into other applications in both ways.\\
-\\
-\textbf{Transaction Rate}\\
-A high transaction rate affects planing, development, installation and maintenance of the system. It describes how much transactions are to expected with the system.\\
-\\
-\textbf{Processing Logic}\\
-The processing logic can be divided in 4 subcategories: Arithmetic Operation, Control Procedure, Exception Regulation and Logic. Arithmetic Operation describes the intensity of the operations in the project. The controlling of the results stated within the Control Procedure influence multiplier. With the Exception Regulation it is described how eventual exceptions are treated and the Logic multiplier describes how much effort is to be expected for planning the logical component of the project.\\
-\\
-\textbf{Reusability}\\
-How much of the produced software has to be reusable in other projects. A high value in reusability means extra effort in the planning stage for module-based development.\\
-\\
-\textbf{Stock Conversion}\\
-This describes how much of the used data need to be transformed for the use within the project. A high value means much input from other applications that has to be transformed into data the application can process.\\
-\\
-\textbf{Facilitate Change}\\
-The application was especially planned and developed in such a way that changes can be made easily. A high value means that the user can make changes on the system on its own and that the changes are available immediately.
-\\
-\\
-When all influence factors are set, all values for each factor will be summed up to the value E2.\\ 
 
-\fbox{
-	\textit{E2 =  \(\sum \limits_{1}^n \)  Influence Factor } \label{fp:E2}
-}\\
-\\
-This influence factor indicator has then to be transformed to a multiplier that calculable with function points \cite{Softwaremanagement}\cite{fpafundamentals}.  \\
+\begin{enumerate}
+	\item \textbf{Integration into other applications}\\The system will work with different applications and will send and receive data from other applications. This states if there is a cooperation with other applications and if the communication exists online or offline.
+	\item \textbf{Local Data Processing}\\This factor describes if the system will work with distributed data. Zero means that the system does not work with other applications and five means that there is an integration into other applications in both ways.
+	\item \textbf{Transaction Rate}\\A high transaction rate affects planing, development, installation and maintenance of the system. It describes how much transactions are to expected with the system.
+	\item \textbf{Processing Logic}\\The processing logic can be divided in 4 subcategories: Arithmetic Operation, Control Procedure, Exception Regulation and Logic. Arithmetic Operation describes the intensity of the operations in the project. The controlling of the results stated within the Control Procedure influence multiplier. With the Exception Regulation it is described how eventual exceptions are treated and the Logic multiplier describes how much effort is to be expected for planning the logical component of the project.
+	\item \textbf{Reusability}\\ How much of the produced software has to be reusable in other projects. A high value in reusability means extra effort in the planning stage for module-based development.
+	\item \textbf{Stock Conversion}\\ This describes how much of the used data need to be transformed for the use within the project. A high value means much input from other applications that has to be transformed into data the application can process.
+	\item \textbf{Facilitate Change}\\ The application was especially planned and developed in such a way that changes can be made easily. A high value means that the user can make changes on the system on its own and that the changes are available immediately.
+\end{enumerate}
+When all influence factors are set, all values for each factor will be summed up to the value E2. 
 
-\fbox{
-	\textit{E3 =\(\frac{E2}{100}\)  + 0,7 } \label{fp:E3}
-}
+\begin{equation}
+E2 =  \sum \limits_{1}^n   Influence Factor  \label{fp:E2}
+\end{equation}\\
+This influence factor indicator has then to be transformed to a multiplier that calculable with function points \cite{Softwaremanagement}\cite{fpafundamentals}.  
+
+\begin{equation}
+	E3 =\frac{E2}{100}  + 0,7 \label{fp:E3}
+\end{equation}
+
 \subsubsection{Calculation of the Function Points}
 
-With the calculated Function Points (E1) and the Influence Factor multiplier (E3) are now the total-function-points (TFP) can be calculated with the following formula:\\
+With the calculated Function Points (E1) and the Influence Factor multiplier (E3) are now the total-function-points (TFP) can be calculated with the following formula:
 %equation,formula
-\fbox{
-	\textit{TFP = E1 * E3 } \label{fp:TFP}
-}\\
-\\
+\begin{equation}
+	TFP = E1 * E3  \label{fp:TFP}
+\end{equation}\\
 From the regression analysis of previous projects a standard calculation of Function Points per day can be made with the table \ref{tab:pointsperday}.\\
 The project has to be classified with their Total-Function-Points and divided through the appropriate points per day. The result of this calculation are the expected man days for this project.\\
 \begin{table}[h] 
@@ -243,10 +230,11 @@ The detailed variant is the last stage of the estimation and allocate the estima
 \subsubsection{Calculation of Implementation Time and Effort}
 
 Because of the differences in each variant of the COCOMO estimation, each variant has its own equation for calculation the costs. Each formula calculates the estimated time of the project in person-month (PM), which are stated by Boehm as 152 working hours resulting in one PM, with 19 working days and eight hour days \cite{boehm}. \\
-The formula for the basic variant calculates the complexity of a project with the KDSI value and the calculation factor of the project which gives the calculated PM as a result. This formula is as follows:\\
-\fbox{
-	\textit{PM = Complexity * $(KDSI)^{Calculation Factor}$} \label{cocomo:basic}
-}\\
+The formula for the basic variant calculates the complexity of a project with the KDSI value and the calculation factor of the project which gives the calculated PM as a result. This formula is as follows:
+
+\begin{equation}
+PM = Complexity * (KDSI)^{Calculation Factor} \label{cocomo:basic}
+\end{equation}\\
 The KDSI value is the expected amount of code lines in the project and the Calculation Factor is the result of the table \ref{tab:projectclasses}. To figure out the complexity multiplicand the table \ref{cocomo:basicComplexity} describes for each project the suitable solution.\\
 \begin{table}[h]
 	\centering 
@@ -260,7 +248,19 @@ The KDSI value is the expected amount of code lines in the project and the Calcu
 	\caption{COCOMO complexity multiplicands} 
 	\label{cocomo:basicComplexity} 
 \end{table}\\
-asdf5
+The equation for the intermediate variant is the same as for the basic variant (\ref{cocomo:basic}). The difference is the changed multiplicand for this variant, as described in table \ref{cocomo:intermediateComplexity}.
+\begin{table}[h]
+	\centering 
+	\setlength{\tabcolsep}{4pt}
+	\begin{tabular}{|l||c|}\hline
+		Complexity	& Multiplicand\\ \hline\hline
+		Small Project   	& 3.2        		\\ \hline
+		Medium Project 		& 3.0        		\\ \hline
+		Complex Project 	& 2.8 			\\ \hline
+	\end{tabular} 
+	\caption{COCOMO complexity multiplicands} 
+	\label{cocomo:intermediateComplexity} 
+\end{table}\\
 
 \subsection{Comparison}
 

@@ -8,21 +8,20 @@
 \contentsline {subsubsection}{Comparative Method}{7}{section*.6}
 \contentsline {subsubsection}{Key Figures Method}{7}{section*.7}
 \contentsline {subsubsection}{Expert Discussion Method}{7}{section*.8}
-\contentsline {section}{\numberline {2.2}Estimation Techniques}{7}{section.2.2}
+\contentsline {section}{\numberline {2.2}Estimation Techniques}{8}{section.2.2}
 \contentsline {subsection}{\numberline {2.2.1}Function Point}{8}{subsection.2.2.1}
-\contentsline {subsubsection}{Determining the Components}{8}{section*.9}
+\contentsline {subsubsection}{Determining the Components}{9}{section*.9}
 \contentsline {subsubsection}{Evaluation of the Components}{9}{section*.10}
 \contentsline {subsubsection}{ Calculating the amount of Function-Points}{10}{section*.11}
 \contentsline {subsubsection}{ Classification of Influence Factors}{10}{section*.12}
-\contentsline {paragraph}{Integration into other applications}{10}{section*.13}
-\contentsline {subsubsection}{Calculation of the Function Points}{11}{section*.14}
+\contentsline {subsubsection}{Calculation of the Function Points}{11}{section*.13}
 \contentsline {subsection}{\numberline {2.2.2}COCOMO}{12}{subsection.2.2.2}
-\contentsline {subsubsection}{Project Classes}{12}{section*.15}
-\contentsline {subsubsection}{Model Variants}{12}{section*.16}
-\contentsline {subsubsection}{Calculation of Implementation Time and Effort}{13}{section*.17}
+\contentsline {subsubsection}{Project Classes}{12}{section*.14}
+\contentsline {subsubsection}{Model Variants}{12}{section*.15}
+\contentsline {subsubsection}{Calculation of Implementation Time and Effort}{13}{section*.16}
 \contentsline {subsection}{\numberline {2.2.3}Comparison}{14}{subsection.2.2.3}
 \contentsline {section}{\numberline {2.3}State of the art}{14}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}The market}{14}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.1}The market}{15}{subsection.2.3.1}
 \contentsline {subsection}{\numberline {2.3.2}SEER - Cost Estimation Software}{15}{subsection.2.3.2}
 \contentsline {subsection}{\numberline {2.3.3}PRICE - Cost Estimation Software}{16}{subsection.2.3.3}
 \contentsline {subsection}{\numberline {2.3.4}SLIM Estimate}{16}{subsection.2.3.4}
@@ -42,9 +41,9 @@
 \contentsline {subsection}{\numberline {3.3.5}Weitere Features}{20}{subsection.3.3.5}
 \contentsline {section}{\numberline {3.4}Database design}{20}{section.3.4}
 \contentsline {subsection}{\numberline {3.4.1}Project Database}{20}{subsection.3.4.1}
-\contentsline {subsubsection}{Project Properties}{20}{section*.18}
-\contentsline {subsubsection}{Influence Factors}{20}{section*.19}
-\contentsline {subsubsection}{Projects}{20}{section*.20}
+\contentsline {subsubsection}{Project Properties}{20}{section*.17}
+\contentsline {subsubsection}{Influence Factors}{20}{section*.18}
+\contentsline {subsubsection}{Projects}{20}{section*.19}
 \contentsline {subsection}{\numberline {3.4.2}Userinformation Database}{21}{subsection.3.4.2}
 \contentsline {section}{\numberline {3.5}User Interface}{21}{section.3.5}
 \contentsline {subsection}{\numberline {3.5.1}Projects Overview}{21}{subsection.3.5.1}
@@ -68,5 +67,5 @@
 \contentsline {section}{\numberline {6.1}Results}{24}{section.6.1}
 \contentsline {section}{\numberline {6.2}Retrospection}{24}{section.6.2}
 \contentsline {section}{\numberline {6.3}Outlook}{24}{section.6.3}
-\contentsline {chapter}{References}{25}{chapter*.21}
+\contentsline {chapter}{References}{25}{chapter*.20}
 \contentsline {chapter}{Erkl\IeC {\"a}rung der Kandidatin / des Kandidaten}{27}{appendix.A}
