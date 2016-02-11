@@ -1,23 +1,23 @@
 \chapter{Theoretical Background}
 
-This chapter describes the fundamentals of this paper. The cost estimation process in IT projects and the different methods to calculate the cost of a project are the essential part. The state of the art report combined with the market description will give a short overview over the situation about software estimation tools on the market and the possibility of a mobile solution of cost estimations. Android as the chosen platform and Java as the programming language will not be described in detail here and are assumed to be known.
+This chapter describes the fundamentals for the understanding of this paper. The cost estimation process in IT projects and the different methods to calculate the cost of a project are described in this chapter. The state of the art report combined with the market description will give a short overview over the situation about software estimation tools on the market and the possibility of a mobile solution of cost estimations. Android as the chosen platform and Java as the programming language will not be described in detail here and are assumed to be known.
 
 \section{Cost estimation in software engineering}
 
-The most expensive components of computer systems are software products. While private clients are mostly interested in the final price of the product, business clients of IT companies typically want to know the costs of the software before project launch. As analyzed in the IT-Trends study from Capgemini \cite{capgemini} the IT budget of companies is growing up to 10\% every year. Whether developing a new project or standardizing existing software, the project costs are always one of the three key objectives. As human resources are the biggest part of software costs, project managers and especially the business clients want to know the estimated spendings and completion time of a project. Most of the estimation methods focus on this aspect and give the result in man days. These estimated days can then be converted into the real costs.
+The most expensive components of computer systems are software products. While private clients are mostly interested in the final price of a product, business clients of IT companies typically want to know the costs of the software before project launch. As analyzed in the \textit{IT-Trends} study from Capgemini \cite{capgemini} the IT budget of companies is growing up to 10\% every year. Whether developing a new project or standardizing existing software, the project costs are always one of the three key objectives. As human resources is the biggest part of software costs, project managers and especially business clients want to know the estimated spendings and completion time of a project. Most of the estimation methods focus on this aspect and give the result in man days. These estimated days can then be converted into the real costs.
 \\
-Basically the cost estimation in software engineering wants to answer the following questions:
+Basically the cost estimation in software engineering wants to answer following questions:
 \begin{enumerate}
 \item How much effort is required to complete the project?
 \item How much days are needed to complete the project?
 \item What is the total cost of the project?
 \end{enumerate}
-While the projects are a living thing, the effort may change due to unexpected difficulties. For a precise estimation of the total costs an adjustment cannot be avoided and it can be useful to change the estimation method in a later project phase. This means that the estimation process is not an one-time thing but will change through the project. 
+While projects are a living thing, the effort may change due to unexpected difficulties. For a precise estimation of the total costs an adjustment cannot be avoided and it can be useful to change the estimation method in a later project phase. This means that the estimation process is not an one-time thing but will change through the project life-time. 
 
 
 \subsection{Estimation Process}
 
-It is common to create a first cost estimation before the system design, but also for monitoring purposes, milestones or if the client wants an overview of the project. Each time an actual cots estimation is needed the estimation process is executed which is a set of techniques and procedures that is used to derive the software cost estimate. Kathleen Peters described the basic process of an estimation as it is common in the industry \cite{estimationProcess}.\\
+It is common to create the first cost estimation before the system design, but also for monitoring purposes, milestones or if the client wants an overview of the project. Each time an actual cost estimation is needed the estimation process is executed which is a set of techniques and procedures that are used to derive the software cost estimate. Kathleen Peters described the basic process, as seen in \ref{fig:basicEstimationProcess}, of an estimation as it is common in the industry \cite{estimationProcess}.\\
 \begin{figure}[h] 
 	\centering 
 	\includegraphics[width=13cm]{images/estimationProcess.PNG} 
@@ -25,15 +25,15 @@ It is common to create a first cost estimation before the system design, but als
 	Source: Peters, Kathleen - Software Project Estimation, Page 3  
 	\label{fig:basicEstimationProcess}
 \end{figure}\\
-As can bee seen from figure \ref{fig:basicEstimationProcess}, there are mainly seven steps in the estimation process. The first part is to collect the initial requirements which is essential to know what the project is about evaluate the approximate size. With an selected estimation method, which are described in \ref{chapter:estimationmethods}, the evaluated size of the project is then estimated. Afterwards the effort in man-days is calculated from which the cost schedule is created. To this process can project data from older projects be included in the evaluation. In the process step to approve the estimation, it comes to the decision, if the costs are acceptable or if there have to be adjustments in the range of functions and the re-estimation has to bee started. If the cost estimation is acceptable the development of the product can start or continue.\\
-In this classical view of the estimation process, it will generate three outputs - size, efforts, duration and loading. The output can be described as following:
+As can bee seen from figure \ref{fig:basicEstimationProcess}, there are seven steps in the estimation process. The first part is to collect the initial requirements which is essential to know what the project is about and evaluate the approximate project size. With an selected estimation method, which are described in section \ref{chapter:estimationmethods}, the evaluated size of the project is then estimated. Afterwards the effort in man-days is calculated from which the cost schedule is created. Data from older projects can be included into the evaluation. In the process step to approve the estimation, it comes to the decision, if the costs are acceptable or if there has to be decided in the range of functions and the re-estimation has to bee started. If the cost estimation is acceptable the development of the product can start or continue.\\
+In this classical view of the estimation process, it will generate four outputs - size (1.), loading (2.), duration (3.) and efforts (4.). The output can be described as following:
 \begin{enumerate}
-	\item Actual Size - the size of the project in a numerical value to make the project comparable.
-	\item Manpower Loading - number of personnel that are allocated to the project as a function of time.
-	\item Project Duration - time that is needed to complete the project.
-	\item Effort - amount of effort required to complete the project and is usually measured in units as man-days (MD) or person-months (PM).
+	\item Actual Size - the size of the project as a numerical value to make it comparable.
+	\item Manpower Loading - the amount of personnel that is allocated to the project.
+	\item Project Duration - the time that is needed to complete the project.
+	\item Effort - the amount of effort required to complete the project is usually measured in units as man-days (MD) or person-months (PM).
 \end{enumerate}
-As described before, the estimation process can be triggered at any time in the project to re-estimate the costs. Depending on the project stage another estimation method then used before can be better.\\
+As described before, the estimation process can be triggered at any time in the project to re-estimate the costs. Depending on the project stage another estimation method than used before can be more precise.\\
 \begin{figure}[h] 
 	\centering 
 	\includegraphics[width=13cm]{images/Einsatzzeitpunkte2.PNG} 
@@ -41,53 +41,54 @@ As described before, the estimation process can be triggered at any time in the 
 	Source: \url{http://winfwiki.wi-fom.de}
 	\label{fig:estimationMethodInStage}
 \end{figure}\\
-As you can see in figure \ref{fig:estimationMethodInStage}, the SLIM method for example is more suitable at the beginning of a project, whereas the ZKP method is more suitable after the system design. Most of the estimation methods can be used after the study, this is because then an rough overview of the project size exists. Different estimation methods may also change the evaluation output, which is one of the difficulties of cost estimations.\\
+The overview shown in \ref{fig:estimationMethodInStage} shows that the SLIM method, for example, is more suitable at the beginning of a project, whereas the ZKP method is more suitable after the system design stage. Most of the estimation methods can be used after the study stage. This is because after the study stage a rough overview of the project size exists. Different estimation methods may also change the evaluation output, which is one of the difficulties of cost estimations.\\
 
 \subsection{Difficulty of estimations}
 
-One of the problems in estimating costs is, that the implementation is only a small part of the project. Beside the project planning are many administrative tasks to do, coordination of the project, searching and fixing errors. The most estimation methods evaluate the estimated time for the implementation and too little or no time is evaluated for the non implementation tasks. This resolves in an over- or underestimation of the non implementation tasks \cite{itplanung}.\\
-Most project managers rely on their experience from older projects, which is an advantage but is most times overrated. As the technology changes fast and new projects inherit new problems there is no prior experience for some parts of the project. Another reason for this is the special feature of projects, their unique nature. The more positive outlook of people is the reason for mostly underestimated costs with estimations where participants of the project are inherited. Customers often got a target time for the project, which leads in adjustment of the cost estimation. This leads to budget overrun if thee needed resources are not available for the project \cite{winfwiki}.\\
-It is also not guaranteed that the estimated costs are accurate and stay within the budget. An estimation can easily go past their estimated target as new technologies and unexpected difficulties are commonplace. A partial requirements engineering can also cause an inaccurate cost estimation due to unexpected difficulties in the implementation. However requirements engineering is not the main topic of this paper but cost estimations. To this are different methodical approaches possible in which estimation methods can be classified.\\
+One of the problems in estimating costs is that the actual code is only a small part of the project. Beside project planning there are many administrative tasks to do, like coordination of the project or searching and fixing errors. Most estimation methods evaluate the estimated time for the implementation and too little or no time is evaluated for the non implementation tasks. This resolves in an over- or underestimation of the non implementation tasks \cite{itplanung}.\\
+Most project managers rely on their experience from past projects, which is an advantage but is most times overrated. As the technology changes fast and new projects inherit new problems there is no prior experience for some parts of the project, what can make experiences from prior projects useless. Because of the unique nature of projects it is common that a new project has big parts where no experience exists. Another difficulty of estimations is the fact that people who are inherited in the project have a more positive outlook and mostly underestimate the costs.
+Also, customers often got a target time for the project, which leads in adjustment of the cost estimation. This leads to budget overrun if the needed resources are not available for the project \cite{winfwiki}.\\
+It is also not guaranteed that the estimated costs are accurate and stay within the budget. An estimation can easily go past their estimated target as new technologies and unexpected difficulties are commonplace. A partial requirements engineering can also cause an inaccurate cost estimation due to unexpected difficulties in the implementation. These this are different methodical approaches possible in which estimation methods can be classified, which is not described here.\\
 
 \subsection{Methods for estimation}\label{chapter:estimationmethods}
 
-Estimation methods are different metrics to calculate the costs of a project and there are different approaches to categorize the estimation methods in literature. This categorization is based on the book "Management von IT-Projekten" from Hans W. Wieczorrek, where the methods are subdivided in algorithmic, comparative, operating figures and the expert discussion \cite{itplanung}.\\
-All estimation techniques have in common that only with a combined use of these different estimation methods a suitable result can be achieved as a measured value for the project. To evaluate the needed effort is determined with the underlying metric. On the basis of charge rates the effort size is calculated out of it.\\
+Estimation methods are different metrics to calculate the costs of a project and there are different approaches to categorize the estimation methods. The categorization used in this paper is based on the book "Management von IT-Projekten" by Hans W. Wieczorrek, where the methods are subdivided in algorithmic, comparative, operating figures and the expert discussion \cite{itplanung}.\\
+All estimation techniques have in common, that only with a combined use of these different estimation methods a suitable result can be achieved as a measured value for the project. For the evaluation of the needed effort the underlying metric is used to calculate the effort for the project. On the basis of charge rates the effort size is calculated out of it.\\
 
 \subsubsection{Algorithmic Method}
 
-The algorithmic method calculates the estimated effort with a closed formula, which is based on empiric evaluation of effort for already terminated projects or on existing mathematically models. Different forms of this methods are the weight and the sampling method, which only differ in their usage.\\
-The accuracy of estimated efforts depend primarily on the precision of the influence factors \cite{itplanung}. The algorithmic method always connects measurable project sizes, such as lines of code and implementable features, with influencing factors to get the result as required effort in staff and time. The basic formula for this calculation is:\\
+The algorithmic method uses a closed formula, which is based on empiric evaluation of already terminated projects or on existing mathematically models. Different forms of this method are the weight and the sampling method, which only differ in their usage.\\
+The accuracy of the estimation depends primarily on the precision of the influence factors \cite{itplanung}. The algorithmic method always connects measurable project sizes, such as lines of code and implementable features, with influencing factors to get the result, represented as required effort in staff and time. The basic formula for this calculation is:\\
 \fbox{
 	\textit{Personnel costs = f(result quantity, influencing factors)} \cite{itplanung}\\
 }
 
 \subsubsection{Comparative Method}
 
-Not based on a formula or numerical connection, the comparative method tries to create a reference between the planned and past projects. Therefor projects from the own company or the same industry sector are analyzed with appropriate comparison methods. This estimation method has the advantage, that it can be used early in development of the project \cite{itplanung}. These method can be used for hardware and for software projects.
+Not based on a formula or numerical connection, the comparative method tries to create a reference between the current project and past projects. Therefor projects from the own company or the same industry sector are analyzed with appropriate comparison methods. This estimation method has the advantage, that it can be used early in project development \cite{itplanung}. This method can be used for hardware and software projects.
 
 \subsubsection{Key Figures Method}
 
 Estimation methods based on key figures can be differed to multiplier and percentage  method. The multiplier method uses units of power as the base to estimate the total expenditure, whereas the percentage method uses the effort of a project stage to estimate the effort for the next stage.\\
-After completion of projects a post calculation determine the total project costs and the amount of specific types of costs. In order ro calculate these costs, they will be divided by the scope of the developed product. This results in new key figures which can be used for new projects by multiplication of the estimated scope with the appropriate key figures.\\
-Regular actualization of the key figures is necessary for right results and because these key figures are the base of the estimation \cite{itplanung}.\\
+After project completion a post calculation determines the total project costs and the amount of specific types of costs. In order to calculate these costs, they will be divided by the scope of the developed product. This results in new key figures which can be used for new projects by multiplication of the estimated scope with the appropriate key figures.\\
+\cite{itplanung} Regular actualization of the key figures is necessary for right results.\\
 
 \subsubsection{Expert Discussion Method}
 
-As a quantitative, heuristic method uses the expert discussion knowledge from selected groups of people. It differentiate between for kinds: the single person or multiple interview, Delphi method and the assessment meeting.\\
-The advantage of this estimation method is, that they are useful for all project types but experiences with the expert discussion shows, that this method is strongly affected by subjective opinions and the experience of the interviewees. As a result, expert discussions should never be used for complete projects but only for sub projects \cite{itplanung}.\\
+As a quantitative, heuristic method the expert discussion uses knowledge from selected groups of people. It differentiates between four kinds: single person interview, multiple person interview, Delphi method and assessment meeting.\\
+The advantage of this estimation method is, that they are useful for all project types. The problem with the expert discussion is, that this method is strongly affected by subjective opinions and the experience of the interviewees. As a result, expert discussions should never be used for complete projects but only for sub projects \cite{itplanung}.\\
 
 \section{Estimation Techniques}
 
 The existing estimation techniques rely on experience-based judgments by project managers
-who created, by combining estimation methods, techniques someone can use to estimate the effort of a project. Most of the estimation techniques became popular in the 80's but with the agile projects more estimation techniques for these project types arise. \\
-Because of the fundamental uniqueness nature of projects an "universal, everywhere applicable and always delivering the correct estimation" technique does not exist, according to Litke \cite{litke}. There is also no clear selection progress for the estimation technique to use, beside the time aspect when the use of a technique is possible. It can bee seen in figure \ref{fig:estimationMethodInStage}, the function point and the COCOMO technique are both possible after the study stage. As a comparative method, the function point technique has not much in common with COCOMO, which is an algorithmic technique. The project manager has to balance the weigh of each technique and probably choose that one he has most experience with. As an example for estimation techniques these will be described here in more detail with a comparison at the end.
+who created, by combining estimation methods, techniques can be used to estimate the effort of a project. Most of the estimation techniques became popular in the 80's, with the agile projects becoming more popular estimation techniques for these project types are rising. \\
+Because of the fundamental uniqueness nature of projects an 'universal, everywhere applicable and always delivering the correct estimation' technique does not exist, according to Litke \cite{litke}. There is also no clear selection progress for the estimation technique to use, beside the time aspect when the use of a technique is possible. As shown in figure \ref{fig:estimationMethodInStage}, the function point and the COCOMO technique are both possible after the study stage. As a comparative method, the function point technique has not much in common with COCOMO, which is an algorithmic technique. The project manager has to balance the weigh of each technique and probably choose that one he has most experience with. As an example for estimation techniques these will be described here in more detail with a comparison at the end.
 
 
 \subsection{Function Point} \label{FPMethod}
 
-The Function Point technique was first mentioned by Allan J. Albrecht in 1979 at the IBM symposium \cite{albrecht}. It was there declared that an useful measurement of productivity is only possible in relation to the functionality that is visible to the user. This measured productivity need to be independent of the used technology and is calculated in with the proportion of project effort and the function points he allocated.\\
-This resulted in to the idea to turn this calculation over for a preliminary estimation of the effort the project would have. According to the clarity and flexibility the technique spread fast. It helps to estimate the scope of a project to an early stage and is suitable for benchmarking in the own company as well as on national or international level \cite{FPKompakt}. It contains algorithmic and also comparative methods. Basically, this technique uses five steps for estimation \cite{jenny}:
+The Function Point technique was first mentioned by Allan J. Albrecht in 1979 at the IBM symposium \cite{albrecht}. There it was declared that an useful measurement of productivity is only possible in relation to the functionality that is visible to the user. This measured productivity needs to be independent of the used technology and is calculated in with the proportion of project effort and the allocated function points.\\
+This resulted into the idea to turn this calculation over for a preliminary estimation of the effort the project would have. Because of to the clarity and flexibility the technique spread fast. It helps to estimate the scope of a project to an early stage and is suitable for benchmarking in the own company as well as on national or international level \cite{FPKompakt}. It contains algorithmic and also comparative methods. Basically, this technique uses five steps for estimation \cite{jenny}:
 \begin{enumerate}
 	\item Determining the components
 	\item Evaluation of the components
@@ -99,7 +100,7 @@ The most important part of this technique is that all measurements only include 
 
 \subsubsection{Determining the Components}
 
-To divide the project in components that are useful for the function point estimation, all inherited business processes are divided into elementary process. These are the smallest and from business perspective view useful, closed activities, that can be performed by the system \cite{FPKompakt}.\\
+To divide the project in components that are useful for the function point estimation, all inherited business processes are divided into elementary process. These are the smallest and from business perspective view useful and closed activities, that can be performed by the system \cite{FPKompakt}.\\
 A distinction is made into five categories:
 \begin{enumerate}
 	\item Input Data
@@ -109,16 +110,16 @@ A distinction is made into five categories:
 	\item Reference Data
 \end{enumerate}
 It is useful to categorize the components, because a change in the datasets is followed by more effort than changing a request \cite{itplanung}.\\
-The Input data, in literature sometimes called External Inputs (EI), is an elementary process in which data crosses the boundary from outside to inside. This data comes from a data input screen or another application. To maintain one or more logical files, this data can be used for or to control business informations.\\
-External Outputs (EO), or Output Data, are an elementary process in which derived data passes across the boundary from inside to outside. Created output files or reports are sent to other applications. These are created from one or more internal logical files and external interface files.\\
-The next category are requests or External Inquiry (EQ). An elementary process with both input and output components that result in data retrieval from one or more internal logical files and external interface files. This process does not update any Internal Logical files, and the output side does not contain derived data.\\
-Internal Logical Files (ILF’s) or Dataset are an user identifiable group of logically related data that resides entirely within the applications boundary and is maintained through external inputs.\\
-The last category are the Reference Data or External Interface Files (EIF), which are a user identifiable group of logically related data that is used for reference purposes only. The data resides entirely outside the application and is maintained by another application \cite{fpafundamentals}.\\
+The \textit{Input Data}, in literature sometimes called \textit{External Inputs} (EI), is an elementary process in which data crosses the boundary from outside the application to inside. This data comes from a data input screen or another application. To maintain one or more logical files, this data can be used for or to control business informations.\\
+\textit{External Outputs} (EO), or Output Data, are an elementary process in which derived data passes across the boundary from inside the application to outside. Created output files or reports are sent to other applications. These are created from one or more internal logical files and external interface files.\\
+The next category are requests or \textit{External Inquiry} (EQ). An elementary process with both input and output components that result in data retrieval from one or more internal logical files and external interface files. This process does not update any Internal Logical files, and the output side does not contain derived data.\\
+Internal \textit{Logical Files} (ILF’s) or Dataset are an user identifiable group of logically related data that resides entirely within the applications boundary and is maintained through external inputs.\\
+The last category is the \textit{Reference Data} or \textit{External Interface Files} (EIF), which are a user identifiable group of logically related data that is used for reference purposes only. This data resides entirely outside of the application and is maintained by another application \cite{fpafundamentals}.\\
 After the categorization of the components there are for each category an amount of components, which then have to weighted for further evaluation.
 
 \subsubsection{Evaluation of the Components}
 
-The evaluation of the components simply is the classification of each category in their level of difficulty simple, medium or complex. After this, each component is multiplied with the point value according to their difficulty. \\
+The evaluation of the components is simply the classification of each category in their level of difficulty (simple, medium or complex). After this, each component is multiplied with the point value according to their difficulty. \\
 The following table is described by Wieczorrek and are standard values for the function point technique \cite{fpafundamentals}:\\
 \begin{table}[h] 
 	\centering 
@@ -131,24 +132,24 @@ The following table is described by Wieczorrek and are standard values for the f
 		Dataset & 7 & 10 & 15\\ \hline
 		Reference Data & 5 & 7 & 10\\ \hline
 	\end{tabular}
-	\caption{Point Value of each Category} 
+	\caption{Point value of each category} 
 	\label{tab:pointvalues} 
 \end{table} \\
 
 \subsubsection{ Calculating the amount of Function-Points}
 
-After the evaluation there is an amount of components for each of the Categories from above. To get the number of function points each category has to be multiplied according to the selected weigh and all categories are summed. This results in the following equation:\\
+After the evaluation there is an amount of components for each of the categories from above. To get the number of function points each category has to be multiplied according to the selected weigh and all categories are summed. This results in the following equation:\\
 
 \fbox{
-	\textit{E1 =  \(\sum \limits_{1}^n \)  Function * Difficulty } \label{fp:E1}
+	\textit{E1 =  \(\sum \limits_{1}^n \)  (Function * Difficulty) } \label{fp:E1}
 }\\
 \\
-Function is the respective category and difficulty is the weigh from the table \ref{tab:pointvalues}. The resulted value E1 is necessary for evaluating the estimated points with the influence factor.
+Function is the respective category and difficulty is the weigh from table \ref{tab:pointvalues}. The resulted value E1 is necessary for evaluating the estimated points with the influence factor.
 
 \subsubsection{ Classification of Influence Factors}
 
 Do get a more realistic estimation, all influences that can affect the project surroundings are measured. For the Function Point estimation there are seven defined influence factors \cite{Softwaremanagement}, which are described below.\\
-Each of the influence factor has value between zero and five which describes how much the factor influences the project.\\
+Each of the influence factor has a value between zero and five which describes how much the factor influences the project.\\
 \\
 \textbf{Integration into other applications}\\
 The system will work with different applications and will send and receive data from other applications. This states if there is a cooperation with other applications and if the communication exists online or offline. 
@@ -161,16 +162,16 @@ This factor describes if the system will work with distributed data. Zero means 
 A high transaction rate affects planing, development, installation and maintenance of the system. It describes how much transactions are to expected with the system.\\
 \\
 \textbf{Processing Logic}\\
-The processing logic can be divided in 4 subcategories: Arithmetic Operation, Control Procedure, Exception Regulation and Logic. Arithmetic Operation describes the intensity of the operations in the Project. The controlling of the results is stated within the Control Procedure influence multiplier. With the Exception Regulation is described how eventual exceptions are treated and the Logic multiplier describes how much effort is to be expected for planning the logical component of the project.\\
+The processing logic can be divided in 4 subcategories: Arithmetic Operation, Control Procedure, Exception Regulation and Logic. Arithmetic Operation describes the intensity of the operations in the project. The controlling of the results stated within the Control Procedure influence multiplier. With the Exception Regulation it is described how eventual exceptions are treated and the Logic multiplier describes how much effort is to be expected for planning the logical component of the project.\\
 \\
 \textbf{Reusability}\\
-How much of the produced software has to be reusable in other projects. A high value in re usability means extra effort in the planning stage for module-based development.\\
+How much of the produced software has to be reusable in other projects. A high value in reusability means extra effort in the planning stage for module-based development.\\
 \\
 \textbf{Stock Conversion}\\
-This describes how much of the used data need to be transformed for use within the project. A high value means much input from other applications that has to be transformed into data the application can process.\\
+This describes how much of the used data need to be transformed for the use within the project. A high value means much input from other applications that has to be transformed into data the application can process.\\
 \\
 \textbf{Facilitate Change}\\
-The application was especially planned and developed that changes could be made easily. A high value means that the user can make changes on the system on its own and that the changes are available immediately.
+The application was especially planned and developed in such a way that changes can be made easily. A high value means that the user can make changes on the system on its own and that the changes are available immediately.
 \\
 \\
 When all influence factors are set, all values for each factor will be summed up to the value E2.\\ 
@@ -179,20 +180,21 @@ When all influence factors are set, all values for each factor will be summed up
 	\textit{E2 =  \(\sum \limits_{1}^n \)  Influence Factor } \label{fp:E2}
 }\\
 \\
-This influence factor indicator hast then to be transformed to a multiplier that calculable with function points \cite{Softwaremanagement}\cite{fpafundamentals}.  \\
+This influence factor indicator has then to be transformed to a multiplier that calculable with function points \cite{Softwaremanagement}\cite{fpafundamentals}.  \\
 
 \fbox{
 	\textit{E3 =\(\frac{E2}{100}\)  + 0,7 } \label{fp:E3}
 }
-\subsubsection{Entwicklungsaufwand berechnen}
+\subsubsection{Calculation of the Function Points}
 
-From the calculated Function Points (E1) and the Influence Factor multiplier (E3) are now the Total-Function-Points (TFP) calculated. These TFP are calculated with the following formula:\\
+With the calculated Function Points (E1) and the Influence Factor multiplier (E3) are now the Total-Function-Points (TFP) can be calculated with the following formula:\\
 %equation,formula
 \fbox{
 	\textit{TFP = E1 * E3 } \label{fp:TFP}
 }\\
 \\
-From the regression analysis of previous project a standard calculation of Function Points per day can be made with the following table:
+From the regression analysis of previous projects a standard calculation of Function Points per day can be made with the table \ref{tab:pointsperday}.\\
+The project has to be classified with their Total-Function-Points and divided through the appropriate points per day. The result of this calculation are the expected Man-Days for this project.\\
 \begin{table}[h] 
 	\centering 
 	\setlength{\tabcolsep}{4pt}
@@ -207,8 +209,6 @@ From the regression analysis of previous project a standard calculation of Funct
 	\caption{Function Points to Days} 
 	\label{tab:pointsperday} 
 \end{table} 
-\\
-The project has to be classified with their Total-Function-Points and divided through the appropriate points per day. The result of this calculation are the expected Man-Days for this project, evaluated with the function point technique.
 
 \subsection{COCOMO} \label{COCOMOMethod}
 

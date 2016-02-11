@@ -14,19 +14,19 @@
 \contentsline {subsubsection}{Evaluation of the Components}{9}{section*.10}
 \contentsline {subsubsection}{ Calculating the amount of Function-Points}{10}{section*.11}
 \contentsline {subsubsection}{ Classification of Influence Factors}{10}{section*.12}
-\contentsline {subsubsection}{Entwicklungsaufwand berechnen}{11}{section*.13}
+\contentsline {subsubsection}{Calculation of the Function Points}{11}{section*.13}
 \contentsline {subsection}{\numberline {2.2.2}COCOMO}{12}{subsection.2.2.2}
 \contentsline {subsubsection}{Projektklassen}{12}{section*.14}
 \contentsline {subsubsection}{Modellvarianten}{13}{section*.15}
 \contentsline {subsubsection}{Entwicklungszeit- und aufwand}{13}{section*.16}
-\contentsline {subsubsection}{Entwicklungszeit- und aufwand}{13}{section*.17}
+\contentsline {subsubsection}{Entwicklungszeit- und aufwand}{14}{section*.17}
 \contentsline {subsection}{\numberline {2.2.3}Comparison}{14}{subsection.2.2.3}
 \contentsline {section}{\numberline {2.3}State of the art}{14}{section.2.3}
 \contentsline {subsection}{\numberline {2.3.1}The market}{14}{subsection.2.3.1}
-\contentsline {subsection}{\numberline {2.3.2}SEER - Cost Estimation Software}{14}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.2}SEER - Cost Estimation Software}{15}{subsection.2.3.2}
 \contentsline {subsection}{\numberline {2.3.3}PRICE - Cost Estimation Software}{15}{subsection.2.3.3}
 \contentsline {subsection}{\numberline {2.3.4}SLIM Estimate}{16}{subsection.2.3.4}
-\contentsline {subsection}{\numberline {2.3.5}Kinvey}{16}{subsection.2.3.5}
+\contentsline {subsection}{\numberline {2.3.5}Kinvey}{17}{subsection.2.3.5}
 \contentsline {subsection}{\numberline {2.3.6}Commonalities}{17}{subsection.2.3.6}
 \contentsline {chapter}{\numberline {3}Application concept}{18}{chapter.3}
 \contentsline {section}{\numberline {3.1}Project planning}{18}{section.3.1}
