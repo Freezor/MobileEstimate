@@ -237,19 +237,18 @@ The project classes represent the estimated size of the program itself. These ar
 \subsubsection{Model Variants}
 
 The COCOMO technique can be differed into the basis, intermediate and detailed variant. These represent the detail level of the cost estimation.\\
+The first stage is also called basis estimation and is a rough estimation, which estimates the project costs to an early stage of the project. The costs are calculated with an equation without dividing the project into structure or time aspects. The base variant is an useful starting point for later estimations.\\
+The second stage adjusts the first estimation to a higher level of detail by differentiating the development stages. It is not a parametric estimation yet, because not all data can be considered.\\
+The detailed variant is the last stage of the estimation and allocate the estimation with fifteen in influence factors \cite{jenny}. These influence factors are divided into four categories. The product attributes inherit the required software reliability, the size of the application database and the complexity of the product. Run-time performance constraints, memory constraints, volatility of the virtual machine environment and the required turnabout time are members of the hardware attributes category. In the personal attributes are the influences analyst capability, software engineering capability. applications experience, virtual machine experience and programming language experience inherited. The last category is the project attributes which are described with the factors use of software tool, application of software engineering methods and required development schedule. Each of the 15 attributes receives a rating on a six-point scale that ranges from "very low" to "extra high" and have typical values in range from 0.9 to 1.4 .\\
 
+\subsubsection{Calculation of Implementation Time and Effort}
 
- Bei der ersten Stufe erfolgt eine Basis-Schätzung, eine sog. grobe Schätzung. Mit diesem Basismodell werden überwiegend die Projektkosten in einem frühen Stadium des Projektes nach der Studienphase geschätzt, da der Detaillierungsgrad der Ablaufstruktur noch nicht zu hoch ist. Mittels einer Grundgleichung werden Kosten- und Zeitaufwand errechnet. Das Projekt wird als ein Ganzes betrachtet, ohne eine Unterteilung ins zeitliche und strukturelle vorzunehmen. Der Schwierigkeitsgrad ist konstant gleich hoch. Dieses Basismodell gilt als nützlicher Ausgangspunkt für die nachfolgenden Projektaufwandschätzungen.
-Mit Hilfe der zweiten Stufe wird die Basis-Schätzung unter Anwendung von Projekt- und Prozessmultiplikatoren verfeinert. Hier wird noch nicht die Differenzierung der Entwicklungsphasen berücksichtigt. Von einem parametrisierten Typ kann noch nicht gesprochen werden, da eventuell nicht belegbare Daten berücksichtigt werden können. Zu guter letzt werden bei dem erweiterten Verfahren die Schätzungen mit den 15 Einflussfaktoren den verschiedenen Phasen zugeordnet[75].
-
-\subsubsection{Implementation Time and Effort}
-
-Die Formel zur Schätzung des Entwicklungsaufwandes bzw. der benötigten Zeit für die Softwareentwicklung des Basismodells entnehmen Sie der unteren Auflistung:
+Die Formel zur Schätzung des Entwicklungsaufwandes bzw. der benötigten Zeit für die Softwareentwicklung des Basismodells entnehmen Sie der unteren Auflistung:\\
 Einfache SW-Projekte	PM = 2.4 * (KDSI)1,05
 Mittelschwere SW-Projekte   	PM = 3.0 * (KDSI)1.12
-Komplexe SW-Projekte	PM = 3.6 * (KDSI)1.20
+Komplexe SW-Projekte	PM = 3.6 * (KDSI)1.20\\
 
-Die Formel zur Schätzung des Entwicklungsaufwandes bzw. der benötigten Zeit für die Softwareentwicklung des Zwischenmodells lautet:
+Die Formel zur Schätzung des Entwicklungsaufwandes bzw. der benötigten Zeit für die Softwareentwicklung des Zwischenmodells lautet:\\
 Einfache SW-Projekte	PM = 3.2 * (KDSI)1,05
 Mittelschwere SW-Projekte   	PM = 3.0 * (KDSI)1.12
 Komplexe SW-Projekte	PM = 2.8 * (KDSI)1.20
@@ -261,7 +260,7 @@ Einfache SW-Projekte	TDEV = 2.5 * (PM)0.38
 Mittelschwere SW-Projekte   	TDEV = 2.5 * (PM)0.35
 Komplexe SW-Projekte	TDEV = 2.5 * (PM)0.32
 
-\subsubsection{Entwicklungszeit- und aufwand}
+\subsubsection{Project Profile}
 
 Jenny unterteilt die Projetkgrößen nach der Anzahl der Codezeilen (loc) in folgende Klassen[79]:
 Small	Kleines Projektprofil	2000 loc
