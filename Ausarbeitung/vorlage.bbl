@@ -6,20 +6,19 @@
 \newblock Mcgraw-Hill Education - Europe, 2010
 
 \bibitem[OH11]{EntwicklungKompakt}
-{\sc Oliver Hummel }: {\em {Aufwandsschätzungen in der Software- und Systementwicklung kompakt (IT kompakt)}}.
+{\sc Oliver Hummel }: {\em {Aufwandsschätzungen in der Software- und Systementwicklung kompakt}}.
 \newblock Spektrum Akademischer Verlag, 2011.
 
 \bibitem[DBP12]{FPKompakt}
 {\sc Dr. Benjamin Poensgen}: {\em {Function-Point-Analyse: Ein Praxishandbuch }}.
 \newblock dpunkt.verlag, 2012.
 
-
 \bibitem[MG11]{ITProjektmanagement}
-{\sc Matthias Geirhos}: {\em {IT-Projektmanagement: Was wirklich funktioniert - und was nicht (Galileo Computing) }}.
+{\sc Matthias Geirhos}: {\em {IT-Projektmanagement: Was wirklich funktioniert - und was nicht }}.
 \newblock Galileo Computing, 2011.
 
 \bibitem[SM06]{BlackArt}
-{\sc Steve McConnell }: {\em {Software Estimation: Demystifying the Black Art: The Black Art Demystified (Best Practices (Microsoft))}}.
+{\sc Steve McConnell }: {\em {Software Estimation: Demystifying the Black Art: The Black Art Demystified)}}.
 \newblock Microsoft Press, 2006.
 
 \bibitem[HB08]{Softwaremanagement}
@@ -27,7 +26,7 @@
 \newblock Spektrum Akademischer Verlag, 2008.
 
 \bibitem[RH04]{FPA}
-{\sc Robert Hürten}: {\em {Function-Point Analysis - Theorie und Praxis: Die Grundlage für das moderne Softwaremanagement (Edition expertsoft)}}.
+{\sc Robert Hürten}: {\em {Function-Point Analysis - Theorie und Praxis: Die Grundlage für das moderne Softwaremanagement}}.
 \newblock expert, 2004.
 
 \bibitem[LMC04]{CaseBasedReasoning}
@@ -57,5 +56,52 @@
 \newblock OMG - Object Management Group
 %\\{\url{http://www.omg.org/spec/AFP/1.0/}}.
 \newblock {\em (Stand: 04.02.2016)}
+
+\bibitem[DU14]{capgemini}
+{\sc Dumslaff Uwe}, {\sc et al}: {\em {Studie IT-Trends 2014}}.
+\newblock Capgemini Deutschland Holding GmbH
+\\{\url{https://www.de.capgemini.com/resource-file-access/resource/pdf/capgemini-it-trends-studie-2014.pdf}}.
+\newblock {\em (Stand: 04.02.2016)}
+
+\bibitem[PA10]{Partsch}
+{\sc Partsch Melmuth}: {\em {Requirements-Engineering systematisch}}.
+\newblock examen.press, 2010.
+
+\bibitem[DU14]{fpafundamentals}
+{\sc Longstreet David}: {\em {Fundamentals of Function Point Analysis }}.
+\newblock softwaremetrics
+\\{\url{http://www.softwaremetrics.com/files/Fundamentals\%20of\%20Function\%20Point\%20Analysis.pdf}}.
+\newblock {\em (Stand: 04.02.2016)}
+
+\bibitem[WI05]{itplanung}
+{\sc Wieczorrek,Hans W}: {\em {Management von IT-Projekten. Von der Planung zur Realisierung}}.
+\newblock expert, 2005.
+
+\bibitem[JE01]{jenny}
+{\sc Jenny, Bruno}: {\em {Projektmanagement in der Wirtschaftsinformatik}}.
+\newblock vdf Hochschulverlag AG an der ETH Zürich, 2001.
+
+\bibitem[AL79]{albrecht}
+{\sc Albrecht Allan J.}: {\em {Measuring Application Development Productivity}}.
+\newblock IBM Corporation, 1979.
+
+\bibitem[LI07]{litke}
+{\sc Litke, Hans-Dieter}: {\em {Projektmanagement: Methoden, Techniken, Verhaltensweisen}}.
+\newblock Carl Hanser Verlag GmbH \& Co. KG, 2007.
+
+\bibitem[WI16]{winfwiki}
+{\sc WinfWiki}: {\em {Methoden und Verfahren der Aufwandschätzung im Vergleich }}.
+\newblock Intermoves GmbH
+\newblock {\em (Stand: 04.02.2016)}
+
+\bibitem[GO16]{materialdesign}
+{\sc Google}: {\em {Android Design Principles }}.
+\newblock Google Inc.
+\\{\url{http://developer.android.com/design/get-started/principles.html.}}
+\newblock {\em (Stand: 04.02.2016)}
+
+\bibitem[KA16]{estimationProcess}
+{\sc Kathleen, Peters}: {\em {Software Project Estimation}}.
+\newblock i.c. stars, 2016.
 
 \end{thebibliography}
