@@ -106,6 +106,10 @@
 
 \bibitem[SO07]{sommerville}
 {\sc Sommerville, Ian}: {\em {Software Engineering}}.
-\newblockPearson, 2007.
+\newblock Pearson, 2007.
+
+\bibitem[BO81]{boehm}
+{\sc Boehm, Barry}: {\em {Software Engineering Economics}}.
+\newblock Englewood Cliffs, 1981.
 
 \end{thebibliography}

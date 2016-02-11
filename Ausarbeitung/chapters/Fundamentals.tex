@@ -46,21 +46,21 @@ The overview shown in \ref{fig:estimationMethodInStage} shows that the SLIM meth
 \subsection{Difficulty of estimations}
 
 One of the problems in estimating costs is that the actual code is only a small part of the project. Beside project planning there are many administrative tasks to do, like coordination of the project or searching and fixing errors. Most estimation methods evaluate the estimated time for the implementation and too little or no time is evaluated for the non implementation tasks. This resolves in an over- or underestimation of the non implementation tasks \cite{itplanung}.\\
-Most project managers rely on their experience from past projects, which is an advantage but is most times overrated. As the technology changes fast and new projects inherit new problems there is no prior experience for some parts of the project, what can make experiences from prior projects useless. Because of the unique nature of projects it is common that a new project has big parts where no experience exists. Another difficulty of estimations is the fact that people who are inherited in the project have a more positive outlook and mostly underestimate the costs.
+Most project managers rely on their experience from past projects. This is an advantage, but as technology changes fast and new projects inherit new problems there is no prior experience for some parts of the project, what can make experiences from prior projects useless. Because of the unique nature of projects it is common that a new project has big parts where no experience exists. Another difficulty of estimations is the fact that people who are inherited in the project have a more positive outlook and mostly underestimate the costs.
 Also, customers often got a target time for the project, which leads in adjustment of the cost estimation. This leads to budget overrun if the needed resources are not available for the project \cite{winfwiki}.\\
 It is also not guaranteed that the estimated costs are accurate and stay within the budget. An estimation can easily go past their estimated target as new technologies and unexpected difficulties are commonplace. A partial requirements engineering can also cause an inaccurate cost estimation due to unexpected difficulties in the implementation. These this are different methodical approaches possible in which estimation methods can be classified, which is not described here.\\
 
 \subsection{Methods for estimation}\label{chapter:estimationmethods}
 
-Estimation methods are different metrics to calculate the costs of a project and there are different approaches to categorize the estimation methods. The categorization used in this paper is based on the book "Management von IT-Projekten" by Hans W. Wieczorrek, where the methods are subdivided in algorithmic, comparative, operating figures and the expert discussion \cite{itplanung}.\\
+Estimation methods are different metrics to calculate the costs of a project and there are different approaches to categorize the estimation methods. The categorization used in this paper is based on the book "Management von IT-Projekten" by Hans W. Wieczorrek, where the methods are subdivided in algorithmic, comparative, operating figures and expert discussion \cite{itplanung}.\\
 All estimation techniques have in common, that only with a combined use of these different estimation methods a suitable result can be achieved as a measured value for the project. For the evaluation of the needed effort the underlying metric is used to calculate the effort for the project. On the basis of charge rates the effort size is calculated out of it.\\
 
 \subsubsection{Algorithmic Method}
 
 The algorithmic method uses a closed formula, which is based on empiric evaluation of already terminated projects or on existing mathematically models. Different forms of this method are the weight and the sampling method, which only differ in their usage.\\
-The accuracy of the estimation depends primarily on the precision of the influence factors \cite{itplanung}. The algorithmic method always connects measurable project sizes, such as lines of code and implementable features, with influencing factors to get the result, represented as required effort in staff and time. The basic formula for this calculation is:\\
+The accuracy of the estimation depends primarily on the precision of the influence factors \cite{itplanung}. The algorithmic method always connects measurable project sizes, such as lines of code and implementable features, with influencing factors to get the result, represented as required effort in personnel costs. The basic formula, as described by Wieczorrek \cite{itplanung}, for this calculation is:\\
 \fbox{
-	\textit{Personnel costs = f(result quantity, influencing factors)} \cite{itplanung}\\
+	\textit{Personnel costs = f(result quantity, influencing factors)} \\
 }
 
 \subsubsection{Comparative Method}
@@ -110,10 +110,10 @@ A distinction is made into five categories:
 	\item Reference Data
 \end{enumerate}
 It is useful to categorize the components, because a change in the datasets is followed by more effort than changing a request \cite{itplanung}.\\
-The \textit{Input Data}, in literature sometimes called \textit{External Inputs} (EI), is an elementary process in which data crosses the boundary from outside the application to inside. This data comes from a data input screen or another application. To maintain one or more logical files, this data can be used for or to control business informations.\\
-\textit{External Outputs} (EO), or Output Data, are an elementary process in which derived data passes across the boundary from inside the application to outside. Created output files or reports are sent to other applications. These are created from one or more internal logical files and external interface files.\\
-The next category are requests or \textit{External Inquiry} (EQ). An elementary process with both input and output components that result in data retrieval from one or more internal logical files and external interface files. This process does not update any Internal Logical files, and the output side does not contain derived data.\\
+The \textit{Input Data}, sometimes called \textit{External Inputs} (EI), is an elementary process in which data crosses the boundary from the outside of the application to the inside. This data comes from a data input screen or another application. To maintain one or more logical files, this data can be used for or to control business informations.\\
+\textit{External Outputs} (EO), or Output Data, are an elementary process in which derived data passes across the boundary from the inside to the outside. Created output files or reports are sent to other applications. These are created from one or more internal logical files and external interface files.\\
 Internal \textit{Logical Files} (ILF’s) or Dataset are an user identifiable group of logically related data that resides entirely within the applications boundary and is maintained through external inputs.\\
+The next category are requests or \textit{External Inquiry} (EQ). An elementary process with both input and output components that result in data retrieval from one or more internal logical files and external interface files. This process does not update any Internal Logical files, and the output side does not contain derived data.\\
 The last category is the \textit{Reference Data} or \textit{External Interface Files} (EIF), which are a user identifiable group of logically related data that is used for reference purposes only. This data resides entirely outside of the application and is maintained by another application \cite{fpafundamentals}.\\
 After the categorization of the components there are for each category an amount of components, which then have to weighted for further evaluation.
 
@@ -150,8 +150,7 @@ Function is the respective category and difficulty is the weigh from table \ref{
 
 Do get a more realistic estimation, all influences that can affect the project surroundings are measured. For the Function Point estimation there are seven defined influence factors \cite{Softwaremanagement}, which are described below.\\
 Each of the influence factor has a value between zero and five which describes how much the factor influences the project.\\
-\\
-\textbf{Integration into other applications}\\
+\paragraph{Integration into other applications}
 The system will work with different applications and will send and receive data from other applications. This states if there is a cooperation with other applications and if the communication exists online or offline. 
 \\
 \\
@@ -187,14 +186,14 @@ This influence factor indicator has then to be transformed to a multiplier that 
 }
 \subsubsection{Calculation of the Function Points}
 
-With the calculated Function Points (E1) and the Influence Factor multiplier (E3) are now the Total-Function-Points (TFP) can be calculated with the following formula:\\
+With the calculated Function Points (E1) and the Influence Factor multiplier (E3) are now the total-function-points (TFP) can be calculated with the following formula:\\
 %equation,formula
 \fbox{
 	\textit{TFP = E1 * E3 } \label{fp:TFP}
 }\\
 \\
 From the regression analysis of previous projects a standard calculation of Function Points per day can be made with the table \ref{tab:pointsperday}.\\
-The project has to be classified with their Total-Function-Points and divided through the appropriate points per day. The result of this calculation are the expected Man-Days for this project.\\
+The project has to be classified with their Total-Function-Points and divided through the appropriate points per day. The result of this calculation are the expected man days for this project.\\
 \begin{table}[h] 
 	\centering 
 	\setlength{\tabcolsep}{4pt}
@@ -239,35 +238,29 @@ The project classes represent the estimated size of the program itself. These ar
 The COCOMO technique can be differed into the basis, intermediate and detailed variant. These represent the detail level of the cost estimation.\\
 The first stage is also called basis estimation and is a rough estimation, which estimates the project costs to an early stage of the project. The costs are calculated with an equation without dividing the project into structure or time aspects. The base variant is an useful starting point for later estimations.\\
 The second stage adjusts the first estimation to a higher level of detail by differentiating the development stages. It is not a parametric estimation yet, because not all data can be considered.\\
-The detailed variant is the last stage of the estimation and allocate the estimation with fifteen in influence factors \cite{jenny}. These influence factors are divided into four categories. The product attributes inherit the required software reliability, the size of the application database and the complexity of the product. Run-time performance constraints, memory constraints, volatility of the virtual machine environment and the required turnabout time are members of the hardware attributes category. In the personal attributes are the influences analyst capability, software engineering capability. applications experience, virtual machine experience and programming language experience inherited. The last category is the project attributes which are described with the factors use of software tool, application of software engineering methods and required development schedule. Each of the 15 attributes receives a rating on a six-point scale that ranges from "very low" to "extra high" and have typical values in range from 0.9 to 1.4 .\\
+The detailed variant is the last stage of the estimation and allocate the estimation with fifteen in influence factors \cite{jenny}. These influence factors are divided into four categories. The product attributes inherit the required software reliability, the size of the application database and the complexity of the product. Run-time performance constraints, memory constraints, volatility of the virtual machine environment and the required turnabout time are members of the hardware attributes category. In the personal attributes are the influences analyst capability, software engineering capability. applications experience, virtual machine experience and programming language experience inherited. The last category is the project attributes which are described with the factors use of software tool, application of software engineering methods and required development schedule. Each of the 15 attributes receives a rating on a six-point scale that ranges from 'very low' to 'extra high' and have typical values in range from 0.9 to 1.4 .\\
 
 \subsubsection{Calculation of Implementation Time and Effort}
 
-Die Formel zur Schätzung des Entwicklungsaufwandes bzw. der benötigten Zeit für die Softwareentwicklung des Basismodells entnehmen Sie der unteren Auflistung:\\
-Einfache SW-Projekte	PM = 2.4 * (KDSI)1,05
-Mittelschwere SW-Projekte   	PM = 3.0 * (KDSI)1.12
-Komplexe SW-Projekte	PM = 3.6 * (KDSI)1.20\\
-
-Die Formel zur Schätzung des Entwicklungsaufwandes bzw. der benötigten Zeit für die Softwareentwicklung des Zwischenmodells lautet:\\
-Einfache SW-Projekte	PM = 3.2 * (KDSI)1,05
-Mittelschwere SW-Projekte   	PM = 3.0 * (KDSI)1.12
-Komplexe SW-Projekte	PM = 2.8 * (KDSI)1.20
-
-Bei den Berechnungen legt Barry Boehm folgende Parameter fest: ein Personen-Monat besteht aus 152 Arbeitsstunden, bei 19 Arbeitstagen mit 8 Arbeitsstunden pro Tag. Abwesenheiten wie Krankheit, Urlaub und Ferien sind bereits berücksichtigt.
-Die nachfolgende Abbildung zeigt, dass je größer ein Produkt ist, desto kleiner die Leistung von einem Full-time-equivalent wird. Konkretisiert heißt das, dass bei kleinen Produktgrößen qualifizierte Informatiker mehr Codes schreiben können als bei im Vergleich zu großen Produkten[77].
-Die für die Berechnung der Entwicklungszeit benötigte Formel lautet:
-Einfache SW-Projekte	TDEV = 2.5 * (PM)0.38
-Mittelschwere SW-Projekte   	TDEV = 2.5 * (PM)0.35
-Komplexe SW-Projekte	TDEV = 2.5 * (PM)0.32
-
-\subsubsection{Project Profile}
-
-Jenny unterteilt die Projetkgrößen nach der Anzahl der Codezeilen (loc) in folgende Klassen[79]:
-Small	Kleines Projektprofil	2000 loc
-Intermediate   	Mittleres Projektprofil	8000 loc
-Medium	Mittelgroßes Projektprofil   	32000 loc
-Large	Großes Projektprofil	128000 loc
-Very large	sehr großes Projektprofil	512000 loc
+Because of the differences in each variant of the COCOMO estimation, each variant has its own equation for calculation the costs. Each formula calculates the estimated time of the project in person-month (PM), which are stated by Boehm as 152 working hours resulting in one PM, with 19 working days and eight hour days \cite{boehm}. \\
+The formula for the basic variant calculates the complexity of a project with the KDSI value and the calculation factor of the project which gives the calculated PM as a result. This formula is as follows:\\
+\fbox{
+	\textit{PM = Complexity * $(KDSI)^{Calculation Factor}$} \label{cocomo:basic}
+}\\
+The KDSI value is the expected amount of code lines in the project and the Calculation Factor is the result of the table \ref{tab:projectclasses}. To figure out the complexity multiplicand the table \ref{cocomo:basicComplexity} describes for each project the suitable solution.\\
+\begin{table}[h]
+	\centering 
+	\setlength{\tabcolsep}{4pt}
+	\begin{tabular}{|l||c|}\hline
+		Complexity	& Multiplicand\\ \hline\hline
+		Small Project   	& 2.4        		\\ \hline
+		Medium Project 		& 3.0        		\\ \hline
+		Complex Project 	& 3.6 			\\ \hline
+	\end{tabular} 
+	\caption{COCOMO complexity multiplicands} 
+	\label{cocomo:basicComplexity} 
+\end{table}\\
+asdf5
 
 \subsection{Comparison}
 
