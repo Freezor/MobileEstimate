@@ -212,27 +212,37 @@ The project has to be classified with their Total-Function-Points and divided th
 
 \subsection{COCOMO} \label{COCOMOMethod}
 
-Die Cocomoberechnung ist ein Verfahren, dass auf algorithmischen und parametrischen Methoden basiert[70]. Es handelt sich um ein empirisches Modell, bei dem mehrere firmenspezifische Daten (Parameter) von Softwareprojekten zusammenfließen. Durch die Analyse können Formeln abgeleitet werden, welche die Beobachtungen bestätigen. Hierdurch findet eine Verknüpfung der Systemgröße, Produkt-, Projekt- und Teamfaktoren mit dem Aufwand für die Entwicklung des Systems statt[71].
-Für den Einsatz des Cocomo-Verfahren sprechen folgende Aspekte:
-es handelt sich um ein gut dokumentiertes, frei verfügbares Verfahren, das von Public-Domain-Software und kommerziellen Werkzeugen unterstützt wird,
-weit verbreitet in Organisationen,
-das Verfahren hat eine lange Historie und wurde über die Jahre an die IT-Entwicklung angepaßt (Das Verfahren wurde bereits 1981 durch Barry W. Boehm, Softwareingenieur bei Boeing, entwickelt)
-Die Genauigkeit einer mit dem Cocomo-Verfahren angewendeten Schätzung für ein Softwareprojekt wird mit fortschreitender Projektentwicklung immer höher. Beim Start des Projektes kann die Schwankungsbreite noch (x Monaten) zwischen 0,25x bis 4x liegen. Während des Fortschreitens wird die Schwankungsbreite immer kleiner bis sie kurz vor Beendigung des Projektes auf Null sinkt[71].
-Das Cocomo-Verfahren umfasst eine große Anzahl von komplexen Parametern, die nicht einfach zu beschreiben sind. Es findet eine Unterteilung in Projektklassen, Modellvarianten sowie Entwicklungszeit- und –aufwände sowie Projektprofilen statt.
+The Constructive Cost Model (COCOMO) is used when it is not possible to rely on experience. It is based on algorithmic and parametric methods, that merges parameters from software projects. Combining the system size, product properties, project and team factors with the effort for developing the system \cite{jenny}.\\
+As an public domain model it is free to use and is considered to be a classic for algorithmic methods. It is common in many companies and is a technique which is adjusted to the IT development through the years.
+The accuracy of the COCOMO techniques rises with later project stages. The deviation of the cost estimation is at the beginning of the project between \textit{0,25 * MD} and \textit{4 * MD}. In later project stages this variation decrease until it is zero just before the project ending \cite{sommerville}.\\
+The parameters for COCOMO can be split into three parts. The project classes, model variants and the implementation time and effort.
 
-\subsubsection{Projektklassen}
-Die Projekte werden in drei Projektkomplexitäten mit verschiedenen Berechnungsfaktoren eingestuft:
-Projektkomplexität	Berechnungs- faktor	KDSI	Beschreibung
-Einfach (Organic Mode)	1.05	< 50	ein kleines, gut harmonierendes Team arbeitet zusammen, Umfeld ist bekannt, keine große Innovation notwendig, stabile Schnittstelle, kein Druck durch Endtermin
-Mittel (Semidetached Mode)	1.12	50 - 300	Mitarbeiter mit durchschnittlicher Erfahrung, erfahrene und weniger erfahrene Projektteam-Mitglieder, Projektteam-Mitglieder mit einigen Erfahrungen in Teilgebieten arbeiten zusammen
-Komplex (Embedded Mode)	1.20	> 300	starker Kosten- und Termindruck, große Innovation, umfangreiches Produkt mit integralen Elementen, hohe Anforderungen ans PT, neue Komponenten
+\subsubsection{Project Classes}
 
-\subsubsection{Modellvarianten}
+The project classes represent the estimated size of the program itself. These are expressed in kilo delivered source instructions (KDSI). COCOMO classifies three project classes with different calculation factors as described in table \ref{tab:projectclasses} \cite{sommerville}.
 
-Man unterscheidet zwischen dem Basis-, dem Zwischen- und dem Erweiterten-Cocomo-Verfahren. Bei dem ersten Cocomo-Modell bezieht man sich auf ein Drei-Stufen-Modell. In diesem Modell entsprechen die Stufen der Ausführlichkeit der Analyse einer Schätzung. Bei der ersten Stufe erfolgt eine Basis-Schätzung, eine sog. grobe Schätzung. Mit diesem Basismodell werden überwiegend die Projektkosten in einem frühen Stadium des Projektes nach der Studienphase geschätzt, da der Detaillierungsgrad der Ablaufstruktur noch nicht zu hoch ist. Mittels einer Grundgleichung werden Kosten- und Zeitaufwand errechnet. Das Projekt wird als ein Ganzes betrachtet, ohne eine Unterteilung ins zeitliche und strukturelle vorzunehmen. Der Schwierigkeitsgrad ist konstant gleich hoch. Dieses Basismodell gilt als nützlicher Ausgangspunkt für die nachfolgenden Projektaufwandschätzungen.
+\begin{table}[h]
+	\centering 
+	\setlength{\tabcolsep}{4pt}
+	\begin{tabular}{|l||c|c|p{6cm}|}\hline
+		Complexity	& Calculation Factor& KDSI 	& Describtion\\ \hline\hline
+		Small   	& 1.05        		& $<$ 50  			& A small, well-known project team works together, the environment is well-known, there is no big innovation necessary and no pressure due to a deadline.\\ \hline
+		Medium 		& 1.12        		& 50 - 300 			& Employees with average experience, team members with some experiences in subjections are working together.  \\ \hline
+		Complex 	& 1.20 				& $>$ 300 			& High cost and deadline pressure, high innovations and an extensive project. High requirements to the project team and new components.  \\ \hline
+	\end{tabular} 
+	\caption{COCOMO project classes} 
+	\label{tab:projectclasses} 
+\end{table}
+
+\subsubsection{Model Variants}
+
+The COCOMO technique can be differed into the basis, intermediate and detailed variant. These represent the detail level of the cost estimation.\\
+
+
+ Bei der ersten Stufe erfolgt eine Basis-Schätzung, eine sog. grobe Schätzung. Mit diesem Basismodell werden überwiegend die Projektkosten in einem frühen Stadium des Projektes nach der Studienphase geschätzt, da der Detaillierungsgrad der Ablaufstruktur noch nicht zu hoch ist. Mittels einer Grundgleichung werden Kosten- und Zeitaufwand errechnet. Das Projekt wird als ein Ganzes betrachtet, ohne eine Unterteilung ins zeitliche und strukturelle vorzunehmen. Der Schwierigkeitsgrad ist konstant gleich hoch. Dieses Basismodell gilt als nützlicher Ausgangspunkt für die nachfolgenden Projektaufwandschätzungen.
 Mit Hilfe der zweiten Stufe wird die Basis-Schätzung unter Anwendung von Projekt- und Prozessmultiplikatoren verfeinert. Hier wird noch nicht die Differenzierung der Entwicklungsphasen berücksichtigt. Von einem parametrisierten Typ kann noch nicht gesprochen werden, da eventuell nicht belegbare Daten berücksichtigt werden können. Zu guter letzt werden bei dem erweiterten Verfahren die Schätzungen mit den 15 Einflussfaktoren den verschiedenen Phasen zugeordnet[75].
 
-\subsubsection{Entwicklungszeit- und aufwand}
+\subsubsection{Implementation Time and Effort}
 
 Die Formel zur Schätzung des Entwicklungsaufwandes bzw. der benötigten Zeit für die Softwareentwicklung des Basismodells entnehmen Sie der unteren Auflistung:
 Einfache SW-Projekte	PM = 2.4 * (KDSI)1,05
