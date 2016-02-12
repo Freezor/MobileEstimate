@@ -64,6 +64,8 @@
 \usepackage{bibgerm}
 \usepackage{array}
 \usepackage{chngcntr} 
+\numberwithin{table}{subsection} %add tables to nummeration
+%\numberwithin{equation}{subsection}
 \makeatletter
 \AtBeginDocument{%
 	\let\c@figure\c@lstlisting
@@ -80,8 +82,6 @@
 
 %--------------------------------------------------------------------------
 \begin{document}
-\numberwithin{table}{subsection} %add tables to nummeration
-\numberwithin{equation}{subsection}
 %------------------------- Titelblatt -------------------------------------
 \title{Mobile Anwendung für die Kostenschätzung mit Android}
 \subtitle{Mobile Application for cost estimations in Android}

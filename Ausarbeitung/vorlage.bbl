@@ -112,4 +112,41 @@
 {\sc Boehm, Barry}: {\em {Software Engineering Economics}}.
 \newblock Englewood Cliffs, 1981.
 
+\bibitem[AB14]{estimationanalysis}
+{\sc Abubaker Ali ,Noraini Ibrahim
+}: {\em {Comparative Analysis Between Fpa and Cocomo Techniques For Software Cost Estimation}}.
+\newblock International Journal of Engineering Research and Development, 2014.
+
+\bibitem[FI10]{fischer}
+{\sc Fischer, Christian}, {\sc Aier, Stephan}: {\em {IT-Projektkostenschätzung – Ein pragmatischer Ansatz}}.
+\newblock Institut für Wirtschaftsinformatik, Universität St. Gallen, 2010.
+
+\bibitem[ST14]{chaos}
+{\sc The Standish Group}, {\sc Aier, Stephan}: {\em {The Standish Group Report}}.
+\newblock Project Smart, 2014.
+
+\bibitem[RI15]{dsm}
+{\sc Ripsas, Sven }, {\sc Tröger, Steffen }: {\em {3. Deutscher Startup Monitor }}.
+\newblock KPMG, 2015.
+\\{\url{http://deutscherstartupmonitor.de/fileadmin/dsm/dsm-15/studie_dsm_2015.pdf}}
+\newblock {\em (Stand: 04.02.2016)}
+
+\bibitem[LO14]{faszinationmobile}
+{\sc Lopez, Carola } : {\em {Faszination Mobile - Verbreitung, Nutzungsmuster und Trends}}.
+\newblock BVDW , 2014.
+\\{\url{http://www.bvdw.org/presseserver/studie_faszination_mobile/BVDW_Faszination_Mobile_2014.pdf}}
+\newblock {\em (Stand: 04.02.2016)}
+
+\bibitem[PR15]{pricesystems}
+{\sc PRICE Systems } : {\em {PRICE Systems - Overview}}.
+\newblock PRICE Systems , 2015.
+\\{\url{http://www.pricesystems.com/en-us/leadership/priceoverview.aspx}}
+\newblock {\em (Stand: 04.02.2016)}
+
+\bibitem[GA11]{pricesystems}
+{\sc Galorath Incorporated } : {\em {SEER for Software}}.
+\newblock Galorath Incorporated , 2011.
+\\{\url{http://galorath.com/wp-content/uploads/2014/08/SEERforSoftware2.pdf}}
+\newblock {\em (Stand: 04.02.2016)}
+
 \end{thebibliography}

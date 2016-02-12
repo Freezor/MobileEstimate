@@ -101,7 +101,7 @@ The most important part of this technique is that all measurements only include 
 
 \subsubsection{Determining the Components}
 
-To divide the project in components that are useful for the function point estimation, all inherited business processes are divided into elementary process. These are the smallest and from business perspective view useful and closed activities, that can be performed by the system \cite{FPKompakt}.\\
+To divide the project in components that are useful for the function point estimation, all inherited business processes are divided into elementary process. These are the smallest and from business perspective view useful and closed activities, that can be performed by the system \cite{FPKompakt}. \\
 A distinction is made into five categories:
 \begin{enumerate}
 	\item Input Data
@@ -235,7 +235,7 @@ The formula for the basic model calculates the complexity of a project with the 
 PM = Complexity * (KDSI)^{Calculation Factor} \label{cocomo:basic}
 \end{equation}\\
 The KDSI value is the expected amount of code lines in the project and the Calculation Factor is the result of the table \ref{tab:projectclasses}. To figure out the complexity multiplicand the table \ref{cocomo:basicComplexity} describes for each project the suitable solution.\\
-The equation for the intermediate model is the same as for the basic model (\ref{cocomo:basic}). The difference is the changed multiplicand for this model, as described in table \ref{cocomo:intermediateComplexity}.\\
+The equation for the intermediate model is the same as for the basic model (\ref{cocomo:basic}) \cite{boehm}. The difference is the changed multiplicand for this model, as described in table \ref{cocomo:intermediateComplexity}.\\
 \begin{table}[h]
 	\centering 
 	\setlength{\tabcolsep}{4pt}
@@ -245,7 +245,7 @@ The equation for the intermediate model is the same as for the basic model (\ref
 		Medium Project 		& 3.0        		\\ \hline
 		Complex Project 	& 3.6 			\\ \hline
 	\end{tabular} 
-	\caption{COCOMO complexity multiplicands} 
+	\caption{COCOMO complexity multiplicands for basic models} 
 	\label{cocomo:basicComplexity} 
 \end{table}
 \begin{table}[h]
@@ -257,18 +257,18 @@ The equation for the intermediate model is the same as for the basic model (\ref
 		Medium Project 		& 3.0        		\\ \hline
 		Complex Project 	& 2.8 			\\ \hline
 	\end{tabular} 
-	\caption{COCOMO complexity multiplicands} 
+	\caption{COCOMO complexity multiplicands for intermediate models} 
 	\label{cocomo:intermediateComplexity} 
 \end{table}\\
-The detailed model is an extension of the intermediate model that adds effort multipliers for each phase of the project to determine the cost drivers impact on each step. The effort is calculated as function of program size and a set of cost drivers given according to each phase of software life cycle. For an equation it is necessary to multiply all cost drivers \textbf{\(C_i\)} together, as described in the following formula:\\
+The detailed model is an extension of the intermediate model that adds effort multipliers for each phase of the project to determine the cost drivers impact on each step. The effort is calculated as function of program size and a set of cost drivers given according to each phase of software life cycle \cite{boehm}. For an equation it is necessary to multiply all cost drivers \textbf{\(C_i\)} together, as described in the following formula:\\
 \begin{equation}
 C = C_1 \dots C_k \label{cocomo:detailedcostdrivers}
 \end{equation}\\
-The result of this equation multiplied with the PM from the intermediate model results in time for development (TDEV) with the following equation:\\
+The result of this equation multiplied with the PM from the intermediate model results in time for development (TDEV) with the following equation \cite{boehm}:\\
 \begin{equation}
 TDEV = C * (KDSI)^{Calculation Factor} \label{cocomo:detailed}
 \end{equation}\\
-To figure out the complexity multiplicand for the detailed model, the table \ref{cocomo:detailedComplexity} describes for each project the suitable calculation factor.\\
+To figure out the complexity multiplicand for the detailed model, the table \ref{cocomo:detailedComplexity} describes for each project the suitable calculation factor \cite{boehm}.\\
 \begin{table}[h]
 	\centering 
 	\setlength{\tabcolsep}{4pt}
@@ -283,65 +283,41 @@ To figure out the complexity multiplicand for the detailed model, the table \ref
 \end{table}
 \subsection{Comparison}
 
-adsf
-a\\
-a\\
-a\\
-a\\
-a\\
-a\\
-a\\
-a\\
-a
+Function Point analysis is useful for all software projects of all sizes, mainly desktop based platforms, which is one of the biggest contrapositions. Whereas COCOMO is used for large corporate and government projects, including embedded firmware. The major source of criticism at COCOMO estimations is that they are inappropriate for small projects and that it is based on the waterfall model. It is recommended for for large and lesser known projects to use COCOMO 2 instead.\\
+ÜBERGANG \\
+The similarities between these models are that they both rely on algorithmic methods, with the difference that COCOMO is a logarithmic type and function point is linear. Both were created in the same time, where the project development cycle relied on linear procedure models and the used programming languages where procedural.\\
+None of the techniques is necessarily better or worse than the other, in fact, their strengths and weaknesses are often complimentary to each other. There is no estimation technique that is the 'best fitting' for a project \cite{estimationanalysis}.
 
-\section{State of the art}
+\section{Software for Cost Estimations - State of the art}
 
-Vergleich welche Software es hierzu auf dem Markt gibt. Kurzbeschreibung der Software, Lizenzmodell, Kosten, Marktrelevanz
-a\\
-a\\
-a\\
-a\\
-a\\
-a\\
-a\\
-a\\
-a
+A big uncertainty in cost estimations is an actual problem of the cost estimations. Stake holders and project managers don't trust the estimation output and calculate a surcharge on all estimations. In a range from 5\% up to 50\%, in big projects, this uncertainty factor is added on the estimated costs for a project \cite{fischer}. That is because many large projects are stopped due to budget overrun or incomplete requirements \cite{chaos}, which results in insecurities on the cost estimation output.\\  
+Whereas the cost estimation is possible as paper work, there are several software products that allow cost estimation. Those software products are developed by big companies and are all existing since several years.\\
+As there are many start-up IT companies founded in the last five years, there is no start-up company that develops cost estimation software \cite{dsm}. Also, there is no approach in developing a mobile application for cost estimations. The use of smartphones increased from 2013 to 2014 by 21\% and in the business environment 80\% use a smartphone \cite{faszinationmobile}.\\
+There are three cost estimation tools that are mostly referred to, those tools and an approach for estimating costs for mobile applications are described in this chapter.\\
 
-\subsection{The market}
-
-Wieviele Softwareanbieter gibt es. Ist am Markt eine Nachfrage dafür. Gibt es mobile Anwendungen? Wird nach mobileren Anwendungen verlangt
-a\\
-a\\
-a\\
-a\\
-a\\
-a\\
-a\\
-a\\
-a
 \subsection{SEER - Cost Estimation Software}
 
-The “Seer - Cost Estimation Software” is developed by Galorath Inc. in Los Angeles, USA. Galorath Inc. offers Consulting and Software for Cost Estimation, Decision Support and Project Management. The company was founded in 1979 with the goal to improve the software and hardware development process in the industry. The next step was to improve their consulting quality by developing their own tools for this process. Seer is the name of their toolset whit a large variety of how the different tools support the development process of new products.
+The 'Seer - Cost Estimation Software' is developed by Galorath Inc. in Los Angeles, USA. Galorath Inc. offers Consulting and Software for Cost Estimation, Decision Support and Project Management. The company was founded in 1979 with the goal to improve the software and hardware development process in the industry. The next step was to improve their consulting quality by developing their own tools for this process. Seer is the name of their tool set whit a large variety of how the different tools support the development process of new products.
 \\
-Seer for Software is an estimation application for "estimating, planning, analyzing and managing complex software projects" (galorath.com/products/software/SEER-Software-Cost-Estimation). Based on the SEER design principles the software contains an annotated and guided interface for defining projects, a parametric simulation engine and numerous standard and custom reporting options. Due to an open architecture API the SEER application can be integrated with enterprise applications and departmental productivity solutions. Galorath specifies that all estimations within this software are repeatable and consistent.
+Seer for Software is an estimation application for 'estimating, planning, analyzing and managing complex software projects' \url{galorath.com/products/software/SEER-Software-Cost-Estimation}. Based on the SEER design principles the software contains an annotated and guided interface for defining projects, a parametric simulation engine and numerous standard and custom reporting options. Due to an open architecture API the SEER application can be integrated with enterprise applications and departmental productivity solutions. Galorath specifies that all estimations within this software are repeatable and consistent.
 \\
-According to the software description, "a high-level software estimate can be developed in a matter of minutes using SEER´s intuitive, window-based interface"(http://galorath.com/wp-content/uploads/2014/08/SEERforSoftware2.pdf). To start a new estimation a dialogue guides the user through the process. In the first screen the user has to set project name and decides whether he creates an empty project or starts with a scenario. The scenarios are example projects with some data for starting the estimation. In the next step the user choose the estimation method he wants to use for this project. The estimation methods are subdivided in functional, lines and sizing scale. Another feature of the software is the documentation and export function. All estimations can be exported to Microsoft Project, Microsoft Office, IBM Rational or other 3rd-party software. SEER delivers a huge variety of estimation methods, guided processes and many possibilities for documentation and reporting of all estimations.
+According to the software description, 'a high-level software estimate can be developed in a matter of minutes using SEER´s intuitive, window-based interface' \cite{pricesystems}. To start a new estimation a dialog guides the user through the process. In the first screen the user has to set project name and decides whether he creates an empty project or starts with a scenario. The scenarios are example projects with some data for starting the estimation. In the next step the user choose the estimation method he wants to use for this project. The estimation methods are subdivided in functional, lines and sizing scale. Another feature of the software is the documentation and export function. All estimations can be exported to Microsoft Project, Microsoft Office, IBM Rational or other third-party software. SEER delivers a huge variety of estimation methods, guided processes and many possibilities for documentation and reporting of all estimations.
 \\
-The software can be bought in an estimator, project manager and studio version. The estimator version inherits only standard estimation whereas the project manager and studio version allow estimation checking and access to the projects database. The studio version allows also independent crosscheck and verification. The price of each software version is nowhere specified.
+The software can be bought in an estimator, project manager and studio version. The estimator version inherits only standard estimation whereas the project manager and studio version allow estimation checking and access to the projects database. The studio version allows also independent crosscheck and verification. The price of each software version is nowhere specified but as a business software price is in the high sector.
 
 \subsection{PRICE - Cost Estimation Software}
 
 PRICE Systems L.L.C. provides agile and accurate estimating solutions. With their head office in Maunt Laurel, USA, and 12 locations worldwide they offer since 1969 estimating acquisitions. Their Software Development Cost Model is one of the oldest and most widely used software parametric models for software development projects. In 2003 PRICE released their Software TruePlanning, which contains methods that estimate the scope, cost, effort and schedule for software projects.
 \\
-For cost estimation, purchasing efficiency and budget planning PRICE Systems develops "multi-faceted cost estimating solutions" (http://www.pricesystems.com/en-us/leadership/priceoverview.aspx). Their biggest project is the PRICE Estimating Systems (ESI) Framework that delivers solutions for estimating projects and cost management. This framework is not specialized for estimating only software projects but also other projects.
+For cost estimation, purchasing efficiency and budget planning PRICE Systems develops 'multi-faceted cost estimating solutions' \cite{pricesystems}. Their biggest project is the PRICE Estimating Systems (ESI) Framework that delivers solutions for estimating projects and cost management. This framework is not specialized for estimating only software projects but also other projects.
 \\
 The integrated approach to Lifecycle Cost Management contains the PRICE Cost Estimation Framework. It is possible to estimate with all current state of the art cost estimations. The collaboration with other users is also possible as well as sharing the results through the program. This allows faster teamwork and a better estimation output. A data driven method for all estimations allows to compare the estimation with already completed projects. True Mapper allows also estimation output to a specific work breakdown structure or cost element structure for accurate top-down and bottom-up estimate comparisons. Mappings can be stored, retrieved, and modified to keep pace even as program activities change. Beyond specific cost estimating products and services, PRICE Systems offers strategic cost management services. They collaborate with estimators, engineers, project managers, and financial and executive management to design and implement integrated cost management systems that meet the unique challenges in the environment.
 \\
-There are not given any details about the cost of the software or licensing. This information must specifically enquire by Price Systems.
+There are not given any details about the cost of the software or licensing which have to be requested at Price Systems.
 
 \subsection{SLIM Estimate}
 
-SLIM Estimate is a cost estimating software developed by Quantity Software Management (QSM), an estimation company with their head office in McLean, USA. (http://qsma.com/slim-estimate/) QSM was founded in 1978 as a software management consultant company for measure, estimate and control projects. Beside their consulting business segment they develop the SLIM Software which contains software for controlling, metrics and estimation.
+SLIM Estimate is a cost estimating software developed by Quantity Software Management (QSM), an estimation company with their head office in McLean, USA \url{http://qsma.com/slim-estimate}. QSM was founded in 1978 as a software management consultant company for measure, estimate and control projects. Beside their consulting business segment they develop the SLIM Software which contains software for controlling, metrics and estimation.
 \\
 The SLIM Estimate software provides a flexible cost estimation which align the estimation to the project size and new technologies. The estimation will hereby in the curse of the project enhanced. Integrated schedules offer simple exports of an existing calculation. The software can suggest alternate solutions calculated on past projects.
 \\
@@ -350,33 +326,17 @@ The homepage got not into detail how this suggestion works. For a new estimating
 For better use in the company the SLIM Estimate inherits interfaces to MS Office and the possibility export estimations as a web representation. SLIM Estimate delivers hereby a great software package with many functionalities. Especially the access to a large database and the knowledge base of QSM is a real added value to the application. As a result, it is possible in new projects to access the experience of past projects and get the benefit from this experience.
 
 
+\subsection{Commonalities}
+
+The described cost estimation tools have all in common, that they inherit different estimation techniques. The user can always decide with which he wants to estimate the project. They are all tools that are on the market for many years and rely on experience from project managers that are in the business for years. Each software has a different approach on the implemented estimation process and collaboration of project estimations. They all have a database with previous cost estimations but with extra costs for accessing it.\\
+The User interface is like in many large software projects more functional and does not contain a modern design. None of them has an approach for developing a mobile application and rely on Microsoft Windows as their OS.
+
 \subsection{Kinvey}
 
-Kinvey is a software developer from Boston whose main business is the development of apps for business. In terms of cost estimates, the company is still very interesting. Since this company's mobile applications are developed individually for companies they need getting a cost estimate.
+A special software developer is Kinvey from Boston whose main business is the development of apps for business. They don't develop a certain cost estimation tool, but in terms of general cost estimations, the company is still very interesting \url{http://www.kinvey.com/mbaas-savings-calculator}. Since this company's mobile applications are developed individually for companies they need getting a cost estimate.
 \\
 Kinvey offers an online estimate for mobile applications with the potential customers can estimate the costs for their application. Here, the estimates are on the side of the cost and the length of time indicated by the customer would have to spend at a natural development, as well as the costs incurred for the customer if Kinvey developed the app for the company. The cost of developing through Kinvey here are always cheaper than a proprietary development.
 \\
 The cost estimation process is simple. The estimation schedule is a one-page where the user can select the components of his application. The user is guided through some question about features the application should contain. To answer these questions the user can either select one answer or more, which depends on the actual question. After each step the user can see the actual cost estimation of the project.
 \\
 The costs are calculated from the selected components in man days. It is possible to adapt in a further overview these cost estimates by hand again. It is not possible to define and add your own components for the estimation. The individual items that the user can choose are sorted by groups and displayed graphically. Estimating the cost of app development can also be used for your own estimates, but there is no way to export this estimation.
-
-\subsection{Commonalities}
-
-Was hat die Software gemeinsam, welche besonderen Features bei allen aufgefallen, wo ist ein feature das besonders heraussticht.\\
-a\\
-a\\
-a\\
-a\\
-a\\
-a\\
-a\\
-a\\
-aa\\
-a\\
-a\\
-a\\
-a\\
-a\\
-a\\
-a\\
-a
