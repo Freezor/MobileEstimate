@@ -41,7 +41,7 @@ The overview shown in \ref{fig:estimationMethodInStage} shows that the SLIM meth
 	\caption{- Starting Points of Estimation Methods} 
 	Source: \url{http://winfwiki.wi-fom.de}
 	\label{fig:estimationMethodInStage}
-\end{figure}\\
+\end{figure}
 
 \subsection{Difficulty of estimations}
 
@@ -222,20 +222,20 @@ The project classes represent the estimated size of the program itself. These ar
 
 \subsubsection{Model Variants}
 
-The COCOMO technique can be differed into the basis, intermediate and detailed variant. These represent the detail level of the cost estimation.\\
-The first stage is also called basis estimation and is a rough estimation, which estimates the project costs to an early stage of the project. The costs are calculated with an equation without dividing the project into structure or time aspects. The base variant is an useful starting point for later estimations.\\
+The COCOMO technique can be differed into the basis, intermediate and detailed model. These represent the detail level of the cost estimation.\\
+The first stage is also called basis estimation and is a rough estimation, which estimates the project costs to an early stage of the project. The costs are calculated with an equation without dividing the project into structure or time aspects. The base model is an useful starting point for later estimations.\\
 The second stage adjusts the first estimation to a higher level of detail by differentiating the development stages. It is not a parametric estimation yet, because not all data can be considered.\\
-The detailed variant is the last stage of the estimation and allocate the estimation with fifteen in influence factors \cite{jenny}. These influence factors are divided into four categories. The product attributes inherit the required software reliability, the size of the application database and the complexity of the product. Run-time performance constraints, memory constraints, volatility of the virtual machine environment and the required turnabout time are members of the hardware attributes category. In the personal attributes are the influences analyst capability, software engineering capability. applications experience, virtual machine experience and programming language experience inherited. The last category is the project attributes which are described with the factors use of software tool, application of software engineering methods and required development schedule. Each of the 15 attributes receives a rating on a six-point scale that ranges from 'very low' to 'extra high' and have typical values in range from 0.9 to 1.4 .\\
+The detailed model is the last stage of the estimation and allocate the estimation with fifteen in influence factors \cite{jenny}. These influence factors are divided into four categories. The product attributes inherit the required software reliability, the size of the application database and the complexity of the product. Run-time performance constraints, memory constraints, volatility of the virtual machine environment and the required turnabout time are members of the hardware attributes category. In the personal attributes are the influences analyst capability, software engineering capability. applications experience, virtual machine experience and programming language experience inherited. The last category is the project attributes which are described with the factors use of software tool, application of software engineering methods and required development schedule. Each of the 15 attributes receives a rating on a six-point scale that ranges from 'very low' to 'extra high' and have typical values in range from 0.9 to 1.4 .\\
 
 \subsubsection{Calculation of Implementation Time and Effort}
 
-Because of the differences in each variant of the COCOMO estimation, each variant has its own equation for calculation the costs. Each formula calculates the estimated time of the project in person-month (PM), which are stated by Boehm as 152 working hours resulting in one PM, with 19 working days and eight hour days \cite{boehm}. \\
-The formula for the basic variant calculates the complexity of a project with the KDSI value and the calculation factor of the project which gives the calculated PM as a result. This formula is as follows:
-
+Because of the differences in each model of the COCOMO estimation, each model has its own equation for calculation the costs. Each formula calculates the estimated time of the project in person-month (PM), which are stated by Boehm as 152 working hours resulting in one PM, with 19 working days and eight hour days \cite{boehm}. \\
+The formula for the basic model calculates the complexity of a project with the KDSI value and the calculation factor of the project which gives the calculated PM as a result. This formula is as follows:\\
 \begin{equation}
 PM = Complexity * (KDSI)^{Calculation Factor} \label{cocomo:basic}
 \end{equation}\\
 The KDSI value is the expected amount of code lines in the project and the Calculation Factor is the result of the table \ref{tab:projectclasses}. To figure out the complexity multiplicand the table \ref{cocomo:basicComplexity} describes for each project the suitable solution.\\
+The equation for the intermediate model is the same as for the basic model (\ref{cocomo:basic}). The difference is the changed multiplicand for this model, as described in table \ref{cocomo:intermediateComplexity}.\\
 \begin{table}[h]
 	\centering 
 	\setlength{\tabcolsep}{4pt}
@@ -247,8 +247,7 @@ The KDSI value is the expected amount of code lines in the project and the Calcu
 	\end{tabular} 
 	\caption{COCOMO complexity multiplicands} 
 	\label{cocomo:basicComplexity} 
-\end{table}\\
-The equation for the intermediate variant is the same as for the basic variant (\ref{cocomo:basic}). The difference is the changed multiplicand for this variant, as described in table \ref{cocomo:intermediateComplexity}.
+\end{table}
 \begin{table}[h]
 	\centering 
 	\setlength{\tabcolsep}{4pt}
@@ -261,7 +260,27 @@ The equation for the intermediate variant is the same as for the basic variant (
 	\caption{COCOMO complexity multiplicands} 
 	\label{cocomo:intermediateComplexity} 
 \end{table}\\
-
+The detailed model is an extension of the intermediate model that adds effort multipliers for each phase of the project to determine the cost drivers impact on each step. The effort is calculated as function of program size and a set of cost drivers given according to each phase of software life cycle. For an equation it is necessary to multiply all cost drivers \textbf{\(C_i\)} together, as described in the following formula:\\
+\begin{equation}
+C = C_1 \dots C_k \label{cocomo:detailedcostdrivers}
+\end{equation}\\
+The result of this equation multiplied with the PM from the intermediate model results in time for development (TDEV) with the following equation:\\
+\begin{equation}
+TDEV = C * (KDSI)^{Calculation Factor} \label{cocomo:detailed}
+\end{equation}\\
+To figure out the complexity multiplicand for the detailed model, the table \ref{cocomo:detailedComplexity} describes for each project the suitable calculation factor.\\
+\begin{table}[h]
+	\centering 
+	\setlength{\tabcolsep}{4pt}
+	\begin{tabular}{|l||c|}\hline
+		Complexity	& Multiplicand\\ \hline\hline
+		Small Project   	& 0.38        		\\ \hline
+		Medium Project 		& 0.35        		\\ \hline
+		Complex Project 	& 0.43 			\\ \hline
+	\end{tabular} 
+	\caption{COCOMO complexity multiplicands for detailed models} 
+	\label{cocomo:detailedComplexity} 
+\end{table}
 \subsection{Comparison}
 
 adsf

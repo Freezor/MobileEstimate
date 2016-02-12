@@ -2,31 +2,31 @@
 \contentsline {chapter}{\numberline {2}Theoretical Background}{3}{chapter.2}
 \contentsline {section}{\numberline {2.1}Cost estimation in software engineering}{3}{section.2.1}
 \contentsline {subsection}{\numberline {2.1.1}Estimation Process}{4}{subsection.2.1.1}
-\contentsline {subsection}{\numberline {2.1.2}Difficulty of estimations}{6}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.2}Difficulty of estimations}{5}{subsection.2.1.2}
 \contentsline {subsection}{\numberline {2.1.3}Methods for estimation}{6}{subsection.2.1.3}
 \contentsline {subsubsection}{Algorithmic Method}{6}{section*.5}
 \contentsline {subsubsection}{Comparative Method}{7}{section*.6}
 \contentsline {subsubsection}{Key Figures Method}{7}{section*.7}
 \contentsline {subsubsection}{Expert Discussion Method}{7}{section*.8}
-\contentsline {section}{\numberline {2.2}Estimation Techniques}{8}{section.2.2}
+\contentsline {section}{\numberline {2.2}Estimation Techniques}{7}{section.2.2}
 \contentsline {subsection}{\numberline {2.2.1}Function Point}{8}{subsection.2.2.1}
-\contentsline {subsubsection}{Determining the Components}{9}{section*.9}
+\contentsline {subsubsection}{Determining the Components}{8}{section*.9}
 \contentsline {subsubsection}{Evaluation of the Components}{9}{section*.10}
-\contentsline {subsubsection}{ Calculating the amount of Function-Points}{10}{section*.11}
+\contentsline {subsubsection}{ Calculating the amount of Function-Points}{9}{section*.11}
 \contentsline {subsubsection}{ Classification of Influence Factors}{10}{section*.12}
 \contentsline {subsubsection}{Calculation of the Function Points}{11}{section*.13}
-\contentsline {subsection}{\numberline {2.2.2}COCOMO}{12}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.2}COCOMO}{11}{subsection.2.2.2}
 \contentsline {subsubsection}{Project Classes}{12}{section*.14}
-\contentsline {subsubsection}{Model Variants}{12}{section*.15}
+\contentsline {subsubsection}{Model Variants}{13}{section*.15}
 \contentsline {subsubsection}{Calculation of Implementation Time and Effort}{13}{section*.16}
 \contentsline {subsection}{\numberline {2.2.3}Comparison}{14}{subsection.2.2.3}
-\contentsline {section}{\numberline {2.3}State of the art}{14}{section.2.3}
+\contentsline {section}{\numberline {2.3}State of the art}{15}{section.2.3}
 \contentsline {subsection}{\numberline {2.3.1}The market}{15}{subsection.2.3.1}
 \contentsline {subsection}{\numberline {2.3.2}SEER - Cost Estimation Software}{15}{subsection.2.3.2}
 \contentsline {subsection}{\numberline {2.3.3}PRICE - Cost Estimation Software}{16}{subsection.2.3.3}
-\contentsline {subsection}{\numberline {2.3.4}SLIM Estimate}{16}{subsection.2.3.4}
+\contentsline {subsection}{\numberline {2.3.4}SLIM Estimate}{17}{subsection.2.3.4}
 \contentsline {subsection}{\numberline {2.3.5}Kinvey}{17}{subsection.2.3.5}
-\contentsline {subsection}{\numberline {2.3.6}Commonalities}{17}{subsection.2.3.6}
+\contentsline {subsection}{\numberline {2.3.6}Commonalities}{18}{subsection.2.3.6}
 \contentsline {chapter}{\numberline {3}Application concept}{19}{chapter.3}
 \contentsline {section}{\numberline {3.1}Project planning}{19}{section.3.1}
 \contentsline {subsection}{\numberline {3.1.1}Objectives}{19}{subsection.3.1.1}
