@@ -29,42 +29,42 @@
 \contentsline {chapter}{\numberline {3}Application concept}{19}{chapter.3}
 \contentsline {section}{\numberline {3.1}Project planning}{19}{section.3.1}
 \contentsline {subsection}{\numberline {3.1.1}Objectives}{19}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}Requirements}{19}{subsection.3.1.2}
-\contentsline {subsection}{\numberline {3.1.3}Cost Estimation}{19}{subsection.3.1.3}
-\contentsline {section}{\numberline {3.2}Architecture}{19}{section.3.2}
-\contentsline {section}{\numberline {3.3}Components}{19}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Database Helper}{20}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Influence Factors}{20}{subsection.3.3.2}
-\contentsline {subsection}{\numberline {3.3.3}Projekt Daten}{20}{subsection.3.3.3}
-\contentsline {subsection}{\numberline {3.3.4}Related Project}{20}{subsection.3.3.4}
-\contentsline {subsection}{\numberline {3.3.5}Weitere Features}{20}{subsection.3.3.5}
-\contentsline {section}{\numberline {3.4}Database design}{20}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}Project Database}{20}{subsection.3.4.1}
-\contentsline {subsubsection}{Project Properties}{20}{section*.17}
-\contentsline {subsubsection}{Influence Factors}{20}{section*.18}
-\contentsline {subsubsection}{Projects}{20}{section*.19}
-\contentsline {subsection}{\numberline {3.4.2}Userinformation Database}{21}{subsection.3.4.2}
-\contentsline {section}{\numberline {3.5}User Interface}{21}{section.3.5}
-\contentsline {subsection}{\numberline {3.5.1}Projects Overview}{21}{subsection.3.5.1}
-\contentsline {subsection}{\numberline {3.5.2}Project Creation}{21}{subsection.3.5.2}
-\contentsline {subsection}{\numberline {3.5.3}Estimate Function Point Project}{21}{subsection.3.5.3}
-\contentsline {subsection}{\numberline {3.5.4}Influence Factors}{21}{subsection.3.5.4}
-\contentsline {subsection}{\numberline {3.5.5}Analysis}{21}{subsection.3.5.5}
-\contentsline {section}{\numberline {3.6}Adjusted Estimation Process}{21}{section.3.6}
-\contentsline {chapter}{\numberline {4}Implementation}{22}{chapter.4}
-\contentsline {section}{\numberline {4.1}Project Structure}{22}{section.4.1}
-\contentsline {section}{\numberline {4.2}Use of an exisiting Database in Android}{22}{section.4.2}
-\contentsline {section}{\numberline {4.3}The Database Helper}{22}{section.4.3}
-\contentsline {section}{\numberline {4.4}Using multilingual Strings with the Databse and Resource Files}{22}{section.4.4}
-\contentsline {section}{\numberline {4.5}Calculate Person Days}{22}{section.4.5}
-\contentsline {section}{\numberline {4.6}Find related Projects}{22}{section.4.6}
-\contentsline {section}{\numberline {4.7}ListView Elements and ViewHolder}{22}{section.4.7}
-\contentsline {chapter}{\numberline {5}Software Test}{23}{chapter.5}
-\contentsline {section}{\numberline {5.1}Test Cases}{23}{section.5.1}
-\contentsline {section}{\numberline {5.2}User Review}{23}{section.5.2}
-\contentsline {chapter}{\numberline {6}Conclusion}{24}{chapter.6}
-\contentsline {section}{\numberline {6.1}Results}{24}{section.6.1}
-\contentsline {section}{\numberline {6.2}Retrospection}{24}{section.6.2}
-\contentsline {section}{\numberline {6.3}Outlook}{24}{section.6.3}
-\contentsline {chapter}{References}{25}{chapter*.20}
-\contentsline {chapter}{Erkl\IeC {\"a}rung der Kandidatin / des Kandidaten}{27}{appendix.A}
+\contentsline {subsection}{\numberline {3.1.2}Requirements}{20}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Cost Estimation}{20}{subsection.3.1.3}
+\contentsline {section}{\numberline {3.2}Architecture}{22}{section.3.2}
+\contentsline {section}{\numberline {3.3}Components}{22}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Database Helper}{23}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Influence Factors}{23}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}Projekt Daten}{23}{subsection.3.3.3}
+\contentsline {subsection}{\numberline {3.3.4}Related Project}{23}{subsection.3.3.4}
+\contentsline {subsection}{\numberline {3.3.5}Weitere Features}{23}{subsection.3.3.5}
+\contentsline {section}{\numberline {3.4}Database design}{23}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Project Database}{23}{subsection.3.4.1}
+\contentsline {subsubsection}{Project Properties}{23}{section*.17}
+\contentsline {subsubsection}{Influence Factors}{23}{section*.18}
+\contentsline {subsubsection}{Projects}{23}{section*.19}
+\contentsline {subsection}{\numberline {3.4.2}Userinformation Database}{24}{subsection.3.4.2}
+\contentsline {section}{\numberline {3.5}User Interface}{24}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}Projects Overview}{24}{subsection.3.5.1}
+\contentsline {subsection}{\numberline {3.5.2}Project Creation}{24}{subsection.3.5.2}
+\contentsline {subsection}{\numberline {3.5.3}Estimate Function Point Project}{24}{subsection.3.5.3}
+\contentsline {subsection}{\numberline {3.5.4}Influence Factors}{24}{subsection.3.5.4}
+\contentsline {subsection}{\numberline {3.5.5}Analysis}{24}{subsection.3.5.5}
+\contentsline {section}{\numberline {3.6}Adjusted Estimation Process}{24}{section.3.6}
+\contentsline {chapter}{\numberline {4}Implementation}{26}{chapter.4}
+\contentsline {section}{\numberline {4.1}Project Structure}{26}{section.4.1}
+\contentsline {section}{\numberline {4.2}Use of an exisiting Database in Android}{26}{section.4.2}
+\contentsline {section}{\numberline {4.3}The Database Helper}{26}{section.4.3}
+\contentsline {section}{\numberline {4.4}Using multilingual Strings with the Databse and Resource Files}{26}{section.4.4}
+\contentsline {section}{\numberline {4.5}Calculate Person Days}{26}{section.4.5}
+\contentsline {section}{\numberline {4.6}Find related Projects}{26}{section.4.6}
+\contentsline {section}{\numberline {4.7}ListView Elements and ViewHolder}{26}{section.4.7}
+\contentsline {chapter}{\numberline {5}Software Test}{27}{chapter.5}
+\contentsline {section}{\numberline {5.1}Test Cases}{27}{section.5.1}
+\contentsline {section}{\numberline {5.2}User Review}{27}{section.5.2}
+\contentsline {chapter}{\numberline {6}Conclusion}{28}{chapter.6}
+\contentsline {section}{\numberline {6.1}Results}{28}{section.6.1}
+\contentsline {section}{\numberline {6.2}Retrospection}{28}{section.6.2}
+\contentsline {section}{\numberline {6.3}Outlook}{28}{section.6.3}
+\contentsline {chapter}{References}{29}{chapter*.20}
+\contentsline {chapter}{Erkl\IeC {\"a}rung der Kandidatin / des Kandidaten}{31}{appendix.A}

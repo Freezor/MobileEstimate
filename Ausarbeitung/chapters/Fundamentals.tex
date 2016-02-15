@@ -4,7 +4,7 @@ This chapter describes the fundamentals for the understanding of this paper. The
 
 \section{Cost estimation in software engineering}
 
-The most expensive components of computer systems are software products. While private clients are mostly interested in the final price of a product, business clients of IT companies typically want to know the costs of the software before project launch. As analyzed in the \textit{IT-Trends} study from Capgemini \cite{capgemini} the IT budget of companies is growing up to 10\% every year. Whether developing a new project or standardizing existing software, the project costs are always one of the three key objectives. As human resources is the biggest part of software costs, project managers and especially business clients want to know the estimated spendings and completion time of a project. Most of the estimation methods focus on this aspect and give the result in man days. These estimated days can then be converted into the real costs.
+The most expensive components of computer systems are software products. While private clients are mostly interested in the final price of a product, business clients of IT companies typically want to know the costs of the software before project launch. As analyzed in the \textit{IT-Trends} study from Capgemini \cite{capgemini} the IT budget of companies is growing up to 10\% every year. Whether developing a new project or standardizing existing software, the project costs are always on the main focus by the project management. As human resources is the biggest part of software costs, project managers and especially business clients want to know the estimated spendings and completion time of a project. Most of the estimation methods focus on this aspect and give the result in man days. These estimated days can then be converted into the real costs.
 \\
 Basically the cost estimation in software engineering wants to answer following questions:
 \begin{enumerate}
@@ -12,13 +12,13 @@ Basically the cost estimation in software engineering wants to answer following 
 \item How much days are needed to complete the project?
 \item What is the total cost of the project?
 \end{enumerate}
-While projects are a living thing, the effort may change due to unexpected difficulties. For a precise estimation of the total costs an adjustment cannot be avoided and it can be useful to change the estimation method in a later project phase. This means that the estimation process is not an one-time thing but will change through the project life-time. 
+While projects are a living thing, the effort may change due to unexpected difficulties. For a precise estimation of the total costs an adjustment cannot be avoided and it can be useful to change the estimation method in a later project phase. This means that the estimation process is not an one-time thing but will change through the life-time of a project. 
 
 
 \subsection{Estimation Process}
 
-It is common to create the first cost estimation before the system design, but also for monitoring purposes, milestones or if the client wants an overview of the project. Each time an actual cost estimation is needed the estimation process is executed which is a set of techniques and procedures that are used to derive the software cost estimate. Kathleen Peters described the basic process, as seen in \ref{fig:basicEstimationProcess}, of an estimation as it is common in the industry \cite{estimationProcess}.
-As can bee seen from figure \ref{fig:basicEstimationProcess}, there are seven steps in the estimation process. The first part is to collect the initial requirements which is essential to know what the project is about and evaluate the approximate project size. With an selected estimation method, which are described in section \ref{chapter:estimationmethods}, the evaluated size of the project is then estimated. Afterwards the effort in man-days is calculated from which the cost schedule is created. Data from older projects can be included into the evaluation. In the process step to approve the estimation, it comes to the decision, if the costs are acceptable or if there has to be decided in the range of functions and the re-estimation has to bee started. If the cost estimation is acceptable the development of the product can start or continue.\\
+It is common to create the first cost estimation before the system design, but also for monitoring purposes, milestones or if the client wants an overview of the project. Each time an actual cost estimation is needed the estimation process is executed which is a set of techniques and procedures that are used to derive the software cost estimate. Kathleen Peters described the basic process of an estimation, as seen in figure \ref{fig:basicEstimationProcess}, as it is common in the industry \cite{estimationProcess}.
+As can bee seen from figure \ref{fig:basicEstimationProcess}, there are seven steps in the estimation process. The first part is to collect the initial requirements which is essential to know what the project is about and evaluate the approximate project size. With an selected estimation method, which are described in section \ref{chapter:estimationmethods}, the evaluated size of the project is then estimated. Afterwards the effort in man-days is calculated from which the cost schedule is created. Data from older projects can be included into the cost estimation. In the process step to approve the estimation, it has to be decided, if the costs are acceptable or if range of functions has to be shortened and the re-estimation has to bee started. If the cost estimation is acceptable the development of the product can start or continue.\\
 \begin{figure}[h] 
 	\centering 
 	\includegraphics[width=13cm]{images/estimationProcess.PNG} 
@@ -26,7 +26,7 @@ As can bee seen from figure \ref{fig:basicEstimationProcess}, there are seven st
 	Source: Peters, Kathleen - Software Project Estimation, Page 3  
 	\label{fig:basicEstimationProcess}
 \end{figure}\\
-In this classical view of the estimation process, it will generate four outputs - size (1.), loading (2.), duration (3.) and efforts (4.). The output can be described as following:
+In this classical view of the estimation process there are four outputs generated which can be described as following:
 \begin{enumerate}
 	\item Actual Size - the size of the project as a numerical value to make it comparable.
 	\item Manpower Loading - the amount of personnel that is allocated to the project.
@@ -34,21 +34,23 @@ In this classical view of the estimation process, it will generate four outputs 
 	\item Effort - the amount of effort required to complete the project is usually measured in units as man-days (MD) or person-months (PM).
 \end{enumerate}
 As described before, the estimation process can be triggered at any time in the project to re-estimate the costs. Depending on the project stage another estimation method than used before can be more precise.\\
-The overview shown in \ref{fig:estimationMethodInStage} shows that the SLIM method, for example, is more suitable at the beginning of a project, whereas the ZKP method is more suitable after the system design stage. Most of the estimation methods can be used after the study stage. This is because after the study stage a rough overview of the project size exists. Different estimation methods may also change the evaluation output, which is one of the difficulties of cost estimations.\\
+The overview shown in fig. \ref{fig:estimationMethodInStage} shows that for example the SLIM method, is more suitable at the beginning of a project, whereas the ZKP method is more suitable after the system design stage. Most of the estimation methods can be used after the study stage. This is because a rough overview of the project size exists after the study stage. Different estimation methods may also change the evaluation output, which is one of the difficulties of cost estimations.\\
 \begin{figure}[h] 
 	\centering 
 	\includegraphics[width=13cm]{images/Einsatzzeitpunkte2.PNG} 
 	\caption{- Starting Points of Estimation Methods} 
-	Source: \url{http://winfwiki.wi-fom.de}
+	Source: \url{http://winfwiki.wi-fom.de/index.php/Methoden_und_Verfahren_der_Aufwandsch\%C3\%A4tzung_im_Vergleich}
 	\label{fig:estimationMethodInStage}
 \end{figure}
 
 \subsection{Difficulty of estimations}
 
-One of the problems in estimating costs is that the actual code is only a small part of the project. Beside project planning there are many administrative tasks to do, like coordination of the project or searching and fixing errors. Most estimation methods evaluate the estimated time for the implementation and too little or no time is evaluated for the non implementation tasks. This resolves in an over- or underestimation of the non implementation tasks \cite{itplanung}.\\
-Most project managers rely on their experience from past projects. This is an advantage, but as technology changes fast and new projects inherit new problems there is no prior experience for some parts of the project, what can make experiences from prior projects useless. Because of the unique nature of projects it is common that a new project has big parts where no experience exists. Another difficulty of estimations is the fact that people who are inherited in the project have a more positive outlook and mostly underestimate the costs.
-Also, customers often got a target time for the project, which leads in adjustment of the cost estimation. This leads to budget overrun if the needed resources are not available for the project \cite{winfwiki}.\\
-It is also not guaranteed that the estimated costs are accurate and stay within the budget. An estimation can easily go past their estimated target as new technologies and unexpected difficulties are commonplace. A partial requirements engineering can also cause an inaccurate cost estimation due to unexpected difficulties in the implementation. These this are different methodical approaches possible in which estimation methods can be classified, which is not described here.\\
+One of the problems in estimating costs is that the actual code is only a small part of the project. Beside project planning there are many administrative tasks to do, like coordination of the project or searching and fixing errors. Most estimation methods evaluate the estimated time for the implementation only and too little or no time is evaluated for the non implementation tasks. This resolves in an underestimation of the non implementation tasks or an overestimation if they are predicted as a high value \cite{itplanung}.
+\\
+Most project managers rely on their experience from past projects. This is an advantage, but as technology changes fast and new projects inherit new problems there is no prior experience for some parts of the project. That can make experiences from prior projects useless. Because of the unique nature of projects it is common that a new project has big parts where no experience exists. Another difficulty of estimations is the fact that people who are inherited in the project have a more positive outlook and mostly underestimate the costs.
+Also, customers often got a target time for the project, which leads in adjustment of the cost estimation. This leads to budget overrun if the needed resources are not available for the project \cite{winfwiki}.
+\\
+It is also not guaranteed that the estimated costs are accurate and stay within the budget. An estimation can easily go past their estimated target as new technologies and unexpected difficulties are commonplace. A partial requirements engineering can also cause an inaccurate cost estimation due to unexpected difficulties in the implementation.\\
 
 \subsection{Methods for estimation}\label{chapter:estimationmethods}
 
@@ -58,7 +60,7 @@ All estimation techniques have in common, that only with a combined use of these
 \subsubsection{Algorithmic Method}
 
 The algorithmic method uses a closed formula, which is based on empiric evaluation of already terminated projects or on existing mathematically models. Different forms of this method are the weight and the sampling method, which only differ in their usage.\\
-The accuracy of the estimation depends primarily on the precision of the influence factors \cite{itplanung}. The algorithmic method always connects measurable project sizes, such as lines of code and implementable features, with influencing factors to get the result, represented as required effort in personnel costs. The basic formula, as described by Wieczorrek \cite{itplanung}, for this calculation is:
+The accuracy of the estimation depends primarily on the precision of the influence factors \cite{itplanung}. The algorithmic method always connects measurable project sizes, such as lines of code and implementable features, with influencing factors to get the result, represented as required effort in personnel costs. The basic formula, as described by Wieczorrek \cite{itplanung}:
 
 \begin{equation}
 	Personnel costs = f(result quantity, influencing factors)
@@ -66,17 +68,16 @@ The accuracy of the estimation depends primarily on the precision of the influen
 
 \subsubsection{Comparative Method}
 
-Not based on a formula or numerical connection, the comparative method tries to create a reference between the current project and past projects. Therefor projects from the own company or the same industry sector are analyzed with appropriate comparison methods. This estimation method has the advantage, that it can be used early in project development \cite{itplanung}. This method can be used for hardware and software projects.
+Not based on a formula or numerical connection, the comparative method tries to create a reference between the current project and past projects. Therefore projects from the own company or the same industry sector are analyzed with appropriate comparison methods. This estimation method has the advantage, that it can be used early in project development \cite{itplanung}. This method can be used for hardware and software projects.
 
 \subsubsection{Key Figures Method}
 
 Estimation methods based on key figures can be differed to multiplier and percentage  method. The multiplier method uses units of power as the base to estimate the total expenditure, whereas the percentage method uses the effort of a project stage to estimate the effort for the next stage.\\
-After project completion a post calculation determines the total project costs and the amount of specific types of costs. In order to calculate these costs, they will be divided by the scope of the developed product. This results in new key figures which can be used for new projects by multiplication of the estimated scope with the appropriate key figures.\\
-\cite{itplanung} Regular actualization of the key figures is necessary for right results.\\
+After project completion a post calculation determines the total project costs and the amount of specific types of costs. In order to calculate these costs, they will be divided by the scope of the developed product. This results in new key figures which can be used for new projects by multiplication of the estimated scope with the appropriate key figures. Regular actualization of the key figures is necessary for right results \cite{itplanung}.\\
 
 \subsubsection{Expert Discussion Method}
 
-As a quantitative, heuristic method the expert discussion uses knowledge from selected groups of people. It differentiates between four kinds: single person interview, multiple person interview, Delphi method and assessment meeting.\\
+As a quantitative and heuristic method the expert discussion uses knowledge from selected groups of people. It differentiates between four kinds: single person interview, multiple person interview, Delphi method and assessment meeting.\\
 The advantage of this estimation method is, that they are useful for all project types. The problem with the expert discussion is, that this method is strongly affected by subjective opinions and the experience of the interviewees. As a result, expert discussions should never be used for complete projects but only for sub projects \cite{itplanung}.\\
 
 \section{Estimation Techniques}
@@ -99,7 +100,7 @@ This resulted into the idea to turn this calculation over for a preliminary esti
 \end{enumerate}
 The most important part of this technique is that all measurements only include the user view. This means that the user view is focused on that functions that are important for the specific business process. Implemented business processes are the components that have to be determined.
 
-\subsubsection{Determining the Components}
+\subsubsection{Determining the Components}\label{fpcomponents}
 
 To divide the project in components that are useful for the function point estimation, all inherited business processes are divided into elementary process. These are the smallest and from business perspective view useful and closed activities, that can be performed by the system \cite{FPKompakt}. \\
 A distinction is made into five categories:
@@ -180,7 +181,7 @@ With the calculated Function Points (E1) and the Influence Factor multiplier (E3
 	TFP = E1 * E3  \label{fp:TFP}
 \end{equation}\\
 From the regression analysis of previous projects a standard calculation of Function Points per day can be made with the table \ref{tab:pointsperday}.\\
-The project has to be classified with their Total-Function-Points and divided through the appropriate points per day. The result of this calculation are the expected man days for this project.\\
+The project has to be classified with their Total-Function-Points and divided through the appropriate points per day, as described in \ref{tab:pointsperday}. The result of this calculation are the expected man days for this project.\\
 \begin{table}[h] 
 	\centering 
 	\setlength{\tabcolsep}{4pt}
@@ -289,6 +290,7 @@ The similarities between these models are that they both rely on algorithmic met
 None of the techniques is necessarily better or worse than the other, in fact, their strengths and weaknesses are often complimentary to each other. There is no estimation technique that is the 'best fitting' for a project \cite{estimationanalysis}.
 
 \section{Software for Cost Estimations - State of the art}
+\label{sec:stateofart}
 
 A big uncertainty in cost estimations is an actual problem of the cost estimations. Stake holders and project managers don't trust the estimation output and calculate a surcharge on all estimations. In a range from 5\% up to 50\%, in big projects, this uncertainty factor is added on the estimated costs for a project \cite{fischer}. That is because many large projects are stopped due to budget overrun or incomplete requirements \cite{chaos}, which results in insecurities on the cost estimation output.\\  
 Whereas the cost estimation is possible as paper work, there are several software products that allow cost estimation. Those software products are developed by big companies and are all existing since several years.\\
@@ -299,7 +301,7 @@ There are three cost estimation tools that are mostly referred to, those tools a
 
 The 'Seer - Cost Estimation Software' is developed by Galorath Inc. in Los Angeles, USA. Galorath Inc. offers Consulting and Software for Cost Estimation, Decision Support and Project Management. The company was founded in 1979 with the goal to improve the software and hardware development process in the industry. The next step was to improve their consulting quality by developing their own tools for this process. Seer is the name of their tool set whit a large variety of how the different tools support the development process of new products.
 \\
-Seer for Software is an estimation application for 'estimating, planning, analyzing and managing complex software projects' (\url{galorath.com/products/software/SEER-Software-Cost-Estimation}). Based on the SEER design principles the software contains an annotated and guided interface for defining projects, a parametric simulation engine and numerous standard and custom reporting options. Due to an open architecture API the SEER application can be integrated with enterprise applications and departmental productivity solutions. Galorath specifies that all estimations within this software are repeatable and consistent.
+Seer for Software is an estimation application for 'estimating, planning, analyzing and managing complex software projects'\footnote{\url{galorath.com/products/software/SEER-Software-Cost-Estimation}}. Based on the SEER design principles the software contains an annotated and guided interface for defining projects, a parametric simulation engine and numerous standard and custom reporting options. Due to an open architecture API the SEER application can be integrated with enterprise applications and departmental productivity solutions. Galorath specifies that all estimations within this software are repeatable and consistent.
 \\
 According to the software description, 'a high-level software estimate can be developed in a matter of minutes using SEER´s intuitive, window-based interface' \cite{pricesystems}. To start a new estimation a dialog guides the user through the process. In the first screen the user has to set project name and decides whether he creates an empty project or starts with a scenario. The scenarios are example projects with some data for starting the estimation. In the next step the user choose the estimation method he wants to use for this project. The estimation methods are subdivided in functional, lines and sizing scale. Another feature of the software is the documentation and export function. All estimations can be exported to Microsoft Project, Microsoft Office, IBM Rational or other third-party software. SEER delivers a huge variety of estimation methods, guided processes and many possibilities for documentation and reporting of all estimations.
 \\
@@ -317,7 +319,7 @@ There are not given any details about the cost of the software or licensing whic
 
 \subsection{SLIM Estimate}
 
-SLIM Estimate is a cost estimating software developed by Quantity Software Management (QSM), an estimation company with their head office in McLean, USA (\url{http://qsma.com/slim-estimate}). QSM was founded in 1978 as a software management consultant company for measure, estimate and control projects. Beside their consulting business segment they develop the SLIM Software which contains software for controlling, metrics and estimation.
+SLIM Estimate is a cost estimating software developed by Quantity Software Management\footnote{\url{http://qsma.com/slim-estimate}} (QSM), an estimation company with their head office in McLean, USA. QSM was founded in 1978 as a software management consultant company for measure, estimate and control projects. Beside their consulting business segment they develop the SLIM Software which contains software for controlling, metrics and estimation.
 \\
 The SLIM Estimate software provides a flexible cost estimation which align the estimation to the project size and new technologies. The estimation will hereby in the curse of the project enhanced. Integrated schedules offer simple exports of an existing calculation. The software can suggest alternate solutions calculated on past projects.
 \\

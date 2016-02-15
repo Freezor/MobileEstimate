@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/W32TeX) (preloaded format=pdflatex 2016.2.2)  12 FEB 2016 18:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/W32TeX) (preloaded format=pdflatex 2016.2.2)  15 FEB 2016 20:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1123,27 +1123,27 @@ File: images/Einsatzzeitpunkte2.PNG Graphic file (type png)
 Package pdftex.def Info: images/Einsatzzeitpunkte2.PNG used on input line 40.
 (pdftex.def)             Requested size: 369.88582pt x 236.09798pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 48--52
+Underfull \hbox (badness 10000) in paragraph at lines 48--54
 
  []
 
 [5 <./images/Einsatzzeitpunkte2.PNG>]
-Underfull \hbox (badness 10000) in paragraph at lines 55--57
+Underfull \hbox (badness 10000) in paragraph at lines 57--59
 
  []
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 73--76
+Underfull \hbox (badness 10000) in paragraph at lines 75--77
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 79--81
+Underfull \hbox (badness 10000) in paragraph at lines 80--82
 
  []
 
 [7] [8]
-Underfull \hbox (badness 10000) in paragraph at lines 123--139
+Underfull \hbox (badness 10000) in paragraph at lines 124--140
 
  []
 
@@ -1151,7 +1151,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 123--139
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 152--154
+Underfull \hbox (badness 10000) in paragraph at lines 153--155
 
  []
 
@@ -1160,7 +1160,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 152--154
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [11]
-Underfull \hbox (badness 2913) in paragraph at lines 216--216
+Underfull \hbox (badness 2913) in paragraph at lines 217--217
 \OT1/cmr/m/n/12 ex-pe-ri-ences in sub-jec-tions are
  []
 
@@ -1168,7 +1168,7 @@ Underfull \hbox (badness 2913) in paragraph at lines 216--216
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 225--229
+Underfull \hbox (badness 10000) in paragraph at lines 226--230
 
  []
 
@@ -1177,40 +1177,151 @@ Underfull \hbox (badness 10000) in paragraph at lines 225--229
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [14]
-Underfull \hbox (badness 10000) in paragraph at lines 293--297
+Underfull \hbox (badness 10000) in paragraph at lines 295--299
 
  []
 
 [15] [16] [17]) (./chapters/Concept.tex [18]
 Chapter 3.
+
+Underfull \hbox (badness 10000) in paragraph at lines 14--20
+
+ []
+
 [19
 
 
 ]
-Overfull \hbox (2.47531pt too wide) in paragraph at lines 73--74
+Overfull \hbox (19.92079pt too wide) in paragraph at lines 24--36
+ [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 42--44
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 51--52
+[]|\OT1/cmr/m/n/12 Create Project: Project
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 60--61
+[]|\OT1/cmr/m/n/12 Create Project: Load
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 66--67
+[]|\OT1/cmr/m/n/12 Create Project: Project
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 69--70
+[]|\OT1/cmr/m/n/12 Create Project: Project
+ []
+
+
+Underfull \hbox (badness 5231) in paragraph at lines 72--73
+[]|\OT1/cmr/m/n/12 Create Project: De-vel-op-
+ []
+
+
+Underfull \hbox (badness 5231) in paragraph at lines 75--76
+[]|\OT1/cmr/m/n/12 Create Project: De-vel-op-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 78--79
+[]|\OT1/cmr/m/n/12 Create Project: Pro-cess
+ []
+
+
+Underfull \hbox (badness 2245) in paragraph at lines 81--82
+[]|\OT1/cmr/m/n/12 Create Project: Pro-gram-
+ []
+
+
+Underfull \hbox (badness 6461) in paragraph at lines 87--88
+[]|\OT1/cmr/m/n/12 Create Project: In-dus-try
+ []
+
+
+Underfull \hbox (badness 3271) in paragraph at lines 90--91
+[]|\OT1/cmr/m/n/12 Create Project: Ar-chi-tec-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 93--94
+[]|\OT1/cmr/m/n/12 Create Project: Project
+ []
+
+
+Underfull \hbox (badness 1237) in paragraph at lines 99--100
+[]|\OT1/cmr/m/n/12 Create Project: List Cre-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 102--103
+[]|\OT1/cmr/m/n/12 Create Project: Long
+ []
+
+
+Underfull \hbox (badness 4556) in paragraph at lines 111--112
+[]|\OT1/cmr/m/n/12 Create Project: Prop-erty
+ []
+
+
+Overfull \hbox (34.35684pt too wide) in paragraph at lines 48--115
+ [][] 
+ []
+
+
+LaTeX Warning: Float too large for page by 5.646pt on input line 117.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<images/ScreenOverviewProject.PNG, id=466, 614.295pt x 548.0475pt>
+File: images/ScreenOverviewProject.PNG Graphic file (type png)
+
+<use images/ScreenOverviewProject.PNG>
+Package pdftex.def Info: images/ScreenOverviewProject.PNG used on input line 12
+7.
+(pdftex.def)             Requested size: 398.33858pt x 355.38203pt.
+ [20] [21 <./images/ScreenOverviewProject.PNG>] <images/mobileestimatEstimation
+.PNG, id=484, 726.46407pt x 593.21625pt>
+File: images/mobileestimatEstimation.PNG Graphic file (type png)
+
+<use images/mobileestimatEstimation.PNG>
+Package pdftex.def Info: images/mobileestimatEstimation.PNG used on input line 
+139.
+(pdftex.def)             Requested size: 398.33858pt x 325.2833pt.
+ [22 <./images/mobileestimatEstimation.PNG>]
+Overfull \hbox (2.47531pt too wide) in paragraph at lines 191--192
 \OT1/cmr/m/n/12 Wie sind Pro-jekte gespe-ichert, Aufteilung in Pro-jekt, Pro-je
 k-t-de-tails und zugeh^^?orige
  []
 
 
-Overfull \hbox (7.63635pt too wide) in paragraph at lines 77--78
+Overfull \hbox (7.63635pt too wide) in paragraph at lines 195--196
 \OT1/cmr/m/n/12 Datenbank f^^?ur Sp^^?atere Syn-chro-ni-sa-tion und User-in-for
 -ma-tio-nen vom Server, Konzept
  []
 
-[20]) (./chapters/Implementation.tex [21]
+[23]) (./chapters/Implementation.tex [24] [25]
 Chapter 4.
-) (./chapters/Softwaretest.tex [22
+) (./chapters/Softwaretest.tex [26
 
 
 ]
 Chapter 5.
-) (./chapters/Conclusion.tex [23
+) (./chapters/Conclusion.tex [27
 
 
 ]
 Chapter 6.
-) [24
+) [28
 
 
 ] (./vorlage.bbl
@@ -1231,7 +1342,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 71--75
 ls % 20of %
  []
 
-[25
+[29
 
 
 
@@ -1274,7 +1385,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 147--151
 
 )
 No file vorlage.ind.
-[26pdfTeX warning (ext4): destination with the same identifier (name{cite.price
+[30pdfTeX warning (ext4): destination with the same identifier (name{cite.price
 systems}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
@@ -1294,7 +1405,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 6--7
 
  []
 
-) [27
+) [31
 
 
 
@@ -1317,10 +1428,10 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 144.
 ### simple group (level 1) entered at line 1061 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 11150 strings out of 493042
- 157891 string characters out of 6138228
- 294126 words of memory out of 5000000
- 14304 multiletter control sequences out of 15000+600000
+ 11178 strings out of 493042
+ 158503 string characters out of 6138228
+ 302587 words of memory out of 5000000
+ 14320 multiletter control sequences out of 15000+600000
  13314 words of font info for 51 fonts, out of 8000000 for 9000
  1148 hyphenation exceptions out of 8191
  29i,10n,32p,1114b,3361s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1340,10 +1451,10 @@ nts/type1/public/amsfonts/cm/cmtt12.pfb><c:/texlive/2015/texmf-dist/fonts/type1
 /public/amsfonts/cm/cmtt9.pfb><c:/texlive/2015/texmf-dist/fonts/type1/public/am
 sfonts/symbols/msam10.pfb><c:/texlive/2015/texmf-dist/fonts/type1/public/cm-sup
 er/sfrm1200.pfb>
-Output written on vorlage.pdf (31 pages, 685539 bytes).
+Output written on vorlage.pdf (35 pages, 766584 bytes).
 PDF statistics:
- 618 PDF objects out of 1000 (max. 8388607)
- 544 compressed objects within 6 object streams
- 178 named destinations out of 1000 (max. 500000)
- 248 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 664 PDF objects out of 1000 (max. 8388607)
+ 582 compressed objects within 6 object streams
+ 188 named destinations out of 1000 (max. 500000)
+ 258 words of extra memory for PDF output out of 10000 (max. 10000000)
 
