@@ -78,19 +78,20 @@ After project completion a post calculation determines the total project costs a
 \subsubsection{Expert Discussion Method}
 
 As a quantitative and heuristic method the expert discussion uses knowledge from selected groups of people. It differentiates between four kinds: single person interview, multiple person interview, Delphi method and assessment meeting.\\
-The advantage of this estimation method is, that they are useful for all project types. The problem with the expert discussion is, that this method is strongly affected by subjective opinions and the experience of the interviewees. As a result, expert discussions should never be used for complete projects but only for sub projects \cite{itplanung}.\\
+The advantage of this estimation method is, that they are useful for all project types. But they have the risk of a strongly affection by subjective opinions and the experience of the interviewees. As a result, expert discussions should never be used for complete projects but only for sub projects \cite{itplanung}.\\
 
 \section{Estimation Techniques}
 
 The existing estimation techniques rely on experience-based judgments by project managers
-who created, by combining estimation methods, techniques can be used to estimate the effort of a project. Most of the estimation techniques became popular in the 80's, with the agile projects becoming more popular estimation techniques for these project types are rising. \\
-Because of the fundamental uniqueness nature of projects an 'universal, everywhere applicable and always delivering the correct estimation' technique does not exist, according to Litke \cite{litke}. There is also no clear selection progress for the estimation technique to use, beside the time aspect when the use of a technique is possible. As shown in figure \ref{fig:estimationMethodInStage}, the function point and the COCOMO technique are both possible after the study stage. As a comparative method, the function point technique has not much in common with COCOMO, which is an algorithmic technique. The project manager has to balance the weigh of each technique and probably choose that one he has most experience with. As an example for estimation techniques these will be described here in more detail with a comparison at the end.
+who created, by combining estimation methods, techniques that can be used to estimate the effort of a project. Most of the estimation techniques became popular in the 80's. With the agile projects becoming more popular estimation techniques for these project types are rising. \\
+Because of the fundamental uniqueness nature of projects an 'universal, everywhere applicable and always delivering the correct estimation' technique does not exist, according to Litke \cite{litke}. There is also no clear selection progress for the estimation technique to use, beside the time aspect when the use of a technique is available. As shown in figure \ref{fig:estimationMethodInStage}, the function point and the COCOMO technique are both possible after the study stage. As a comparative method, the function point technique has not much in common with COCOMO, which is an algorithmic technique. The project manager has to balance the weigh of each technique and probably choose that one he has most experience with. As an example for estimation techniques these will be described here in more detail with a comparison at the end.
 
 
 \subsection{Function Point} \label{FPMethod}
 
-The Function Point technique was first mentioned by Allan J. Albrecht in 1979 at the IBM symposium \cite{albrecht}. There it was declared that an useful measurement of productivity is only possible in relation to the functionality that is visible to the user. This measured productivity needs to be independent of the used technology and is calculated in with the proportion of project effort and the allocated function points.\\
-This resulted into the idea to turn this calculation over for a preliminary estimation of the effort the project would have. Because of to the clarity and flexibility the technique spread fast. It helps to estimate the scope of a project to an early stage and is suitable for benchmarking in the own company as well as on national or international level \cite{FPKompakt}. It contains algorithmic and also comparative methods. Basically, this technique uses five steps for estimation \cite{jenny}:
+The Function Point technique was first mentioned by Allan J. Albrecht in 1979 at the IBM symposium \cite{albrecht}. He declared that an useful measurement of productivity is only possible in relation to the functionality that is visible to the user. This measured productivity needs to be independent of the used technology and is calculated with the proportion of project effort and the allocated function points.\\
+This resulted in the idea to turn over this calculation for a preliminary estimation of the effort the project would have. Because of the clarity and the flexibility the technique spread fast. \\
+It helps to estimate the scope of a project to an early stage and is suitable for benchmarking in the own company as well as on national or international level \cite{FPKompakt}. It contains algorithmic and also comparative methods. Basically, this technique uses five steps for estimation \cite{jenny}:
 \begin{enumerate}
 	\item Determining the components
 	\item Evaluation of the components
@@ -98,12 +99,11 @@ This resulted into the idea to turn this calculation over for a preliminary esti
 	\item Categorization of the influence factors
 	\item Calculating the development effort with the function points and influence factors
 \end{enumerate}
-The most important part of this technique is that all measurements only include the user view. This means that the user view is focused on that functions that are important for the specific business process. Implemented business processes are the components that have to be determined.
+The most important part of this technique is that all measurements only include the user view. This means that the users view is focused on that functions that are important for the specific business process. Implemented business processes are the components that have to be determined.
 
 \subsubsection{Determining the Components}\label{fpcomponents}
 
-To divide the project in components that are useful for the function point estimation, all inherited business processes are divided into elementary process. These are the smallest and from business perspective view useful and closed activities, that can be performed by the system \cite{FPKompakt}. \\
-A distinction is made into five categories:
+To divide the project in useful components, all inherited business processes are divided into elementary process. These are the smallest and from business perspective view useful and closed activities, that can be performed by the system \cite{FPKompakt}. It is useful to categorize the components, because a change in the datasets is followed by more effort than changing a request \cite{itplanung}. This distinction is made into five categories:\\
 \begin{enumerate}
 	\item Input Data
 	\item Output Data
@@ -111,13 +111,12 @@ A distinction is made into five categories:
 	\item Dataset
 	\item Reference Data
 \end{enumerate}
-It is useful to categorize the components, because a change in the datasets is followed by more effort than changing a request \cite{itplanung}.\\
 The \textit{Input Data}, sometimes called \textit{External Inputs} (EI), is an elementary process in which data crosses the boundary from the outside of the application to the inside. This data comes from a data input screen or another application. To maintain one or more logical files, this data can be used for or to control business informations.\\
 \textit{External Outputs} (EO), or Output Data, are an elementary process in which derived data passes across the boundary from the inside to the outside. Created output files or reports are sent to other applications. These are created from one or more internal logical files and external interface files.\\
 Internal \textit{Logical Files} (ILF’s) or Dataset are an user identifiable group of logically related data that resides entirely within the applications boundary and is maintained through external inputs.\\
 The next category are requests or \textit{External Inquiry} (EQ) or Request. An elementary process with both input and output components that result in data retrieval from one or more internal logical files and external interface files. This process does not update any Internal Logical files, and the output side does not contain derived data.\\
 The last category is the \textit{Reference Data} or \textit{External Interface Files} (EIF), which are a user identifiable group of logically related data that is used for reference purposes only. This data resides entirely outside of the application and is maintained by another application \cite{fpafundamentals}.\\
-After the categorization of the components there are for each category an amount of components, which then have to weighted for further evaluation.
+The result of the categorization is an amount of components for each category. This categories must then be evaluated.
 
 \subsubsection{Evaluation of the Components}
 
@@ -126,8 +125,8 @@ The following table is described by Wieczorrek and are standard values for the f
 \begin{table}[h] 
 	\centering 
 	\setlength{\tabcolsep}{4pt}
-	\begin{tabular}{|l||c|c|c|}\hline
-		Category & simple & medium & complex \\ \hline\hline
+	\begin{tabular}{|l|c|c|c|}\hline
+		Category & simple & medium & complex \\ \hline
 		Input Data & 3 & 4 & 6\\ \hline
 		Output Data & 4 & 5 & 7\\ \hline
 		Request & 3 & 4 & 6\\ \hline
@@ -143,50 +142,50 @@ The following table is described by Wieczorrek and are standard values for the f
 After the evaluation there is an amount of components for each of the categories from above. To get the number of function points each category has to be multiplied according to the selected weigh and all categories are summed. This results in the following equation:
 
 \begin{equation}
-	E1 =  \sum \limits_{1}^n  (Function * Difficulty) \label{fp:E1}
+	\textit{E1} =  \sum \limits_{1}^n  (\textit{Function} \cdot \textit{Difficulty}) \label{fp:E1}
 \end{equation}
 
-Function is the respective category and difficulty is the weigh from table \ref{tab:pointvalues}. The resulted value E1 is necessary for evaluating the estimated points with the influence factor.
+\textit{Function} is the respective category and \textit{Difficulty} is the weigh from table \ref{tab:pointvalues}. The resulted value E1 is necessary for evaluating the estimated points with the influence factor.
 
-\subsubsection{ Classification of Influence Factors}
+\subsubsection{ Classification of Influence Factors}\label{fp:classificationInfluence}
 
-Do get a more realistic estimation, all influences that can affect the project surroundings are measured. For the Function Point estimation there are seven defined influence factors \cite{Softwaremanagement}, which are described below.\\
+Do get a more realistic estimation, all influences that can affect the project surroundings are measured. There are seven defined influence factors \cite{Softwaremanagement}, which are described below.\\
 Each of the influence factor has a value between zero and five which describes how much the factor influences the project.\\
 
 \begin{enumerate}
 	\item \textbf{Integration into other applications}\\The system will work with different applications and will send and receive data from other applications. This states if there is a cooperation with other applications and if the communication exists online or offline.
 	\item \textbf{Local Data Processing}\\This factor describes if the system will work with distributed data. Zero means that the system does not work with other applications and five means that there is an integration into other applications in both ways.
 	\item \textbf{Transaction Rate}\\A high transaction rate affects planing, development, installation and maintenance of the system. It describes how much transactions are to expected with the system.
-	\item \textbf{Processing Logic}\\The processing logic can be divided in 4 subcategories: Arithmetic Operation, Control Procedure, Exception Regulation and Logic. Arithmetic Operation describes the intensity of the operations in the project. The controlling of the results stated within the Control Procedure influence multiplier. With the Exception Regulation it is described how eventual exceptions are treated and the Logic multiplier describes how much effort is to be expected for planning the logical component of the project.
-	\item \textbf{Reusability}\\ How much of the produced software has to be reusable in other projects. A high value in reusability means extra effort in the planning stage for module-based development.
-	\item \textbf{Stock Conversion}\\ This describes how much of the used data need to be transformed for the use within the project. A high value means much input from other applications that has to be transformed into data the application can process.
+	\item \textbf{Processing Logic}\\The processing logic can be divided in 4 subcategories: \textit{Arithmetic Operation}, \textit{Control Procedure}, \textit{Exception Regulation} and \textit{Logic}. Arithmetic Operation describes the intensity of the operations in the project. The controlling of the results is stated within the Control Procedure. The \textit{Exception Regulation} describes how eventual exceptions are treated and the Logic multiplier describes how much effort is to be expected for planning the logical component of the project.
+	\item \textbf{Reusability}\\ How much of the produced software has to be reusable in other projects. A high value means extra effort in the planning stage for module-based development.
+	\item \textbf{Stock Conversion}\\ This describes how much of the used data needs to be transformed for the usage within the project. A high value means, that much input data from other applications have to be transformed into data the application can process.
 	\item \textbf{Facilitate Change}\\ The application was especially planned and developed in such a way that changes can be made easily. A high value means that the user can make changes on the system on its own and that the changes are available immediately.
 \end{enumerate}
 When all influence factors are set, all values for each factor will be summed up to the value E2. 
 
 \begin{equation}
-E2 =  \sum \limits_{1}^n   Influence Factor  \label{fp:E2}
+\textit{E2} =  \sum \limits_{1}^n   \textit{Influence Factor}  \label{fp:E2}
 \end{equation}\\
 This influence factor indicator has then to be transformed to a multiplier that calculable with function points \cite{Softwaremanagement}\cite{fpafundamentals}.  
 
 \begin{equation}
-	E3 =\frac{E2}{100}  + 0,7 \label{fp:E3}
+	\textit{E3} =\frac{\textit{E2}}{100}  + 0,7 \label{fp:E3}
 \end{equation}
 
 \subsubsection{Calculation of the Function Points}
 
-With the calculated Function Points (E1) and the Influence Factor multiplier (E3) are now the total-function-points (TFP) can be calculated with the following formula:
+With the calculated Function Points (E1) and the Influence Factor multiplier (E3) are now the total-function-points (TFP) can now be calculated with the following formula:
 %equation,formula
 \begin{equation}
-	TFP = E1 * E3  \label{fp:TFP}
+	\textit{TFP} = \textit{E1} \cdot \textit{E3}  \label{fp:TFP}
 \end{equation}\\
-From the regression analysis of previous projects a standard calculation of Function Points per day can be made with the table \ref{tab:pointsperday}.\\
-The project has to be classified with their Total-Function-Points and divided through the appropriate points per day, as described in \ref{tab:pointsperday}. The result of this calculation are the expected man days for this project.\\
+From the regression analysis of previous projects a standard calculation of Function Points per day can be made using table \ref{tab:pointsperday}.\\
+The project has to be classified with their Total-Function-Points and divided through the appropriate points per day, as described in \ref{tab:pointsperday}. This results in the expected man days for this project.\\
 \begin{table}[h] 
 	\centering 
 	\setlength{\tabcolsep}{4pt}
-	\begin{tabular}{|l||c|c|}\hline
-		Estimated Size    & Function Points & Points per Day\\ \hline\hline
+	\begin{tabular}{|l|c|c|}\hline
+		Estimated Size    & Function Points & Points per Day\\ \hline
 		Small Project     & till 350        & 18 \\ \hline
 		Mid Small Project & till 650        & 16 \\ \hline
 		Medium Project    & till 1100 		& 14 \\ \hline
@@ -199,8 +198,8 @@ The project has to be classified with their Total-Function-Points and divided th
 
 \subsection{COCOMO} \label{COCOMOMethod}
 
-The Constructive Cost Model (COCOMO) is used when it is not possible to rely on experience. It is based on algorithmic and parametric methods, that merges parameters from software projects. Combining the system size, product properties, project and team factors with the effort for developing the system \cite{jenny}.\\
-As an public domain model it is free to use and is considered to be a classic for algorithmic methods. It is common in many companies and is a technique which is adjusted to the IT development through the years.
+The Constructive Cost Model (COCOMO) is used when it is not possible to rely on experience. It is based on algorithmic and parametric methods that merge parameters from software projects, combining the system size, product properties, project and team factors with the effort for developing the system \cite{jenny}.\\
+As an public domain model it is free to use and is considered to be a classic for algorithmic methods. This technique was adjusted to the IT development through the years and is common in many companies for cost estimation.
 The accuracy of the COCOMO techniques rises with later project stages. The deviation of the cost estimation is at the beginning of the project between \textit{0,25 * MD} and \textit{4 * MD}. In later project stages this variation decrease until it is zero just before the project ending \cite{sommerville}.\\
 The parameters for COCOMO can be split into three parts. The project classes, model variants and the implementation time and effort.
 
@@ -211,8 +210,8 @@ The project classes represent the estimated size of the program itself. These ar
 \begin{table}[h]
 	\centering 
 	\setlength{\tabcolsep}{4pt}
-	\begin{tabular}{|l||c|c|p{6cm}|}\hline
-		Complexity	& Calculation Factor& KDSI 	& Describtion\\ \hline\hline
+	\begin{tabular}{|l|c|c|p{6cm}|}\hline
+		Complexity	& Calculation Factor& KDSI 	& Describtion\\ \hline
 		Small   	& 1.05        		& $<$ 50  			& A small, well-known project team works together, the environment is well-known, there is no big innovation necessary and no pressure due to a deadline.\\ \hline
 		Medium 		& 1.12        		& 50 - 300 			& Employees with average experience, team members with some experiences in subjections are working together.  \\ \hline
 		Complex 	& 1.20 				& $>$ 300 			& High cost and deadline pressure, high innovations and an extensive project. High requirements to the project team and new components.  \\ \hline
@@ -223,122 +222,127 @@ The project classes represent the estimated size of the program itself. These ar
 
 \subsubsection{Model Variants}
 
-The COCOMO technique can be differed into the basis, intermediate and detailed model. These represent the detail level of the cost estimation.\\
+The COCOMO technique can be differed into basis, intermediate and detailed model. These represent the detail level of the cost estimation.\\
 The first stage is also called basis estimation and is a rough estimation, which estimates the project costs to an early stage of the project. The costs are calculated with an equation without dividing the project into structure or time aspects. The base model is an useful starting point for later estimations.\\
 The second stage adjusts the first estimation to a higher level of detail by differentiating the development stages. It is not a parametric estimation yet, because not all data can be considered.\\
-The detailed model is the last stage of the estimation and allocate the estimation with fifteen in influence factors \cite{jenny}. These influence factors are divided into four categories. The product attributes inherit the required software reliability, the size of the application database and the complexity of the product. Run-time performance constraints, memory constraints, volatility of the virtual machine environment and the required turnabout time are members of the hardware attributes category. In the personal attributes are the influences analyst capability, software engineering capability. applications experience, virtual machine experience and programming language experience inherited. The last category is the project attributes which are described with the factors use of software tool, application of software engineering methods and required development schedule. Each of the 15 attributes receives a rating on a six-point scale that ranges from 'very low' to 'extra high' and have typical values in range from 0.9 to 1.4 .\\
+The detailed model is the last stage of the estimation and allocate the estimation with fifteen influence factors \cite{jenny}. These influence factors are divided into four categories.\\
+\begin{enumerate}
+	\item \textbf{Product Attributes}
+	\begin{enumerate}
+		\item \textit{Required Software Reliability}
+		\item \textit{Size of the Application Database}
+		\item \textit{Complexity of the Product}
+	\end{enumerate}
+	\item \textbf{Hardware Attributes}
+	\begin{enumerate}
+		\item \textit{Run-time Performance Constraints}
+		\item \textit{Memory Constraints}
+		\item \textit{Volatility of the Virtual Machine Environment }
+		\item \textit{Required Turnabout Times}
+	\end{enumerate}
+	\item \textbf{Personal Attributes}
+	\begin{enumerate}
+		\item \textit{Influences Analyst Capability}
+		\item \textit{Software Engineering Capability}
+		\item \textit{Applications Experience}
+		\item \textit{Virtual Machine Experience}
+		\item \textit{Programming Language Experience}
+	\end{enumerate}
+	\item \textbf{Project Attributes}
+	\begin{enumerate}
+		\item \textit{Use of Software Tool}
+		\item \textit{Application of Software Engineering Methods}
+		\item \textit{Required Development Schedule}
+	\end{enumerate}
+\end{enumerate}
 
 \subsubsection{Calculation of Implementation Time and Effort}
 
-Because of the differences in each model of the COCOMO estimation, each model has its own equation for calculation the costs. Each formula calculates the estimated time of the project in person-month (PM), which are stated by Boehm as 152 working hours resulting in one PM, with 19 working days and eight hour days \cite{boehm}. \\
+Because of the differences in each model of the COCOMO estimation, each model has its own equation for cost calculation. Each formula calculates the estimated time of the project in person-month (PM), which are stated by Boehm as 152 working hours resulting in one PM, with 19 working days per month and eight hour days \cite{boehm}. \\
 The formula for the basic model calculates the complexity of a project with the KDSI value and the calculation factor of the project which gives the calculated PM as a result. This formula is as follows:\\
 \begin{equation}
-PM = Complexity * (KDSI)^{Calculation Factor} \label{cocomo:basic}
+\textit{PM} = \textit{Complexity} \cdot (\textit{KDSI})^{\textit{Calculation Factor}} \label{cocomo:basic}
 \end{equation}\\
-The KDSI value is the expected amount of code lines in the project and the Calculation Factor is the result of the table \ref{tab:projectclasses}. To figure out the complexity multiplicand the table \ref{cocomo:basicComplexity} describes for each project the suitable solution.\\
-The equation for the intermediate model is the same as for the basic model (\ref{cocomo:basic}) \cite{boehm}. The difference is the changed multiplicand for this model, as described in table \ref{cocomo:intermediateComplexity}.\\
-\begin{table}[h]
-	\centering 
-	\setlength{\tabcolsep}{4pt}
-	\begin{tabular}{|l||c|}\hline
-		Complexity	& Multiplicand\\ \hline\hline
-		Small Project   	& 2.4        		\\ \hline
-		Medium Project 		& 3.0        		\\ \hline
-		Complex Project 	& 3.6 			\\ \hline
-	\end{tabular} 
-	\caption{COCOMO complexity multiplicands for basic models} 
-	\label{cocomo:basicComplexity} 
-\end{table}
-\begin{table}[h]
-	\centering 
-	\setlength{\tabcolsep}{4pt}
-	\begin{tabular}{|l||c|}\hline
-		Complexity	& Multiplicand\\ \hline\hline
-		Small Project   	& 3.2        		\\ \hline
-		Medium Project 		& 3.0        		\\ \hline
-		Complex Project 	& 2.8 			\\ \hline
-	\end{tabular} 
-	\caption{COCOMO complexity multiplicands for intermediate models} 
-	\label{cocomo:intermediateComplexity} 
-\end{table}\\
+The \textit{KDSI} value is the expected amount of code lines in the project. As described in table \ref{tab:projectclasses}, the Calculation Factor is derived from the KDSI value. To figure out the complexity multiplicand table \ref{cocomo:basicComplexity} describes for each project the suitable solution.\\
+The equation for the intermediate model is the same as for the basic model (\ref{cocomo:basic}) \cite{boehm}. The difference is the changed multiplicand for this model, as described in table \ref{cocomo:complexity}.\\
 The detailed model is an extension of the intermediate model that adds effort multipliers for each phase of the project to determine the cost drivers impact on each step. The effort is calculated as function of program size and a set of cost drivers given according to each phase of software life cycle \cite{boehm}. For an equation it is necessary to multiply all cost drivers \textbf{\(C_i\)} together, as described in the following formula:\\
 \begin{equation}
-C = C_1 \dots C_k \label{cocomo:detailedcostdrivers}
+C = \prod \limits_{i=1}^k C_i \label{cocomo:detailedcostdrivers}
 \end{equation}\\
-The result of this equation multiplied with the PM from the intermediate model results in time for development (TDEV) with the following equation \cite{boehm}:\\
+In this formula is \textit{k} the sum of all influence factors with 15 and each $C_i$ represents one of the 15 influence factors. This results in a combined influence factor which can be multiplied with KDSI value to get the total time for development (TDEV). But therefore the KDSI has to be calculated with the complexity factor for the detailed model from table \ref{cocomo:complexity}. This calculation can be described in the following equation \cite{boehm}:\\
 \begin{equation}
-TDEV = C * (KDSI)^{Calculation Factor} \label{cocomo:detailed}
+TDEV = C \cdot (KDSI)^{Calculation Factor} \label{cocomo:detailed}
 \end{equation}\\
-To figure out the complexity multiplicand for the detailed model, the table \ref{cocomo:detailedComplexity} describes for each project the suitable calculation factor \cite{boehm}.\\
+
 \begin{table}[h]
 	\centering 
 	\setlength{\tabcolsep}{4pt}
-	\begin{tabular}{|l||c|}\hline
-		Complexity	& Multiplicand\\ \hline\hline
-		Small Project   	& 0.38        		\\ \hline
-		Medium Project 		& 0.35        		\\ \hline
-		Complex Project 	& 0.43 			\\ \hline
+	\begin{tabular}{|l|c|c|c|}\hline
+		Complexity	&  Basic Model 		&  Intermediate Model	&  Detailed Model\\ \hline
+		Small Project   	& 2.4      	& 3.2  					& 0.38	\\ \hline
+		Medium Project 		& 3.0      	& 3.0  					& 0.35	\\ \hline
+		Complex Project 	& 3.6 		& 2.8					& 0.43\\ \hline
 	\end{tabular} 
-	\caption{COCOMO complexity multiplicands for detailed models} 
-	\label{cocomo:detailedComplexity} 
+	\caption{COCOMO complexity multiplicands} 
+	\label{cocomo:complexity} 
 \end{table}
+
 \subsection{Comparison}
 
-Function Point analysis is useful for all software projects of all sizes, mainly desktop based platforms, which is one of the biggest contrapositions. Whereas COCOMO is used for large corporate and government projects, including embedded firmware. The major source of criticism at COCOMO estimations is that they are inappropriate for small projects and that it is based on the waterfall model. It is recommended for for large and lesser known projects to use COCOMO 2 instead.\\
-ÜBERGANG \\
+The Function Point analysis is useful for software projects of all size, mainly desktop based platforms. This is one of the biggest contrapositions as this technique is not good adaptable for console programs. Instead COCOMO is used for large corporate and government projects, including embedded firmware projects. The major source of criticism at COCOMO estimations is that they are inappropriate for small projects and that it is based on the waterfall model. It is recommended for large and lesser known projects to use COCOMO 2 instead.\\
 The similarities between these models are that they both rely on algorithmic methods, with the difference that COCOMO is a logarithmic type and function point is linear. Both were created in the same time, where the project development cycle relied on linear procedure models and the used programming languages where procedural.\\
 None of the techniques is necessarily better or worse than the other, in fact, their strengths and weaknesses are often complimentary to each other. There is no estimation technique that is the 'best fitting' for a project \cite{estimationanalysis}.
 
 \section{Software for Cost Estimations - State of the art}
 \label{sec:stateofart}
 
-A big uncertainty in cost estimations is an actual problem of the cost estimations. Stake holders and project managers don't trust the estimation output and calculate a surcharge on all estimations. In a range from 5\% up to 50\%, in big projects, this uncertainty factor is added on the estimated costs for a project \cite{fischer}. That is because many large projects are stopped due to budget overrun or incomplete requirements \cite{chaos}, which results in insecurities on the cost estimation output.\\  
-Whereas the cost estimation is possible as paper work, there are several software products that allow cost estimation. Those software products are developed by big companies and are all existing since several years.\\
-As there are many start-up IT companies founded in the last five years, there is no start-up company that develops cost estimation software \cite{dsm}. Also, there is no approach in developing a mobile application for cost estimations. The use of smartphones increased from 2013 to 2014 by 21\% and in the business environment 80\% use a smartphone \cite{faszinationmobile}.\\
-There are three cost estimation tools that are mostly referred to, those tools and an approach for estimating costs for mobile applications are described in this chapter.\\
+The big uncertainty of cost estimations is an actual problem for cost estimations. Stake holders and project managers don't trust the estimation output and calculate a surcharge on all estimations. In big projects this uncertainty factor is from 5\% up to 50\% is added on the estimated costs for a project \cite{fischer}. That is because many large projects are stopped due to budget overrun or incomplete requirements \cite{chaos}, which results in insecurities on the cost estimation output.\\  
+Whereas the cost estimation is possible as paper work, there are several software products that allow it.\\
+As there are many start-up IT companies founded in the last five years, there is no start-up company that develops cost estimation software \cite{dsm}. Also, there is no approach in developing a mobile application for cost estimations. Also the use of smartphones increased from 2013 to 2014 by 21\% and in the business environment 80\% use a smartphone \cite{faszinationmobile}. This opens up good opportunities on the market for the application.\\
+There are three cost estimation tools that are mostly referred to.\\
 
 \subsection{SEER - Cost Estimation Software}
 
-The 'Seer - Cost Estimation Software' is developed by Galorath Inc. in Los Angeles, USA. Galorath Inc. offers Consulting and Software for Cost Estimation, Decision Support and Project Management. The company was founded in 1979 with the goal to improve the software and hardware development process in the industry. The next step was to improve their consulting quality by developing their own tools for this process. Seer is the name of their tool set whit a large variety of how the different tools support the development process of new products.
+The 'Seer - Cost Estimation Software' is developed by Galorath Inc. in Los Angeles, USA. Galorath Inc. offers consulting and software for cost estimation, decision support and project management. The company was founded in 1979 with the goal to improve the software and hardware development process in the industry. The next step was to improve their consulting quality by developing their own tools for this process. \textit{Seer} is the name of their tool set whit a large variety of different tools that support the development process of new products.
 \\
 Seer for Software is an estimation application for 'estimating, planning, analyzing and managing complex software projects'\footnote{\url{galorath.com/products/software/SEER-Software-Cost-Estimation}}. Based on the SEER design principles the software contains an annotated and guided interface for defining projects, a parametric simulation engine and numerous standard and custom reporting options. Due to an open architecture API the SEER application can be integrated with enterprise applications and departmental productivity solutions. Galorath specifies that all estimations within this software are repeatable and consistent.
 \\
-According to the software description, 'a high-level software estimate can be developed in a matter of minutes using SEER´s intuitive, window-based interface' \cite{pricesystems}. To start a new estimation a dialog guides the user through the process. In the first screen the user has to set project name and decides whether he creates an empty project or starts with a scenario. The scenarios are example projects with some data for starting the estimation. In the next step the user choose the estimation method he wants to use for this project. The estimation methods are subdivided in functional, lines and sizing scale. Another feature of the software is the documentation and export function. All estimations can be exported to Microsoft Project, Microsoft Office, IBM Rational or other third-party software. SEER delivers a huge variety of estimation methods, guided processes and many possibilities for documentation and reporting of all estimations.
+According to the software description, 'a high-level software estimate can be developed in a matter of minutes using SEER´s intuitive, window-based interface' \cite{pricesystems}. A dialog guides the user through the process of creating a new estimation. In the first screen the user has to set project name and decides whether he creates an empty project or starts with a scenario. The scenarios are example projects with some data for starting the estimation. In the next step the user chooses the estimation method he wants to use. The estimation methods are subdivided in functional, lines and sizing scale. Another feature of the software is the documentation and export function. All estimations can be exported to Microsoft Project, Microsoft Office, IBM Rational or other third-party software. SEER delivers a huge variety of estimation methods, guided processes and many possibilities for documentation and reporting of all estimations.
 \\
-The software can be bought in an estimator, project manager and studio version. The estimator version inherits only standard estimation whereas the project manager and studio version allow estimation checking and access to the projects database. The studio version allows also independent crosscheck and verification. The price of each software version is nowhere specified but as a business software price is in the high sector.
+The software can be bought in an estimator, project manager and studio version. The estimator version inherits only a standard estimation. The project manager and studio version allow estimation checking and access to the projects database. The studio version allows also independent crosscheck and verification. The price of each software version is nowhere specified on the homepage and must be requested.
 
 \subsection{PRICE - Cost Estimation Software}
 
-PRICE Systems L.L.C. provides agile and accurate estimating solutions. With their head office in Maunt Laurel, USA, and 12 locations worldwide they offer since 1969 estimating acquisitions. Their Software Development Cost Model is one of the oldest and most widely used software parametric models for software development projects. In 2003 PRICE released their Software TruePlanning, which contains methods that estimate the scope, cost, effort and schedule for software projects.
+PRICE Systems L.L.C. provides agile estimating solutions. With their head office in Maunt Laurel, USA, and 12 locations worldwide they offer since 1969 estimating acquisitions\footnote{\url{http://www.pricesystems.com/}}. Their Software Development Cost Model is one of the oldest and most widely used software parametric models for software development projects. In 2003 PRICE released \textit{TruePlanning}, which contains methods that estimate the scope, cost, effort and schedule for software projects.
 \\
 For cost estimation, purchasing efficiency and budget planning PRICE Systems develops 'multi-faceted cost estimating solutions' \cite{pricesystems}. Their biggest project is the PRICE Estimating Systems (ESI) Framework that delivers solutions for estimating projects and cost management. This framework is not specialized for estimating only software projects but also other projects.
 \\
-The integrated approach to Lifecycle Cost Management contains the PRICE Cost Estimation Framework. It is possible to estimate with all current state of the art cost estimations. The collaboration with other users is also possible as well as sharing the results through the program. This allows faster teamwork and a better estimation output. A data driven method for all estimations allows to compare the estimation with already completed projects. True Mapper allows also estimation output to a specific work breakdown structure or cost element structure for accurate top-down and bottom-up estimate comparisons. Mappings can be stored, retrieved, and modified to keep pace even as program activities change. Beyond specific cost estimating products and services, PRICE Systems offers strategic cost management services. They collaborate with estimators, engineers, project managers, and financial and executive management to design and implement integrated cost management systems that meet the unique challenges in the environment.
+The homepage describes that it is possible to estimate projects with all current state of the art cost estimations. The collaboration with other users is also possible as well as sharing the results through the program. This allows faster teamwork and a better estimation output. A data driven method for all estimations allows to compare the estimation with already completed projects. \textit{TruePlanning} allows also estimation output to a specific work breakdown structure or cost element structure for accurate top-down and bottom-up estimate comparisons. Mappings can be stored, retrieved, and modified to keep pace even as program activities change. Beyond specific cost estimating products and services, PRICE Systems offers strategic cost management services. They collaborate with estimators, engineers, project managers, and financial and executive management to design and implement integrated cost management systems that meet the unique challenges in the environment.
 \\
-There are not given any details about the cost of the software or licensing which have to be requested at Price Systems.
+Any details about the cost of the software or licensing have to be requested at \textit{Price Systems}.
 
 \subsection{SLIM Estimate}
 
-SLIM Estimate is a cost estimating software developed by Quantity Software Management\footnote{\url{http://qsma.com/slim-estimate}} (QSM), an estimation company with their head office in McLean, USA. QSM was founded in 1978 as a software management consultant company for measure, estimate and control projects. Beside their consulting business segment they develop the SLIM Software which contains software for controlling, metrics and estimation.
+SLIM Estimate is a cost estimating software developed by Quantity Software Management\footnote{\url{http://qsma.com/slim-estimate}} (QSM), an estimation company with their head office in McLean, USA. QSM was founded in 1978 as a software management consultant company for measurement, estimation and controlling projects. Beside their consulting business segment they develop the SLIM Software which contains software for controlling, metrics and estimation.
 \\
-The SLIM Estimate software provides a flexible cost estimation which align the estimation to the project size and new technologies. The estimation will hereby in the curse of the project enhanced. Integrated schedules offer simple exports of an existing calculation. The software can suggest alternate solutions calculated on past projects.
+The SLIM Estimate software provides a flexible cost estimation which align the estimation to the project size. Integrated schedules offer simple exports of an existing calculation. The software can suggest alternate solutions calculated on past projects.
 \\
-The homepage got not into detail how this suggestion works. For a new estimating the user can use the SLIM Database and the QSMA knowledge. QSMA owns a huge database with past projects and industry standard estimation. This knowledge can be used for new estimations.
+The homepage does not go into detail how this suggestion works. For a new estimation the user can use the SLIM Database and the QSMA database, which can be used for new estimations.
 \\
-For better use in the company the SLIM Estimate inherits interfaces to MS Office and the possibility export estimations as a web representation. SLIM Estimate delivers hereby a great software package with many functionalities. Especially the access to a large database and the knowledge base of QSM is a real added value to the application. As a result, it is possible in new projects to access the experience of past projects and get the benefit from this experience.
+For better use in the company the SLIM Estimate inherits interfaces to MS Office and the possibility export estimations as a web representation. SLIM Estimate delivers hereby a software package with many functionalities. Especially the access to a large database and the knowledge base of QSM is a big plus value to the application. As a result, it is possible to access the experience of past projects and get the benefit from this experience.
 
 
 \subsection{Commonalities}
 
-The described cost estimation tools have all in common, that they inherit different estimation techniques. The user can always decide with which he wants to estimate the project. They are all tools that are on the market for many years and rely on experience from project managers that are in the business for years. Each software has a different approach on the implemented estimation process and collaboration of project estimations. They all have a database with previous cost estimations but with extra costs for accessing it.\\
+All described cost estimation tools have in common, that they inherit different estimation techniques. The user can always decide with which technique he wants to use. They are all tools that are on the market for many years and rely on experience from project managers. Each software has a different approach on the implemented estimation process and collaboration of project estimations. They all have a database with previous cost estimations but with extra costs for accessing it.\\
 The User interface is like in many large software projects more functional and does not contain a modern design. None of them has an approach for developing a mobile application and rely on Microsoft Windows as their OS.
 
 \subsection{Kinvey}
 
-A special software developer is Kinvey from Boston whose main business is the development of apps for business. They don't develop a certain cost estimation tool, but in terms of general cost estimations, the company is still very interesting\footnote{\url{http://www.kinvey.com/mbaas-savings-calculator}}. Since this company's mobile applications are developed individually for companies they need getting a cost estimate.
+A special software developer is Kinvey from Boston whose main business is the development of mobile applications. They don't develop a certain cost estimation tool, but in terms of general cost estimations, the company is still very interesting\footnote{\url{http://www.kinvey.com/mbaas-savings-calculator}}.
 \\
-Kinvey offers an online estimate for mobile applications with the potential customers can estimate the costs for their application. Here, the estimates are on the side of the cost and the length of time indicated by the customer would have to spend at a natural development, as well as the costs incurred for the customer if Kinvey developed the app for the company. The cost of developing through Kinvey here are always cheaper than a proprietary development.
+Kinvey offers an online estimation for mobile applications in which the potential customers can estimate the costs for their application. The estimations show the time the customer would have to spend for development and the costs for development at Kinvey. The cost of developing through Kinvey here are always cheaper than a proprietary development.
 \\
-The cost estimation process is simple. The estimation schedule is a one-page where the user can select the components of his application. The user is guided through some question about features the application should contain. To answer these questions the user can either select one answer or more, which depends on the actual question. After each step the user can see the actual cost estimation of the project.
+The cost estimation process is simple. The estimation schedule is a one-page where the user can select the components of his application. The user is guided through some question about features the application should contain. After each step the user can see the actual cost estimation of the project.
 \\
-The costs are calculated from the selected components in man days. It is possible to adapt in a further overview these cost estimates by hand again. It is not possible to define and add your own components for the estimation. The individual items that the user can choose are sorted by groups and displayed graphically. Estimating the cost of app development can also be used for your own estimates, but there is no way to export this estimation.
+The costs are calculated from the selected components in man days. It is not possible to define and add your own components for the estimation. The individual items that the user can choose are sorted by groups and displayed graphically. Estimating the cost for a mobile application development can also be used for own estimations, but there is no way to export this estimation.
