@@ -36,39 +36,39 @@
 \contentsline {subsection}{\numberline {3.3.1}Database Helper}{24}{subsection.3.3.1}
 \contentsline {subsection}{\numberline {3.3.2}Project Data}{25}{subsection.3.3.2}
 \contentsline {subsubsection}{Project Properties}{26}{section*.17}
-\contentsline {subsubsection}{Estimation Items}{26}{section*.18}
-\contentsline {subsubsection}{Influence Factors}{26}{section*.19}
+\contentsline {subsubsection}{Estimation Items}{27}{section*.18}
+\contentsline {subsubsection}{Influence Factors}{27}{section*.19}
 \contentsline {subsection}{\numberline {3.3.3}Project Relation Solver}{27}{subsection.3.3.3}
-\contentsline {subsection}{\numberline {3.3.4}Project Analyzer}{27}{subsection.3.3.4}
-\contentsline {subsection}{\numberline {3.3.5}Minor Components}{27}{subsection.3.3.5}
-\contentsline {section}{\numberline {3.4}Database design}{27}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}Project Database}{27}{subsection.3.4.1}
-\contentsline {subsubsection}{Project Properties}{28}{section*.23}
-\contentsline {subsubsection}{Influence Factors}{28}{section*.24}
-\contentsline {subsubsection}{Projects}{28}{section*.25}
-\contentsline {subsection}{\numberline {3.4.2}Userinformation Database}{28}{subsection.3.4.2}
-\contentsline {section}{\numberline {3.5}User Interface}{28}{section.3.5}
-\contentsline {subsection}{\numberline {3.5.1}Projects Overview}{28}{subsection.3.5.1}
-\contentsline {subsection}{\numberline {3.5.2}Project Creation}{28}{subsection.3.5.2}
-\contentsline {subsection}{\numberline {3.5.3}Estimate Function Point Project}{28}{subsection.3.5.3}
-\contentsline {subsection}{\numberline {3.5.4}Influence Factors}{28}{subsection.3.5.4}
-\contentsline {subsection}{\numberline {3.5.5}Analysis}{28}{subsection.3.5.5}
-\contentsline {section}{\numberline {3.6}Adjusted Estimation Process}{28}{section.3.6}
-\contentsline {subsection}{\numberline {3.6.1}Continuous Improvement of the Estimation}{28}{subsection.3.6.1}
-\contentsline {chapter}{\numberline {4}Implementation}{29}{chapter.4}
-\contentsline {section}{\numberline {4.1}Project Structure}{29}{section.4.1}
-\contentsline {section}{\numberline {4.2}Use of an exisiting Database in Android}{29}{section.4.2}
-\contentsline {section}{\numberline {4.3}The Database Helper}{29}{section.4.3}
-\contentsline {section}{\numberline {4.4}Using multilingual Strings with the Databse and Resource Files}{29}{section.4.4}
-\contentsline {section}{\numberline {4.5}Calculate Person Days}{29}{section.4.5}
-\contentsline {section}{\numberline {4.6}Find related Projects}{29}{section.4.6}
-\contentsline {section}{\numberline {4.7}ListView Elements and ViewHolder}{29}{section.4.7}
-\contentsline {chapter}{\numberline {5}Software Test}{30}{chapter.5}
-\contentsline {section}{\numberline {5.1}Test Cases}{30}{section.5.1}
-\contentsline {section}{\numberline {5.2}User Review}{30}{section.5.2}
-\contentsline {chapter}{\numberline {6}Conclusion}{31}{chapter.6}
-\contentsline {section}{\numberline {6.1}Results}{31}{section.6.1}
-\contentsline {section}{\numberline {6.2}Retrospection}{31}{section.6.2}
-\contentsline {section}{\numberline {6.3}Outlook}{31}{section.6.3}
-\contentsline {chapter}{References}{32}{chapter*.26}
-\contentsline {chapter}{Erkl\IeC {\"a}rung der Kandidatin / des Kandidaten}{35}{appendix.A}
+\contentsline {subsection}{\numberline {3.3.4}Project Analyzer}{33}{subsection.3.3.4}
+\contentsline {subsection}{\numberline {3.3.5}Minor Components}{33}{subsection.3.3.5}
+\contentsline {section}{\numberline {3.4}Database design}{33}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Project Database}{33}{subsection.3.4.1}
+\contentsline {subsubsection}{Project Properties}{33}{section*.30}
+\contentsline {subsubsection}{Influence Factors}{33}{section*.31}
+\contentsline {subsubsection}{Projects}{33}{section*.32}
+\contentsline {subsection}{\numberline {3.4.2}Userinformation Database}{33}{subsection.3.4.2}
+\contentsline {section}{\numberline {3.5}User Interface}{34}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}Projects Overview}{34}{subsection.3.5.1}
+\contentsline {subsection}{\numberline {3.5.2}Project Creation}{34}{subsection.3.5.2}
+\contentsline {subsection}{\numberline {3.5.3}Estimate Function Point Project}{34}{subsection.3.5.3}
+\contentsline {subsection}{\numberline {3.5.4}Influence Factors}{34}{subsection.3.5.4}
+\contentsline {subsection}{\numberline {3.5.5}Analysis}{34}{subsection.3.5.5}
+\contentsline {section}{\numberline {3.6}Adjusted Estimation Process}{34}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}Continuous Improvement of the Estimation}{34}{subsection.3.6.1}
+\contentsline {chapter}{\numberline {4}Implementation}{35}{chapter.4}
+\contentsline {section}{\numberline {4.1}Project Structure}{35}{section.4.1}
+\contentsline {section}{\numberline {4.2}Use of an exisiting Database in Android}{35}{section.4.2}
+\contentsline {section}{\numberline {4.3}The Database Helper}{35}{section.4.3}
+\contentsline {section}{\numberline {4.4}Using multilingual Strings with the Databse and Resource Files}{35}{section.4.4}
+\contentsline {section}{\numberline {4.5}Calculate Person Days}{35}{section.4.5}
+\contentsline {section}{\numberline {4.6}Find related Projects}{35}{section.4.6}
+\contentsline {section}{\numberline {4.7}ListView Elements and ViewHolder}{35}{section.4.7}
+\contentsline {chapter}{\numberline {5}Software Test}{36}{chapter.5}
+\contentsline {section}{\numberline {5.1}Test Cases}{36}{section.5.1}
+\contentsline {section}{\numberline {5.2}User Review}{36}{section.5.2}
+\contentsline {chapter}{\numberline {6}Conclusion}{37}{chapter.6}
+\contentsline {section}{\numberline {6.1}Results}{37}{section.6.1}
+\contentsline {section}{\numberline {6.2}Retrospection}{37}{section.6.2}
+\contentsline {section}{\numberline {6.3}Outlook}{37}{section.6.3}
+\contentsline {chapter}{References}{38}{chapter*.33}
+\contentsline {chapter}{Erkl\IeC {\"a}rung der Kandidatin / des Kandidaten}{41}{appendix.A}

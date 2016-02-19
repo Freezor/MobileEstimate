@@ -153,4 +153,8 @@
 \\{\url{http://galorath.com/wp-content/uploads/2014/08/SEERforSoftware2.pdf}}
 \newblock {\em (Stand: 04.02.2016)}
 
+\bibitem[RU95]{ruknet}
+{\sc Ruknet, Cezzar}: {\em {A Guide to Programming Languages: Overview and Comparison}}.
+\newblock Artech House Publishers, 1995.
+
 \end{thebibliography}

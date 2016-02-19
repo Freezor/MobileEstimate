@@ -138,7 +138,8 @@ The \textit{Project Data} component was created to make combine all data of a pr
 \subsubsection{Project Properties}
 
 This minor component contains the information that is needed for the \textit{Project Relation Solver} in section \ref{projectRealtionSolver}. It is a data component which stores all properties that allows reading and editing. Access to is granted to the properties only through the project component which assures that a property is bound to a project.\\
-
+The available properties are based upon the parts a project can be split to. Not every available factor of a project makes sense for categorizing it. For example a categorization into the size of the project makes no sense as this cannot be compared to a project that is not estimated or developed. Although a categorization in the costs makes no sense as it cannot be compared to a project that has to be estimated. For this reason the available properties are \textit{Development Market}, \textit{Development Type}, \textit{Procedure Model}, \textit{Platform}, \textit{Industry Sector}, \textit{Programming Language} and \textit{Software Architecture}. These values categorize a project without saying something about the size or cost and make it possible to compare them.\\
+All project properties contain only a selection of the possible values as a showcase. For each category are further options possible. For properties where this is a important factor these are combined in the option \textit{other}.\\
 \subsubsection{Estimation Items}
 
 All items for the estimation are in the \textit{Estimation Items} components. These are the items for an estimation technique that are responsible for the estimation itself. In the \textit{Function Point} estimation for example, these items calculate the value \textit{E1} from the equation \ref{fp:E1}.\\
@@ -151,11 +152,166 @@ This component contains all informations for \textit{Influence Factors}. These a
 
 To fulfill the target \textit{T06} from section \ref{objectives}, this component is responsible to find related project. The point of this component is to compare already existing projects with a selected one. This should help the user to get an overview of how similar projects were estimated. Furthermore the \textit{Project Relation Solver} should allow to transfer the estimation from a related project to the selected to have an estimation where the user can build on.\\
 The \textit{Project Relation Solver} compares therefor an selected project with every other available project from the database. This comparison is made in mainly three steps.
-\paragraph*{1. Determination of the Property Distances}
+\paragraph*{\textbf{1. Determination of the Property Distances}}
+Each project has seven different properties which are crucial for finding a relation plus the estimation technique. These properties are \textit{Development Market}, \textit{Development Kind}, \textit{Procedure Model}, \textit{Platform}, \textit{Industry Sector}, \textit{Programming Language} and \textit{Software Architecture}. The first step for calculating the project relation is to compare each property and get the distance. Each of them has its own calculation for the distance and a different weight to fit in the \textit{total distance} equation. 
+\paragraph*{\textbf{Development Market}}
+The \textit{Development Market} property stands for the target market of a project and has three possible options: \textit{Inhouse Development}, \textit{Customer Development} and the \textit{Anonymous Market}. For calculating the distance between development markets it was analyzed for whom the project is developed, what is the main factor for the budget, how high is the risk of development and how predictable profit is.\\ 
+The \textit{Inhouse Development} is a for developing projects in the company. They are usually have the same procedure as other project despite the fact that they don't yield a profit and have a low risk of development and a fixed budget. In the \textit{Customer Development} the risk depends on the customer needs but are predictable. Profit is to be expected high and is connected with the project budget. By \textit{Anonymous Market} developments a high risk is to be expected. Regardless of market analysis it is unsure that the project will be a success and generate profit. The budget for this market type is set from the company itself.\\
+All distances between these markets are described in table \ref{property:devmarket} and are based on the above description. For example, the development for a customer is quite similar to an anonymous market development the distance between those is set to one. The big difference is that the profit is unsure for the anonymous market development. When comparing similar markets to each other the distance is zero as they are the same.
+\begin{table}[h]
+	\centering 
+	\setlength{\tabcolsep}{4pt}
+	\begin{tabular}{|l|l|c|}\hline
+		Development Market		& Compared to 			&  Distance 	\\ \hline
+		Inhouse Development   	& Customer Development	& 2      		\\ \hline
+		Customer Development   	& Anonymous Market 		& 1      		\\ \hline
+		Anonymous Market   		& Inhouse Development 	& 3     		\\ \hline
+	\end{tabular} 
+	\caption{Development Market - Distance} 
+	\label{property:devmarket} 
+\end{table}
+\paragraph*{\textbf{Development Type}}
+Different \textit{Development Types} describe the main reason for the project. A \textit{New Project} is developed if there is no previous project to build on or is a new conceptual formulation. An \textit{Extension Project} is made for expansion of existing software from previous projects. The third type are \textit{Research Projects} which are usually made to test an idea or create a prototype for an analysis. These development types can be differentiated in the \textit{main target} of the project, \textit{customer} and \textit{profit level}. To introduce this differentiation the profit level describes the expected money and is divided into values from zero to two. \textit{Zero} declines that the project does not generate any profit. The value \textit{one} expects medium profit and \textit{two} expects a high profit for the project.\\
+The distances described in table \ref{property:devtype} are based on the above descriptions. A comparison between new projects and research project has the distance two. A research project does not generate any profit and has a different target than a new project. The same applies with the comparison of an extension project with a research project. By comparing a new project to an extension project the distance is set to one because the expected profit is smaller than in a new project. The reason for this is that an extension project builds up on a previous project and is an addition to a previous contract which normally get a smaller budget.\\
+\begin{table}[h]
+	\centering 
+	\setlength{\tabcolsep}{4pt}
+	\begin{tabular}{|l|l|c|}\hline
+		Development Type		& Compared to 			&  Distance 	\\ \hline
+		New Project   			& Research Project		& 2      		\\ \hline
+		Extension Project   	& New Project 			& 1      		\\ \hline
+		Research Project   		& Extension Project 	& 2     		\\ \hline
+	\end{tabular} 
+	\caption{Development Market - Distance} 
+	\label{property:devtype} 
+\end{table}
+\paragraph*{\textbf{Procedure Model}}
+The next property is the used procedure model. There are six procedure models for selection available. The distance in table \ref{property:proceduremodel} is calculated by differentiating each procedure by model type, suitable team size, formalization, industry focus and process cover. Model type simply splits the procedure models in sequential and iterative types. The suitable team size indicates the laid out size of team members are useful for this model. Formalization indicates how much has to be put into the documentation of the process steps and the process cover describes if the procedure model involves all main project processes which are development, test project management, quality assurance and the change management.
+\begin{table}[h]
+	\centering 
+	\setlength{\tabcolsep}{4pt}
+	\begin{tabular}{|l|l|c|}\hline
+		Procedure Model			& Compared to 	&  Distance 	\\ \hline
+		Scrum   				& V-Model		& 5      		\\ \hline
+		Waterfall Model   		& V-Model 		& 3      		\\ \hline
+		Spiral Model   			& V-Model 		& 4     		\\ \hline
+		Iterative Development   & V-Model 		& 4     		\\ \hline
+		Prototyping  			& V-Model 		& 6     		\\ \hline
+	\end{tabular} 
+	\caption{Procedure Model - Distance} 
+	\label{property:proceduremodel} 
+\end{table}
+
+\paragraph*{\textbf{Platform}}
+Platform is the property that describes where the implemented software is deployed. The difference between platforms is calculated with the porting costs from one platform to another. This costs are calculated with the main programming language of the platform, quality assurance, system type and the deployment difficulty.\\
+\begin{table}[h]
+	\centering 
+	\setlength{\tabcolsep}{4pt}
+	\begin{tabular}{|l|l|c|}\hline
+		Platform			& Porting to 	&  Costs 	\\ \hline
+		Android   			& IOS					& 3      		\\ \hline
+		Android   			& Windows Phone 		& 3      		\\ \hline
+		Android   			& Mac OS 				& 5     		\\ \hline
+		Android   			& Linux 				& 4     		\\ \hline
+		Android  			& Windows 7 			& 5     		\\ \hline
+		Android  			& Windows 8				& 5     		\\ \hline
+		Android  			& Windows 10 			& 5     		\\ \hline
+		Android  			& Windows Universal App	& 6     		\\ \hline
+		Android  			& Web Development 		& 5     		\\ \hline
+		Android  			& Other 				& 7     		\\ \hline
+	\end{tabular} 
+	\caption{Platform - Porting cost} 
+	\label{property:platform} 
+\end{table}\newpage
+
+\paragraph*{\textbf{Industry Sector}}
+For the industry sector there is no calculated distance as it is mostly an empiric property. It simply compared if the selected sectors are equal or not. If the industry sector does not apply to one of the available sectors there is the option to select \textit{Other} as sector. For the calculation the distance between industry sectors is set to \textit{zero} if they are equal and  \textit{one} otherwise. The available options for this property are:
+\begin{itemize}
+	\item \textit{Agriculture}
+	\item \textit{Automotive}
+	\item \textit{Banking}
+	\item \textit{Bars and Restaurants}
+	\item \textit{Business Service}
+	\item \textit{Construction}
+	\item \textit{Education}
+	\item \textit{Electronics}
+	\item \textit{Entertainment}
+	\item \textit{Finance}
+	\item \textit{Health}
+	\item \textit{Internet}
+	\item \textit{Music Production}
+\end{itemize}
+
+\paragraph*{\textbf{Programming Language}}
+The Programming Language describes the main language for the project. As an example for the platform Android the main programming language would be Java. This Property has the most values for calculating the distance between two options. It is divided in two parts. Part one is calculating distance on the basis of programming language properties as described by Ruknet \cite{ruknet}. He categorized the programming languages with 12 different properties:
+\begin{enumerate}
+	\item \textbf{Imperative}\\ This value focuses in describing how a program operates. It simply exists on a sequence of instruction. This value is distinguished with \textit{true} or \textit{false}.
+	\item \textbf{Object Oriented}\\ This Property describes if the language supports the concept of objects.
+	\item \textbf{Functional}\\ These property is a programming paradigm that treats computation as the evaluation of mathematical functions. 
+	\item \textbf{Procedural}\\ This programming paradigm allows routines and subroutines and contains a series of computational steps.
+	\item \textbf{Generic}\\ Generic programming is a style which allows algorithms to be written in terms of types \textit{to-be-specified-later} that are then \textit{instantiated} when they are needed.
+	\item \textbf{Reflective}\\ This is the ability of a programming language to examine and modify its own structure and behavior.
+	\item \textbf{Event-Driven}\\ An event-driven programming language is determined by events such as user actions or messages from other programs.
+	\item \textbf{Failsafe}\\ The ability to throw exceptions if an operation or other system calls fails is known as fail safely.
+	\item \textbf{Type Safety}\\States if a programming language discourages or prevents type errors which are stated in the values \textit{safe} or \textit{unsafe}
+	\item \textbf{Type Expression}\\ This property describes if the programmer must explicitly associate each variable with a particular type.
+	\item \textbf{Type Compatibility}\\ This implies the use of a type checker in the programming language which verifies if an expression is consistent with the expected type by the context in which that expression appears.
+	\item \textbf{Type Checking}\\ A process of verifying and enforcing the constraints of types.\\
+\end{enumerate}
+Each property is converted to a numerical representation form which represents each of the possible values. This allows a calculation of the \textit{Distance} of two programming languages. As described in equation \ref{pl:distanceequation} this calculated with the absolute value of each category. The constant \textit{c} is the amount of all categories, which is twelve. For each category \textit{$K_i$} of the compared programming language the value of the other language is subtracted. This summed up is the distance of these two languages.
+\begin{equation}
+\textit{Distance} = \sum \limits_{i=1}^c \lvert K_i - K'_i\rvert \label{pl:distanceequation}
+\end{equation}
+\begin{table}[h]
+	\centering 
+	\setlength{\tabcolsep}{4pt}
+	\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\multicolumn{1}{c}{\textbf{Programming Language}}& \multicolumn{1}{c}{\rotatebox{90}{imperative} }&  \multicolumn{1}{c}{\rotatebox{90}{object oriented}} &  \multicolumn{1}{c}{\rotatebox{90}{functional}}&  \multicolumn{1}{c}{\rotatebox{90}{procedural}}& \multicolumn{1}{c}{\rotatebox{90}{generic}}&  \multicolumn{1}{c}{\rotatebox{90}{reflective}}& \multicolumn{1}{c}{\rotatebox{90}{event driven}}&  \multicolumn{1}{c}{\rotatebox{90}{failsafe}}&  \multicolumn{1}{c}{\rotatebox{90}{type safety}}&  \multicolumn{1}{c}{\rotatebox{90}{type expression}}&  \multicolumn{1}{c}{\rotatebox{90}{type completion}}&  \multicolumn{1}{c}{\rotatebox{90}{type checking}}\\ \hline
+		C++   				& 1& 1 & 1 & 1& 1& 0& 0& 0& 1& 2& 1& 0    		\\ \hline
+		Java   				& 1& 1 & 1 & 1& 1& 1& 0& 2& 1& 2& 1& 1    		\\ \hline
+	\end{tabular} 
+	\caption{Programming Language - Distance} 
+	\label{property:proglang} 
+\end{table}
+
+The second part is the conversion cost in another language which is the estimated effort for converting the source code. For calculating these \textit{Conversion Costs} the equation \ref{pl:conversioncosts} delivers an estimated cost factor. These costs are simply the \textit{Amount} of different categories plus an constant effort factor of one.
+
+
+\begin{equation}
+\textit{Conversion Costs} = \textit{Amount} + 1\label{pl:conversioncosts}
+\end{equation}
+
+The available languages are C, C\#, C++, COBOL, Clojure, Java, Javascript, Matlab, Objective-C, PHP, Prolog, Python and Scala. The complete categorization and converting costs of all programming languages can be found in the appendix XXX.
+
+
+\begin{table}[h]
+	\centering 
+	\setlength{\tabcolsep}{4pt}
+	\begin{tabular}{|l|l|c|}\hline
+		Programming Language	& Converting to &  Distance 	\\ \hline
+		Java   				& Cpp		& 4      		\\ \hline
+	\end{tabular} 
+	\caption{Programming Language - Conversion Cost} 
+	\label{property:proglangconversion} 
+\end{table}
+
+\paragraph*{\textbf{Software Architecture}}
+asd
+\begin{table}[h]
+	\centering 
+	\setlength{\tabcolsep}{4pt}
+	\begin{tabular}{|l|c|c|c|c|c|c|c|}
+		\multicolumn{1}{c}{\textbf{Software Architecture}}& \multicolumn{1}{c}{Category }&  \multicolumn{1}{c}{\rotatebox{90}{overall agility}} &  \multicolumn{1}{c}{\rotatebox{90}{ease of deployment}}&  \multicolumn{1}{c}{\rotatebox{90}{testability}}& \multicolumn{1}{c}{\rotatebox{90}{performance}}&  \multicolumn{1}{c}{\rotatebox{90}{scalability}}& \multicolumn{1}{c}{\rotatebox{90}{ease of development}}\\ \hline
+		Client-Server   	& interactive& 2& 1 & 3& 3& 3& 2   		\\ \hline
+		MVC   				& distributed& 2& 3 & 2& 3& 3& 2    		\\ \hline
+	\end{tabular} 
+	\caption{Software Architecture - Distance} 
+	\label{property:architecture} 
+\end{table}
+
+\paragraph*{\textbf{2. Determination of the Total Distance}}
 asdasdasd
-\paragraph*{2. Determination of the Total Distance}
-asdasdasd
-\paragraph*{3. Calculation of the Relation}
+\paragraph*{\textbf{3. Calculation of the Relation}}
 asdasdasd\\
 asdasd
 
