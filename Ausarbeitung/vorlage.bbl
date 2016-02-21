@@ -157,4 +157,8 @@
 {\sc Ruknet, Cezzar}: {\em {A Guide to Programming Languages: Overview and Comparison}}.
 \newblock Artech House Publishers, 1995.
 
+\bibitem[RI15]{archpatterns}
+{\sc Richards, Mark}: {\em {Software Architecture Patterns}}.
+\newblock O'Reilly, 2015.
+
 \end{thebibliography}
