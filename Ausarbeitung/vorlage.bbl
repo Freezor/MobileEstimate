@@ -18,7 +18,7 @@
 \newblock Galileo Computing, 2011.
 
 \bibitem[MC06]{BlackArt}
-{\sc McConnell, Steve }: {\em {Software Estimation: Demystifying the Black Art: The Black Art Demystified)}}.
+{\sc McConnell, Steve }: {\em {Software Estimation: Demystifying the Black Art)}}.
 \newblock Microsoft Press, 2006.
 
 \bibitem[BA08]{Softwaremanagement}
@@ -40,20 +40,16 @@
 \bibitem[ME16]{Pra}
 {\sc Meyer, Dagmar }: {\em {Projektmanagement - Aufwandsschätzung}}.
 \newblock Ostfalia - Hochschule für angewandte Wissenschaften.
-%\\{\url{http://www.ostfalia.de/export/sites/default/de/pws/meyer/lehrveranstaltungen/ma_projektmanagement/projektmanagement_unterlagen/Folien_Aufwand.pdf}}.
+\\{\url{http://www.ostfalia.de/export/sites/default/de/pws/meyer/lehrveranstaltungen/ma\_projektmanagement/projektmanagement\_unterlagen/Folien\_Aufwand.pdf}}.
 \newblock {\em (Stand: 04.02.2016)}
 
 \bibitem[WE16]{Weigand}
 {\sc Weigand, Florian}: {\em {Aufwandsschsatzung in IT-Grosprojekten - Function Point Methode}}.
 \newblock TU München.
-%\\{\url{www.matthes.in.tum.de%2Ffile%2Fstdmz5ua8sr7%2FSebis-Public-Website%2F-%2FProseminar%2FWeigand-Function-Point-Methode-Ausarbeitung.pdf&usg=AFQjCNGjg9Yh5xs7c7E6Gw-f0IuUaB5Otw&sig2=7B1qCUXBVholhnd7XaGQvg&bvm=bv.113034660,d.ZWU&cad=rj}.
-\newblock {\em (Stand: 04.02.2016)}
 
 \bibitem[FI16]{EvovlingPoints}
 {\sc Fischmann, Lee }: {\em {Evolving Function Points}}.
 \newblock Galorath Inc.
-%\\{\url{http://static1.1.sqspcdn.com/static/f/702523/9452310/1289969383637/200102-Fischman.pdf?token=UMsDkNSf7M3yj8DbDRMuHwTaab8%3D}.
-\newblock {\em (Stand: 04.02.2016)}
 
 \bibitem[OM14]{AFP}
 {\sc OMG}: {\em {Automated Function Points (AFP)}}.
@@ -71,10 +67,10 @@
 {\sc Partsch Melmuth}: {\em {Requirements-Engineering systematisch}}.
 \newblock examen.press, 2010.
 
-\bibitem[DU14]{fpafundamentals}
+\bibitem[LO16]{fpafundamentals}
 {\sc Longstreet David}: {\em {Fundamentals of Function Point Analysis }}.
 \newblock softwaremetrics
-\\{\url{http://www.softwaremetrics.com/files/Fundamentals\%20of\%20Function\%20Point\%20Analysis.pdf}}.
+\\{\url{http://www.softwaremetrics.com/}}.
 \newblock {\em (Stand: 04.02.2016)}
 
 \bibitem[WI05]{itplanung}
@@ -86,7 +82,7 @@
 \newblock vdf Hochschulverlag AG an der ETH Zürich, 2001.
 
 \bibitem[AL79]{albrecht}
-{\sc Albrecht Allan J.}: {\em {Measuring Application Development Productivity}}.
+{\sc Albrecht, Allan J.}: {\em {Measuring Application Development Productivity}}.
 \newblock IBM Corporation, 1979.
 
 \bibitem[LI07]{litke}
@@ -96,6 +92,7 @@
 \bibitem[WI16]{winfwiki}
 {\sc WinfWiki}: {\em {Methoden und Verfahren der Aufwandschätzung im Vergleich }}.
 \newblock Intermoves GmbH
+\\{\url{http://winfwiki.wi-fom.de/index.php/Methoden\_und\_Verfahren\_der\_Aufwandsch\%C3\%A4tzung\_im\_Vergleich}}
 \newblock {\em (Stand: 04.02.2016)}
 
 \bibitem[GO16]{materialdesign}
@@ -117,20 +114,19 @@
 \newblock Englewood Cliffs, 1981.
 
 \bibitem[AB14]{estimationanalysis}
-{\sc Abubaker Ali ,Noraini Ibrahim
-}: {\em {Comparative Analysis Between Fpa and Cocomo Techniques For Software Cost Estimation}}.
+{\sc Abubaker Ali, Noraini Ibrahim}: {\em {Comparative Analysis Between Fpa and Cocomo Techniques For Software Cost Estimation}}.
 \newblock International Journal of Engineering Research and Development, 2014.
 
 \bibitem[FI10]{fischer}
-{\sc Fischer, Christian}, {\sc Aier, Stephan}: {\em {IT-Projektkostenschätzung – Ein pragmatischer Ansatz}}.
+{\sc Fischer, Christian} and {\sc Aier, Stephan}: {\em {IT-Projektkostenschätzung – Ein pragmatischer Ansatz}}.
 \newblock Institut für Wirtschaftsinformatik, Universität St. Gallen, 2010.
 
 \bibitem[ST14]{chaos}
-{\sc The Standish Group}, {\sc Aier, Stephan}: {\em {The Standish Group Report}}.
+{\sc The Standish Group}: {\em {The Standish Group Report}}.
 \newblock Project Smart, 2014.
 
 \bibitem[RI15]{dsm}
-{\sc Ripsas, Sven }, {\sc Tröger, Steffen }: {\em {3. Deutscher Startup Monitor }}.
+{\sc Ripsas, Sven } and {\sc Tröger, Steffen }: {\em {3. Deutscher Startup Monitor }}.
 \newblock KPMG, 2015.
 \\{\url{http://deutscherstartupmonitor.de/fileadmin/dsm/dsm-15/studie_dsm_2015.pdf}}
 \newblock {\em (Stand: 04.02.2016)}
