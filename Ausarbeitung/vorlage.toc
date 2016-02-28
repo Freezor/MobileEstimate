@@ -73,8 +73,5 @@
 \contentsline {chapter}{\numberline {5}Software Test}{52}{chapter.5}
 \contentsline {section}{\numberline {5.1}Test Cases}{52}{section.5.1}
 \contentsline {chapter}{\numberline {6}Conclusion}{54}{chapter.6}
-\contentsline {section}{\numberline {6.1}Results}{54}{section.6.1}
-\contentsline {section}{\numberline {6.2}Retrospection}{54}{section.6.2}
-\contentsline {section}{\numberline {6.3}Outlook}{54}{section.6.3}
 \contentsline {chapter}{References}{55}{chapter*.40}
 \contentsline {chapter}{Erkl\IeC {\"a}rung der Kandidatin / des Kandidaten}{58}{appendix.A}

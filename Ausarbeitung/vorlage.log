@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/W32TeX) (preloaded format=pdflatex 2016.2.2)  28 FEB 2016 17:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/W32TeX) (preloaded format=pdflatex 2016.2.2)  28 FEB 2016 20:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1060,7 +1060,7 @@ LaTeX Info: Redefining \nameref on input line 86.
 
 bibgerm.sty: (n)german.sty 2.5b detected
 
-<fhlogo_new.pdf, id=120, 208.22191pt x 64.9889pt>
+<fhlogo_new.pdf, id=108, 208.22191pt x 64.9889pt>
 File: fhlogo_new.pdf Graphic file (type pdf)
  <use fhlogo_new.pdf>
 Package pdftex.def Info: fhlogo_new.pdf used on input line 109.
@@ -1084,15 +1084,15 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 
 
-] (./vorlage.toc
-[3
-
-
-])
+] (./vorlage.toc)
 \tf@toc=\write5
 \openout5 = `vorlage.toc'.
 
- [4] (./chapters/Introduction.tex
+
+[3
+
+
+] (./chapters/Introduction.tex
 Chapter 1.
 ) (./chapters/Fundamentals.tex
 Underfull \hbox (badness 10000) in paragraph at lines 4--1
@@ -1106,7 +1106,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--1
 
 ] [2]
 Chapter 2.
-<images/estimationProcess.PNG, id=232, 749.04843pt x 621.82312pt>
+<images/estimationProcess.PNG, id=213, 749.04843pt x 621.82312pt>
 File: images/estimationProcess.PNG Graphic file (type png)
 
 <use images/estimationProcess.PNG>
@@ -1121,7 +1121,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 36--36
 thoden _ und _ Verfahren _ der _ Aufwandsch % C3 % A4tzung _
  []
 
-<images/Einsatzzeitpunkte2.PNG, id=253, 795.2109pt x 507.5763pt>
+<images/Einsatzzeitpunkte2.PNG, id=234, 795.2109pt x 507.5763pt>
 File: images/Einsatzzeitpunkte2.PNG Graphic file (type png)
 
 <use images/Einsatzzeitpunkte2.PNG>
@@ -1177,22 +1177,26 @@ Underfull \hbox (badness 10000) in paragraph at lines 37--38
 
  []
 
-<images/ScreenOverviewProject.PNG, id=487, 614.295pt x 548.0475pt>
+<images/ScreenOverviewProject.PNG, id=468, 614.295pt x 548.0475pt>
 File: images/ScreenOverviewProject.PNG Graphic file (type png)
 
 <use images/ScreenOverviewProject.PNG>
 Package pdftex.def Info: images/ScreenOverviewProject.PNG used on input line 45
 .
 (pdftex.def)             Requested size: 398.33858pt x 355.38203pt.
- [20] [21 <./images/ScreenOverviewProject.PNG>] [22] <images/components.png, id
-=517, 1144.275pt x 688.5725pt>
+
+
+LaTeX Warning: Reference `result' on page 20 undefined on input line 64.
+
+[20] [21 <./images/ScreenOverviewProject.PNG>] [22]
+<images/components.png, id=497, 1144.275pt x 688.5725pt>
 File: images/components.png Graphic file (type png)
 
 <use images/components.png>
 Package pdftex.def Info: images/components.png used on input line 94.
 (pdftex.def)             Requested size: 398.33858pt x 239.70114pt.
 
-<images/DBHelper.png, id=521, 941.5175pt x 901.3675pt>
+<images/DBHelper.png, id=501, 941.5175pt x 901.3675pt>
 File: images/DBHelper.png Graphic file (type png)
 
 <use images/DBHelper.png>
@@ -1206,7 +1210,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 LaTeX Warning: Reference `adjustedEstimationProcess' on page 24 undefined on in
 put line 116.
 
-<images/ObjectDiagramProject.png, id=528, 419.5675pt x 364.36125pt>
+<images/ObjectDiagramProject.png, id=508, 419.5675pt x 364.36125pt>
 File: images/ObjectDiagramProject.png Graphic file (type png)
 
 <use images/ObjectDiagramProject.png>
@@ -1248,14 +1252,14 @@ Overfull \hbox (17.38853pt too wide) in paragraph at lines 366--377
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[36] <images/analysis.png, id=673, 847.66687pt x 699.36281pt>
+[36] <images/analysis.png, id=653, 847.66687pt x 699.36281pt>
 File: images/analysis.png Graphic file (type png)
 
 <use images/analysis.png>
 Package pdftex.def Info: images/analysis.png used on input line 386.
 (pdftex.def)             Requested size: 341.43306pt x 281.69302pt.
  [37 <./images/analysis.png>] [38]
-<images/percentage.png, id=692, 609.77812pt x 508.90125pt>
+<images/percentage.png, id=672, 609.77812pt x 508.90125pt>
 File: images/percentage.png Graphic file (type png)
 
 <use images/percentage.png>
@@ -1271,14 +1275,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 430--431
 
  []
 
-<images/ERProperty.png, id=704, 365.365pt x 169.63374pt>
+<images/ERProperty.png, id=683, 365.365pt x 169.63374pt>
 File: images/ERProperty.png Graphic file (type png)
 
 <use images/ERProperty.png>
 Package pdftex.def Info: images/ERProperty.png used on input line 437.
 (pdftex.def)             Requested size: 170.71652pt x 79.26195pt.
 
-<images/PLProperty.png, id=707, 653.44125pt x 466.74374pt>
+<images/PLProperty.png, id=686, 653.44125pt x 466.74374pt>
 File: images/PLProperty.png Graphic file (type png)
 
 <use images/PLProperty.png>
@@ -1297,14 +1301,14 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 LaTeX Warning: Reference `impl:estMethodSelection' on page 41 undefined on inpu
 t line 452.
 
-<images/projectDiagramm.png, id=721, 949.5475pt x 789.95125pt>
+<images/projectDiagramm.png, id=701, 949.5475pt x 789.95125pt>
 File: images/projectDiagramm.png Graphic file (type png)
 
 <use images/projectDiagramm.png>
 Package pdftex.def Info: images/projectDiagramm.png used on input line 456.
 (pdftex.def)             Requested size: 369.88582pt x 307.71812pt.
  [41 <./images/PLProperty.png>]
-<images/userDBDiagramm.png, id=729, 623.32875pt x 219.82124pt>
+<images/userDBDiagramm.png, id=709, 623.32875pt x 219.82124pt>
 File: images/userDBDiagramm.png Graphic file (type png)
 
 <use images/userDBDiagramm.png>
@@ -1315,35 +1319,35 @@ Package pdftex.def Info: images/userDBDiagramm.png used on input line 466.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [42 <./images/projectDiagramm.png>] [43 <./images/userDBDiagramm.png>]
-<images/projectoverview.png, id=746, 813.0375pt x 1445.4pt>
+<images/projectoverview.png, id=726, 813.0375pt x 1445.4pt>
 File: images/projectoverview.png Graphic file (type png)
 
 <use images/projectoverview.png>
 Package pdftex.def Info: images/projectoverview.png used on input line 481.
 (pdftex.def)             Requested size: 170.71652pt x 303.47679pt.
 
-<images/ProjectCreation.png, id=749, 813.0375pt x 1445.4pt>
+<images/ProjectCreation.png, id=729, 813.0375pt x 1445.4pt>
 File: images/ProjectCreation.png Graphic file (type png)
 
 <use images/ProjectCreation.png>
 Package pdftex.def Info: images/ProjectCreation.png used on input line 492.
 (pdftex.def)             Requested size: 142.26378pt x 252.90468pt.
 
-<images/CreationOverview.png, id=750, 813.0375pt x 1445.4pt>
+<images/CreationOverview.png, id=730, 813.0375pt x 1445.4pt>
 File: images/CreationOverview.png Graphic file (type png)
 
 <use images/CreationOverview.png>
 Package pdftex.def Info: images/CreationOverview.png used on input line 499.
 (pdftex.def)             Requested size: 142.26378pt x 252.90468pt.
 
-<images/FPEstimation.png, id=754, 813.0375pt x 1445.4pt>
+<images/FPEstimation.png, id=734, 813.0375pt x 1445.4pt>
 File: images/FPEstimation.png Graphic file (type png)
 
 <use images/FPEstimation.png>
 Package pdftex.def Info: images/FPEstimation.png used on input line 512.
 (pdftex.def)             Requested size: 113.81102pt x 202.3105pt.
 
-<images/FPInfluence.png, id=755, 813.0375pt x 1445.4pt>
+<images/FPInfluence.png, id=735, 813.0375pt x 1445.4pt>
 File: images/FPInfluence.png Graphic file (type png)
 
 <use images/FPInfluence.png>
@@ -1507,7 +1511,7 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 146.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 146.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 146.
 Package rerunfilecheck Info: File `vorlage.out' has not changed.
-(rerunfilecheck)             Checksum: 476368590AB1C50C235A89E0C52DA8E4;1806.
+(rerunfilecheck)             Checksum: F224BCEBFB130A1DCA435C7FED221C64;1638.
 
 
 LaTeX Warning: There were undefined references.
@@ -1522,13 +1526,13 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 146.
 ### simple group (level 1) entered at line 1061 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 11808 strings out of 493042
- 166110 string characters out of 6138228
- 308202 words of memory out of 5000000
- 14720 multiletter control sequences out of 15000+600000
+ 11801 strings out of 493042
+ 166031 string characters out of 6138228
+ 308164 words of memory out of 5000000
+ 14717 multiletter control sequences out of 15000+600000
  15088 words of font info for 56 fonts, out of 8000000 for 9000
  1149 hyphenation exceptions out of 8191
- 29i,11n,32p,2177b,4125s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 29i,11n,32p,2177b,4126s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2015/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t
 s1.enc}<c:/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c
 :/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><c:/texli
@@ -1549,10 +1553,10 @@ fb><c:/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><
 c:/texlive/2015/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb><c:/texlive
 /2015/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb><c:/texlive/2015/texm
 f-dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on vorlage.pdf (62 pages, 1650058 bytes).
+Output written on vorlage.pdf (61 pages, 1650820 bytes).
 PDF statistics:
- 1120 PDF objects out of 1200 (max. 8388607)
- 981 compressed objects within 10 object streams
- 393 named destinations out of 1000 (max. 500000)
- 323 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1099 PDF objects out of 1200 (max. 8388607)
+ 961 compressed objects within 10 object streams
+ 389 named destinations out of 1000 (max. 500000)
+ 299 words of extra memory for PDF output out of 10000 (max. 10000000)
 
