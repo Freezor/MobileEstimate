@@ -87,7 +87,7 @@ public class ProjectRelationSolver
     }
 
 
-    public ArrayList<RelatedProject> getRelatedProject(double relationBorder)
+    public ArrayList<RelatedProject> getRelatedProjects(double relationBorder)
     {
         ArrayList<RelatedProject> relatedProjects = new ArrayList<>();
         project = databaseHelper.loadProjectById(activity, String.valueOf(project.getProjectId()));
@@ -145,12 +145,12 @@ public class ProjectRelationSolver
         programmingLanguageDistance *= 1.0;
         softwareArchitectureDistance *= 1.0;
 
-        double distanceSum = estimationMethodDistance + softwareArchitectureDistance + developmentMarketDistance + developmentTypeDistance + processMethologyDistance + platformDistance + industrySectorDistance + programmingLanguageDistance;
+        final double distanceSum = estimationMethodDistance + softwareArchitectureDistance + developmentMarketDistance + developmentTypeDistance + processMethologyDistance + platformDistance + industrySectorDistance + programmingLanguageDistance;
         double differencePercentage = 0.0;
         try
         {
-            differencePercentage = databaseHelper.roundDoubleTwoDecimals(distanceSum / 100) * 100;
-        } catch (Exception e)
+            differencePercentage = databaseHelper.roundDoubleTwoDecimals(distanceSum / 103) * 100;
+        } catch (final Exception e)
         {
             Log.d("Error", "Relation Error " + e.getCause());
         }

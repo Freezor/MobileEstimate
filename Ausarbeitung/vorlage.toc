@@ -58,28 +58,23 @@
 \contentsline {subsection}{\numberline {3.4.2}Userinformation Database}{42}{subsection.3.4.2}
 \contentsline {section}{\numberline {3.5}User Interface}{43}{section.3.5}
 \contentsline {subsection}{\numberline {3.5.1}Projects Overview}{43}{subsection.3.5.1}
-\contentsline {subsection}{\numberline {3.5.2}Project Creation}{43}{subsection.3.5.2}
-\contentsline {subsection}{\numberline {3.5.3}Estimate Function Point Project}{43}{subsection.3.5.3}
-\contentsline {subsection}{\numberline {3.5.4}Influence Factors}{43}{subsection.3.5.4}
-\contentsline {subsection}{\numberline {3.5.5}Analysis}{43}{subsection.3.5.5}
-\contentsline {section}{\numberline {3.6}Adjusted Estimation Process}{43}{section.3.6}
-\contentsline {subsection}{\numberline {3.6.1}Continuous Improvement of the Estimation}{43}{subsection.3.6.1}
-\contentsline {chapter}{\numberline {4}Implementation}{45}{chapter.4}
-\contentsline {section}{\numberline {4.1}Project Structure}{45}{section.4.1}
-\contentsline {section}{\numberline {4.2}Use of an exisiting Database in Android}{45}{section.4.2}
-\contentsline {section}{\numberline {4.3}The Database Helper}{45}{section.4.3}
-\contentsline {section}{\numberline {4.4}Estimation Technique Selection}{45}{section.4.4}
-\contentsline {section}{\numberline {4.5}Load Project Icons}{45}{section.4.5}
-\contentsline {section}{\numberline {4.6}Using multilingual Strings with the Databse and Resource Files}{45}{section.4.6}
-\contentsline {section}{\numberline {4.7}Calculate Person Days}{45}{section.4.7}
-\contentsline {section}{\numberline {4.8}Find related Projects}{46}{section.4.8}
-\contentsline {section}{\numberline {4.9}ListView Elements and ViewHolder}{46}{section.4.9}
-\contentsline {chapter}{\numberline {5}Software Test}{47}{chapter.5}
-\contentsline {section}{\numberline {5.1}Test Cases}{47}{section.5.1}
-\contentsline {section}{\numberline {5.2}User Review}{47}{section.5.2}
-\contentsline {chapter}{\numberline {6}Conclusion}{48}{chapter.6}
-\contentsline {section}{\numberline {6.1}Results}{48}{section.6.1}
-\contentsline {section}{\numberline {6.2}Retrospection}{48}{section.6.2}
-\contentsline {section}{\numberline {6.3}Outlook}{48}{section.6.3}
-\contentsline {chapter}{References}{49}{chapter*.39}
-\contentsline {chapter}{Erkl\IeC {\"a}rung der Kandidatin / des Kandidaten}{52}{appendix.A}
+\contentsline {subsection}{\numberline {3.5.2}Project Creation}{44}{subsection.3.5.2}
+\contentsline {subsection}{\numberline {3.5.3}Estimate Function Point Project}{44}{subsection.3.5.3}
+\contentsline {chapter}{\numberline {4}Implementation}{46}{chapter.4}
+\contentsline {section}{\numberline {4.1}Used Libraries}{46}{section.4.1}
+\contentsline {section}{\numberline {4.2}Project Structure}{46}{section.4.2}
+\contentsline {section}{\numberline {4.3}Pre-filled Database}{47}{section.4.3}
+\contentsline {section}{\numberline {4.4}The Database Helper}{48}{section.4.4}
+\contentsline {section}{\numberline {4.5}Multilingual Strings}{48}{section.4.5}
+\contentsline {section}{\numberline {4.6}Load Project Icons}{49}{section.4.6}
+\contentsline {section}{\numberline {4.7}Calculate Person Days}{49}{section.4.7}
+\contentsline {section}{\numberline {4.8}Find related Projects}{50}{section.4.8}
+\contentsline {section}{\numberline {4.9}ListView Elements and ViewHolder}{51}{section.4.9}
+\contentsline {chapter}{\numberline {5}Software Test}{52}{chapter.5}
+\contentsline {section}{\numberline {5.1}Test Cases}{52}{section.5.1}
+\contentsline {chapter}{\numberline {6}Conclusion}{54}{chapter.6}
+\contentsline {section}{\numberline {6.1}Results}{54}{section.6.1}
+\contentsline {section}{\numberline {6.2}Retrospection}{54}{section.6.2}
+\contentsline {section}{\numberline {6.3}Outlook}{54}{section.6.3}
+\contentsline {chapter}{References}{55}{chapter*.40}
+\contentsline {chapter}{Erkl\IeC {\"a}rung der Kandidatin / des Kandidaten}{58}{appendix.A}

@@ -8,8 +8,8 @@ Warning--I didn't find a database entry for "capgemini"
 Warning--I didn't find a database entry for "Partsch"
 Warning--I didn't find a database entry for "EntwicklungKompakt"
 Warning--I didn't find a database entry for "materialdesign"
-Warning--I didn't find a database entry for "estimationProcess"
 Warning--I didn't find a database entry for "itplanung"
+Warning--I didn't find a database entry for "estimationProcess"
 Warning--I didn't find a database entry for "winfwiki"
 Warning--I didn't find a database entry for "litke"
 Warning--I didn't find a database entry for "albrecht"
@@ -25,10 +25,13 @@ Warning--I didn't find a database entry for "chaos"
 Warning--I didn't find a database entry for "dsm"
 Warning--I didn't find a database entry for "faszinationmobile"
 Warning--I didn't find a database entry for "pricesystems"
-Warning--I didn't find a database entry for "stateofart"
+Warning--I didn't find a database entry for "basiskonzepteRE"
+Warning--I didn't find a database entry for "incom"
+Warning--I didn't find a database entry for "ruknet"
+Warning--I didn't find a database entry for "archpatterns"
 You've used 0 entries,
             2768 wiz_defined-function locations,
-            631 strings with 5400 characters,
+            635 strings with 5443 characters,
 and the built_in function-call counts, 26 in all, are:
 = -- 0
 > -- 0
@@ -67,4 +70,4 @@ warning$ -- 0
 while$ -- 0
 width$ -- 0
 write$ -- 2
-(There were 22 warnings)
+(There were 25 warnings)

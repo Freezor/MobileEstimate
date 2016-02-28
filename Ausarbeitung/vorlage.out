@@ -9,23 +9,21 @@
 \BOOKMARK [1][-]{section.3.3}{Components}{chapter.3}% 9
 \BOOKMARK [1][-]{section.3.4}{Database design}{chapter.3}% 10
 \BOOKMARK [1][-]{section.3.5}{User Interface}{chapter.3}% 11
-\BOOKMARK [1][-]{section.3.6}{Adjusted Estimation Process}{chapter.3}% 12
-\BOOKMARK [0][-]{chapter.4}{Implementation}{}% 13
-\BOOKMARK [1][-]{section.4.1}{Project Structure}{chapter.4}% 14
-\BOOKMARK [1][-]{section.4.2}{Use of an exisiting Database in Android}{chapter.4}% 15
-\BOOKMARK [1][-]{section.4.3}{The Database Helper}{chapter.4}% 16
-\BOOKMARK [1][-]{section.4.4}{Estimation Technique Selection}{chapter.4}% 17
-\BOOKMARK [1][-]{section.4.5}{Load Project Icons}{chapter.4}% 18
-\BOOKMARK [1][-]{section.4.6}{Using multilingual Strings with the Databse and Resource Files}{chapter.4}% 19
-\BOOKMARK [1][-]{section.4.7}{Calculate Person Days}{chapter.4}% 20
-\BOOKMARK [1][-]{section.4.8}{Find related Projects}{chapter.4}% 21
-\BOOKMARK [1][-]{section.4.9}{ListView Elements and ViewHolder}{chapter.4}% 22
-\BOOKMARK [0][-]{chapter.5}{Software Test}{}% 23
-\BOOKMARK [1][-]{section.5.1}{Test Cases}{chapter.5}% 24
-\BOOKMARK [1][-]{section.5.2}{User Review}{chapter.5}% 25
-\BOOKMARK [0][-]{chapter.6}{Conclusion}{}% 26
-\BOOKMARK [1][-]{section.6.1}{Results}{chapter.6}% 27
-\BOOKMARK [1][-]{section.6.2}{Retrospection}{chapter.6}% 28
-\BOOKMARK [1][-]{section.6.3}{Outlook}{chapter.6}% 29
-\BOOKMARK [0][-]{chapter*.39}{References}{}% 30
-\BOOKMARK [0][-]{appendix.A}{Erkl\344rung der Kandidatin / des Kandidaten}{}% 31
+\BOOKMARK [0][-]{chapter.4}{Implementation}{}% 12
+\BOOKMARK [1][-]{section.4.1}{Used Libraries}{chapter.4}% 13
+\BOOKMARK [1][-]{section.4.2}{Project Structure}{chapter.4}% 14
+\BOOKMARK [1][-]{section.4.3}{Pre-filled Database}{chapter.4}% 15
+\BOOKMARK [1][-]{section.4.4}{The Database Helper}{chapter.4}% 16
+\BOOKMARK [1][-]{section.4.5}{Multilingual Strings}{chapter.4}% 17
+\BOOKMARK [1][-]{section.4.6}{Load Project Icons}{chapter.4}% 18
+\BOOKMARK [1][-]{section.4.7}{Calculate Person Days}{chapter.4}% 19
+\BOOKMARK [1][-]{section.4.8}{Find related Projects}{chapter.4}% 20
+\BOOKMARK [1][-]{section.4.9}{ListView Elements and ViewHolder}{chapter.4}% 21
+\BOOKMARK [0][-]{chapter.5}{Software Test}{}% 22
+\BOOKMARK [1][-]{section.5.1}{Test Cases}{chapter.5}% 23
+\BOOKMARK [0][-]{chapter.6}{Conclusion}{}% 24
+\BOOKMARK [1][-]{section.6.1}{Results}{chapter.6}% 25
+\BOOKMARK [1][-]{section.6.2}{Retrospection}{chapter.6}% 26
+\BOOKMARK [1][-]{section.6.3}{Outlook}{chapter.6}% 27
+\BOOKMARK [0][-]{chapter*.40}{References}{}% 28
+\BOOKMARK [0][-]{appendix.A}{Erkl\344rung der Kandidatin / des Kandidaten}{}% 29

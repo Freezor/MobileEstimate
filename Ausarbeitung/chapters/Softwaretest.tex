@@ -1,12 +1,36 @@
 \chapter{Software Test}
 
-Ablauf/Aufbau der Tests
-
+To test the application test cases were created which rely on the requirements and should evaluate if the functionality is implemented in the application. The tests were performed by some fellow students which returned a first feedback for the application.
 
 \section{Test Cases}
 
-Beschreibung eines Testfalls, anzahl testfälle, wozu die Testfälle
-
-\section{User Review}
-
-Meinungen von Testern, Verbesserungspotential
+\textit{Test Cases} describe an elementary, functional software test to review a specification. All tests contain of the following elements:
+\begin{itemize}
+	\item \textit{Prerequisite} (only if necessary)
+	\item \textit{Test object}
+	\item \textit{Input data}
+	\item \textit{Procedure}
+	\item \textit{Result}
+	\item \textit{Postcondition}
+\end{itemize}
+These describe the main functionality which has to be tested. The test document comprised all test cases and for each step an extra field where the result could be noted. These \textit{Test Cases} can be found in the appendix XXX. The following \textit{Test Case} is an example and describes the function to delete a project:
+\paragraph*{\textbf{Delete Project}}
+\textbf{Prerequisite}\\
+The application shows the \textit{Project Overview} screen and projects are visible.\\
+\textbf{Test object}\\
+One available project.\\
+\textbf{Input data}\\
+none\\
+\textbf{Procedure}
+\begin{enumerate}
+	\item \texttt{Longlick} on the chosen project.
+	\item A \textit{popup} menu is shown on the screen.
+	\item Click on \texttt{'Delete Project'}.
+	\item Another \textit{popup} shows on the screen to confirm the deletion.
+	\item Click on \texttt{'Yes'}.
+\end{enumerate}
+\textbf{Result}\\
+The project is deleted and will no longer be shown in the \textit{Project Overview}\\
+\textbf{Postcondition}\\
+The project can be recovered in the database settings.\\
+By processing these tests the users found some bugs and additions for the application which were resolved for the version which is attached with this thesis. As a result all functionalities which are implemented with this version work accurate.

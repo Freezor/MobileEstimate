@@ -1962,16 +1962,33 @@ public class DataBaseHelper extends SQLiteOpenHelper
             }
         }
 
-        if (biggerItem == null || smallerItem == null)
+        if (biggerItem == null)
         {
-            evaluatedDays = evaluateFunctionPointPersonDaysWithBaseProductivity(project);
-        } else
-        {
-            double averagePointsPerDay = (smallerItem.getPointsPerDay() + biggerItem.getPointsPerDay()) / 2;
-            averagePointsPerDay = roundDoubleTwoDecimals(averagePointsPerDay);
-
-            evaluatedDays = roundDoubleTwoDecimals(project.getEvaluatedPoints() / averagePointsPerDay);
+            biggerItem = new FunctionPointProductivityItem();
+            selectQuery = String.format("SELECT * FROM FunctionPointBaseProductivity WHERE %s>= min_fp AND %s< max_fp", project.getEvaluatedPoints(), project.getEvaluatedPoints());
+            try (Cursor c = db.rawQuery(selectQuery, null))
+            {
+                if (c.moveToFirst())
+                {
+                    biggerItem.setPointsPerDay((double) c.getInt(c.getColumnIndex("points_per_day")));
+                }
+            }
         }
+        if (smallerItem == null)
+        {
+            biggerItem = new FunctionPointProductivityItem();
+            selectQuery = String.format("SELECT * FROM FunctionPointBaseProductivity WHERE %s< min_fp AND %s>= max_fp", project.getEvaluatedPoints(), project.getEvaluatedPoints());
+            try (Cursor c = db.rawQuery(selectQuery, null))
+            {
+                if (c.moveToFirst())
+                {
+                    biggerItem.setPointsPerDay((double) c.getInt(c.getColumnIndex("points_per_day")));
+                }
+            }
+        }
+        double averagePointsPerDay = (smallerItem.getPointsPerDay() + biggerItem.getPointsPerDay()) / 2;
+        averagePointsPerDay = roundDoubleTwoDecimals(averagePointsPerDay);
+        evaluatedDays = roundDoubleTwoDecimals(project.getEvaluatedPoints() / averagePointsPerDay);
 
         db.close();
         return evaluatedDays;

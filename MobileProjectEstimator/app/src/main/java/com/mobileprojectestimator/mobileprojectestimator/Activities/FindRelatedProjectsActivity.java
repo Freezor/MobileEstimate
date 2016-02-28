@@ -133,7 +133,7 @@ public class FindRelatedProjectsActivity extends DatabaseActivity
     private void loadRelatedProjects()
     {
         ProjectRelationSolver solver = new ProjectRelationSolver(this, selectedProject, databaseHelper.getAllProjects(this));
-        projectsList = solver.getRelatedProject(percentageBorder);
+        projectsList = solver.getRelatedProjects(percentageBorder);
 
         if (projectsList.isEmpty() || projectsList.size() == 0)
         {

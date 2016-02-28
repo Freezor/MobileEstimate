@@ -134,7 +134,7 @@ All items for the estimation are in the \textit{Estimation Items} components. Th
 
 This component contains all informations for \textit{Influence Factors}. These are \textit{name}, \textit{chosen value} and the \textit{limit} for the value. This component is also responsible for preprocessing the influence factor for usable information at the calculation of the estimation. In the Function Point estimation for example, this component calculates the value \textit{E2} and \textit{E3} that are described in section \ref{fp:classificationInfluence}.
 
-\subsection{Function Point Estimation}
+\subsection{Function Point Estimation}\label{functionpointconcept}
 
 This component is responsible for estimating a project with the function point technique. It inherits the calculation from section \ref{FPMethod} and calculates the estimated man days. To get the best calculation of man days the component searches all existing projects in the database that are already terminated and are using the function point technique. In all of these projects the component searches for the project with highest total function points that are less then the selected project and for the lowest total function points that are higher than the selected project. Next step is to calculate the points per day from these projects with the equation \ref{pointsday}. If there is no project available for one or both of these value the component will instead take the base points per day value from table \ref{tab:pointsperday}.
 \begin{equation}
@@ -470,37 +470,61 @@ This database was designed for future use of a server connection. The \textit{Us
 
 \section{User Interface}
 
-This chapter describes the user interface design.
+This chapter describes the user interface design of the main screens and when which element is used. Each screen is designed with the design guidelines from \textit{Android} and \textit{Material Design} rules \cite{materialdesign}. \\
+Most data is displayed in lists. This allows to add new content during runtime. The other way data is displayed are the so called \texttt{Spinner}, which are an expandable drop down list. This list can be filled with values from databases during runtime. Important functions that represent the main functionality of the screen are displayed as a \texttt{Flow Button}. This type of a button \textit{'float'} above the layout and is located on the bottom right of the relevant screen. Other important functions are displayed as a toolbar option. These are only represented with icons to save space. Secondary functions are available in option menus, which are indicated as three dots in the toolbar or as a menu drawer. Functionalities that operate directly upon an item are connected to this. Those functions can be invoked with a click on that item and a menu will show up. 
 
 \subsection{Projects Overview}
 
-Anordnung der Projekte, Wichtige Informationen zum sehen, Filtern und Suchen nach Projekten
-
-\subsection{Project Creation}
-
-Komponente zur korrekten Erstellung von Projekten, Geführte Eingabe, Korrekte Erstellung von Projekten in der DB, Swipe Funktion
-
+\textit{Project Overview} is the first screen the user will see when starting the application. All active projects are visible in a list, as describe in figure \ref{fig:appOverview}. All projects are listed there with their name, estimation technique, creation date and the project icon. This list is scrollable and inherits all projects that are not deleted. The circle with the \textit{'+'} on the bottom right will open the creation of a new project. On the upper right are the functions to start the \textit{search} and open the \textit{project filter}. The main menu of the application is on the upper left corner. This is a \textit{drawer} menu which will be visible after a click. Therefore are the additional options and screens only visible if the user needs them and don't use space of the screen.\newpage
 \begin{figure}[h] 
 	\centering 
 	\includegraphics[width=6cm]{images/projectoverview.png} 
-	\caption{- Entity Relation Diagram  for User Informations} 
-	\label{fig:fpcreate}
+	\caption{- Project Overview} 
+	\label{fig:appOverview}
+\end{figure}
+\subsection{Project Creation}
+
+The GUI design in figure \ref{fig:fpcreate} describes the screen for creating projects. This creation is done in six different screens, which are not described here. All of them have the same design. The circles on the bottom indicate the progress of the creation. White a \textit{swipe right} or \textit{left} the user can swap through the screens. All informations are saved automatically. Figure \ref{fig:fpcreateOverview} shows the list overview of the creation. This screen serves for the purpose to have all options in one view and check the input. With the \texttt{'SAVE PROJECT'} function in the upper right corner the project will be saved and the \textit{Project Overview} screen will show up.
+\begin{figure}[htb]
+	\centering
+	\begin{minipage}[t]{0.45\linewidth}
+		\centering 
+		\includegraphics[width=5cm]{images/ProjectCreation.png} 
+		\caption{- Project Creation} 
+		\label{fig:fpcreate}
+	\end{minipage}% <- sonst wird hier ein Leerzeichen eingefügt
+	\hfill
+	\begin{minipage}[t]{0.45\linewidth}
+		\centering 
+		\includegraphics[width=5cm]{images/CreationOverview.png} 
+		\caption{- Creation Overview} 
+		\label{fig:fpcreateOverview}
+	\end{minipage}
 \end{figure}
 
 \subsection{Estimate Function Point Project}
 
-Aufbau der Schätzung, Umwandlung von Tabelle in App
+The \textit{Function Point Estimation} screen is shown in figure \ref{fig:fpestimation} and \ref{fig:fpestimation2}. The estimation is separated into two tabs. The first tab all estimation items which can be edited with the \textit{pen} symbol. It shows also the \textit{Total Points}, \textit{Evaluated Function Points} and \textit{Evaluated Person Days}. This attempts to only view the essential informations of the estimation. Each of the fields displays the actual calculated value. All values for each estimation category are the calculated points, which means amount of category multiplied with the weight. The other tab, as showed in \ref{fig:fpestimation2}, inherits the influence factor, which is displayed in the list. It shows the chosen value for each influence option. Also the sum of the influence factor is displayed as well as the calculated rating. With the \texttt{'CHANGE FACTOR SET'} button the user can choose from all available influence factors. 
+\begin{figure}[htb]
+	\centering
+	\begin{minipage}[t]{0.45\linewidth}
+		\centering 
+		\includegraphics[width=4cm]{images/FPEstimation.png} 
+		\caption{- Function Point Estimation} 
+		\label{fig:fpestimation}
+	\end{minipage}% <- sonst wird hier ein Leerzeichen eingefügt
+	\hfill
+	\begin{minipage}[t]{0.45\linewidth}
+		\centering 
+		\includegraphics[width=4cm]{images/FPInfluence.png} 
+		\caption{- Function Point Influence Factor} 
+		\label{fig:fpestimation2}
+	\end{minipage}
+\end{figure}
 
-\subsection{Influence Factors}
 
-Aufbau der EInflussfaktoren, Neue anlengen
+%\section{Improved Estimation Process}\label{adjustedEstimationProcess}
 
-\subsection{Analysis}
+%\subsection{Continuous Improvement of the Estimation}
 
-Wie die Analyse aufgebau und was soll diese bringen?
-
-\section{Adjusted Estimation Process}\label{adjustedEstimationProcess}
-
-
-\subsection{Continuous Improvement of the Estimation}
-
+%To improve the estimations the application will automatically adapt the \textit{points per day} value. As described in section \ref{functionpointconcept} the conversion of the point value to actual man days is done with the equation \ref{pointsday}. This guarantees optimal values for each calculation without having the user to take an extra effort.
