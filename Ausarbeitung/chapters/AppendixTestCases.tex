@@ -2,3 +2,101 @@
 \label{app:testcases}
 
 This section contains all \textit{Test Cases} with which the application was tested.
+
+\section{Application Tests}
+
+\paragraph*{\textbf{Start Application}}
+\textbf{Prerequisite}\\
+The application was installed on the device.\\
+\textbf{Test object}\\
+The application.\\
+\textbf{Input data}\\
+none\\
+\textbf{Procedure}
+\begin{enumerate}
+	\item \texttt{Click} on the application icon.
+\end{enumerate}
+\textbf{Result}\\
+The application starts in a sufficient speed.\\
+\textbf{Postcondition}\\
+The application starts and the \texttt{Project Overview} screen is visible.
+\paragraph*{\textbf{Create New Project}}
+\textbf{Prerequisite}\\
+The application is opened and the \texttt{Project Overview} screen is visible.\\
+\textbf{Test object}\\
+-\\
+\textbf{Input data}\\
+none\\
+\textbf{Procedure}
+\begin{enumerate}
+	\item \texttt{Click} on the \texttt{'+'} icon.
+	\item Insert project name in the \texttt{EditText} field.
+	\item Insert a project description into the field.
+	\item \texttt{Click} on the button \texttt{'Change Project Icon'}.
+	\item Select an icon in the new window and click on \texttt{'save'} in the upper right corner.
+	\item The creation window can be seen again.
+	\item \texttt{Swipe} left to get to the next window.
+	\item The first screen with project properties is visible.
+	\item Select a property for the visible categories \textit{Project Market}, \textit{Development Kind} and \textit{Process Methology}.
+	\item \texttt{Swipe} left to get to the next screen.
+	\item Select a property for the visible categories \textit{Programming Language}, \textit{Platform} and \textit{Industry Sector}.
+	\item \texttt{Swipe} left to get to the next screen.
+	\item Select a property for the category \textit{Software Architecture}.
+	\item \texttt{Swipe} left to get to the next screen.
+	\item This screen shows the options for \textit{Estimation Technique} and \textit{Influence Factor} set.
+	\item Select one of the available options for \textit{Estimation Technique} and \textit{Influence Factor}.
+	\item \texttt{Swipe} left to get to the next screen.
+	\item This screen shows an overview of all selected options for this project.
+	\item \texttt{Click} on \texttt{'Save Project'} in the upper right corner.
+\end{enumerate}
+\textbf{Result}\\
+A new project is created.\\
+\textbf{Postcondition}\\
+The project is visible on the \texttt{Project Overview} screen.
+\paragraph*{\textbf{Create Project with List Creation Option}}
+\textbf{Prerequisite}\\
+The application was installed on the device.\\
+\textbf{Test object}\\
+The application.\\
+\textbf{Input data}\\
+none\\
+\textbf{Procedure}
+\begin{enumerate}
+	\item \texttt{Click} on the \texttt{'+'} icon.
+	\item \texttt{Click} on the expandable menu in the upper right corner.
+	\item Choose the option \texttt{'List Creation'}.
+	\item The screen shows the \texttt{'List Creation'}.
+	\item Name and description of the project are empty. All other options have selected a standard value.
+	\item Each option can be edited.
+	\item \texttt{Click} on \texttt{'Save Project'} in the upper right corner saves the project.
+\end{enumerate}
+\textbf{Result}\\
+A new project is created.\\
+\textbf{Postcondition}\\
+The project is visible on the \texttt{Project Overview} screen.
+\paragraph*{\textbf{Cancel Project Creation}}
+\textbf{Prerequisite}\\
+The application was installed on the device.\\
+\textbf{Test object}\\
+The application.\\
+\textbf{Input data}\\
+none\\
+\textbf{Procedure}
+\begin{enumerate}
+	\item \texttt{Click} on the \texttt{'+'} icon.
+	\item Insert project name in the \texttt{EditText} field.
+	\item Insert a project description into the field.
+	\item \texttt{Click} on the button \texttt{'Change Project Icon'}.
+	\item Select an icon in the new window and click on \texttt{'save'} in the upper right corner.
+	\item The creation window can be seen again.
+	\item \texttt{Swipe} left to get to the next window.
+	\item The first screen with project properties is visible.
+	\item Select a property for the visible categories \textit{Project Market}, \textit{Development Kind} and \textit{Process Methology}.
+	\item \texttt{Click} the \texttt{Back Arrow} in the upper left corner.
+	\item A popup message is shown which point out that this option cancels the creation process.
+	\item \texttt{Click} on \texttt{'Yes'}.
+\end{enumerate}
+\textbf{Result}\\
+No new project was created.\\
+\textbf{Postcondition}\\
+The \texttt{Project Overview} screen is visible.

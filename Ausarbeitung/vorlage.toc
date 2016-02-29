@@ -78,4 +78,5 @@
 \contentsline {chapter}{Property Distances}{60}{appendix.B}
 \contentsline {chapter}{Entity Relation Diagram}{61}{appendix.C}
 \contentsline {chapter}{Test Cases}{62}{appendix.D}
-\contentsline {chapter}{Erkl\IeC {\"a}rung der Kandidatin / des Kandidaten}{63}{appendix.E}
+\contentsline {section}{\numberline {D.1}Application Tests}{62}{section.D.1}
+\contentsline {chapter}{Erkl\IeC {\"a}rung der Kandidatin / des Kandidaten}{65}{appendix.E}
