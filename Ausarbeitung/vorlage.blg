@@ -2,6 +2,10 @@ This is BibTeX, Version 0.99d (TeX Live 2015/W32TeX)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: vorlage.aux
 The style file: geralpha.bst
+A level-1 auxiliary file: chapters/AppendixRequirements.aux
+A level-1 auxiliary file: chapters/AppendixPropertyDistances.aux
+A level-1 auxiliary file: chapters/AppendixERdiagram.aux
+A level-1 auxiliary file: chapters/AppendixTestCases.aux
 A level-1 auxiliary file: chapters/Selbststaendigkeitserklaerung.aux
 Database file #1: literatur.bib
 Warning--I didn't find a database entry for "capgemini"
@@ -31,7 +35,7 @@ Warning--I didn't find a database entry for "ruknet"
 Warning--I didn't find a database entry for "archpatterns"
 You've used 0 entries,
             2768 wiz_defined-function locations,
-            635 strings with 5443 characters,
+            639 strings with 5574 characters,
 and the built_in function-call counts, 26 in all, are:
 = -- 0
 > -- 0

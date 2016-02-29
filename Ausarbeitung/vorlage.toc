@@ -73,5 +73,9 @@
 \contentsline {chapter}{\numberline {5}Software Test}{52}{chapter.5}
 \contentsline {section}{\numberline {5.1}Test Cases}{52}{section.5.1}
 \contentsline {chapter}{\numberline {6}Conclusion}{54}{chapter.6}
-\contentsline {chapter}{References}{55}{chapter*.40}
-\contentsline {chapter}{Erkl\IeC {\"a}rung der Kandidatin / des Kandidaten}{58}{appendix.A}
+\contentsline {chapter}{References}{56}{chapter*.40}
+\contentsline {chapter}{Requirements}{59}{appendix.A}
+\contentsline {chapter}{Property Distances}{60}{appendix.B}
+\contentsline {chapter}{Entity Relation Diagram}{61}{appendix.C}
+\contentsline {chapter}{Test Cases}{62}{appendix.D}
+\contentsline {chapter}{Erkl\IeC {\"a}rung der Kandidatin / des Kandidaten}{63}{appendix.E}
