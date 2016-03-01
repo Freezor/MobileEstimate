@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/W32TeX) (preloaded format=pdflatex 2016.2.2)  29 FEB 2016 10:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/W32TeX) (preloaded format=pdflatex 2016.2.2)  1 MAR 2016 19:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1401,32 +1401,27 @@ Chapter 6.
 
 
 ] [55] (./vorlage.bbl
-Underfull \hbox (badness 10000) in paragraph at lines 41--45
-[]$\OT1/cmtt/m/n/12 http : / / www . ostfalia . de / export / sites / default /
- de / pws /
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 41--45
-\OT1/cmtt/m/n/12 meyer / lehrveranstaltungen / ma _ projektmanagement /
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 41--45
-\OT1/cmtt/m/n/12 projektmanagement _ unterlagen / Folien _ Aufwand . pdf$[]\OT1
-/cmr/m/n/12 .  \OT1/cmr/m/it/12 (Stand:
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 61--65
+Underfull \hbox (badness 10000) in paragraph at lines 28--32
 []$\OT1/cmtt/m/n/12 https : / / www . de . capgemini . com / resource-[]file-[]
 access /
  []
 
 
-Underfull \hbox (badness 3460) in paragraph at lines 61--65
+Underfull \hbox (badness 3460) in paragraph at lines 28--32
 \OT1/cmtt/m/n/12 resource / pdf / capgemini-[]it-[]trends-[]studie-[]2014 . pdf
 $[]\OT1/cmr/m/n/12 .  \OT1/cmr/m/it/12 (Stand:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 42--46
+[]$\OT1/cmtt/m/n/12 http : / / galorath . com / wp-[]content / uploads / 2014 /
+ 08 /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 52--56
+[]$\OT1/cmtt/m/n/12 http : / / developer . android . com / design / get-[]start
+ed /
  []
 
 [56
@@ -1435,56 +1430,61 @@ $[]\OT1/cmr/m/n/12 .  \OT1/cmr/m/it/12 (Stand:
 
 
 ]
-Underfull \hbox (badness 1292) in paragraph at lines 89--91
+Underfull \hbox (badness 1292) in paragraph at lines 78--80
 []\OT1/cmr/m/sc/12 Litke, Hans-Dieter\OT1/cmr/m/n/12 : \OT1/cmr/m/it/12 Pro-jek
 -t-man-age-ment: Meth-o-den, Tech-niken,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 93--97
-[]$\OT1/cmtt/m/n/12 http : / / winfwiki . wi-[]fom . de / index . php / Methode
-n _ und _
- []
-
-
-Underfull \hbox (badness 7203) in paragraph at lines 93--97
-\OT1/cmtt/m/n/12 Verfahren _ der _ Aufwandsch % C3 % A4tzung _ im _ Vergleich$[
-]  \OT1/cmr/m/it/12 (Stand:
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 99--103
-[]$\OT1/cmtt/m/n/12 http : / / developer . android . com / design / get-[]start
-ed /
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 129--133
-[]$\OT1/cmtt/m/n/12 http : / / deutscherstartupmonitor . de / fileadmin / dsm /
- dsm-[]15 /
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 135--139
+Underfull \hbox (badness 10000) in paragraph at lines 82--86
 []$\OT1/cmtt/m/n/12 http : / / www . bvdw . org / presseserver / studie _ faszi
 nation _
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 141--145
+Underfull \hbox (badness 10000) in paragraph at lines 99--103
+[]$\OT1/cmtt/m/n/12 http : / / www . ostfalia . de / export / sites / default /
+ de / pws /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--103
+\OT1/cmtt/m/n/12 meyer / lehrveranstaltungen / ma _ projektmanagement /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--103
+\OT1/cmtt/m/n/12 projektmanagement _ unterlagen / Folien _ Aufwand . pdf$[]\OT1
+/cmr/m/n/12 .  \OT1/cmr/m/it/12 (Stand:
+ []
+
+pdfTeX warning (ext4): destination with the same identifier (name{cite.pricesys
+tems}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.118 \bibitem[PR15]{pricesystems}
+                                  
+Underfull \hbox (badness 10000) in paragraph at lines 119--123
 []$\OT1/cmtt/m/n/12 http : / / www . pricesystems . com / en-[]us / leadership 
 /
  []
 
-[57]pdfTeX warning (ext4): destination with the same identifier (name{cite.pric
-esystems}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.146 \bibitem[GA11]{pricesystems}
-                                  
-Underfull \hbox (badness 10000) in paragraph at lines 147--151
-[]$\OT1/cmtt/m/n/12 http : / / galorath . com / wp-[]content / uploads / 2014 /
- 08 /
+
+Underfull \hbox (badness 10000) in paragraph at lines 130--134
+[]$\OT1/cmtt/m/n/12 http : / / deutscherstartupmonitor . de / fileadmin / dsm /
+ dsm-[]15 /
+ []
+
+[57]
+Underfull \hbox (badness 10000) in paragraph at lines 156--160
+[]$\OT1/cmtt/m/n/12 http : / / winfwiki . wi-[]fom . de / index . php / Methode
+n _ und _
+ []
+
+
+Underfull \hbox (badness 7203) in paragraph at lines 156--160
+\OT1/cmtt/m/n/12 Verfahren _ der _ Aufwandsch % C3 % A4tzung _ im _ Vergleich$[
+]  \OT1/cmr/m/it/12 (Stand:
  []
 
 )
@@ -1568,7 +1568,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 150.
 Here is how much of TeX's memory you used:
  11902 strings out of 493042
  167630 string characters out of 6138228
- 310239 words of memory out of 5000000
+ 310242 words of memory out of 5000000
  14730 multiletter control sequences out of 15000+600000
  15088 words of font info for 56 fonts, out of 8000000 for 9000
  1149 hyphenation exceptions out of 8191
@@ -1593,10 +1593,10 @@ fb><c:/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><
 c:/texlive/2015/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb><c:/texlive
 /2015/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb><c:/texlive/2015/texm
 f-dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on vorlage.pdf (69 pages, 1662490 bytes).
+Output written on vorlage.pdf (69 pages, 1662336 bytes).
 PDF statistics:
- 1226 PDF objects out of 1440 (max. 8388607)
- 1079 compressed objects within 11 object streams
+ 1225 PDF objects out of 1440 (max. 8388607)
+ 1078 compressed objects within 11 object streams
  449 named destinations out of 1000 (max. 500000)
  339 words of extra memory for PDF output out of 10000 (max. 10000000)
 
