@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/W32TeX) (preloaded format=pdflatex 2016.2.2)  1 MAR 2016 19:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/W32TeX) (preloaded format=pdflatex 2016.2.2)  2 MAR 2016 18:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1108,59 +1108,67 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--12
 
 ]) (./chapters/Fundamentals.tex [2]
 Chapter 2.
-<images/estimationProcess.PNG, id=242, 749.04843pt x 621.82312pt>
+[3
+
+
+] <images/estimationProcess.PNG, id=250, 749.04843pt x 621.82312pt>
 File: images/estimationProcess.PNG Graphic file (type png)
 
 <use images/estimationProcess.PNG>
 Package pdftex.def Info: images/estimationProcess.PNG used on input line 23.
 (pdftex.def)             Requested size: 369.88582pt x 307.05856pt.
- [3
 
 
-] [4 <./images/estimationProcess.PNG>]
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 36--36
 [][][][]$\OT1/cmtt/m/n/9 http : / / winfwiki . wi-[]fom . de / index . php / Me
 thoden _ und _ Verfahren _ der _ Aufwandsch % C3 % A4tzung _
  []
 
-<images/Einsatzzeitpunkte2.PNG, id=263, 795.2109pt x 507.5763pt>
+<images/Einsatzzeitpunkte2.PNG, id=254, 795.2109pt x 507.5763pt>
 File: images/Einsatzzeitpunkte2.PNG Graphic file (type png)
 
 <use images/Einsatzzeitpunkte2.PNG>
 Package pdftex.def Info: images/Einsatzzeitpunkte2.PNG used on input line 39.
 (pdftex.def)             Requested size: 369.88582pt x 236.09798pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 46--52
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 46--50
 
  []
 
-[5 <./images/Einsatzzeitpunkte2.PNG>]
-Underfull \hbox (badness 10000) in paragraph at lines 55--57
+[4] [5 <./images/estimationProcess.PNG>]
+Underfull \hbox (badness 10000) in paragraph at lines 53--55
 
  []
 
-[6]
-Underfull \hbox (badness 10000) in paragraph at lines 73--75
+[6 <./images/Einsatzzeitpunkte2.PNG>]
+Underfull \hbox (badness 10000) in paragraph at lines 71--73
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 78--80
+Underfull \hbox (badness 10000) in paragraph at lines 76--78
 
  []
 
 [7] [8] [9]
-Underfull \hbox (badness 10000) in paragraph at lines 145--146
+Underfull \hbox (badness 10000) in paragraph at lines 143--144
 
  []
 
 [10] [11] [12] [13]
-Underfull \hbox (badness 10000) in paragraph at lines 267--268
+Underfull \hbox (badness 10000) in paragraph at lines 264--265
 
  []
 
 [14]
-Underfull \hbox (badness 10000) in paragraph at lines 290--293
+Underfull \hbox (badness 10000) in paragraph at lines 287--290
 
  []
 
@@ -1568,7 +1576,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 150.
 Here is how much of TeX's memory you used:
  11902 strings out of 493042
  167630 string characters out of 6138228
- 310242 words of memory out of 5000000
+ 310243 words of memory out of 5000000
  14730 multiletter control sequences out of 15000+600000
  15088 words of font info for 56 fonts, out of 8000000 for 9000
  1149 hyphenation exceptions out of 8191
@@ -1593,7 +1601,7 @@ fb><c:/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><
 c:/texlive/2015/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb><c:/texlive
 /2015/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb><c:/texlive/2015/texm
 f-dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on vorlage.pdf (69 pages, 1662336 bytes).
+Output written on vorlage.pdf (69 pages, 1664510 bytes).
 PDF statistics:
  1225 PDF objects out of 1440 (max. 8388607)
  1078 compressed objects within 11 object streams
