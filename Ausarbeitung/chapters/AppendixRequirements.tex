@@ -2,3 +2,113 @@
 \label{app:RE}
 
 This section contains all requirements for the developed application. It limits on the \textit{description}, \textit{title} and \textit{id} of the requirements to save space.
+
+\section{Functional Requirements}
+This section describes all functional requirements of the application.
+
+\subsection{Database}
+\paragraph{R001 Project Database}
+It exists a database where all projects are stored.
+\paragraph{R002 Project Database: Restriction}
+For the Bachelor Thesis the application only got a local database.
+\paragraph{R003 Project Database: Normalization}
+The database is normalized in the 3 normalization form.
+
+\subsection{Projects}
+\paragraph{R004 Projects Overview}
+The application must have an overview where all projects are displayed.
+\paragraph{R005 Filter Projects}
+In the projects overview the user has the possibility to filter the project properties.
+\paragraph{R006 Sort Projects}
+In the projects overview the user has the possibility to sort the projects properties.
+\paragraph{R007 Sort Projects: Standard Sort}
+The Standard  sort method for the projects is the last edit date.
+\paragraph{R008 Search Project}
+In the project Overview exists the possibility to search a project.
+
+\subsubsection{Project Creation}
+\paragraph{R023 Create Project}
+It is possible to create a new project in the application
+\paragraph{R024 Create Project: Project Name}
+To create a Project a new Name must set
+
+\paragraph{R025 Create Project: unique ID}
+All Projects have an unique ID.
+
+\paragraph{R026 Create Project: Set Estimation Method}
+To create a Project an available estimation method must be set
+
+\paragraph{R027 Create Project: Load Project Influence Factors}
+After an Estimation Method is set the influencing factors are loaded
+
+\paragraph{R028 Create Project: Set Influencing Factors}
+All Influence Factors need to be set to complete the creation process
+
+\paragraph{R029 Create Project: Project Phase}
+For the creation Process the actual Project Phase must be set
+
+\paragraph{R030 Create Project: Project Properties}
+There has to be the possibility to add existing project documents
+
+\paragraph{R031 Create Project: Development Market}
+The development market of the Project is selectable 
+
+\paragraph{R032 Create Project: Development Kind}
+The development kind of the Project is selectable 
+
+\paragraph{R033 Create Project: Process Methodology}
+The process methodology of the Project is selectable 
+
+\paragraph{R034 Create Project: Programming Language}
+The programming language of the Project is selectable 
+
+\paragraph{R035 Create Project: Platform}
+The platform of the Project is selectable 
+
+\paragraph{R036 Create Project: Industry Sector}
+The industry sector of the Project is selectable 
+
+\paragraph{R037 Create Project: Architecture}
+The architecture of the Project is selectable 
+
+\paragraph{R038 Create Project: Project Icon}
+The project icon of the Project is selectable 
+
+\paragraph{R039 Create Project: Guided Creation Process}
+It is possible to start a guided creation for the project which guides the user through each step
+
+\paragraph{R040 Create Project: List Creation}
+It is possible to create a new project with a list creation which inherits all properties for the creation
+
+\paragraph{R041 Create Project: Long Project Name}
+Project names have to be limited to 40 characters
+
+\paragraph{R042 Create Project: Preselected Properties}
+One value must be preselected for all properties.
+
+\paragraph{R043 Create Project: description}
+It should be possible to add a project description
+
+\paragraph{R044 Create Project: Property Sorting}
+All Properties are sorted alphabetically descending for the selection
+
+\paragraph{R045 Create Project: Suggest Estimation Method}
+There should be the possibility to calculate the best fitting estimation method for the project
+
+\paragraph{R046 Create Project: Suggest Estimation Method - Sorting}
+The suggested methods are sorted after the best fitting
+
+\subsection{Related Projects}
+\paragraph{R009 Find Related Projects}
+It must be possible to find related projects.
+\paragraph{R010 Load Components From Other Projects}
+It is possible to copy Components from other projects into the actual project.
+
+
+
+\section{Non-Functional Requirements}
+This section describes all non-functional requirements of the application.
+\paragraph{R009 Design Guidelines}
+The application must fulfills the Design Guidelines from Google - Material Design.
+\paragraph{R010 Save Changes Automatically}
+All changes in the application need to saved automatically.
