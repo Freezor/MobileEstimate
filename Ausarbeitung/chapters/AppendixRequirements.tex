@@ -7,12 +7,26 @@ This section contains all requirements for the developed application. It limits 
 This section describes all functional requirements of the application.
 
 \subsection{Database}
-\paragraph{R001 Project Database}
+\paragraph{R001 Database}
+The application stores all demanded informations in a database.
+\paragraph{R018 Project Database}
 It exists a database where all projects are stored.
 \paragraph{R002 Project Database: Restriction}
 For the Bachelor Thesis the application only got a local database.
-\paragraph{R003 Project Database: Normalization}
-The database is normalized in the 3 normalization form.
+\paragraph{R057 Delete Flag}
+Deleted projects get a deletion flag before deleting them completely.
+\paragraph{R058 Erase Deleted Projects}
+Projects with a deletion flag can be erased from the database.
+\paragraph{R059 Stored Property Parameters}
+The parameters for each property are stored in the database.
+\paragraph{R060 Property Distance Informations}
+The database contains all informations to calculate the distance of projects.
+\paragraph{R061 View Deleted Projects}
+It is possible to view all projects with deletion flag.
+\paragraph{R063 Recover Projects}
+It's possible to recover projects with a deletion flag.
+\paragraph{R064 Database Size}
+The application allows to view the physical size of the database in \texttt{mb}.
 
 \subsection{Projects}
 \paragraph{R004 Projects Overview}
@@ -22,93 +36,233 @@ In the projects overview the user has the possibility to filter the project prop
 \paragraph{R006 Sort Projects}
 In the projects overview the user has the possibility to sort the projects properties.
 \paragraph{R007 Sort Projects: Standard Sort}
-The Standard  sort method for the projects is the last edit date.
+The Standard  sort method for the projects is the creation date.
 \paragraph{R008 Search Project}
 In the project Overview exists the possibility to search a project.
+\paragraph{R072 Sort Last Edited}
+It is possible to sort the project after the last edited date.
+\paragraph{R073}
+It is possible to sort the projects after name.
 
 \subsubsection{Project Creation}
 \paragraph{R023 Create Project}
 It is possible to create a new project in the application
 \paragraph{R024 Create Project: Project Name}
 To create a Project a new Name must set
-
 \paragraph{R025 Create Project: unique ID}
 All Projects have an unique ID.
-
 \paragraph{R026 Create Project: Set Estimation Method}
 To create a Project an available estimation method must be set
-
 \paragraph{R027 Create Project: Load Project Influence Factors}
 After an Estimation Method is set the influencing factors are loaded
-
 \paragraph{R028 Create Project: Set Influencing Factors}
 All Influence Factors need to be set to complete the creation process
-
 \paragraph{R029 Create Project: Project Phase}
-For the creation Process the actual Project Phase must be set
-
+For the creation Process the actual Project Phase can be set
 \paragraph{R030 Create Project: Project Properties}
-There has to be the possibility to add existing project documents
-
+There has to be the possibility to add existing project properties
 \paragraph{R031 Create Project: Development Market}
 The development market of the Project is selectable 
-
 \paragraph{R032 Create Project: Development Kind}
 The development kind of the Project is selectable 
-
 \paragraph{R033 Create Project: Process Methodology}
 The process methodology of the Project is selectable 
-
 \paragraph{R034 Create Project: Programming Language}
 The programming language of the Project is selectable 
-
 \paragraph{R035 Create Project: Platform}
 The platform of the Project is selectable 
-
 \paragraph{R036 Create Project: Industry Sector}
 The industry sector of the Project is selectable 
-
 \paragraph{R037 Create Project: Architecture}
 The architecture of the Project is selectable 
-
 \paragraph{R038 Create Project: Project Icon}
 The project icon of the Project is selectable 
-
 \paragraph{R039 Create Project: Guided Creation Process}
-It is possible to start a guided creation for the project which guides the user through each step
-
+It is possible to start a guided creation for the project which guides the user through each step.
 \paragraph{R040 Create Project: List Creation}
 It is possible to create a new project with a list creation which inherits all properties for the creation
-
 \paragraph{R041 Create Project: Long Project Name}
 Project names have to be limited to 40 characters
-
 \paragraph{R042 Create Project: Preselected Properties}
 One value must be preselected for all properties.
-
 \paragraph{R043 Create Project: description}
 It should be possible to add a project description
-
 \paragraph{R044 Create Project: Property Sorting}
 All Properties are sorted alphabetically descending for the selection
-
 \paragraph{R045 Create Project: Suggest Estimation Method}
 There should be the possibility to calculate the best fitting estimation method for the project
-
 \paragraph{R046 Create Project: Suggest Estimation Method - Sorting}
-The suggested methods are sorted after the best fitting
+The suggested methods are sorted after the best fitting.
+\paragraph{R071 Guided Creation - Progress}
+The progress of the guided creation is visible.
+\paragraph{R072 Cancel Project Creation}
+If the user cancels the creation he will be warned that unsaved data will not be saved.
+
+\subsubsection{Project Properties}
+\paragraph{R010 Project Properties}
+Each project has properties
+\paragraph{R011 Project Properties View}
+It is possible to get a view of all properties of a project.
+\paragraph{R012 Saving Project Properties}
+All properties are saved in the database.
+\paragraph{R050 Property: Development Market}
+All projects contain the property for development market.
+\paragraph{R051 Property: Development Kind}
+All projects contain the property for development kind.
+\paragraph{R052 Property: Process Methodology}
+All projects contain the property for process methodology.
+\paragraph{R053 Property: Programming Language}
+All projects contain the property for programming language.
+\paragraph{R054 Property: Platform}
+All projects contain the property for platform.
+\paragraph{R055 Property: Industry Sector}
+All projects contain the property for industry sector.
+\paragraph{R056 Property: Software Architecture}
+All projects contain the property for software architecture.
+\paragraph{R071 Automatic Save}
+Changes on project properties are saved automatically.
+
+\subsubsection{Project Estimation}
+\paragraph{R014 Estimation}
+An Estimation of projects is possible in all implemented estimation techniques.
+\paragraph{R076 Function Point Estimation}
+An estimation with the function point technique is possible.
+\paragraph{R077 Function Point Estimation - Calculation Total Points}
+The Total Points of the estimation will be calculated automatically
+\paragraph{R078 Function Point Estimation - Calculation Evaluated Points}
+The Evaluated Points of the estimation will be calculated automatically with the set influence factor.
+\paragraph{R079 Function Point Estimation - Calculation Man Days}
+The man days will be calculated automatically for the estimation.
+\paragraph{R080 Man Days Calculation}
+The man days will be calculated with a basis factor if no terminated project is available.
+\paragraph{R081 Adapted Man Days Calculation}
+If terminated projects exists, the man days will be calculated with an average points-per-day value.
+\paragraph{R082 Change Influence Factor Set}
+It is possible to change the set of influence factors of a project.
+\paragraph{R083 Terminate Project}
+Each estimation must allow a termination of the project.
+\paragraph{R084 Editing After Termination}
+A terminated project cannot be edited.
+ 
+\subsection{Influence Factors} 
+\paragraph{R085 Create New Influence Factor}
+The application allows the creation of a new influence factor set.
+\paragraph{R086 Influence Factor Name}
+Each influence factor must contain a name.
+\paragraph{R087 Influence Factor Empty Name}
+The name for an influence factor must not be an empty string.
+\paragraph{R088 Influence Factor ID}
+Each influence factor set must have an unique id.
+\paragraph{R089 Influence Factor Selection}
+All Influence Factors are sorted after the estimation technique.
+\paragraph{R090 Delete Influence Factor}
+A created influence factor set can be deleted.
+\paragraph{R091 Edit Influence Factor}
+A created Influence Factor set can be edited.
+\paragraph{R092 Influence Factor Sum}
+The sum of the factor can be shown.
 
 \subsection{Related Projects}
 \paragraph{R009 Find Related Projects}
 It must be possible to find related projects.
 \paragraph{R010 Load Components From Other Projects}
 It is possible to copy Components from other projects into the actual project.
+\paragraph{R013 Project Properties Distance}
+The distance of two projects is calculated with all project properties.
+\paragraph{R065 Project Relevance}
+The project relevance to the selected project is given in percentage.
+\paragraph{R066 Related Projects Sorting}
+All related projects are sorted descending after their relevance.
+\paragraph{R067 Related Project Property}
+It is possible to view the properties of a related project.
+\paragraph{R068 Relation Border}
+Only projects with a relevance more than 50\% are viewed.
+\paragraph{R069 Show All Related Projects}
+The application allows the option to show the relation to all projects.
+\paragraph{R070 Properties of Related Projects}
+It is possible to show the properties of a related project.
 
+\subsection{Export}
+\paragraph{R015 Export Project}
+The application allows an exportation of projects to external files.
+\paragraph{R074 Export XLS}
+An export to xls format is possible.
+\paragraph{R075 Open Exported XLS file}
+The exported xls file will be opened when it is done.
 
+\subsection{Help}
+\paragraph{R016 Help Method}
+The application inherits articles that provide informations to the user.
+\paragraph{R093 Search Articles}
+It is possible to search help articles.
+\paragraph{R094 Selected Articles}
+On the main help screen is only a selection of help articles visible.
+\paragraph{R095 Show all articles}
+It is possible to show all available articles on the screen.
+\paragraph{R096 Open Articles}
+A help article can be opened.
+\paragraph{R097 Shown Articles}
+The help articles are only shown with their title.
+\paragraph{R098 Feedback}
+The help screen allows sending of a feedback to the producer of the application.
+
+\subsection{User Informations}
+\paragraph{R017 Saving User Informations}
+The application stores all necessary user informations in a database.
+\paragraph{R099 Set User Name}
+It is possible to set the user name.
+\paragraph{R100 Password}
+It' possible to set the password.
+\paragraph{R101 User Name Length}
+The user name length is limited to 30 characters.
+\paragraph{R102 Password Length}
+Password length is limited to 30 characters.
+\paragraph{R103 Check Login}
+It is possible to verify the login informations.
+\paragraph{R104 User Informations}
+All user informations can be displayed.
+
+\subsection{Feedback}
+\paragraph{R019 Send Support Request}
+The application provides the possibility to send a support request to the producer of the application.
+
+\subsection{Synchronization}
+\paragraph{R105 Sync Frequency}
+It is possible to set the frequency for automatic synchronization.
+\paragraph{R106 Automatic Sync}
+The application allows to change via automatic and manual synchronization.
+\paragraph{R107 Connection}
+A selection which with which connection an automatic synchronization is possible is provided by the application.
+
+\subsection{Miscellaneous}
+\paragraph{R108 App Informations}
+The app provides a screen with all app informations.
+\paragraph{R109 Version Number}
+The App Informations shows the actual version number.
+\paragraph{R110 License}
+All license informations can be viewed inside the application.
+\paragraph{R111 Crash Reports}
+All crash reports can be send to the server.
+\paragraph{R112 Automatically Send Crash Reports}
+It is possible to send crash reports automatically.
 
 \section{Non-Functional Requirements}
 This section describes all non-functional requirements of the application.
+\paragraph{R003 Project Database: Normalization}
+The database is normalized in the 3 normalization form.
 \paragraph{R009 Design Guidelines}
 The application must fulfills the Design Guidelines from Google - Material Design.
 \paragraph{R010 Save Changes Automatically}
 All changes in the application need to saved automatically.
+\paragraph{R046 Crash safety}
+The application does not crash if data was not found
+\paragraph{R047 Error Informations}
+If an error occurs the application provides the user with a helpful error message.
+\paragraph{R113 View Orientation Data Loss}
+By changing the phone orientation no data must be lost.
+\paragraph{R114 Main Language}
+The main language for the application is English.
+\paragraph{R115 Code Annotation}
+All annotations of the source code are made in English.
+\paragraph{R116 Method Annotations}
+Each source code method and class have an annotation that describes the use.

@@ -28,7 +28,12 @@
 \BOOKMARK [1][-]{section.A.2}{Non-Functional Requirements}{appendix.A}% 28
 \BOOKMARK [0][-]{appendix.B}{Function Group}{}% 29
 \BOOKMARK [0][-]{appendix.C}{Property Distances}{}% 30
-\BOOKMARK [0][-]{appendix.D}{Entity Relation Diagram}{}% 31
-\BOOKMARK [0][-]{appendix.E}{Test Cases}{}% 32
-\BOOKMARK [1][-]{section.E.1}{Application Tests}{appendix.E}% 33
-\BOOKMARK [0][-]{appendix.F}{Erkl\344rung der Kandidatin / des Kandidaten}{}% 34
+\BOOKMARK [1][-]{section.C.1}{Development Market Comparison}{appendix.C}% 31
+\BOOKMARK [1][-]{section.C.2}{Development Type Comparison}{appendix.C}% 32
+\BOOKMARK [1][-]{section.C.3}{Platform Porting Costs}{appendix.C}% 33
+\BOOKMARK [1][-]{section.C.4}{Procedure Model Comparison}{appendix.C}% 34
+\BOOKMARK [1][-]{section.C.5}{Programming Language Properties}{appendix.C}% 35
+\BOOKMARK [1][-]{section.C.6}{Software Architecture Properties}{appendix.C}% 36
+\BOOKMARK [0][-]{appendix.D}{Test Cases}{}% 37
+\BOOKMARK [1][-]{section.D.1}{Application Tests}{appendix.D}% 38
+\BOOKMARK [0][-]{appendix.E}{Erkl\344rung der Kandidatin / des Kandidaten}{}% 39
