@@ -11,10 +11,10 @@
 \contentsline {section}{\numberline {2.2}Estimation Techniques}{7}{section.2.2}
 \contentsline {subsection}{\numberline {2.2.1}Function Point}{8}{subsection.2.2.1}
 \contentsline {subsubsection}{Determining the Components}{8}{section*.9}
-\contentsline {subsubsection}{Evaluation of the Components}{9}{section*.10}
+\contentsline {subsubsection}{Evaluation the Components}{9}{section*.10}
 \contentsline {subsubsection}{ Calculating the amount of Function-Points}{9}{section*.11}
-\contentsline {subsubsection}{ Classification of Influence Factors}{10}{section*.12}
-\contentsline {subsubsection}{Calculation of the Function Points}{11}{section*.13}
+\contentsline {subsubsection}{ Classification the Influence Factors}{10}{section*.12}
+\contentsline {subsubsection}{Calculation the Function Points}{11}{section*.13}
 \contentsline {subsection}{\numberline {2.2.2}COCOMO}{12}{subsection.2.2.2}
 \contentsline {subsubsection}{Project Classes}{12}{section*.14}
 \contentsline {subsubsection}{Model Variants}{12}{section*.15}
@@ -94,7 +94,7 @@
 \contentsline {paragraph}{R007 Sort Projects: Standard Sort}{61}{section*.55}
 \contentsline {paragraph}{R008 Search Project}{61}{section*.56}
 \contentsline {paragraph}{R072 Sort Last Edited}{61}{section*.57}
-\contentsline {paragraph}{R073}{61}{section*.58}
+\contentsline {paragraph}{R073 Sort Name}{61}{section*.58}
 \contentsline {subsubsection}{Project Creation}{61}{section*.59}
 \contentsline {paragraph}{R023 Create Project}{61}{section*.60}
 \contentsline {paragraph}{R024 Create Project: Project Name}{61}{section*.61}
@@ -183,7 +183,7 @@
 \contentsline {paragraph}{R101 User Name Length}{68}{section*.139}
 \contentsline {paragraph}{R102 Password Length}{68}{section*.140}
 \contentsline {paragraph}{R103 Check Login}{68}{section*.141}
-\contentsline {paragraph}{R104 User Informations}{68}{section*.142}
+\contentsline {paragraph}{R104 User Information}{68}{section*.142}
 \contentsline {subsection}{\numberline {A.1.8}Feedback}{68}{subsection.A.1.8}
 \contentsline {paragraph}{R019 Send Support Request}{68}{section*.143}
 \contentsline {subsection}{\numberline {A.1.9}Synchronization}{68}{subsection.A.1.9}
@@ -191,7 +191,7 @@
 \contentsline {paragraph}{R106 Automatic Sync}{68}{section*.145}
 \contentsline {paragraph}{R107 Connection}{68}{section*.146}
 \contentsline {subsection}{\numberline {A.1.10}Miscellaneous}{68}{subsection.A.1.10}
-\contentsline {paragraph}{R108 App Informations}{68}{section*.147}
+\contentsline {paragraph}{R108 App Information}{68}{section*.147}
 \contentsline {paragraph}{R109 Version Number}{68}{section*.148}
 \contentsline {paragraph}{R110 License}{68}{section*.149}
 \contentsline {paragraph}{R111 Crash Reports}{69}{section*.150}
@@ -201,7 +201,7 @@
 \contentsline {paragraph}{R009 Design Guidelines}{69}{section*.153}
 \contentsline {paragraph}{R010 Save Changes Automatically}{69}{section*.154}
 \contentsline {paragraph}{R046 Crash safety}{69}{section*.155}
-\contentsline {paragraph}{R047 Error Informations}{69}{section*.156}
+\contentsline {paragraph}{R047 Error Information}{69}{section*.156}
 \contentsline {paragraph}{R113 View Orientation Data Loss}{69}{section*.157}
 \contentsline {paragraph}{R114 Main Language}{69}{section*.158}
 \contentsline {paragraph}{R115 Code Annotation}{69}{section*.159}
