@@ -52,6 +52,29 @@ public class Project implements Serializable
         super();
     }
 
+    public Project(Project project)
+    {
+        this.title = project.getTitle();
+        this.image = project.getImage();
+        this.iconName = project.getIconName();
+        this.creationDate = project.getCreationDate();
+        this.projectDescription = project.getProjectDescription();
+        this.estimationMethod = project.getEstimationMethod();
+        this.context = project.getContext();
+        this.influencingFactor = project.getInfluencingFactor();
+        this.projectProperties = project.getProjectProperties();
+        this.estimationItems = project.getEstimationItems();
+        this.sumOfInfluences = project.getSumOfInfluences();
+        this.influenceFactorRating = project.getFactorInfluenceRating();
+        this.evaluatedPersonDays = project.getEvaluatedPersonDays();
+        this.projectId = project.getProjectId();
+        this.iconId = project.getIconId();
+        this.isDeleted = project.isDeleted();
+        this.isTerminated = project.isTerminated();
+        this.finalPersonDays = project.getFinalPersonDays();
+        this.evaluatedPoints = project.getEvaluatedPoints();
+    }
+
     /**
      * Create a Project with already known title, creation Date and estimation Type
      * Mostly for test purpose

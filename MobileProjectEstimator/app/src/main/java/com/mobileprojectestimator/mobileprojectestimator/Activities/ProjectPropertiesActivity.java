@@ -28,6 +28,7 @@ import java.util.HashMap;
 public class ProjectPropertiesActivity extends DatabaseActivity
 {
     private Project project;
+    private Project oldProject = null;
     private TextView tvProjectName;
     private ImageView ivProjectIcon;
     private TextView tvIndustrySectorValue;
@@ -45,6 +46,8 @@ public class ProjectPropertiesActivity extends DatabaseActivity
     private ArrayList<String> programmingLanguageItems;
     private ArrayList<String> platformItems;
     private ArrayList<String> industrySectorItems;
+    private TextView tvArchitectureValue;
+    private ArrayList<String> architectureItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -67,6 +70,7 @@ public class ProjectPropertiesActivity extends DatabaseActivity
         tvProgrammingLangValue = (TextView) findViewById(R.id.tvProgLangValue);
         tvPlatformValue = (TextView) findViewById(R.id.tvPlatformValue);
         tvIndustrySectorValue = (TextView) findViewById(R.id.tvIndustrySectorValue);
+        tvArchitectureValue = (TextView) findViewById(R.id.tvArchitectureValue);
 
         Intent intent = getIntent();
         projectId = intent.getIntExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID), 0);
@@ -152,7 +156,15 @@ public class ProjectPropertiesActivity extends DatabaseActivity
                 return true;
             }
         });
-
+        tvArchitectureValue.setOnLongClickListener(new View.OnLongClickListener()
+        {
+            @Override
+            public boolean onLongClick(View v)
+            {
+                showValueToast(tvArchitectureValue.getText().toString());
+                return true;
+            }
+        });
 
         tvProjectDescription.setOnClickListener(new View.OnClickListener()
         {
@@ -210,8 +222,40 @@ public class ProjectPropertiesActivity extends DatabaseActivity
                 openProjectIndustrySectorDialog();
             }
         });
-
+        tvArchitectureValue.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                openSoftwareArchitectureDialog();
+            }
+        });
         loadPropertyValues();
+    }
+
+    private void openSoftwareArchitectureDialog()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.project_creation_architecture));
+        builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int id)
+            {
+                // User cancelled the dialog
+            }
+        });
+        final CharSequence[] items = architectureItems.toArray(new String[architectureItems.size()]);
+        builder.setItems(items, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
+                oldProject = new Project(project);
+                project.getProjectProperties().setArchitecture(items[item].toString());
+                updateContent();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void showValueToast(String text)
@@ -268,6 +312,10 @@ public class ProjectPropertiesActivity extends DatabaseActivity
 
         estimationMethodItems = databaseHelper.getEstimationMethodNames();
         Collections.sort(estimationMethodItems);
+
+        architectureItems = databaseHelper.loadAllPropertiesByName("SoftwareArchitecturePatterns");
+        Collections.sort(architectureItems);
+
     }
 
     /**
@@ -276,7 +324,7 @@ public class ProjectPropertiesActivity extends DatabaseActivity
     private void updateProjectInformationValues()
     {
         project = databaseHelper.loadProjectById(this, String.valueOf(projectId));
-
+        oldProject = project;
         updateContent();
     }
 
@@ -294,6 +342,8 @@ public class ProjectPropertiesActivity extends DatabaseActivity
         tvProgrammingLangValue.setText(project.getProjectProperties().getProgrammingLanguage());
         tvPlatformValue.setText(project.getProjectProperties().getPlatform());
         tvIndustrySectorValue.setText(project.getProjectProperties().getIndustrySector());
+        tvArchitectureValue.setText(project.getProjectProperties().getArchitecture());
+        databaseHelper.updateExistingProjectInformations(project);
     }
 
     private void openProjectNameDialog()
@@ -314,6 +364,7 @@ public class ProjectPropertiesActivity extends DatabaseActivity
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
+                oldProject = new Project(project);
                 project.setTitle(input.getText().toString());
                 updateContent();
             }
@@ -354,6 +405,7 @@ public class ProjectPropertiesActivity extends DatabaseActivity
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
+                oldProject = new Project(project);
                 project.setProjectDescription(input.getText().toString());
                 updateContent();
             }
@@ -380,6 +432,7 @@ public class ProjectPropertiesActivity extends DatabaseActivity
         {
             public void onClick(DialogInterface dialog, int item)
             {
+                oldProject = new Project(project);
                 project.getProjectProperties().setMarket(items[item].toString());
                 updateContent();
             }
@@ -398,6 +451,7 @@ public class ProjectPropertiesActivity extends DatabaseActivity
         {
             public void onClick(DialogInterface dialog, int item)
             {
+                oldProject = new Project(project);
                 project.getProjectProperties().setDevelopmentKind(items[item].toString());
                 updateContent();
             }
@@ -422,6 +476,7 @@ public class ProjectPropertiesActivity extends DatabaseActivity
         {
             public void onClick(DialogInterface dialog, int item)
             {
+                oldProject = new Project(project);
                 project.getProjectProperties().setProcessMethology(items[item].toString());
                 updateContent();
             }
@@ -447,6 +502,7 @@ public class ProjectPropertiesActivity extends DatabaseActivity
         {
             public void onClick(DialogInterface dialog, int item)
             {
+                oldProject = new Project(project);
                 project.getProjectProperties().setProgrammingLanguage(items[item].toString());
                 updateContent();
             }
@@ -471,6 +527,7 @@ public class ProjectPropertiesActivity extends DatabaseActivity
         {
             public void onClick(DialogInterface dialog, int item)
             {
+                oldProject = new Project(project);
                 project.getProjectProperties().setPlatform(items[item].toString());
                 updateContent();
             }
@@ -495,6 +552,7 @@ public class ProjectPropertiesActivity extends DatabaseActivity
         {
             public void onClick(DialogInterface dialog, int item)
             {
+                oldProject = new Project(project);
                 project.getProjectProperties().setIndustrySector(items[item].toString());
                 updateContent();
             }
@@ -529,8 +587,8 @@ public class ProjectPropertiesActivity extends DatabaseActivity
             case android.R.id.home:
                 onBackPressed();
                 return true;
-            case R.id.action_save_project_informations:
-                saveProject();
+            case R.id.action_undo_last_change:
+                undoLastChange();
                 return true;
             case R.id.action_change_estimation_method:
                 return super.onOptionsItemSelected(item);
@@ -544,15 +602,16 @@ public class ProjectPropertiesActivity extends DatabaseActivity
         }
     }
 
-    private void saveProject()
+    private void undoLastChange()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(ProjectPropertiesActivity.this);
-        builder.setMessage(R.string.dialog_save_project_request)
+        builder.setMessage(R.string.dialog_undo_project_request)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
                 {
                     public void onClick(DialogInterface dialog, int id)
                     {
-                        databaseHelper.updateExistingProjectInformations(project);
+                        project = oldProject;
+                        updateContent();
                     }
                 })
                 .setNegativeButton(R.string.no, new DialogInterface.OnClickListener()

@@ -4,12 +4,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
+
+import java.util.ArrayList;
 
 /**
  * Created by Oliver Fries on 01.11.2015, 15:36.
@@ -17,7 +22,7 @@ import com.mobileprojectestimator.mobileprojectestimator.R;
  */
 public class EstimationMethodFragment extends GuidedCreationFragment
 {
-    private Project project;
+    private static Project project;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -36,6 +41,7 @@ public class EstimationMethodFragment extends GuidedCreationFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
+        initDatabase();
         final View rootView = inflater.inflate(R.layout.estimation_method_fragment, container, false);
         ImageView dot1 = (ImageView) rootView.findViewById(R.id.dot1);
         dot1.setBackgroundResource(R.drawable.circle_blue);
@@ -46,22 +52,26 @@ public class EstimationMethodFragment extends GuidedCreationFragment
         ImageView dot4 = (ImageView) rootView.findViewById(R.id.dot4);
         dot4.setBackgroundResource(R.drawable.circle_blue);
 
-        if (project.getEstimationMethod().isEmpty() || project.getEstimationMethod() == null){
-            project.setEstimationMethod(getString(R.string.estimation_technique_function_point));
-        }
-
-        final RadioGroup estimationMethodRadioGroup = (RadioGroup) rootView.findViewById(R.id.estimationMethodRadioGroup);
-        estimationMethodRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        ArrayList<String> architectureItems = new ArrayList<>();
+        architectureItems.addAll(databaseHelper.loadAllPropertiesByName("SoftwareArchitecturePatterns"));
+        ArrayAdapter<String> architectureAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, architectureItems);
+        final Spinner  architectureSpinner = (Spinner) rootView.findViewById(R.id.architecture);
+        architectureSpinner.setAdapter(architectureAdapter);
+        architectureSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
 
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId)
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int arg2, long arg3)
             {
-                int selectedId = estimationMethodRadioGroup.getCheckedRadioButtonId();
+                project.getProjectProperties().setArchitecture(architectureSpinner.getSelectedItem().toString());
 
-                // find the radiobutton by returned id
-                RadioButton estimationRB = (RadioButton) rootView.findViewById(selectedId);
-                project.setEstimationMethod(estimationRB.getText().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0)
+            {
+                project.getProjectProperties().setArchitecture(architectureSpinner.getSelectedItem().toString());
             }
         });
 

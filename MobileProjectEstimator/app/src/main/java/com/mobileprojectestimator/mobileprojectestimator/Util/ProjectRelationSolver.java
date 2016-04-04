@@ -6,6 +6,7 @@ import android.util.Log;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.ProgrammingLanguageProperty;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.RelatedProject;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.SoftwareArchitectureProperty;
 import com.mobileprojectestimator.mobileprojectestimator.Util.database.DataBaseHelper;
 
 import java.io.IOException;
@@ -24,6 +25,7 @@ public class ProjectRelationSolver
     private final ArrayList<Project> allProjects;
     private final Activity activity;
     private ProgrammingLanguageProperty baseLanguageProperty;
+    private SoftwareArchitectureProperty baseSoftwareArchitectureProperty;
 
     public ProjectRelationSolver(Activity activity, Project selectedProject, ArrayList<Project> projects)
     {
@@ -85,12 +87,13 @@ public class ProjectRelationSolver
     }
 
 
-    public ArrayList<RelatedProject> getRelatedProject(double relationBorder)
+    public ArrayList<RelatedProject> getRelatedProjects(double relationBorder)
     {
         ArrayList<RelatedProject> relatedProjects = new ArrayList<>();
         project = databaseHelper.loadProjectById(activity, String.valueOf(project.getProjectId()));
 
         baseLanguageProperty = databaseHelper.loadProgrammingLanguageProperty(project.getProjectProperties().getProgrammingLanguage());
+        baseSoftwareArchitectureProperty = databaseHelper.loadArchitectureProperty(project.getProjectProperties().getArchitecture());
 
         for (Project p : allProjects)
         {
@@ -118,12 +121,7 @@ public class ProjectRelationSolver
     private double compareWithChosenProject(Project p)
     {
         double estimationMethodDistance = databaseHelper.getEstimationMethodDistance(project.getEstimationMethod(), p.getEstimationMethod());
-        //TODO: Change with future estimation Methods
-        double factorSetDistance = 60;//Set to max possible factor distance
-        if (estimationMethodDistance == 0)
-        {
-            factorSetDistance = Math.abs(project.getSumOfInfluences() - p.getSumOfInfluences());
-        }
+
         double developmentMarketDistance = databaseHelper.getPropertyDistance("DevelopmentMarkets", "DevelopmentMarketComparison", "market_id_1", "market_id_2", "comparison_distance", project.getProjectProperties().getMarket(), p.getProjectProperties().getMarket());
         double developmentTypeDistance = databaseHelper.getPropertyDistance("DevelopmentTypes", "DevelopmentTypeComparison", "dev_type_1", "dev_type_2", "comparison_distance", project.getProjectProperties().getDevelopmentKind(), p.getProjectProperties().getDevelopmentKind());
         double processMethologyDistance = databaseHelper.getPropertyDistance("ProcessMethologies", "ProcessMethologyComparison", "pm_id_1", "pm_id_2", "comparison_distance", project.getProjectProperties().getProcessMethology(), p.getProjectProperties().getProcessMethology());
@@ -136,29 +134,47 @@ public class ProjectRelationSolver
         int programmingLanguageConversionCosts = databaseHelper.getPropertyDistance("ProgrammingLanguages", "ProgrammingLanguageConversion", "pl_id_1", "pl_id_2", "conversion_cost", project.getProjectProperties().getProgrammingLanguage(), p.getProjectProperties().getProgrammingLanguage());
         ProgrammingLanguageProperty selectedProjectLanguageProperty = databaseHelper.loadProgrammingLanguageProperty(p.getProjectProperties().getProgrammingLanguage());
         double programmingLanguageDistance = estimateLanguageDistance(programmingLanguageConversionCosts, selectedProjectLanguageProperty);
+        SoftwareArchitectureProperty selectedSoftwareArchitectureProperty = databaseHelper.loadArchitectureProperty(p.getProjectProperties().getArchitecture());
+        double softwareArchitectureDistance = estimateArchitectureDistance(selectedSoftwareArchitectureProperty);
+        estimationMethodDistance *= 1.0;
+        developmentMarketDistance *= 2.0;
+        developmentTypeDistance *= 3.0;
+        processMethologyDistance *= 2.0;
+        platformDistance *= 1.5;
+        industrySectorDistance *= 1.0;
+        programmingLanguageDistance *= 1.0;
+        softwareArchitectureDistance *= 1.0;
 
-        estimationMethodDistance*=2.0;
-        factorSetDistance*=0.1;
-        developmentMarketDistance*=1.5;
-        developmentTypeDistance*=2.0;
-        processMethologyDistance*=2.0;
-        platformDistance*=1.5;
-        industrySectorDistance*=4.0;
-        programmingLanguageDistance*=1.2;
-
-        double distanceSum = estimationMethodDistance+factorSetDistance+developmentMarketDistance+developmentTypeDistance+processMethologyDistance+platformDistance+industrySectorDistance+programmingLanguageDistance;
+        final double distanceSum = estimationMethodDistance + softwareArchitectureDistance + developmentMarketDistance + developmentTypeDistance + processMethologyDistance + platformDistance + industrySectorDistance + programmingLanguageDistance;
         double differencePercentage = 0.0;
-        try{
-            differencePercentage =databaseHelper.roundDoubleTwoDecimals(distanceSum/90)*100;
-        } catch (Exception e){
-            Log.d("Error","Relation Error "+e.getCause());
+        try
+        {
+            differencePercentage = databaseHelper.roundDoubleTwoDecimals(distanceSum / 103) * 100;
+        } catch (final Exception e)
+        {
+            Log.d("Error", "Relation Error " + e.getCause());
         }
-        if(differencePercentage <0){
+        if (differencePercentage < 0)
+        {
             return 0;
-        } else {
-            double relatedPercentage = 100.0 -differencePercentage;
+        } else
+        {
+            double relatedPercentage = 100.0 - differencePercentage;
             return relatedPercentage;
         }
+    }
+
+    private double estimateArchitectureDistance(SoftwareArchitectureProperty selectedSoftwareArchitectureProperty)
+    {
+        double distance = 0.0;
+        distance += Math.abs(baseSoftwareArchitectureProperty.getCategory() - selectedSoftwareArchitectureProperty.getCategory());
+        distance += Math.abs(baseSoftwareArchitectureProperty.getOverallAgility() - selectedSoftwareArchitectureProperty.getOverallAgility());
+        distance += Math.abs(baseSoftwareArchitectureProperty.getEaseOfDeployment() - selectedSoftwareArchitectureProperty.getEaseOfDeployment());
+        distance += Math.abs(baseSoftwareArchitectureProperty.getTestability() - selectedSoftwareArchitectureProperty.getTestability());
+        distance += Math.abs(baseSoftwareArchitectureProperty.getPerformance() - selectedSoftwareArchitectureProperty.getPerformance());
+        distance += Math.abs(baseSoftwareArchitectureProperty.getScalability() - selectedSoftwareArchitectureProperty.getScalability());
+        distance += Math.abs(baseSoftwareArchitectureProperty.getEaseOfDevelopment() - selectedSoftwareArchitectureProperty.getEaseOfDevelopment());
+        return distance;
     }
 
     private int estimateLanguageDistance(int programmingLanguageConversionCosts, ProgrammingLanguageProperty selectedProjectLanguageProperty)

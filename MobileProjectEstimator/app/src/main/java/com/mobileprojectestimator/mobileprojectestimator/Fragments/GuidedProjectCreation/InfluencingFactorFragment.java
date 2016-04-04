@@ -74,37 +74,7 @@ public class InfluencingFactorFragment extends GuidedCreationFragment
         ImageView dot5 = (ImageView) rootView.findViewById(R.id.dot5);
         dot5.setBackgroundResource(R.drawable.circle_blue);
 
-        estimationMethodTitelTV = (TextView) rootView.findViewById(R.id.textViewChosenEstimationMethod);
-        estimationMethodTitelTV.setText(text);
-
-        Button factorsetButton = (Button) rootView.findViewById(R.id.influencingFactorSetButton);
-        factorsetButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Toast.makeText(project.getContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
-            }
-        });
-
         return rootView;
-    }
-
-    public ArrayList<String> getInfluencingFactorItems()
-    {
-        return influencingFactorItems;
-    }
-
-    public ArrayAdapter<String> getInfluencingFactorsAdapter()
-    {
-        return influencingFactorsAdapter;
-    }
-
-    public void setNewInfluencingFactorItems(ArrayList<String> items)
-    {
-        influencingFactorItems = new ArrayList<>();
-        influencingFactorItems = items;
-        influencingFactorsAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, influencingFactorItems);
     }
 
     @Override

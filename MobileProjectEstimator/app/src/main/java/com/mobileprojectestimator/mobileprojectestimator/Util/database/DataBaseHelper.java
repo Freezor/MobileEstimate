@@ -25,6 +25,7 @@ import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Inf
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.ProgrammingLanguageProperty;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.ProjectProperties;
+import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.SoftwareArchitectureProperty;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.ProjectFilter;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
@@ -737,15 +738,35 @@ public class DataBaseHelper extends SQLiteOpenHelper
             String programmingLanguageId = c.getString(c.getColumnIndex("ProgrammingLanguage_id"));
             String platformId = c.getString(c.getColumnIndex("Platform_id"));
             String industrySectorId = c.getString(c.getColumnIndex("IndustrySector_id"));
+            String architectureId = c.getString(c.getColumnIndex("Architecture_id"));
             properties.setMarket(loadMarketNameById(developmentMarktedId));
             properties.setDevelopmentKind(loadDevelopmentKindNameById(developmentKindId));
             properties.setProgrammingLanguage(loadProgrammingLanguageNameById(programmingLanguageId));
             properties.setProcessMethology(loadProcessMethologyNameById(processMethologyId));
             properties.setPlatform(loadPlatformNameById(platformId));
             properties.setIndustrySector(loadIndustrySectorNameById(industrySectorId));
+            properties.setArchitecture(loadArchitectureNameById(architectureId));
         }
         db.close();
         return properties;
+    }
+
+    private String loadArchitectureNameById(String architectureId)
+    {
+        String name;
+
+        String query = String.format("SELECT * FROM SoftwareArchitecturePatterns where _id = '%s'", architectureId);
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        try (Cursor c = db.rawQuery(query, null))
+        {
+            if (c != null)
+                c.moveToFirst();
+
+            name = c.getString(c.getColumnIndex("name"));
+        }
+
+        return getStringResourceValueByResourceName(name);
     }
 
     public String loadIndustrySectorNameById(String industrySectorId)
@@ -1263,6 +1284,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         tables.add("DevelopmentTypes");
         tables.add("EstimationMethod");
         tables.add("IndustrySectors");
+        tables.add("SoftwareArchitecturePatterns");
         tables.add("Platforms");
         tables.add("ProcessMethologies");
         tables.add("ProgrammingLanguages");
@@ -1317,6 +1339,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         int programmingLangId = getPropertyIdFromTable("ProgrammingLanguages", project.getProjectProperties().getProgrammingLanguage());
         int platformId = getPropertyIdFromTable("Platforms", project.getProjectProperties().getPlatform());
         int industrySectorId = getPropertyIdFromTable("IndustrySectors", project.getProjectProperties().getIndustrySector());
+        int architectureId = getPropertyIdFromTable("SoftwareArchitecturePatterns", project.getProjectProperties().getArchitecture());
 
         ContentValues projectPropertyValues = new ContentValues();
         projectPropertyValues.put("_id", projectPropertyId);
@@ -1326,6 +1349,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         projectPropertyValues.put("ProgrammingLanguage_id", programmingLangId);
         projectPropertyValues.put("Platform_id", platformId);
         projectPropertyValues.put("IndustrySector_id", industrySectorId);
+        projectPropertyValues.put("Architecture_id", architectureId);
         db = this.getWritableDatabase();
         db.insert("ProjectProperties", null, projectPropertyValues);
         Log.d("INFO", "Saved new Property with id " + projectPropertyId);
@@ -1716,6 +1740,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         int langId = getPropertyIdFromTable("ProgrammingLanguages", project.getProjectProperties().getProgrammingLanguage());
         int platformId = getPropertyIdFromTable("Platforms", project.getProjectProperties().getPlatform());
         int industrySectId = getPropertyIdFromTable("IndustrySectors", project.getProjectProperties().getIndustrySector());
+        int architectureId = getPropertyIdFromTable("SoftwareArchitecturePatterns", project.getProjectProperties().getArchitecture());
         db.close();
 
         //TODO: Property Werte werden nicht übernommen. Werte richtig jedoch für jede Spalte 1. Fehler beim Daten holen
@@ -1727,6 +1752,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         args.put("ProgrammingLanguage_id", langId);
         args.put("Platform_id", platformId);
         args.put("IndustrySector_id", industrySectId);
+        args.put("Architecture_id", architectureId);
         //long i = db2.update("ProjectProperties", args, "_id= '" + propertiesId+"'", null);
         long i = db2.update("ProjectProperties", args, "_id= ?", new String[]{String.valueOf(propertiesId)});
         db2.close();
@@ -1936,16 +1962,33 @@ public class DataBaseHelper extends SQLiteOpenHelper
             }
         }
 
-        if (biggerItem == null || smallerItem == null)
+        if (biggerItem == null)
         {
-            evaluatedDays = evaluateFunctionPointPersonDaysWithBaseProductivity(project);
-        } else
-        {
-            double averagePointsPerDay = (smallerItem.getPointsPerDay() + biggerItem.getPointsPerDay()) / 2;
-            averagePointsPerDay = roundDoubleTwoDecimals(averagePointsPerDay);
-
-            evaluatedDays = roundDoubleTwoDecimals(project.getEvaluatedPoints() / averagePointsPerDay);
+            biggerItem = new FunctionPointProductivityItem();
+            selectQuery = String.format("SELECT * FROM FunctionPointBaseProductivity WHERE %s>= min_fp AND %s< max_fp", project.getEvaluatedPoints(), project.getEvaluatedPoints());
+            try (Cursor c = db.rawQuery(selectQuery, null))
+            {
+                if (c.moveToFirst())
+                {
+                    biggerItem.setPointsPerDay((double) c.getInt(c.getColumnIndex("points_per_day")));
+                }
+            }
         }
+        if (smallerItem == null)
+        {
+            biggerItem = new FunctionPointProductivityItem();
+            selectQuery = String.format("SELECT * FROM FunctionPointBaseProductivity WHERE %s< min_fp AND %s>= max_fp", project.getEvaluatedPoints(), project.getEvaluatedPoints());
+            try (Cursor c = db.rawQuery(selectQuery, null))
+            {
+                if (c.moveToFirst())
+                {
+                    biggerItem.setPointsPerDay((double) c.getInt(c.getColumnIndex("points_per_day")));
+                }
+            }
+        }
+        double averagePointsPerDay = (smallerItem.getPointsPerDay() + biggerItem.getPointsPerDay()) / 2;
+        averagePointsPerDay = roundDoubleTwoDecimals(averagePointsPerDay);
+        evaluatedDays = roundDoubleTwoDecimals(project.getEvaluatedPoints() / averagePointsPerDay);
 
         db.close();
         return evaluatedDays;
@@ -2489,5 +2532,34 @@ public class DataBaseHelper extends SQLiteOpenHelper
         }
 
         return detailsId;
+    }
+
+    public SoftwareArchitectureProperty loadArchitectureProperty(String architecture)
+    {
+        SoftwareArchitectureProperty softwareArchitectureProperty = new SoftwareArchitectureProperty();
+
+        int architectureId = getPropertyIdFromTable("SoftwareArchitecturePatterns", architecture);
+
+        String selectQuery = String.format("SELECT * FROM SoftwareArchitecturePatternsProperties WHERE _id = %d", architectureId);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        try (Cursor c = db.rawQuery(selectQuery, null))
+        {
+            if (c.moveToFirst())
+            {
+                softwareArchitectureProperty.setId(architectureId);
+                softwareArchitectureProperty.setCategory(c.getInt(c.getColumnIndex("category_id")));
+                softwareArchitectureProperty.setOverallAgility(c.getInt(c.getColumnIndex("overallAgility")));
+                softwareArchitectureProperty.setEaseOfDeployment(c.getInt(c.getColumnIndex("easeOfDeployment")));
+                softwareArchitectureProperty.setTestability(c.getInt(c.getColumnIndex("testability")));
+                softwareArchitectureProperty.setPerformance(c.getInt(c.getColumnIndex("performance")));
+                softwareArchitectureProperty.setScalability(c.getInt(c.getColumnIndex("scalability")));
+                softwareArchitectureProperty.setEaseOfDevelopment(c.getInt(c.getColumnIndex("easeOfDevelopment")));
+
+            }
+        }
+        db.close();
+        return softwareArchitectureProperty;
     }
 }

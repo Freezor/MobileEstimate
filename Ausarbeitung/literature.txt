@@ -1,0 +1,56 @@
+\bibitem[ISBSG10]{PracticalEstimation}
+{\sc ISBSG }: {\em {Practical Software Project Estimation: A Toolkit for Estimating Software Development and Duration}}.
+\newblock Mcgraw-Hill Education - Europe, 2010
+
+\bibitem[OH11]{EntwicklungKompakt}
+{\sc Oliver Hummel }: {\em {Aufwandsschätzungen in der Software- und Systementwicklung kompakt (IT kompakt)}}.
+\newblock Spektrum Akademischer Verlag, 2011.
+
+\bibitem[DBP12]{FPKompakt}
+{\sc Dr. Benjamin Poensgen}: {\em {Function-Point-Analyse: Ein Praxishandbuch }}.
+\newblock dpunkt.verlag, 2012.
+
+
+\bibitem[MG11]{ITProjektmanagement}
+{\sc Matthias Geirhos}: {\em {IT-Projektmanagement: Was wirklich funktioniert - und was nicht (Galileo Computing) }}.
+\newblock Galileo Computing, 2011.
+
+\bibitem[SM06]{BlackArt}
+{\sc Steve McConnell }: {\em {Software Estimation: Demystifying the Black Art: The Black Art Demystified (Best Practices (Microsoft))}}.
+\newblock Microsoft Press, 2006.
+
+\bibitem[HB08]{Softwaremanagement}
+{\sc Helmut Balzert }: {\em {Lehrbuch der Softwaretechnik: Softwaremanagement}}.
+\newblock Spektrum Akademischer Verlag, 2008.
+
+\bibitem[RH04]{FPA}
+{\sc Robert Hürten}: {\em {Function-Point Analysis - Theorie und Praxis: Die Grundlage für das moderne Softwaremanagement (Edition expertsoft)}}.
+\newblock expert, 2004.
+
+\bibitem[LMC04]{CaseBasedReasoning}
+{\sc Luis M. Camarinha-Matos}: {\em {Evaluating a Software Costing Method Based on Software Features and Case Based Reasoning}}.
+\newblock expert, 2004.
+
+\bibitem[PDM16]{Pra}
+{\sc Professor Dr.-Ing. Dagmar Meyer }: {\em {Projektmanagement - Aufwandsschätzung}}.
+\newblock Ostfalia - Hochschule für angewandte Wissenschaften.
+%\\{\url{http://www.ostfalia.de/export/sites/default/de/pws/meyer/lehrveranstaltungen/ma_projektmanagement/projektmanagement_unterlagen/Folien_Aufwand.pdf}}.
+\newblock {\em (Stand: 04.02.2016)}
+
+\bibitem[FW16]{Weigand}
+{\sc Florian Weigand }: {\em {Aufwandsschsatzung in IT-Grosprojekten - Function Point Methode}}.
+\newblock TU München.
+%\\{\url{www.matthes.in.tum.de%2Ffile%2Fstdmz5ua8sr7%2FSebis-Public-Website%2F-%2FProseminar%2FWeigand-Function-Point-Methode-Ausarbeitung.pdf&usg=AFQjCNGjg9Yh5xs7c7E6Gw-f0IuUaB5Otw&sig2=7B1qCUXBVholhnd7XaGQvg&bvm=bv.113034660,d.ZWU&cad=rj}.
+\newblock {\em (Stand: 04.02.2016)}
+
+\bibitem[LM16]{EvovlingPoints}
+{\sc Lee Fischmann}: {\em {Evolving Function Points}}.
+\newblock Galorath Inc.
+%\\{\url{http://static1.1.sqspcdn.com/static/f/702523/9452310/1289969383637/200102-Fischman.pdf?token=UMsDkNSf7M3yj8DbDRMuHwTaab8%3D}.
+\newblock {\em (Stand: 04.02.2016)}
+
+\bibitem[LM14]{AFP}
+{\sc OMG}: {\em {Automated Function Points (AFP)}}.
+\newblock OMG - Object Management Group
+%\\{\url{http://www.omg.org/spec/AFP/1.0/}}.
+\newblock {\em (Stand: 04.02.2016)}

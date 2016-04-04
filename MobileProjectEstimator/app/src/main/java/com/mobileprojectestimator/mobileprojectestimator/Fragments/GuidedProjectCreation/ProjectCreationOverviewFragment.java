@@ -118,6 +118,7 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
             creationItems.add(new ProjectItemForCreation("Industry Sector: ", "ERROR"));
             creationItems.add(new ProjectItemForCreation("Estimation Technique: ", "ERROR"));
             creationItems.add(new ProjectItemForCreation("Influencing Factor: ", "ERROR"));
+            creationItems.add(new ProjectItemForCreation("Software Architecture: ", "ERROR"));
         } else
         {
             creationItems = new ArrayList<>();
@@ -130,6 +131,7 @@ public class ProjectCreationOverviewFragment extends GuidedCreationFragment
             creationItems.add(new ProjectItemForCreation("Programming Language: ", this.project.getProjectProperties().getProgrammingLanguage()));
             creationItems.add(new ProjectItemForCreation("Platform: ", this.project.getProjectProperties().getPlatform()));
             creationItems.add(new ProjectItemForCreation("Industry Sector: ", this.project.getProjectProperties().getIndustrySector()));
+            creationItems.add(new ProjectItemForCreation("Software Architecture: ", this.project.getProjectProperties().getArchitecture()));
             creationItems.add(new ProjectItemForCreation("Estimation Technique: ", this.project.getEstimationMethod()));
             if (this.project.getInfluencingFactor() != null)
             {
