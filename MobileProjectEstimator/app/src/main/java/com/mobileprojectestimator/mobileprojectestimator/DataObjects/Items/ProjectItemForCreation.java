@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
  * <p/>
  * Item for create a new project
  */
+@SuppressWarnings("JavaDoc")
 public class ProjectItemForCreation
 {
     /**
@@ -54,11 +55,13 @@ public class ProjectItemForCreation
         Value = value;
     }
 
+    @SuppressWarnings("unused")
     public Bitmap getItemIcon()
     {
         return itemIcon;
     }
 
+    @SuppressWarnings("unused")
     public void setItemIcon(Bitmap itemIcon)
     {
         this.itemIcon = itemIcon;

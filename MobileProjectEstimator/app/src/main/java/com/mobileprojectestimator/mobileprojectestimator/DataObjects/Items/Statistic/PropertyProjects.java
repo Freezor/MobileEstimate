@@ -9,11 +9,6 @@ public class PropertyProjects
     private String propertyName;
     private int numberOfProjects;
 
-    public PropertyProjects(String name, int amount){
-        this.propertyName = name;
-        this.numberOfProjects = amount;
-    }
-
     public PropertyProjects()
     {
 

@@ -30,8 +30,8 @@ public class ProjectPropOneFragment extends GuidedCreationFragment
      */
     public ProjectPropOneFragment newInstance(Project proj)
     {
-        ProjectPropOneFragment fragment = new ProjectPropOneFragment();
-        Bundle args = new Bundle();
+        final ProjectPropOneFragment fragment = new ProjectPropOneFragment();
+        final Bundle args = new Bundle();
         //args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
         project = proj;
@@ -43,19 +43,19 @@ public class ProjectPropOneFragment extends GuidedCreationFragment
                              Bundle savedInstanceState)
     {
         initDatabase();
-        View rootView = inflater.inflate(R.layout.project_prop_one_fragment, container, false);
-        ImageView dot1 = (ImageView) rootView.findViewById(R.id.dot1);
+        final View rootView = inflater.inflate(R.layout.project_prop_one_fragment, container, false);
+        final ImageView dot1 = (ImageView) rootView.findViewById(R.id.dot1);
         dot1.setBackgroundResource(R.drawable.circle_blue);
-        ImageView dot2 = (ImageView) rootView.findViewById(R.id.dot2);
+        final ImageView dot2 = (ImageView) rootView.findViewById(R.id.dot2);
         dot2.setBackgroundResource(R.drawable.circle_blue);
 
         //TODO: Import Spinner Data from Database
         /**
          * Initialise the Spinner Data
          */
-        ArrayList<String> marketItems = new ArrayList<>();
+        final ArrayList<String> marketItems = new ArrayList<>();
         marketItems.addAll(databaseHelper.loadAllPropertiesByName("DevelopmentMarkets"));
-        ArrayAdapter<String> marketsAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, marketItems);
+        final ArrayAdapter<String> marketsAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, marketItems);
         final Spinner marketSpinner = (Spinner) rootView.findViewById(R.id.market);
         marketSpinner.setAdapter(marketsAdapter);
         marketSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
@@ -70,15 +70,15 @@ public class ProjectPropOneFragment extends GuidedCreationFragment
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> arg0)
+            public void onNothingSelected(final AdapterView<?> arg0)
             {
                 project.getProjectProperties().setMarket(marketSpinner.getSelectedItem().toString());
             }
         });
 
-        ArrayList<String> developmentItems = new ArrayList<>();
+        final ArrayList<String> developmentItems = new ArrayList<>();
         developmentItems.addAll(databaseHelper.loadAllPropertiesByName("DevelopmentTypes"));
-        ArrayAdapter<String> developmentAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, developmentItems);
+        final ArrayAdapter<String> developmentAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, developmentItems);
         final Spinner developmentSpinner = (Spinner) rootView.findViewById(R.id.developmentKind);
         developmentSpinner.setAdapter(developmentAdapter);
         developmentSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
@@ -99,9 +99,9 @@ public class ProjectPropOneFragment extends GuidedCreationFragment
             }
         });
 
-        ArrayList<String> processMethologyItems = new ArrayList<>();
+        final ArrayList<String> processMethologyItems = new ArrayList<>();
         processMethologyItems.addAll(databaseHelper.loadAllPropertiesByName("ProcessMethologies"));
-        ArrayAdapter<String> processModelAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, processMethologyItems);
+        final ArrayAdapter<String> processModelAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, processMethologyItems);
         final Spinner processMethologySpinner = (Spinner) rootView.findViewById(R.id.processModel);
         processMethologySpinner.setAdapter(processModelAdapter);
         processMethologySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
@@ -126,7 +126,7 @@ public class ProjectPropOneFragment extends GuidedCreationFragment
     }
 
     @Override
-    public void onReloadViews(String text)
+    public void onReloadViews(final String text)
     {
 
     }

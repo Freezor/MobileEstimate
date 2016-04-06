@@ -20,10 +20,39 @@ import com.mobileprojectestimator.mobileprojectestimator.R;
 public class ContactSupportActivity extends AppCompatActivity
 {
 
+    private static int MINWORDCOUNT = 10;
     private EditText etProblemDescription;
     private CheckBox cbSendLogFiles;
 
-    private static int MINWORDCOUNT = 10;
+    public static int countWords(String s)
+    {
+
+        int wordCount = 0;
+
+        boolean word = false;
+        int endOfLine = s.length() - 1;
+
+        for (int i = 0; i < s.length(); i++)
+        {
+            // if the char is a letter, word = true.
+            if (Character.isLetter(s.charAt(i)) && i != endOfLine)
+            {
+                word = true;
+                // if char isn't a letter and there have been letters before,
+                // counter goes up.
+            } else if (!Character.isLetter(s.charAt(i)) && word)
+            {
+                wordCount++;
+                word = false;
+                // last word of String; if it doesn't end with a non letter, it
+                // wouldn't count without this.
+            } else if (Character.isLetter(s.charAt(i)) && i == endOfLine)
+            {
+                wordCount++;
+            }
+        }
+        return wordCount;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -44,7 +73,6 @@ public class ContactSupportActivity extends AppCompatActivity
         return true;
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -56,10 +84,12 @@ public class ContactSupportActivity extends AppCompatActivity
             case R.id.action_contact_support_forward:
                 String description = etProblemDescription.getText().toString();
                 int words = countWords(description);
-                Log.d("INFO","Word Count = "+words);
-                if(words <MINWORDCOUNT ){
-                    Toast.makeText(getApplicationContext(),getString(R.string.support_message_too_short),Toast.LENGTH_LONG).show();
-                } else {
+                Log.d("INFO", "Word Count = " + words);
+                if (words < MINWORDCOUNT)
+                {
+                    Toast.makeText(getApplicationContext(), getString(R.string.support_message_too_short), Toast.LENGTH_LONG).show();
+                } else
+                {
                     SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     String userName = sharedPref.getString(getString(R.string.pref_key_user_name), "");
                     Intent intent = new Intent(Intent.ACTION_SENDTO); // it's not ACTION_SEND
@@ -78,30 +108,5 @@ public class ContactSupportActivity extends AppCompatActivity
                 return super.onOptionsItemSelected(item);
         }
 
-    }
-
-    public static int countWords(String s){
-
-        int wordCount = 0;
-
-        boolean word = false;
-        int endOfLine = s.length() - 1;
-
-        for (int i = 0; i < s.length(); i++) {
-            // if the char is a letter, word = true.
-            if (Character.isLetter(s.charAt(i)) && i != endOfLine) {
-                word = true;
-                // if char isn't a letter and there have been letters before,
-                // counter goes up.
-            } else if (!Character.isLetter(s.charAt(i)) && word) {
-                wordCount++;
-                word = false;
-                // last word of String; if it doesn't end with a non letter, it
-                // wouldn't count without this.
-            } else if (Character.isLetter(s.charAt(i)) && i == endOfLine) {
-                wordCount++;
-            }
-        }
-        return wordCount;
     }
 }

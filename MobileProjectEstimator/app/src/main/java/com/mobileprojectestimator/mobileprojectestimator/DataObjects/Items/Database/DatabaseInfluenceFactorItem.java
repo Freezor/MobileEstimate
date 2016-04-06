@@ -4,6 +4,7 @@ package com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Data
  * Created by Oliver Fries on 15.12.2015, 13:00.
  * Project: MobileProjectEstimator
  */
+@SuppressWarnings("JavaDoc")
 public class DatabaseInfluenceFactorItem
 {
     private int _id;
@@ -14,7 +15,8 @@ public class DatabaseInfluenceFactorItem
     /**
      * Base COnstructor creates an Empty Influence Factor
      */
-    public DatabaseInfluenceFactorItem(){
+    public DatabaseInfluenceFactorItem()
+    {
         this._id = 0;
         this._name = "";
         this._estimationMethodId = 0;
@@ -23,12 +25,14 @@ public class DatabaseInfluenceFactorItem
 
     /**
      * Construct with the Items to create
+     *
      * @param id
      * @param name
      * @param estimationMethodId
      * @param influenceFactorId
      */
-    public DatabaseInfluenceFactorItem(int id, String name, int estimationMethodId, int influenceFactorId){
+    public DatabaseInfluenceFactorItem(int id, String name, int estimationMethodId, int influenceFactorId)
+    {
         this._id = id;
         this._name = name;
         this._estimationMethodId = estimationMethodId;
@@ -55,6 +59,7 @@ public class DatabaseInfluenceFactorItem
         this._name = _name;
     }
 
+    @SuppressWarnings("unused")
     public int get_estimationMethodId()
     {
         return _estimationMethodId;

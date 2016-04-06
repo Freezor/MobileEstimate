@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * Created by Oliver Fries on 21.11.2015, 11:55.
  * Project: MobileProjectEstimator
  */
+@SuppressWarnings("JavaDoc")
 public class FunctionPointItem extends EstimationItem
 {
     //TODO: zusammenfügen mit FunctionPointEstimationItem
@@ -78,6 +79,7 @@ public class FunctionPointItem extends EstimationItem
      *
      * @param item
      */
+    @SuppressWarnings("unused")
     public void addFunctionPointCategoryItem(FunctionPointCategoryItem item)
     {
         if (!this.functionPointCategoryItems.contains(item))
@@ -109,6 +111,7 @@ public class FunctionPointItem extends EstimationItem
         functionPointCategoryItems.get(index).setTotalItemCount(value);
     }
 
+    @SuppressWarnings("unused")
     public int getItemTotalAmountOfIndex(int index)
     {
         return functionPointCategoryItems.get(index).getTotalItemCount();
@@ -150,27 +153,33 @@ public class FunctionPointItem extends EstimationItem
         functionPointCategoryItems.get(index).setTotalItemCount(value);
     }
 
-    public int getSimpleValue() {
+    public int getSimpleValue()
+    {
         return functionPointCategoryItems.get(0).getTotalItemCount();
     }
 
-    public void setSimpleValue(int value){
+    public void setSimpleValue(int value)
+    {
         functionPointCategoryItems.get(0).setTotalItemCount(value);
     }
 
-    public int getMediumValue() {
+    public int getMediumValue()
+    {
         return functionPointCategoryItems.get(1).getTotalItemCount();
     }
 
-    public void setMediumValue(int value){
+    public void setMediumValue(int value)
+    {
         functionPointCategoryItems.get(1).setTotalItemCount(value);
     }
 
-    public int getComplexValue() {
+    public int getComplexValue()
+    {
         return functionPointCategoryItems.get(2).getTotalItemCount();
     }
 
-    public void setComplexValue(int value){
+    public void setComplexValue(int value)
+    {
         functionPointCategoryItems.get(2).setTotalItemCount(value);
     }
 }

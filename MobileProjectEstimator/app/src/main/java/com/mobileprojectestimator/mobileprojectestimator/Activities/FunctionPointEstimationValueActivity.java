@@ -107,7 +107,7 @@ public class FunctionPointEstimationValueActivity extends DatabaseActivity
         item = (FunctionPointItem) project.getEstimationItemByName(this.title);
 
         tvFpEstimationDescription = (TextView) findViewById(R.id.tvFpEstimationDescription);
-        String searchterm = title.replaceAll(" ","_");
+        String searchterm = title.replaceAll(" ", "_");
         tvFpEstimationDescription.setText(databaseHelper.getXmlHelper().loadDescriptionText(searchterm.toLowerCase() + "_description"));
 
 
@@ -186,7 +186,8 @@ public class FunctionPointEstimationValueActivity extends DatabaseActivity
             public void afterTextChanged(Editable s)
             {
                 String value = valueComplex.getText().toString();
-                if (value.equals("")){
+                if (value.equals(""))
+                {
                     value = "0";
                 }
                 complexValue = Integer.parseInt(value);
@@ -265,7 +266,8 @@ public class FunctionPointEstimationValueActivity extends DatabaseActivity
             public void afterTextChanged(Editable s)
             {
                 String value = valueMedium.getText().toString();
-                if (value.equals("")){
+                if (value.equals(""))
+                {
                     value = "0";
                 }
                 mediumValue = Integer.parseInt(value);
@@ -344,7 +346,8 @@ public class FunctionPointEstimationValueActivity extends DatabaseActivity
             public void afterTextChanged(Editable s)
             {
                 String value = valueSimple.getText().toString();
-                if (value.equals("")){
+                if (value.equals(""))
+                {
                     value = "0";
                 }
                 simpleValue = Integer.parseInt(value);

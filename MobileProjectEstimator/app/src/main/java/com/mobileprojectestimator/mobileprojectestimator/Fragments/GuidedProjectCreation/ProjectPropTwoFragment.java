@@ -30,8 +30,8 @@ public class ProjectPropTwoFragment extends GuidedCreationFragment
      */
     public ProjectPropTwoFragment newInstance(Project proj)
     {
-        ProjectPropTwoFragment fragment = new ProjectPropTwoFragment();
-        Bundle args = new Bundle();
+        final ProjectPropTwoFragment fragment = new ProjectPropTwoFragment();
+        final Bundle args = new Bundle();
         fragment.setArguments(args);
         this.project = proj;
         return fragment;
@@ -42,21 +42,21 @@ public class ProjectPropTwoFragment extends GuidedCreationFragment
                              Bundle savedInstanceState)
     {
         initDatabase();
-        View rootView = inflater.inflate(R.layout.project_prop_two_fragment, container, false);
-        ImageView dot1 = (ImageView) rootView.findViewById(R.id.dot1);
+        final View rootView = inflater.inflate(R.layout.project_prop_two_fragment, container, false);
+        final ImageView dot1 = (ImageView) rootView.findViewById(R.id.dot1);
         dot1.setBackgroundResource(R.drawable.circle_blue);
-        ImageView dot2 = (ImageView) rootView.findViewById(R.id.dot2);
+        final ImageView dot2 = (ImageView) rootView.findViewById(R.id.dot2);
         dot2.setBackgroundResource(R.drawable.circle_blue);
-        ImageView dot3 = (ImageView) rootView.findViewById(R.id.dot3);
+        final ImageView dot3 = (ImageView) rootView.findViewById(R.id.dot3);
         dot3.setBackgroundResource(R.drawable.circle_blue);
 
         //TODO: Import Spinner Data from Database
         /**
          * Initialise the Spinner Data
          */
-        ArrayList<String> programmingLanguageItems = new ArrayList<>();
+        final ArrayList<String> programmingLanguageItems = new ArrayList<>();
         programmingLanguageItems.addAll(databaseHelper.loadAllPropertiesByName("ProgrammingLanguages"));
-        ArrayAdapter<String> programmingLanguageAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, programmingLanguageItems);
+        final ArrayAdapter<String> programmingLanguageAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, programmingLanguageItems);
         final Spinner programmingLanguageSpinner = (Spinner) rootView.findViewById(R.id.tvEstimationMethod);
         programmingLanguageSpinner.setAdapter(programmingLanguageAdapter);
         programmingLanguageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
@@ -71,15 +71,15 @@ public class ProjectPropTwoFragment extends GuidedCreationFragment
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> arg0)
+            public void onNothingSelected(final AdapterView<?> arg0)
             {
                 project.getProjectProperties().setProgrammingLanguage(programmingLanguageSpinner.getSelectedItem().toString());
             }
         });
 
-        ArrayList<String> platformItems = new ArrayList<>();
+        final ArrayList<String> platformItems = new ArrayList<>();
         platformItems.addAll(databaseHelper.loadAllPropertiesByName("Platforms"));
-        ArrayAdapter<String> platformAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, platformItems);
+        final ArrayAdapter<String> platformAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, platformItems);
         final Spinner platformSpinner = (Spinner) rootView.findViewById(R.id.developmentPlatform);
         platformSpinner.setAdapter(platformAdapter);
         platformSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
@@ -94,15 +94,15 @@ public class ProjectPropTwoFragment extends GuidedCreationFragment
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> arg0)
+            public void onNothingSelected(final AdapterView<?> arg0)
             {
                 project.getProjectProperties().setPlatform(platformSpinner.getSelectedItem().toString());
             }
         });
 
-        ArrayList<String> industrySectorItems = new ArrayList<>();
+        final ArrayList<String> industrySectorItems = new ArrayList<>();
         industrySectorItems.addAll(databaseHelper.loadAllPropertiesByName("IndustrySectors"));
-        ArrayAdapter<String> industrySectorAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, industrySectorItems);
+        final ArrayAdapter<String> industrySectorAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, industrySectorItems);
         final Spinner industrySectorSpinner = (Spinner) rootView.findViewById(R.id.industrySector);
         industrySectorSpinner.setAdapter(industrySectorAdapter);
         industrySectorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
@@ -117,7 +117,7 @@ public class ProjectPropTwoFragment extends GuidedCreationFragment
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> arg0)
+            public void onNothingSelected(final AdapterView<?> arg0)
             {
                 project.getProjectProperties().setIndustrySector(industrySectorSpinner.getSelectedItem().toString());
             }
@@ -127,7 +127,7 @@ public class ProjectPropTwoFragment extends GuidedCreationFragment
     }
 
     @Override
-    public void onReloadViews(String text)
+    public void onReloadViews(final String text)
     {
 
     }

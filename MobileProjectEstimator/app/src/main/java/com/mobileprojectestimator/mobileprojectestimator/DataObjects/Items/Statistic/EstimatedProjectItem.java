@@ -20,6 +20,7 @@ public class EstimatedProjectItem
         return estimationMethod;
     }
 
+    @SuppressWarnings("unused")
     public void setEstimationMethod(String estimationMethod)
     {
         this.estimationMethod = estimationMethod;
@@ -30,6 +31,7 @@ public class EstimatedProjectItem
         return numberOfProjects;
     }
 
+    @SuppressWarnings("unused")
     public void setNumberOfProjects(int numberOfProjects)
     {
         this.numberOfProjects = numberOfProjects;

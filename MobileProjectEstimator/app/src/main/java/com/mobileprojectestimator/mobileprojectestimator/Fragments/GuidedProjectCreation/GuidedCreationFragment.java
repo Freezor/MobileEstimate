@@ -49,7 +49,7 @@ public abstract class GuidedCreationFragment extends Fragment
 
         } catch (SQLException sqle)
         {
-            Log.d("ERROR",sqle.toString());
+            Log.d("ERROR", sqle.toString());
         }
 
         databaseHelper.logDatabaseInformation();

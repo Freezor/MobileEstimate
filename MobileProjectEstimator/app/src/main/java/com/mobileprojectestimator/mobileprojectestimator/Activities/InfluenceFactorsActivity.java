@@ -23,18 +23,16 @@ import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.Influence
 
 import java.util.ArrayList;
 
+@SuppressWarnings("JavaDoc")
 public class InfluenceFactorsActivity extends DatabaseActivity
 {
 
     private TextView estimationMethodName;
     private Spinner influenceFactorSetSpinner;
-    private ImageView editinfluenceFactorSet;
     private TextView sumOfInfluences;
     private ListView influenceFactorItemsList;
 
     private ArrayList<String> estimationMethodsList;
-
-    private InfluencingFactor influencingFactor;
 
     private ArrayList<DatabaseInfluenceFactorItem> dbInfluenceFactorItems;
 
@@ -71,10 +69,10 @@ public class InfluenceFactorsActivity extends DatabaseActivity
             }
         });
 
-        View influenceFactorContent = (View) findViewById(R.id.influenceFactorContent);
+        View influenceFactorContent = findViewById(R.id.influenceFactorContent);
         estimationMethodName = (TextView) influenceFactorContent.findViewById(R.id.tvEstimationMethodName);
         influenceFactorSetSpinner = (Spinner) influenceFactorContent.findViewById(R.id.influenceFactorSetSpinner);
-        editinfluenceFactorSet = (ImageView) influenceFactorContent.findViewById(R.id.ivEditInfluenceFactor);
+        ImageView editinfluenceFactorSet = (ImageView) influenceFactorContent.findViewById(R.id.ivEditInfluenceFactor);
         sumOfInfluences = (TextView) influenceFactorContent.findViewById(R.id.tvSumOfInfluences);
         influenceFactorItemsList = (ListView) influenceFactorContent.findViewById(R.id.lvInfluenceFactors);
 
@@ -161,8 +159,8 @@ public class InfluenceFactorsActivity extends DatabaseActivity
     {
         if (selectedEstimationMethod.equals(getString(R.string.estimation_technique_function_point)))
         {
-            influencingFactor = new InfluencingFactor(this, InfluencingFactor.FUNCTIONPOINTFACTORS);
-            factornames = new ArrayList<String>();
+            InfluencingFactor influencingFactor = new InfluencingFactor(this, InfluencingFactor.FUNCTIONPOINTFACTORS);
+            factornames = new ArrayList<>();
             for (DatabaseInfluenceFactorItem item : dbInfluenceFactorItems)
             {
                 if (item.get_name().equals(factorName))
@@ -173,12 +171,16 @@ public class InfluenceFactorsActivity extends DatabaseActivity
                 }
             }
 
-            for(InfluenceFactorItem item: influencingFactor.getInfluenceFactorItems()){
-                if(item.hasSubItems()){
-                    for(InfluenceFactorItem subitems:item.getSubInfluenceFactorItemsList()){
+            for (InfluenceFactorItem item : influencingFactor.getInfluenceFactorItems())
+            {
+                if (item.hasSubItems())
+                {
+                    for (InfluenceFactorItem subitems : item.getSubInfluenceFactorItemsList())
+                    {
                         factornames.add(subitems.getName());
                     }
-                }else{
+                } else
+                {
                     factornames.add(item.getName());
                 }
             }
@@ -218,7 +220,7 @@ public class InfluenceFactorsActivity extends DatabaseActivity
 
         //Set Factors to spinner
 
-        dataAdapter = new ArrayAdapter<String>(this,
+        dataAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, influenceFactorNames);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         influenceFactorSetSpinner.setAdapter(dataAdapter);

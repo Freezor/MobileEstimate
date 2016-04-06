@@ -26,7 +26,6 @@ public class InfluenceFactorSubitemActivity extends DatabaseActivity
     private String itemName;
     private ListView lvSubInfluenceFactors;
     private NewInfluenceFactorListAdapter influenceListAdapter;
-    private ArrayList<InfluenceFactorItem> influencingFactorItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -64,7 +63,7 @@ public class InfluenceFactorSubitemActivity extends DatabaseActivity
 
     private void loadItems()
     {
-        influencingFactorItems = new ArrayList<>();
+        ArrayList<InfluenceFactorItem> influencingFactorItems = new ArrayList<>();
 
         for (int i = 0; i < itemNames.size(); i++)
         {

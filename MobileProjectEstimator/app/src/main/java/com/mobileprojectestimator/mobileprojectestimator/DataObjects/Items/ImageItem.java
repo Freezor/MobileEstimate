@@ -12,14 +12,6 @@ public class ImageItem
     private Bitmap image;
     private String title;
 
-    public ImageItem(Bitmap image, String title)
-    {
-        super();
-        imageDatabaseId = 0;
-        this.image = image;
-        this.title = title;
-    }
-
     public ImageItem()
     {
         super();

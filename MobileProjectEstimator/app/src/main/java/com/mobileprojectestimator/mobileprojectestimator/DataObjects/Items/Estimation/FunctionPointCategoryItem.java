@@ -7,6 +7,7 @@ package com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Esti
  * Items for the function Point Estimation
  * Only items available per definition are simple, medium and compley
  */
+@SuppressWarnings("JavaDoc")
 public class FunctionPointCategoryItem
 {
     /**
@@ -59,6 +60,7 @@ public class FunctionPointCategoryItem
      *
      * @return
      */
+    @SuppressWarnings("unused")
     public String getCategorisation()
     {
         return categorisation;

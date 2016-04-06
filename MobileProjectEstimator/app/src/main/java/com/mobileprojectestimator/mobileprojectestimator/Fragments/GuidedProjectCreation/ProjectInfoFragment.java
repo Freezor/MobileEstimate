@@ -1,13 +1,11 @@
 package com.mobileprojectestimator.mobileprojectestimator.Fragments.GuidedProjectCreation;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -19,10 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mobileprojectestimator.mobileprojectestimator.Activities.ChooseProjectIconActivity;
-import com.mobileprojectestimator.mobileprojectestimator.Activities.GuidedProjectCreationActivity;
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
 
@@ -163,6 +159,7 @@ public class ProjectInfoFragment extends GuidedCreationFragment
     private void hideKeyboard()
     {
         final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        //noinspection ConstantConditions
         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
     }
 
@@ -171,7 +168,7 @@ public class ProjectInfoFragment extends GuidedCreationFragment
      */
     private void setProjectIconInformations()
     {
-        HashMap<String,String> infos = databaseHelper.getIconInformationsById(projectIconId);
+        HashMap<String, String> infos = databaseHelper.getIconInformationsById(projectIconId);
 
         Bitmap projectIcon = loadProjectIcon(infos);
 
@@ -190,8 +187,9 @@ public class ProjectInfoFragment extends GuidedCreationFragment
 
     /**
      * Load the project icon from assets folder
+     *
      * @param infos
-     * @return
+     * @return projectIcon
      */
     private Bitmap loadProjectIcon(HashMap<String, String> infos)
     {

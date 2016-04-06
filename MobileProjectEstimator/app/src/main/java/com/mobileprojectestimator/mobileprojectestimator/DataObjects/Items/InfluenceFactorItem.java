@@ -7,6 +7,7 @@ import java.util.ArrayList;
  * <p/>
  * Class for each influence factor item in a function point estimation project
  */
+@SuppressWarnings("JavaDoc")
 public class InfluenceFactorItem
 {
     private boolean hasSubItems;
@@ -76,6 +77,7 @@ public class InfluenceFactorItem
         return hasSubItems;
     }
 
+    @SuppressWarnings("unused")
     public void setHasSubItems(boolean hasSubItems)
     {
         this.hasSubItems = hasSubItems;
@@ -101,6 +103,7 @@ public class InfluenceFactorItem
         return minValue;
     }
 
+    @SuppressWarnings("unused")
     public void setMinValue(int minValue)
     {
         this.minValue = minValue;
@@ -111,6 +114,7 @@ public class InfluenceFactorItem
         return maxValue;
     }
 
+    @SuppressWarnings("unused")
     public void setMaxValue(int maxValue)
     {
         this.maxValue = maxValue;
@@ -128,6 +132,7 @@ public class InfluenceFactorItem
 
     }
 
+    @SuppressWarnings("unused")
     public void setSubInfluenceFactorItemsList(ArrayList<InfluenceFactorItem> subInfluenceFactorItemsList)
     {
         if (hasSubItems)

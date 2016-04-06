@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
@@ -33,7 +31,7 @@ public class EstimationMethodFragment extends GuidedCreationFragment
         EstimationMethodFragment fragment = new EstimationMethodFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
-        this.project = proj;
+        project = proj;
         return fragment;
     }
 
@@ -55,7 +53,7 @@ public class EstimationMethodFragment extends GuidedCreationFragment
         ArrayList<String> architectureItems = new ArrayList<>();
         architectureItems.addAll(databaseHelper.loadAllPropertiesByName("SoftwareArchitecturePatterns"));
         ArrayAdapter<String> architectureAdapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, architectureItems);
-        final Spinner  architectureSpinner = (Spinner) rootView.findViewById(R.id.architecture);
+        final Spinner architectureSpinner = (Spinner) rootView.findViewById(R.id.architecture);
         architectureSpinner.setAdapter(architectureAdapter);
         architectureSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {

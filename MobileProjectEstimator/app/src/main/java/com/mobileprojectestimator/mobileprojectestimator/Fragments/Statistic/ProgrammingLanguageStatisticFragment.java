@@ -70,17 +70,20 @@ public class ProgrammingLanguageStatisticFragment extends StatisticFragment
         mChart.setRotationEnabled(false);
 
         // set a chart value selected listener
-        mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+        mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener()
+        {
 
             @Override
-            public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
+            public void onValueSelected(Entry e, int dataSetIndex, Highlight h)
+            {
                 // display msg when value selected
                 if (e == null)
                     return;
             }
 
             @Override
-            public void onNothingSelected() {
+            public void onNothingSelected()
+            {
 
             }
         });
@@ -89,23 +92,28 @@ public class ProgrammingLanguageStatisticFragment extends StatisticFragment
         addData();
 
         // customize legends
-        Legend l = mChart.getLegend();
+        final Legend l = mChart.getLegend();
         l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
         l.setXEntrySpace(7);
         l.setYEntrySpace(5);
         return rootView;
     }
 
-    private void addData() {
+    /**
+     * Loads the data that is displayed in the fragment
+     */
+    private void addData()
+    {
         initDatabase();
 
-        ArrayList<Entry> yVals1 = new ArrayList<Entry>();
-        ArrayList<String> xVals = new ArrayList<String>();
-        ArrayList<PropertyProjects> values = databaseHelper.loadPropertyStatistic("ProgrammingLanguages","ProgrammingLanguage_id");
+        final ArrayList<Entry> yVals1 = new ArrayList<Entry>();
+        final ArrayList<String> xVals = new ArrayList<String>();
+        final ArrayList<PropertyProjects> values = databaseHelper.loadPropertyStatistic("ProgrammingLanguages", "ProgrammingLanguage_id");
 
         boolean zeroValues = false;
 
-        for (int i = 0; i < values.size(); i++)
+        final int values_size = values.size();// Moved  values.size() call out of the loop to local variable values_size
+        for (int i = 0; i < values_size; i++)
         {
             if (values.get(i).getNumberOfProjects() > 0)
             {
@@ -119,38 +127,38 @@ public class ProgrammingLanguageStatisticFragment extends StatisticFragment
 
         if (zeroValues)
         {
-            yVals1.add(new Entry(0, yVals1.size()+1));
+            yVals1.add(new Entry(0, yVals1.size() + 1));
             xVals.add("Other");
         }
 
         // create pie data set
-        PieDataSet dataSet = new PieDataSet(yVals1, "Programming Languages");
+        final PieDataSet dataSet = new PieDataSet(yVals1, "Programming Languages");
         dataSet.setSliceSpace(3);
         dataSet.setSelectionShift(5);
 
         // add many colors
-        ArrayList<Integer> colors = new ArrayList<Integer>();
+        final ArrayList<Integer> colors = new ArrayList<Integer>();
 
-        for (int c : ColorTemplate.VORDIPLOM_COLORS)
+        for (final int c : ColorTemplate.VORDIPLOM_COLORS)
             colors.add(c);
 
-        for (int c : ColorTemplate.JOYFUL_COLORS)
+        for (final int c : ColorTemplate.JOYFUL_COLORS)
             colors.add(c);
 
-        for (int c : ColorTemplate.COLORFUL_COLORS)
+        for (final int c : ColorTemplate.COLORFUL_COLORS)
             colors.add(c);
 
-        for (int c : ColorTemplate.LIBERTY_COLORS)
+        for (final int c : ColorTemplate.LIBERTY_COLORS)
             colors.add(c);
 
-        for (int c : ColorTemplate.PASTEL_COLORS)
+        for (final int c : ColorTemplate.PASTEL_COLORS)
             colors.add(c);
 
         colors.add(ColorTemplate.getHoloBlue());
         dataSet.setColors(colors);
 
         // instantiate pie data object now
-        PieData data = new PieData(xVals, dataSet);
+        final PieData data = new PieData(xVals, dataSet);
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(11f);
         data.setValueTextColor(Color.GRAY);

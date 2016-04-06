@@ -37,11 +37,11 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
 
 
     @Override
-    public EstimationOverviewFragment newInstance(Project p)
+    public EstimationOverviewFragment newInstance(final Project p)
     {
         Log.d("INFO", "FunctionPointMethodFragment: newInstance");
-        FunctionPointMethodFragment fragment = new FunctionPointMethodFragment();
-        Bundle args = new Bundle();
+        final FunctionPointMethodFragment fragment = new FunctionPointMethodFragment();
+        final Bundle args = new Bundle();
         project = p;
         fragment.setArguments(args);
         return fragment;
@@ -75,10 +75,10 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
 
     private void openProjectIsTerminatedDialog()
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(getString(R.string.dialog_project_ist_terminated_title));
         builder.setMessage(R.string.dialog_project_ist_terminated_text);
-        AlertDialog alert = builder.create();
+        final AlertDialog alert = builder.create();
         alert.show();
     }
 
@@ -124,7 +124,7 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
 
     private void evaluatePersonDays()
     {
-        int terminatedProject = databaseHelper.getAmountTerminatedFunctionPointProject();
+        final int terminatedProject = databaseHelper.getAmountTerminatedFunctionPointProject();
         if (terminatedProject < 1)
         {
             project.setEvaluatedPersonDays(databaseHelper.evaluateFunctionPointPersonDaysWithBaseProductivity(project));
@@ -152,12 +152,12 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
     /**
      * Calculate the total function points
      *
-     * @return
+     * @return totalPoints
      */
     public int getTotalPoints()
     {
         int totalPoints = 0;
-        for (FunctionPointItem item : this.project.getFunctionPointItems())
+        for (final FunctionPointItem item : this.project.getFunctionPointItems())
         {
             totalPoints += item.getTotalAmount();
         }
@@ -168,7 +168,7 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
      * calculate the evaluated points
      * TotalPoints * InfluenceFactors
      *
-     * @return
+     * @return erg
      */
     public double getEvaluatedPoints()
     {
@@ -179,13 +179,13 @@ public class FunctionPointMethodFragment extends EstimationOverviewFragment
         return erg;
     }
 
-    public void setProject(Project project)
+    public void setProject(final Project project)
     {
         this.project = project;
     }
 
 
-    public void update(Project project)
+    public void update(final Project project)
     {
         this.project = project;
         updateEstimationItems();

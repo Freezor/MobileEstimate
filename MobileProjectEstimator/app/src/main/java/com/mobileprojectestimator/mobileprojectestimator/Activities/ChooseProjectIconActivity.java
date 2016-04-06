@@ -43,7 +43,7 @@ public class ChooseProjectIconActivity extends DatabaseActivity
                 chosenImage = (ImageItem) parent.getItemAtPosition(position);
             }
         });
-        chosenImage =(ImageItem) gridView.getItemAtPosition(0);
+        chosenImage = (ImageItem) gridView.getItemAtPosition(0);
     }
 
     @Override

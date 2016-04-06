@@ -24,9 +24,6 @@ public class HelpArticleActivity extends AppCompatActivity
 
     private String nameTag;
     private HelpArticleItem helpArticleItem;
-    private TextView tvProjectName;
-    private ListView paragraphsListView;
-    private HelpParagraphsListAdapter helpParagraphsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,6 +33,7 @@ public class HelpArticleActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarHelpAndFeedback);
         setSupportActionBar(toolbar);
+        //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent i = getIntent();
@@ -46,17 +44,17 @@ public class HelpArticleActivity extends AppCompatActivity
 
         loadArticleFromXml();
 
-        tvProjectName = (TextView) findViewById(R.id.tvProjectName);
+        TextView tvProjectName = (TextView) findViewById(R.id.tvProjectName);
         tvProjectName.setText(helpArticleItem.getName());
 
-        paragraphsListView = (ListView) findViewById(R.id.lvArticleParagraphs);
-        helpParagraphsAdapter = new HelpParagraphsListAdapter(this, helpArticleItem.getParagraphs());
+        ListView paragraphsListView = (ListView) findViewById(R.id.lvArticleParagraphs);
+        HelpParagraphsListAdapter helpParagraphsAdapter = new HelpParagraphsListAdapter(this, helpArticleItem.getParagraphs());
         paragraphsListView.setAdapter(helpParagraphsAdapter);
     }
 
     private void loadArticleFromXml()
     {
-        XmlPullParserFactory factory = null;
+        XmlPullParserFactory factory;
         InputStream is = null;
         try
         {
@@ -106,14 +104,8 @@ public class HelpArticleActivity extends AppCompatActivity
                         {
                             if (helpArticleItem.getNameTag().equals(currentName))
                             {
-                                isSelectedArticle = false;
                                 helpArticleItem.setName(title);
                                 helpArticleItem.setParagraphs(paragraphs);
-                                paragraphs = new ArrayList<>();
-                                title = "";
-                                currentName = "";
-                                startTitleText = false;
-                                startParagraphText = false;
                                 break;
                             }
                         }
@@ -139,10 +131,7 @@ public class HelpArticleActivity extends AppCompatActivity
                 }
                 eventType = xpp.next();
             }
-        } catch (XmlPullParserException e)
-        {
-            e.printStackTrace();
-        } catch (IOException e)
+        } catch (XmlPullParserException | IOException e)
         {
             e.printStackTrace();
         }

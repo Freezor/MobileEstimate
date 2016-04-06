@@ -205,7 +205,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newVal)
                 {
-                    Log.d("INFO","Shared pref User name new val: "+newVal.toString());
+                    Log.d("INFO", "Shared pref User name new val: " + newVal.toString());
                     String userName = newVal.toString().trim();
                     if (userName.isEmpty() || userName.length() == 0 || userName.equals("") || userName == null)
                     {
@@ -358,13 +358,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                         String[] connections = getResources().getStringArray(R.array.pref_sync_connection_option_titles);
                         String output = "";
 
-                        if(((HashSet) newVal).contains("1")){
+                        if (((HashSet) newVal).contains("1"))
+                        {
                             output = output + connections[0] + ", ";
                         }
-                        if(((HashSet) newVal).contains("2")){
+                        if (((HashSet) newVal).contains("2"))
+                        {
                             output = output + connections[1] + ", ";
                         }
-                        if(((HashSet) newVal).contains("3")){
+                        if (((HashSet) newVal).contains("3"))
+                        {
                             output = output + connections[2] + ", ";
                         }
                         int endIndex = output.lastIndexOf(",");
@@ -380,20 +383,24 @@ public class SettingsActivity extends AppCompatPreferenceActivity
 
             });
             Set<String> connectOptions = sharedPref.getStringSet(getString(R.string.pref_key_sync_connection_option), new HashSet<String>());
-            if(connectOptions.size() == 0){
+            if (connectOptions.size() == 0)
+            {
                 connectOptionsPref.setSummary("");
-            }else
+            } else
             {
                 String[] connections = getResources().getStringArray(R.array.pref_sync_connection_option_titles);
                 String output = "";
 
-                if(((HashSet) connectOptions).contains("1")){
+                if (((HashSet) connectOptions).contains("1"))
+                {
                     output = output + connections[0] + ", ";
                 }
-                if(((HashSet) connectOptions).contains("2")){
+                if (((HashSet) connectOptions).contains("2"))
+                {
                     output = output + connections[1] + ", ";
                 }
-                if(((HashSet) connectOptions).contains("3")){
+                if (((HashSet) connectOptions).contains("3"))
+                {
                     output = output + connections[2] + ", ";
                 }
                 int endIndex = output.lastIndexOf(",");
@@ -426,6 +433,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class DatabasePreferenceFragment extends PreferenceFragment
     {
+        /**
+         * The Database Helper Object for sending queries to the database
+         */
+        protected DataBaseHelper databaseHelper;
+
+        public static String formatSize(long v)
+        {
+            if (v < 1024) return v + " B";
+            int z = (63 - Long.numberOfLeadingZeros(v)) / 10;
+            return String.format("%.1f %sB", (double) v / (1L << (z * 10)), " KMGTPE".charAt(z));
+        }
+
         @Override
         public void onCreate(Bundle savedInstanceState)
         {
@@ -496,7 +515,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                         public void onClick(DialogInterface dialog, int which)
                         {
                             int projects = databaseHelper.completeDeleteProjects();
-                            Toast.makeText(getActivity(),projects+" Project(s) are completly deleted from the database now.",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), projects + " Project(s) are completly deleted from the database now.", Toast.LENGTH_SHORT).show();
                         }
                     });
                     alertDialogBuilder.setNegativeButton(getActivity().getString(R.string.dialog_cancel), new DialogInterface.OnClickListener()
@@ -515,17 +534,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity
                 }
             });
         }
-
-        public static String formatSize(long v) {
-            if (v < 1024) return v + " B";
-            int z = (63 - Long.numberOfLeadingZeros(v)) / 10;
-            return String.format("%.1f %sB", (double)v / (1L << (z*10)), " KMGTPE".charAt(z));
-        }
-
-        /**
-         * The Database Helper Object for sending queries to the database
-         */
-        protected DataBaseHelper databaseHelper;
 
         /**
          * Initialise the Database Helper class and loads the database
@@ -559,6 +567,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
 
             databaseHelper.logDatabaseInformation();
         }
+
         @Override
         public boolean onOptionsItemSelected(MenuItem item)
         {

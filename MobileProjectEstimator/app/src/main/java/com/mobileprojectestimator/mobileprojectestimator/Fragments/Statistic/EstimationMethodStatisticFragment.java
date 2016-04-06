@@ -28,13 +28,11 @@ import java.util.ArrayList;
  */
 public class EstimationMethodStatisticFragment extends StatisticFragment
 {
-    private View rootView;
-    private TextView tvTitle;
     private PieChart mChart;
 
     public StatisticFragment reloadStatistic()
     {
-        ProjectStatisticFragment fragment = new ProjectStatisticFragment();
+        final ProjectStatisticFragment fragment = new ProjectStatisticFragment();
         initDatabase();
         return fragment;
     }
@@ -42,12 +40,12 @@ public class EstimationMethodStatisticFragment extends StatisticFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        rootView = inflater.inflate(R.layout.fragment_statistic_estimation_projects, container, false);
-        View myLayout = rootView.findViewById(R.id.buttonPanel);
-        ImageView dot1 = (ImageView) myLayout.findViewById(R.id.dot1);
+        final View rootView = inflater.inflate(R.layout.fragment_statistic_estimation_projects, container, false);
+        final View myLayout = rootView.findViewById(R.id.buttonPanel);
+        final ImageView dot1 = (ImageView) myLayout.findViewById(R.id.dot1);
         dot1.setBackgroundResource(R.drawable.circle_blue);
 
-        tvTitle = (TextView) rootView.findViewById(R.id.tvTitle);
+        final TextView tvTitle = (TextView) rootView.findViewById(R.id.tvTitle);
         tvTitle.setText(R.string.fragment_statistic_estimation_projects_title);
 
         mChart = (PieChart) rootView.findViewById(R.id.estimationMethodProjectsChart);
@@ -74,6 +72,7 @@ public class EstimationMethodStatisticFragment extends StatisticFragment
             {
                 // display msg when value selected
                 if (e == null)
+                    //noinspection UnnecessaryReturnStatement
                     return;
             }
 
@@ -88,7 +87,7 @@ public class EstimationMethodStatisticFragment extends StatisticFragment
         addData();
 
         // customize legends
-        Legend l = mChart.getLegend();
+        final Legend l = mChart.getLegend();
         l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
         l.setXEntrySpace(7);
         l.setYEntrySpace(5);
@@ -98,13 +97,14 @@ public class EstimationMethodStatisticFragment extends StatisticFragment
     private void addData()
     {
         initDatabase();
-        ArrayList<Entry> yVals1 = new ArrayList<Entry>();
-        ArrayList<EstimatedProjectItem> values = databaseHelper.loadProjectsEstimationMethodStatistic();
-        ArrayList<String> xVals = new ArrayList<String>();
+        final ArrayList<Entry> yVals1 = new ArrayList<Entry>();
+        final ArrayList<EstimatedProjectItem> values = databaseHelper.loadProjectsEstimationMethodStatistic();
+        final ArrayList<String> xVals = new ArrayList<String>();
 
         boolean zeroValues = false;
 
-        for (int i = 0; i < values.size(); i++)
+        final int values_size = values.size();// Moved  values.size() call out of the loop to local variable values_size
+        for (int i = 0; i < values_size; i++)
         {
             if (values.get(i).getNumberOfProjects() > 0)
             {
@@ -118,38 +118,38 @@ public class EstimationMethodStatisticFragment extends StatisticFragment
 
         if (zeroValues)
         {
-            yVals1.add(new Entry(0, yVals1.size()+1));
+            yVals1.add(new Entry(0, yVals1.size() + 1));
             xVals.add("Other");
         }
 
         // create pie data set
-        PieDataSet dataSet = new PieDataSet(yVals1, "Estimation Methods");
+        final PieDataSet dataSet = new PieDataSet(yVals1, "Estimation Methods");
         dataSet.setSliceSpace(3);
         dataSet.setSelectionShift(5);
 
         // add many colors
-        ArrayList<Integer> colors = new ArrayList<Integer>();
+        final ArrayList<Integer> colors = new ArrayList<Integer>();
 
-        for (int c : ColorTemplate.VORDIPLOM_COLORS)
+        for (final int c : ColorTemplate.VORDIPLOM_COLORS)
             colors.add(c);
 
-        for (int c : ColorTemplate.JOYFUL_COLORS)
+        for (final int c : ColorTemplate.JOYFUL_COLORS)
             colors.add(c);
 
-        for (int c : ColorTemplate.COLORFUL_COLORS)
+        for (final int c : ColorTemplate.COLORFUL_COLORS)
             colors.add(c);
 
-        for (int c : ColorTemplate.LIBERTY_COLORS)
+        for (final int c : ColorTemplate.LIBERTY_COLORS)
             colors.add(c);
 
-        for (int c : ColorTemplate.PASTEL_COLORS)
+        for (final int c : ColorTemplate.PASTEL_COLORS)
             colors.add(c);
 
         colors.add(ColorTemplate.getHoloBlue());
         dataSet.setColors(colors);
 
         // instantiate pie data object now
-        PieData data = new PieData(xVals, dataSet);
+        final PieData data = new PieData(xVals, dataSet);
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(11f);
         data.setValueTextColor(Color.GRAY);

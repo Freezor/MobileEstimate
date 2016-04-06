@@ -196,12 +196,6 @@ public class EstimationViewActivity extends DatabaseActivity
             this.estimationMethod = method;
         }
 
-        private class ViewHolder
-        {
-            TextView tvItemName;
-            TextView tvItemValue;
-        }
-
         @Override
         public View getView(int position, View convertView, ViewGroup parent)
         {
@@ -237,6 +231,12 @@ public class EstimationViewActivity extends DatabaseActivity
                 holder.tvItemValue.setText("While Loading Estimation Item Informations");
             }
             return convertView;
+        }
+
+        private class ViewHolder
+        {
+            TextView tvItemName;
+            TextView tvItemValue;
         }
 
     }

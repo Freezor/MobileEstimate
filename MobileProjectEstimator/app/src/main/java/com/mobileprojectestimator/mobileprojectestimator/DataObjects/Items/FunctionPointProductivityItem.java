@@ -53,11 +53,6 @@ public class FunctionPointProductivityItem
         this.functionPoints = functionPoints;
     }
 
-    public int getInfluenceFactorsetId()
-    {
-        return influenceFactorsetId;
-    }
-
     public void setInfluenceFactorsetId(int influenceFactorsetId)
     {
         this.influenceFactorsetId = influenceFactorsetId;
@@ -81,5 +76,11 @@ public class FunctionPointProductivityItem
     public void setPointsPerDay(double pointsPerDay)
     {
         this.pointsPerDay = pointsPerDay;
+    }
+
+    @SuppressWarnings("unused")
+    public int getInfluenceFactorsetId()
+    {
+        return influenceFactorsetId;
     }
 }

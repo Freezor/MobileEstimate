@@ -382,6 +382,7 @@
     <string name="project_not_terminated">N.T.</string>
     <string name="project_creation_architecture">What architecture will you use?</string>
     <string name="action_undo">Undo</string>
+    <string name="demo_factor">Demo Factor</string>
     <string-array name="pref_sync_frequency_titles">
         <item>1 hour</item>
         <item>3 hours</item>

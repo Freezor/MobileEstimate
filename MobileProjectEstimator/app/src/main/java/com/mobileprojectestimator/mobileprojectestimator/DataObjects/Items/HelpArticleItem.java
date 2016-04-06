@@ -13,7 +13,8 @@ public class HelpArticleItem
     private String name;
     private ArrayList<String> paragraphs;
 
-    public HelpArticleItem(){
+    public HelpArticleItem()
+    {
         this.name = "EMPTY";
     }
 

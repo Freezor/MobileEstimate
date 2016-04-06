@@ -4,6 +4,7 @@ package com.mobileprojectestimator.mobileprojectestimator.DataObjects.Items.Esti
  * Created by Oliver Fries on 21.11.2015, 11:53.
  * Project: MobileProjectEstimator
  */
+@SuppressWarnings("JavaDoc")
 public abstract class EstimationItem
 {
     private String itemName;
@@ -24,20 +25,22 @@ public abstract class EstimationItem
     public abstract void refresh();
 
     /**
-     * Set the database table id
-     * @param itemId
-     */
-    public void setItemId(String itemId)
-    {
-        this.itemId = itemId;
-    }
-
-    /**
      * get the database table id
+     *
      * @return
      */
     public String getItemId()
     {
         return itemId;
+    }
+
+    /**
+     * Set the database table id
+     *
+     * @param itemId
+     */
+    public void setItemId(String itemId)
+    {
+        this.itemId = itemId;
     }
 }

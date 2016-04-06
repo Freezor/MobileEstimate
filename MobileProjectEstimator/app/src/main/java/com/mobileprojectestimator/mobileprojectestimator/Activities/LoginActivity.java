@@ -9,6 +9,7 @@ import com.mobileprojectestimator.mobileprojectestimator.Server.ServerConnector;
 public class LoginActivity extends AppCompatActivity
 {
 
+    @SuppressWarnings("FieldCanBeLocal")
     private ServerConnector connector;
 
     @Override

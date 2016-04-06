@@ -9,7 +9,8 @@ public class ProjectFilter
     private String estimationMethod;
     private boolean isActive;
 
-    public ProjectFilter(){
+    public ProjectFilter()
+    {
         this.estimationMethod = null;
         this.isActive = true;
     }

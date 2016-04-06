@@ -21,6 +21,7 @@ import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.HelpArtic
 import com.mobileprojectestimator.mobileprojectestimator.Util.adapters.SearchedHelpArticlesListAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class HelpActivity extends DatabaseActivity
 {
@@ -38,7 +39,6 @@ public class HelpActivity extends DatabaseActivity
     private ArrayList<String> searchTerms;
     private TextView tvArtikel;
     private View feedbackView;
-    private SearchedHelpArticlesListAdapter searchedHelpArticlesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -53,6 +53,7 @@ public class HelpActivity extends DatabaseActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarHelpAndFeedback);
         setSupportActionBar(toolbar);
+        //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
@@ -62,12 +63,12 @@ public class HelpActivity extends DatabaseActivity
             doSearch(query);
         }
 
-        articlesLayout = (View) findViewById(R.id.articlesLayout);
+        articlesLayout = findViewById(R.id.articlesLayout);
         articlesListView = (ListView) articlesLayout.findViewById(R.id.listViewHelpArticles);
         tvShowAllArticlesInListView = (TextView) articlesLayout.findViewById(R.id.tvAllArticles);
         searchView = (SearchView) articlesLayout.findViewById(R.id.searchView);
         tvArtikel = (TextView) articlesLayout.findViewById(R.id.tvArtikel);
-        feedbackView = (View) articlesLayout.findViewById(R.id.help_activity_feedback);
+        feedbackView = articlesLayout.findViewById(R.id.help_activity_feedback);
 
         tvShowAllArticlesInListView.setText(R.string.help_activity_reset_search);
         tvShowAllArticlesInListView.setOnClickListener(new View.OnClickListener()
@@ -122,10 +123,7 @@ public class HelpActivity extends DatabaseActivity
         searchTerm = query;
         searchedHelpArticleItems = new ArrayList<>();
         searchTerms = new ArrayList<>();
-        for (String word : searchTerm.split(" "))
-        {
-            searchTerms.add(word);
-        }
+        Collections.addAll(searchTerms, searchTerm.split(" "));
 
         hideKeyboard();
         isSearched = true;
@@ -141,7 +139,7 @@ public class HelpActivity extends DatabaseActivity
                 resetSearch();
             }
         });
-        searchedHelpArticlesAdapter = new SearchedHelpArticlesListAdapter(this);
+        SearchedHelpArticlesListAdapter searchedHelpArticlesAdapter = new SearchedHelpArticlesListAdapter(this);
 
         searchInHelpItems();
 
@@ -255,14 +253,14 @@ public class HelpActivity extends DatabaseActivity
         String userName = sharedPref.getString(getString(R.string.pref_key_user_name), "");
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                 "mailto", "frieso@fh-trier.de", null));
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, userName + ": " +getString(R.string.feedback_subject));
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, userName + ": " + getString(R.string.feedback_subject));
         startActivity(Intent.createChooser(emailIntent, getString(R.string.mail_feedback_intent_title)));
     }
 
     private void onClickHelpItem(int position)
     {
         ArrayList<String> helpItems = helpArticlesAdapter.getHelpTitlesArrayList();
-        String name = helpItems.get(position).toString();
+        String name = helpItems.get(position);
         for (HelpArticleItem item : helpArticleItems)
         {
             if (item.getName().equals(name))

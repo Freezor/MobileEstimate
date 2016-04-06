@@ -139,7 +139,7 @@ public class ProjectSearchResultsActivity extends DatabaseActivity
         projectsList.addAll(databaseHelper.searchAllProjectsWithName(this, searchQuery));
         if (projectsList.isEmpty() || projectsList.size() == 0)
         {
-            Project p = new Project(this,getString(R.string.error) ,getString(R.string.no_search_results), "");
+            Project p = new Project(this, getString(R.string.error), getString(R.string.no_search_results), "");
             projectsList.add(p);
             projectsListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
             {

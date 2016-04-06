@@ -88,7 +88,7 @@ public class FindRelatedProjectsActivity extends DatabaseActivity
 
     private void showValueToast(String text)
     {
-        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
     private void onClickProject(final int position)
@@ -166,14 +166,16 @@ public class FindRelatedProjectsActivity extends DatabaseActivity
                 onBackPressed();
                 return true;
             case R.id.action_show_all_relations:
-                if(isShowAll){
+                if (isShowAll)
+                {
                     item.setTitle(getString(R.string.action_show_all_relations));
-                    isShowAll=false;
-                    percentageBorder=50.0;
-                }else {
+                    isShowAll = false;
+                    percentageBorder = 50.0;
+                } else
+                {
                     item.setTitle(getString(R.string.action_show_only_relevant_relations));
-                    isShowAll=true;
-                    percentageBorder=0.0;
+                    isShowAll = true;
+                    percentageBorder = 0.0;
                 }
                 loadRelatedProjects();
                 return true;
@@ -199,6 +201,20 @@ public class FindRelatedProjectsActivity extends DatabaseActivity
         finish();
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == Integer.parseInt((getString(R.string.ACTIVITY_ESTIMATION_VIEW_REQUEST_CODE))))
+        {
+            if (resultCode == RESULT_OK)
+            {
+                //TODO: Check if result is null
+                Intent intent = getIntent();
+                projectId = intent.getIntExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID), 0);
+                loadRelatedProjects();
+            }
+        }
+    }
+
     private class RelatedProjectsAdapter extends ArrayAdapter<RelatedProject>
     {
 
@@ -210,13 +226,6 @@ public class FindRelatedProjectsActivity extends DatabaseActivity
             super(context, textViewResourceId, projectsList);
             this.projectsList = new ArrayList<RelatedProject>();
             this.projectsList.addAll(projectsList);
-        }
-
-        private class ViewHolder
-        {
-            ImageView ivProjectImage;
-            TextView tvProjectName;
-            TextView tvRelation;
         }
 
         @Override
@@ -254,19 +263,12 @@ public class FindRelatedProjectsActivity extends DatabaseActivity
 
         }
 
-    }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if (requestCode == Integer.parseInt((getString(R.string.ACTIVITY_ESTIMATION_VIEW_REQUEST_CODE))))
+        private class ViewHolder
         {
-            if (resultCode == RESULT_OK)
-            {
-                //TODO: Check if result is null
-                Intent intent = getIntent();
-                projectId = intent.getIntExtra(getString(R.string.ACTIVITY_EXTRA_PROJECTID), 0);
-                loadRelatedProjects();
-            }
+            ImageView ivProjectImage;
+            TextView tvProjectName;
+            TextView tvRelation;
         }
+
     }
 }

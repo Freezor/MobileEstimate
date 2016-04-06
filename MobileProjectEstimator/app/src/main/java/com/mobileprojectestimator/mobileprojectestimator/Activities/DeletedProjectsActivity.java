@@ -83,7 +83,8 @@ public class DeletedProjectsActivity extends DatabaseActivity
                 if (!p.isSelected())
                 {
                     selectProjectsList.add(p);
-                } else {
+                } else
+                {
                     p.setSelected(false);
                     selectProjectsList.add(p);
                 }
@@ -99,7 +100,8 @@ public class DeletedProjectsActivity extends DatabaseActivity
                 if (p.isSelected())
                 {
                     selectProjectsList.add(p);
-                } else {
+                } else
+                {
                     p.setSelected(true);
                     selectProjectsList.add(p);
                 }
@@ -167,7 +169,8 @@ public class DeletedProjectsActivity extends DatabaseActivity
                         deleteProjectsList.add(p);
                     }
                 }
-                if(deleteProjectsList.size()>=1){
+                if (deleteProjectsList.size() >= 1)
+                {
                     AlertDialog.Builder builder = new AlertDialog.Builder(DeletedProjectsActivity.this);
                     builder.setTitle(String.format(getString(R.string.dialog_erase_projects_title), deleteProjectsList.size()));
                     builder.setMessage(R.string.dialog_erase_projects_message)
@@ -223,7 +226,8 @@ public class DeletedProjectsActivity extends DatabaseActivity
                     }
                 }
 
-                if(recoverProjectsList.size()>=1){
+                if (recoverProjectsList.size() >= 1)
+                {
                     AlertDialog.Builder builder = new AlertDialog.Builder(DeletedProjectsActivity.this);
                     builder.setTitle(String.format(getString(R.string.dialog_recover_projects_title), recoverProjectsList.size()));
                     builder.setMessage(R.string.dialog_recover_projects_message)
@@ -267,12 +271,6 @@ public class DeletedProjectsActivity extends DatabaseActivity
             super(context, textViewResourceId, projectsList);
             this.projectsList = new ArrayList<Project>();
             this.projectsList.addAll(projectsList);
-        }
-
-        private class ViewHolder
-        {
-            TextView tvProjectName;
-            CheckBox cbProject;
         }
 
         @Override
@@ -322,6 +320,12 @@ public class DeletedProjectsActivity extends DatabaseActivity
 
             return convertView;
 
+        }
+
+        private class ViewHolder
+        {
+            TextView tvProjectName;
+            CheckBox cbProject;
         }
 
     }

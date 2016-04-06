@@ -42,6 +42,7 @@ public class LoggingHelper
     }
 
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     private void openOrCreateLog()
     {
         //logFile = new File(context.getApplicationContext().getFilesDir(), "log.txt");

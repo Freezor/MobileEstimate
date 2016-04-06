@@ -2,6 +2,7 @@ package com.mobileprojectestimator.mobileprojectestimator.Fragments.Statistic;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,14 +28,12 @@ import java.util.ArrayList;
  */
 public class ProjectStatisticFragment extends StatisticFragment
 {
-    private View rootView;
-    private TextView tvTitle;
     private PieChart mChart;
 
     @Override
     public StatisticFragment reloadStatistic()
     {
-        ProjectStatisticFragment fragment = new ProjectStatisticFragment();
+        final ProjectStatisticFragment fragment = new ProjectStatisticFragment();
         initDatabase();
         return fragment;
     }
@@ -44,12 +43,12 @@ public class ProjectStatisticFragment extends StatisticFragment
     {
         initDatabase();
 
-        rootView = inflater.inflate(R.layout.fragment_statistic_estimation_projects, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_statistic_estimation_projects, container, false);
         View myLayout = rootView.findViewById(R.id.buttonPanel);
         ImageView dot2 = (ImageView) myLayout.findViewById(R.id.dot2);
         dot2.setBackgroundResource(R.drawable.circle_blue);
 
-        tvTitle = (TextView) rootView.findViewById(R.id.tvTitle);
+        TextView tvTitle = (TextView) rootView.findViewById(R.id.tvTitle);
         tvTitle.setText(R.string.fragment_statistic_projects_title);
 
         mChart = (PieChart) rootView.findViewById(R.id.estimationMethodProjectsChart);
@@ -69,17 +68,22 @@ public class ProjectStatisticFragment extends StatisticFragment
         mChart.setRotationEnabled(false);
 
         // set a chart value selected listener
-        mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+        mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener()
+        {
 
             @Override
-            public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
+            public void onValueSelected(Entry e, int dataSetIndex, Highlight h)
+            {
                 // display msg when value selected
                 if (e == null)
-                    return;
+                {
+                    Log.d("INFO", "Value selected");
+                }
             }
 
             @Override
-            public void onNothingSelected() {
+            public void onNothingSelected()
+            {
 
             }
         });
@@ -88,21 +92,26 @@ public class ProjectStatisticFragment extends StatisticFragment
         addData();
 
         // customize legends
-        Legend l = mChart.getLegend();
+        final Legend l = mChart.getLegend();
         l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
         l.setXEntrySpace(7);
         l.setYEntrySpace(5);
         return rootView;
     }
 
-    private void addData() {
-        ArrayList<Entry> yVals1 = new ArrayList<Entry>();
+    /**
+     * Loads the data that is displayed in the fragment
+     */
+    private void addData()
+    {
+        ArrayList<Entry> yVals1 = new ArrayList<>();
 
         initDatabase();
         ArrayList<Integer> projects = databaseHelper.loadActiveAndTerminatedProjectsStatistic();
-        ArrayList<String> xVals = new ArrayList<String>();
+        ArrayList<String> xVals = new ArrayList<>();
 
-        for (int i = 0; i < projects.size(); i++)
+        final int projects_size = projects.size();// Moved  projects.size() call out of the loop to local variable projects_size
+        for (int i = 0; i < projects_size; i++)
         {
             yVals1.add(new Entry(projects.get(i), i));
         }
@@ -115,28 +124,28 @@ public class ProjectStatisticFragment extends StatisticFragment
         dataSet.setSelectionShift(5);
 
         // add many colors
-        ArrayList<Integer> colors = new ArrayList<Integer>();
+        ArrayList<Integer> colors = new ArrayList<>();
 
-        for (int c : ColorTemplate.VORDIPLOM_COLORS)
+        for (final int c : ColorTemplate.VORDIPLOM_COLORS)
             colors.add(c);
 
-        for (int c : ColorTemplate.JOYFUL_COLORS)
+        for (final int c : ColorTemplate.JOYFUL_COLORS)
             colors.add(c);
 
-        for (int c : ColorTemplate.COLORFUL_COLORS)
+        for (final int c : ColorTemplate.COLORFUL_COLORS)
             colors.add(c);
 
-        for (int c : ColorTemplate.LIBERTY_COLORS)
+        for (final int c : ColorTemplate.LIBERTY_COLORS)
             colors.add(c);
 
-        for (int c : ColorTemplate.PASTEL_COLORS)
+        for (final int c : ColorTemplate.PASTEL_COLORS)
             colors.add(c);
 
         colors.add(ColorTemplate.getHoloBlue());
         dataSet.setColors(colors);
 
         // instantiate pie data object now
-        PieData data = new PieData(xVals, dataSet);
+        final PieData data = new PieData(xVals, dataSet);
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(11f);
         data.setValueTextColor(Color.GRAY);

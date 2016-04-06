@@ -10,7 +10,6 @@ import com.mobileprojectestimator.mobileprojectestimator.Util.database.UserDatab
 import org.xmlpull.v1.XmlSerializer;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -22,11 +21,13 @@ import java.sql.SQLException;
  */
 public class ServerConnector
 {
+    @SuppressWarnings("FieldCanBeLocal")
     private DataBaseHelper applicationDatabase;
     private UserDatabaseHelper userDatabase;
     private Context context;
 
-    public ServerConnector(Context c){
+    public ServerConnector(final Context c)
+    {
         this.context = c;
         initApplicationDatabase(c);
         initUserDatabase(c);
@@ -37,7 +38,7 @@ public class ServerConnector
     /**
      * Initialise the Database Helper class and loads the database
      */
-    protected void initApplicationDatabase(Context c)
+    protected void initApplicationDatabase(final Context c)
     {
         Log.d("Info", "Database Initialisation");
         this.applicationDatabase = new DataBaseHelper(c);
@@ -47,7 +48,7 @@ public class ServerConnector
 
             applicationDatabase.createDataBase();
 
-        } catch (IOException ioe)
+        } catch (final IOException ioe)
         {
 
             throw new Error("Unable to create database");
@@ -59,9 +60,9 @@ public class ServerConnector
 
             applicationDatabase.openDataBase();
 
-        } catch (SQLException sqle)
+        } catch (final SQLException sqle)
         {
-            Log.d("ERROR",sqle.toString());
+            Log.d("ERROR", sqle.toString());
         }
 
         applicationDatabase.logDatabaseInformation();
@@ -70,7 +71,7 @@ public class ServerConnector
     /**
      * Initialise the Database Helper class and loads the database
      */
-    protected void initUserDatabase(Context c)
+    protected void initUserDatabase(final Context c)
     {
         Log.d("Info", "Database Initialisation");
         this.userDatabase = new UserDatabaseHelper(c);
@@ -80,7 +81,7 @@ public class ServerConnector
 
             userDatabase.createDataBase();
 
-        } catch (IOException ioe)
+        } catch (final IOException ioe)
         {
 
             throw new Error("Unable to create database");
@@ -92,9 +93,9 @@ public class ServerConnector
 
             userDatabase.openDataBase();
 
-        } catch (SQLException sqle)
+        } catch (final SQLException sqle)
         {
-            Log.d("ERROR",sqle.toString());
+            Log.d("ERROR", sqle.toString());
         }
 
         userDatabase.logDatabaseInformation();
@@ -102,41 +103,58 @@ public class ServerConnector
 
     /**
      * Initialises the Connection to the server
-     * @return
+     *
+     * @return true
      */
-    public boolean initConnection(){
+    public boolean initConnection()
+    {
         return true;
     }
 
     /**
      * Loads the messages from the server Message Queue and returns the amount of messages
-     * @return
+     *
+     * @return 1
      */
-    public int loadMessages(){
+    public int loadMessages()
+    {
         return 1;
     }
 
     /**
      * Synchronises the database with the server Database
-     * @return
+     *
+     * @return true
      */
-    public boolean synchronise(){
+    public boolean synchronise()
+    {
         loadHelpArticles();
         loadTextResources();
         return true;
     }
 
+    /**
+     * Load the Text Resources for the info screens as a xml file
+     * ATM: Generation - Should be loaded from the server if it doesn't exist
+     */
     private void loadTextResources()
     {
-        File dir = context.getFilesDir();
-        File file = new File(dir, "texts.xml");
-        file.delete();
+        final File dir = context.getFilesDir();
+        final File file = new File(dir, "texts.xml");
+        if (file.delete())
+        {
+            Log.d("INFO", "File deleted");
+        } else
+        {
+            Log.d("INFO", "File not deleted");
+        }
 
         final String xmlFile = "texts.xml";
-        try {
-            FileOutputStream fileos= context.openFileOutput(xmlFile, Context.MODE_PRIVATE);
-            XmlSerializer xmlSerializer = Xml.newSerializer();
-            StringWriter writer = new StringWriter();
+        try
+        {
+            final FileOutputStream fileos = context.openFileOutput(xmlFile, Context.MODE_PRIVATE);
+            final XmlSerializer xmlSerializer = Xml.newSerializer();
+            final StringWriter writer = new StringWriter();
             xmlSerializer.setOutput(writer);
             xmlSerializer.startDocument("UTF-8", true);
             xmlSerializer.startTag(null, "textresourcess");
@@ -302,39 +320,38 @@ public class ServerConnector
 
             xmlSerializer.endDocument();
             xmlSerializer.flush();
-            String dataWrite = writer.toString();
+            final String dataWrite = writer.toString();
             fileos.write(dataWrite.getBytes());
             fileos.close();
-        }
-        catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (IllegalArgumentException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (IllegalStateException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (IOException e) {
+        } catch (final IllegalArgumentException | IOException | IllegalStateException e)
+        {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
+    /**
+     * Load all Help articles from the server and saves them as a xml file
+     * ATM: Generation
+     */
     private void loadHelpArticles()
     {
-        File dir = context.getFilesDir();
-        File file = new File(dir, "help_data.xml");
-        file.delete();
+        final File dir = context.getFilesDir();
+        final File file = new File(dir, "help_data.xml");
+        if (file.delete())
+        {
+            Log.d("INFO", "File deleted");
+        } else
+        {
+            Log.d("INFO", "File not deleted");
+        }
 
         final String xmlFile = "help_data.xml";
-        try {
-            FileOutputStream fileos= context.openFileOutput(xmlFile, Context.MODE_PRIVATE);
-            XmlSerializer xmlSerializer = Xml.newSerializer();
-            StringWriter writer = new StringWriter();
+        try
+        {
+            final FileOutputStream fileos = context.openFileOutput(xmlFile, Context.MODE_PRIVATE);
+            final XmlSerializer xmlSerializer = Xml.newSerializer();
+            final StringWriter writer = new StringWriter();
             xmlSerializer.setOutput(writer);
             xmlSerializer.startDocument("UTF-8", true);
             xmlSerializer.startTag(null, "helpitems");
@@ -423,23 +440,11 @@ public class ServerConnector
             xmlSerializer.endTag(null, "helpitems");
             xmlSerializer.endDocument();
             xmlSerializer.flush();
-            String dataWrite = writer.toString();
+            final String dataWrite = writer.toString();
             fileos.write(dataWrite.getBytes());
             fileos.close();
-        }
-        catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (IllegalArgumentException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (IllegalStateException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (IOException e) {
+        } catch (final IllegalArgumentException | IllegalStateException | IOException e)
+        {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

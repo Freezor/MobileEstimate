@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -22,7 +22,6 @@ public class ProjectFilterActivity extends DatabaseActivity
 {
 
     private ProjectFilter filter;
-    private Switch sFilterActive;
     private TextView tvMethodName;
     private ArrayList<String> estimationMethodItems;
 
@@ -40,7 +39,7 @@ public class ProjectFilterActivity extends DatabaseActivity
         String estimationMethodFilter = sharedPref.getString(getString(R.string.filter_estimation_technique_key), "");
         filter.setEstimationMethod(estimationMethodFilter);
 
-        sFilterActive = (Switch) findViewById(R.id.sFilterActive);
+        Switch sFilterActive = (Switch) findViewById(R.id.sFilterActive);
         tvMethodName = (TextView) findViewById(R.id.tvMethodName);
 
         loadAllFilterOptions();
@@ -55,9 +54,11 @@ public class ProjectFilterActivity extends DatabaseActivity
             }
         });
 
-        if(estimationMethodFilter.isEmpty()||estimationMethodFilter.equals("")){
+        if (estimationMethodFilter.isEmpty() || estimationMethodFilter.equals(""))
+        {
             tvMethodName.setText(R.string.filter_none);
-        } else {
+        } else
+        {
             tvMethodName.setText(filter.getEstimationMethod());
         }
         tvMethodName.setOnClickListener(new View.OnClickListener()
@@ -74,7 +75,7 @@ public class ProjectFilterActivity extends DatabaseActivity
     {
         estimationMethodItems = databaseHelper.getEstimationMethodNames();
         Collections.sort(estimationMethodItems);
-        estimationMethodItems.add(0,getString(R.string.filter_none));
+        estimationMethodItems.add(0, getString(R.string.filter_none));
 
     }
 
@@ -110,7 +111,8 @@ public class ProjectFilterActivity extends DatabaseActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        switch(item.getItemId()){
+        switch (item.getItemId())
+        {
             case R.id.home:
                 onBackPressed();
                 return true;
@@ -135,6 +137,6 @@ public class ProjectFilterActivity extends DatabaseActivity
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putBoolean(getString(R.string.filter_is_active_key), filter.isActive());
         editor.putString(getString(R.string.filter_estimation_technique_key), filter.getEstimationMethod());
-        editor.commit();
+        editor.apply();
     }
 }

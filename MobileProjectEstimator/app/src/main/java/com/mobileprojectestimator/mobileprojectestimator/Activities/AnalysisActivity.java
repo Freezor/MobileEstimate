@@ -54,7 +54,6 @@ public class AnalysisActivity extends DatabaseActivity
     private TextView tvEstimationMethod;
     private LineDataSet lineDataSet;
     private BarDataSet barDataSet;
-    private String projectId;
     private TextView tvProjectName;
     private TextView tvFinalPersonDays;
     private TextView tvEvaluatedPersonDays;
@@ -62,7 +61,6 @@ public class AnalysisActivity extends DatabaseActivity
     private View layout;
     private boolean isArrangementEvaluatedPoints;
     private Menu menu;
-    private Double MAXDAYS = 1999.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -70,7 +68,7 @@ public class AnalysisActivity extends DatabaseActivity
         super.onCreate(savedInstanceState);
         isArrangementEvaluatedPoints = false;
         setContentView(R.layout.activity_analysis);
-        projectId = "";
+        String projectId = "";
         initDatabase();
         projectNames = new ArrayList<>();
         selectedProjects = new ArrayList<>();
@@ -81,6 +79,7 @@ public class AnalysisActivity extends DatabaseActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarAnalysis);
 
         setSupportActionBar(toolbar);
+        //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initEstimationMethods();
@@ -128,7 +127,7 @@ public class AnalysisActivity extends DatabaseActivity
             projectId = String.valueOf(extras.getInt(getString(R.string.ACTIVITY_EXTRA_PROJECTID)));
         }
 
-        if (projectId == null || projectId.equals(""))
+        if (projectId.equals(""))
         {
             tvProjectName.setText("");
             tvFinalPersonDays.setText("");
@@ -162,18 +161,6 @@ public class AnalysisActivity extends DatabaseActivity
                 tvEvaluatedPersonDays.setText("");
             }
         }
-    }
-
-    public static boolean isNumeric(String str)
-    {
-        try
-        {
-            double d = Double.parseDouble(str);
-        } catch (NumberFormatException nfe)
-        {
-            return false;
-        }
-        return true;
     }
 
     /**
@@ -248,7 +235,7 @@ public class AnalysisActivity extends DatabaseActivity
 
         LineData d = new LineData();
 
-        ArrayList<Entry> entries = new ArrayList<Entry>();
+        ArrayList<Entry> entries = new ArrayList<>();
 
         for (int index = 0; index < selectedProjects.size(); index++)
             entries.add(new Entry((float) selectedProjects.get(index).getEvaluatedPersonDays(), index));
@@ -421,7 +408,7 @@ public class AnalysisActivity extends DatabaseActivity
                             // User cancelled the dialog
                         }
                     });
-                    influenceSetNames = new ArrayList<String>();
+                    influenceSetNames = new ArrayList<>();
                     for (DatabaseInfluenceFactorItem item : influenceItems)
                     {
                         influenceSetNames.add(item.get_name());
@@ -443,6 +430,7 @@ public class AnalysisActivity extends DatabaseActivity
                 }
             });
         }
+        //noinspection SuspiciousMethodCalls
         if (selectedInfluenceFactorSet.isEmpty() || !influenceItems.contains(selectedInfluenceFactorSet))
         {
             selectedInfluenceFactorSet = influenceItems.get(0).get_name();
@@ -592,7 +580,6 @@ public class AnalysisActivity extends DatabaseActivity
 
         Random r = new Random();
         int maxPoint = 4000;
-        int maxDays = 200;
 
         for (int i = 0; i < 40; i++)
         {
@@ -602,7 +589,6 @@ public class AnalysisActivity extends DatabaseActivity
             p.setProjectId(i);
             p.setTitle("Project " + i);
             p.setEvaluatedPoints(r.nextInt(maxPoint - min + 1) + min);
-            int evaluatedDays = r.nextInt(maxDays - min + 1) + min;
             double fakt = r.nextInt(80 - 5 + 1) + 5;
             fakt = (fakt / 100) + 1;
             p.setEstimationMethod(getString(R.string.estimation_technique_function_point));
@@ -652,7 +638,7 @@ public class AnalysisActivity extends DatabaseActivity
         }
 
         tvEstimationMethod.setText(getString(R.string.estimation_technique_function_point));
-        tvInfluenceFactorSet.setText("Demo Factor");
+        tvInfluenceFactorSet.setText(R.string.demo_factor);
         chosenProject = selectedProjects.get(0);
         refreshAnalysis();
         refreshCharData();

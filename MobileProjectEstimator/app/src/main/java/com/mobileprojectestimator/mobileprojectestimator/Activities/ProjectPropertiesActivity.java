@@ -40,7 +40,6 @@ public class ProjectPropertiesActivity extends DatabaseActivity
     private TextView tvProjectDescription;
     private int projectId;
     private ArrayList<String> developmentMarketItems;
-    private ArrayList<String> estimationMethodItems;
     private ArrayList<String> developmentKindItems;
     private ArrayList<String> processMethologieItems;
     private ArrayList<String> programmingLanguageItems;
@@ -57,6 +56,7 @@ public class ProjectPropertiesActivity extends DatabaseActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarProjectIcon);
         setSupportActionBar(toolbar);
+        //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initDatabase();
@@ -310,7 +310,7 @@ public class ProjectPropertiesActivity extends DatabaseActivity
         industrySectorItems = databaseHelper.loadAllPropertiesByName("IndustrySectors");
         Collections.sort(industrySectorItems);
 
-        estimationMethodItems = databaseHelper.getEstimationMethodNames();
+        ArrayList<String> estimationMethodItems = databaseHelper.getEstimationMethodNames();
         Collections.sort(estimationMethodItems);
 
         architectureItems = databaseHelper.loadAllPropertiesByName("SoftwareArchitecturePatterns");

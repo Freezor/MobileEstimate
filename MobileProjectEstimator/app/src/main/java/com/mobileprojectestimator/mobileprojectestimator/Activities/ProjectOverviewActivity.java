@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -42,17 +41,18 @@ import java.util.List;
 /**
  * Activtiy for the Overview of all projects
  */
+@SuppressWarnings("JavaDoc")
 public class ProjectOverviewActivity extends DatabaseActivity
         implements NavigationView.OnNavigationItemSelectedListener
 {
 
-    private ServerConnector serverConnector;
-
     private final List<Project> projectsList = new ArrayList<>();
+    @SuppressWarnings("FieldCanBeLocal")
+    private ServerConnector serverConnector;
     private ListView projectsListView;
     private ProjectListAdapter projectsAdapter;
     private TextView navigationDrawerUserNameTextView;
-    private Menu menu;
+    @SuppressWarnings("FieldCanBeLocal")
     private LoggingHelper logging;
     private ProjectFilter filter;
     private MenuItem filterItem;
@@ -267,7 +267,8 @@ public class ProjectOverviewActivity extends DatabaseActivity
             {
                 projectsList.addAll(databaseHelper.getAllActiveProjects(this));
             }
-            if(projectsList.isEmpty()){
+            if (projectsList.isEmpty())
+            {
                 generateEmptyProject();
             }
         } else
@@ -370,7 +371,7 @@ public class ProjectOverviewActivity extends DatabaseActivity
             }
         });
 
-        filterItem = (MenuItem) menu.findItem(R.id.action_filter);
+        filterItem = menu.findItem(R.id.action_filter);
         loadProjectFilter();
 
         return true;

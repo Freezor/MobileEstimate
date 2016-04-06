@@ -6,10 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mobileprojectestimator.mobileprojectestimator.DataObjects.Project.Project;
 import com.mobileprojectestimator.mobileprojectestimator.R;
@@ -27,12 +25,8 @@ public class InfluencingFactorFragment extends GuidedCreationFragment
      * fragment.
      */
     public Project project;
-    protected TextView estimationMethodTitelTV;
     protected View rootView;
     protected ViewGroup container;
-    private ArrayList<String> influencingFactorItems;
-    private String text;
-    private ArrayAdapter<String> influencingFactorsAdapter;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -80,6 +74,5 @@ public class InfluencingFactorFragment extends GuidedCreationFragment
     @Override
     public void onReloadViews(String text)
     {
-        this.text = text;
     }
 }

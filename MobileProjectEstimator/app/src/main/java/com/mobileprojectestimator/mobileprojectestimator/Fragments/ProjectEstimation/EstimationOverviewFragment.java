@@ -15,12 +15,12 @@ import java.sql.SQLException;
  */
 public abstract class EstimationOverviewFragment extends Fragment
 {
-    public abstract EstimationOverviewFragment newInstance(Project p);
-
     /**
      * The Database Helper Object for sending queries to the database
      */
     protected DataBaseHelper databaseHelper;
+
+    public abstract EstimationOverviewFragment newInstance(final Project p);
 
     /**
      * Initialise the Database Helper class and loads the database
@@ -29,29 +29,21 @@ public abstract class EstimationOverviewFragment extends Fragment
     {
         Log.d("Info", "Database Initialisation");
         this.databaseHelper = new DataBaseHelper(this.getContext());
-
         try
         {
-
             databaseHelper.createDataBase();
-
-        } catch (IOException ioe)
+        } catch (final IOException ioe)
         {
-
             throw new Error("Unable to create database");
-
         }
-
         try
         {
-
             databaseHelper.openDataBase();
 
-        } catch (SQLException sqle)
+        } catch (final SQLException sqle)
         {
             Log.d("ERROR", sqle.toString());
         }
-
         databaseHelper.logDatabaseInformation();
     }
 }

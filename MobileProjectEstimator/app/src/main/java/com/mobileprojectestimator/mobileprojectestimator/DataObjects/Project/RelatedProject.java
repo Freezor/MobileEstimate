@@ -15,38 +15,11 @@ public class RelatedProject extends Project
     private double relatedPercentage;
 
     /**
-     * Constructs a new instance of {@code Object}.
-     */
-    public RelatedProject()
-    {
-        super();
-    }
-
-    /**
-     * Create a Project with already known title, creation Date and estimation Type
-     * Mostly for test purpose
-     *
-     * @param current
-     * @param title
-     * @param creationDate
-     * @param estimationMethod
-     */
-    public RelatedProject(Context current, String title, String creationDate, String estimationMethod)
-    {
-        super(current, title, creationDate, estimationMethod);
-    }
-
-    public RelatedProject(Context current, String title, String creationDate, String estimationMethod, int projectId)
-    {
-        super(current,title,creationDate,estimationMethod,projectId);
-    }
-
-
-    /**
      * Create an empty project
      *
      * @param current
      */
+    @SuppressWarnings("JavaDoc")
     public RelatedProject(Context current)
     {
         super(current);

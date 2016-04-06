@@ -14,15 +14,13 @@ import java.io.InputStreamReader;
 public class LicenceActivity extends AppCompatActivity
 {
 
-    private TextView tvLicence;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_licence);
 
-        tvLicence = (TextView) findViewById(R.id.tvLicence);
+        TextView tvLicence = (TextView) findViewById(R.id.tvLicence);
 
         BufferedReader reader = null;
         try
@@ -38,6 +36,7 @@ public class LicenceActivity extends AppCompatActivity
         String mLine;
         try
         {
+            assert reader != null;
             while ((mLine = reader.readLine()) != null)
             {
 
@@ -50,6 +49,6 @@ public class LicenceActivity extends AppCompatActivity
         }
         tvLicence.setText(text);
         tvLicence.setMovementMethod(new ScrollingMovementMethod());
-        ;
+
     }
 }

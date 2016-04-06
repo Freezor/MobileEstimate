@@ -109,7 +109,6 @@ public class ProjectProperties
     /**
      * Generates a HashMap<String,String> with all Property Values
      *
-     * @return
      */
     public Map<? extends String, ? extends String> toHashMap()
     {
@@ -128,8 +127,6 @@ public class ProjectProperties
     /**
      * Set all property values from the object hash. Returns false when something went wrong
      *
-     * @param objectMap
-     * @return
      */
     public void setPropertyValues(HashMap<String, String> objectMap)
     {

@@ -42,6 +42,26 @@ public class ExportProjectActivity extends DatabaseActivity
     private Project selectedProject;
     private File outputFile;
 
+    public static boolean isExternalStorageReadOnly()
+    {
+        String extStorageState = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(extStorageState))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isExternalStorageAvailable()
+    {
+        String extStorageState = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(extStorageState))
+        {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -1123,27 +1143,6 @@ public class ExportProjectActivity extends DatabaseActivity
             }
         }
         return success;
-    }
-
-
-    public static boolean isExternalStorageReadOnly()
-    {
-        String extStorageState = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(extStorageState))
-        {
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean isExternalStorageAvailable()
-    {
-        String extStorageState = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(extStorageState))
-        {
-            return true;
-        }
-        return false;
     }
 
 }

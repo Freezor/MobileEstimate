@@ -32,17 +32,17 @@ public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFrag
     protected ListView fpInfluenceListView;
     protected FunctionPointInfluenceListAdapter projectInfluenceListAdapter;
     private Project project;
-    private ArrayList<Object> fragmentsList;
     private TextView sumOfInfluences;
     private TextView factorInfluenceRating;
     private Context mContext;
     private ArrayList<DatabaseInfluenceFactorItem> influenceFactorItems;
 
+
     @Override
-    public EstimationOverviewFragment newInstance(Project p)
+    public EstimationOverviewFragment newInstance(final Project p)
     {
-        FunctionPointInfluenceFactorFragment fragment = new FunctionPointInfluenceFactorFragment();
-        Bundle args = new Bundle();
+        final FunctionPointInfluenceFactorFragment fragment = new FunctionPointInfluenceFactorFragment();
+        final Bundle args = new Bundle();
         project = p;
         fragment.setArguments(args);
         return fragment;
@@ -55,7 +55,7 @@ public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFrag
         mContext = getActivity();
         initDatabase();
 
-        View rootView = inflater.inflate(R.layout.fragment_function_point_influence_factor_activtiy, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_function_point_influence_factor_activtiy, container, false);
 
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -73,7 +73,7 @@ public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFrag
         factorInfluenceRating = (TextView) rootView.findViewById(R.id.tvFactorInfluenceRating);
         factorInfluenceRating.setText(String.format("%s %s", getContext().getString(R.string.function_point_influence_rating), this.project.getFactorInfluenceRating()));
 
-        Button changeInfluenceFactorButton = (Button) rootView.findViewById(R.id.bChangeFactorSet);
+        final Button changeInfluenceFactorButton = (Button) rootView.findViewById(R.id.bChangeFactorSet);
         changeInfluenceFactorButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -94,22 +94,22 @@ public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFrag
 
     private void openProjectIsTerminatedDialog()
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle(getString(R.string.dialog_project_ist_terminated_title));
         builder.setMessage(R.string.dialog_project_ist_terminated_text);
-        AlertDialog alert = builder.create();
+        final AlertDialog alert = builder.create();
         alert.show();
     }
 
     private void openInfluenceFactorSetDialog()
     {
         Log.d("Info", "FunctionPointInfluenceFactorFragment: openInfluenceFactorSetDialog");
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle(getString(R.string.estimation_technique_hint));
 
         influenceFactorItems = databaseHelper.getActiveInfluenceFactorItems(databaseHelper.getEstimationMethodId(project.getEstimationMethod()));
-        ArrayList<String> infItems = new ArrayList<>();
-        for (DatabaseInfluenceFactorItem i : influenceFactorItems)
+        final ArrayList<String> infItems = new ArrayList<>();
+        for (final DatabaseInfluenceFactorItem i : influenceFactorItems)
         {
             infItems.add(i.get_name());
         }
@@ -119,8 +119,8 @@ public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFrag
         {
             public void onClick(DialogInterface dialog, int item)
             {
-                String factorName = items[item].toString();
-                for (DatabaseInfluenceFactorItem i : influenceFactorItems)
+                final String factorName = items[item].toString();
+                for (final DatabaseInfluenceFactorItem i : influenceFactorItems)
                 {
                     if (i.get_name().equals(factorName))
                     {
@@ -139,7 +139,7 @@ public class FunctionPointInfluenceFactorFragment extends EstimationOverviewFrag
                 }
             }
         });
-        AlertDialog alert = builder.create();
+        final AlertDialog alert = builder.create();
         alert.show();
     }
 }

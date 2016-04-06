@@ -9,14 +9,13 @@ import com.mobileprojectestimator.mobileprojectestimator.R;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Oliver Fries on 25.10.2015.
  * <p/>
  * Base Class for all influence factor sets
  */
+@SuppressWarnings("JavaDoc")
 public class InfluencingFactor
 {
     /**
@@ -42,7 +41,6 @@ public class InfluencingFactor
 
     private ArrayList<InfluenceFactorItem> influenceFactorItems;
     private int sumOfInfluences;
-    private int influenceItemSum;
 
     /**
      *
@@ -108,27 +106,6 @@ public class InfluencingFactor
     }
 
     /**
-     * Changes the selected value of an influence factor item.
-     * Returns false if the item does not exist.
-     *
-     * @param itemName
-     * @param chosenVal
-     * @return
-     */
-    public boolean changeFactorItemValue(String itemName, int chosenVal)
-    {
-        int position = findItemPosition(itemName);
-        if (position != -1)
-        {
-            influenceFactorItems.get(position).setChosenValue(chosenVal);
-            return true;
-        } else
-        {
-            return false;
-        }
-    }
-
-    /**
      * Returns the actual value of this item
      *
      * @param itemName
@@ -143,29 +120,6 @@ public class InfluencingFactor
         } else
         {
             return -1;
-        }
-    }
-
-    /**
-     * Set the value of a subitem from a specific item
-     *
-     * @param parentItem
-     * @param subItemName
-     * @param value
-     * @return
-     */
-    public boolean setSubItemValue(String parentItem, String subItemName, int value)
-    {
-        int position = findItemPosition(parentItem);
-        if (position != -1)
-        {
-            ArrayList<InfluenceFactorItem> subitems = influenceFactorItems.get(position).getSubInfluenceFactorItemsList();
-
-            subitems.get(findSubItemPosition(subItemName, subitems)).setChosenValue(value);
-            return true;
-        } else
-        {
-            return false;
         }
     }
 
@@ -251,53 +205,6 @@ public class InfluencingFactor
     }
 
     /**
-     * Creates HashMap out of the actual influence factor set
-     *
-     * @return
-     */
-    public Map<? extends String, ? extends String> toHashMap()
-    {
-        HashMap<String, String> infFactorItemsHashMap = new HashMap<>();
-
-        for (InfluenceFactorItem item : influenceFactorItems)
-        {
-            if (item.hasSubItems())
-            {
-                for (InfluenceFactorItem subItem : item.getSubInfluenceFactorItemsList())
-                {
-                    infFactorItemsHashMap.put(subItem.getName(), String.valueOf(subItem.getChosenValue()));
-                }
-            } else
-            {
-                infFactorItemsHashMap.put(item.getName(), String.valueOf(item.getChosenValue()));
-            }
-        }
-
-        return infFactorItemsHashMap;
-    }
-
-    /**
-     * Creates new FactorItem Arraylist and sets the values from the hashmap
-     *
-     * @param map
-     * @param estimationMethod
-     * @return
-     */
-    public void setValuesFromHashMap(HashMap<String, String> map, int estimationMethod)
-    {
-        influenceFactorItems = new ArrayList<>();
-        switch (estimationMethod)
-        {
-            case FUNCTIONPOINTFACTORS:
-                setFunctionPointInfluenceFactorItems();
-                setFunctionPointInfluenceFactorValues(map);
-                break;
-            default:
-                break;
-        }
-    }
-
-    /**
      * Set the chosen values for an influence factor
      * Needed for initialisation from the database
      * @param values
@@ -319,35 +226,6 @@ public class InfluencingFactor
         influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_stock_conversion))).setChosenValue(values.get(8));
         influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_adaptability))).setChosenValue(values.get(9));
 
-    }
-
-    /**
-     * Create the Influence Factors from the Hash Map for Funciton Point
-     * @param map
-     * @return
-     */
-    private boolean setFunctionPointInfluenceFactorValues(HashMap<String, String> map)
-    {
-        try
-        {
-            influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_integration))).setChosenValue(Integer.parseInt(map.get(context.getString(R.string.function_point_influence_factor_item_integration))));
-            influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_local_data))).setChosenValue(Integer.parseInt(map.get(context.getString(R.string.function_point_influence_factor_item_local_data))));
-            influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_transaction_rate))).setChosenValue(Integer.parseInt(map.get(context.getString(R.string.function_point_influence_factor_item_transaction_rate))));
-            influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_arithmetic_operation))).setChosenValue(Integer.parseInt(map.get(context.getString(R.string.function_point_influence_factor_item_arithmetic_operation))));
-            influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_reusability))).setChosenValue(Integer.parseInt(map.get(context.getString(R.string.function_point_influence_factor_item_reusability))));
-            influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_stock_conversion))).setChosenValue(Integer.parseInt(map.get(context.getString(R.string.function_point_influence_factor_item_stock_conversion))));
-            influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_adaptability))).setChosenValue(Integer.parseInt(map.get(context.getString(R.string.function_point_influence_factor_item_adaptability))));
-
-            //Set SubItems
-            influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_processing_logic))).getSubInfluenceFactorItemsList().get(findSubItemPosition(context.getString(R.string.function_point_influence_factor_item_arithmetic_operation), influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_arithmetic_operation))).getSubInfluenceFactorItemsList())).setChosenValue(Integer.parseInt(map.get(context.getString(R.string.function_point_influence_factor_item_adaptability))));
-            influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_processing_logic))).getSubInfluenceFactorItemsList().get(findSubItemPosition(context.getString(R.string.function_point_influence_factor_item_exception_regulation), influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_exception_regulation))).getSubInfluenceFactorItemsList())).setChosenValue(Integer.parseInt(map.get(context.getString(R.string.function_point_influence_factor_item_exception_regulation))));
-            influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_processing_logic))).getSubInfluenceFactorItemsList().get(findSubItemPosition(context.getString(R.string.function_point_influence_factor_item_logic), influenceFactorItems.get(findItemPosition(context.getString(R.string.function_point_influence_factor_item_logic))).getSubInfluenceFactorItemsList())).setChosenValue(Integer.parseInt(map.get(context.getString(R.string.function_point_influence_factor_item_logic))));
-
-        } catch (Exception e)
-        {
-            return false;
-        }
-        return true;
     }
 
     /**
@@ -378,7 +256,7 @@ public class InfluencingFactor
      */
     private int getFunctionPointInfluenceSum()
     {
-        influenceItemSum = 0;
+        int influenceItemSum = 0;
 
         for(InfluenceFactorItem item : influenceFactorItems){
             if(item.hasSubItems()){
@@ -389,7 +267,7 @@ public class InfluencingFactor
                 influenceItemSum += item.getChosenValue();
             }
         }
-        Log.d("Info","Sum of Influence = "+influenceItemSum);
+        Log.d("Info","Sum of Influence = "+ influenceItemSum);
         return influenceItemSum;
     }
 
