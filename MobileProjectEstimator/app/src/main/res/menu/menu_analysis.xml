@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context=".Activities.GuidedProjectCreationActivity">
+    <item
+        android:id="@+id/action_open_statistics"
+        android:orderInCategory="100"
+        android:title="@string/action_open_statistics"
+        android:icon="@drawable/line_chart_white"
+        app:showAsAction="ifRoom|withText"/>
+    <item
+        android:id="@+id/action_change_analysis_sort"
+        android:orderInCategory="110"
+        android:title="@string/action_change_analysis_sort_evaluated_points"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_generate_demo_values"
+        android:orderInCategory="120"
+        android:title="@string/action_generate_demo_values"
+        app:showAsAction="never"/>
+        <!--android:visible="false" -->
+</menu>
