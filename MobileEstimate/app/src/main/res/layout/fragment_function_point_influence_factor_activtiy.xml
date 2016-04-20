@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/lvInfluenceFactors"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:scrollbarThumbVertical="@drawable/scrollbar_orange"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tvSumOfInfluences"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lvInfluenceFactors"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/function_point_sum_of_influences"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    <TextView
+        android:id="@+id/tvFactorInfluenceRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvSumOfInfluences"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/function_point_influence_rating"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    <Button
+        android:id="@+id/bChangeFactorSet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvFactorInfluenceRating"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@color/standardButtonColor"
+        android:text="@string/function_point_change_factor_set_button"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:theme="@style/Base.Widget.AppCompat.ActionButton"/>
+</RelativeLayout>

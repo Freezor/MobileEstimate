@@ -1,0 +1,39 @@
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 1
+\BOOKMARK [0][-]{chapter.2}{Theoretical Background}{}% 2
+\BOOKMARK [1][-]{section.2.1}{Cost estimation in software engineering}{chapter.2}% 3
+\BOOKMARK [1][-]{section.2.2}{Estimation Techniques}{chapter.2}% 4
+\BOOKMARK [1][-]{section.2.3}{Software for Cost Estimations - State of the art}{chapter.2}% 5
+\BOOKMARK [0][-]{chapter.3}{Application concept}{}% 6
+\BOOKMARK [1][-]{section.3.1}{Project planning}{chapter.3}% 7
+\BOOKMARK [1][-]{section.3.2}{Architecture}{chapter.3}% 8
+\BOOKMARK [1][-]{section.3.3}{Components}{chapter.3}% 9
+\BOOKMARK [1][-]{section.3.4}{Database design}{chapter.3}% 10
+\BOOKMARK [1][-]{section.3.5}{User Interface}{chapter.3}% 11
+\BOOKMARK [0][-]{chapter.4}{Implementation}{}% 12
+\BOOKMARK [1][-]{section.4.1}{Used Libraries}{chapter.4}% 13
+\BOOKMARK [1][-]{section.4.2}{Project Structure}{chapter.4}% 14
+\BOOKMARK [1][-]{section.4.3}{Pre-filled Database}{chapter.4}% 15
+\BOOKMARK [1][-]{section.4.4}{The Database Helper}{chapter.4}% 16
+\BOOKMARK [1][-]{section.4.5}{Multilingual Strings}{chapter.4}% 17
+\BOOKMARK [1][-]{section.4.6}{Load Project Icons}{chapter.4}% 18
+\BOOKMARK [1][-]{section.4.7}{Calculate Person Days}{chapter.4}% 19
+\BOOKMARK [1][-]{section.4.8}{Find related Projects}{chapter.4}% 20
+\BOOKMARK [1][-]{section.4.9}{ListView Elements and ViewHolder}{chapter.4}% 21
+\BOOKMARK [0][-]{chapter.5}{Software Test}{}% 22
+\BOOKMARK [1][-]{section.5.1}{Test Cases}{chapter.5}% 23
+\BOOKMARK [0][-]{chapter.6}{Conclusion}{}% 24
+\BOOKMARK [0][-]{chapter*.40}{References}{}% 25
+\BOOKMARK [0][-]{appendix.A}{Requirements}{}% 26
+\BOOKMARK [1][-]{section.A.1}{Functional Requirements}{appendix.A}% 27
+\BOOKMARK [1][-]{section.A.2}{Non-Functional Requirements}{appendix.A}% 28
+\BOOKMARK [0][-]{appendix.B}{Function Group}{}% 29
+\BOOKMARK [0][-]{appendix.C}{Property Distances}{}% 30
+\BOOKMARK [1][-]{section.C.1}{Development Market Comparison}{appendix.C}% 31
+\BOOKMARK [1][-]{section.C.2}{Development Type Comparison}{appendix.C}% 32
+\BOOKMARK [1][-]{section.C.3}{Platform Porting Costs}{appendix.C}% 33
+\BOOKMARK [1][-]{section.C.4}{Procedure Model Comparison}{appendix.C}% 34
+\BOOKMARK [1][-]{section.C.5}{Programming Language Properties}{appendix.C}% 35
+\BOOKMARK [1][-]{section.C.6}{Software Architecture Properties}{appendix.C}% 36
+\BOOKMARK [0][-]{appendix.D}{Test Cases}{}% 37
+\BOOKMARK [1][-]{section.D.1}{Application Tests}{appendix.D}% 38
+\BOOKMARK [0][-]{appendix.E}{Erkl\344rung der Kandidatin / des Kandidaten}{}% 39

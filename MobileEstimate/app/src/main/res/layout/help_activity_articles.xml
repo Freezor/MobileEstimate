@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/searchViewLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_border"
+        android:layout_marginTop="70dp">
+
+        <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:queryHint="@string/help_activity_search_hint"
+            android:iconifiedByDefault="false"
+            android:voiceSearchMode="showVoiceSearchButton|launchRecognizer"
+            android:voiceLanguageModel="free_form"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/articlesLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/searchViewLayout"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/layout_border">
+
+        <TextView
+            android:id="@+id/tvArtikel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="@string/help_activity_article_headline"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorPrimary"/>
+
+        <ListView
+            android:id="@+id/listViewHelpArticles"
+            android:layout_width="wrap_content"
+            android:layout_height="320dp"
+            android:scrollbarThumbVertical="@drawable/scrollbar_orange"
+            android:fadeScrollbars="false"
+            android:layout_below="@+id/tvArtikel"
+            android:layout_centerHorizontal="true"
+            android:listSelector="@drawable/project_list_row_selector"/>
+
+        <TextView
+            android:id="@+id/tvAllArticles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/listViewHelpArticles"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="@string/help_activity_show_all_articles"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/estimationType"/>
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/help_activity_feedback"
+        layout="@layout/help_activity_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_border"
+        android:layout_below="@+id/articlesLayout"
+        android:layout_marginTop="5dp"/>
+
+
+</RelativeLayout>

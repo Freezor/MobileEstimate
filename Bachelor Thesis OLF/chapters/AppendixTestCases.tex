@@ -1,0 +1,239 @@
+\chapter{Test Cases}
+\label{app:testcases}
+
+This section contains all \textit{Test Cases} with which the application was tested.
+
+\section{Application Tests}
+
+\paragraph*{\textbf{Start Application}}
+\textbf{Prerequisite}\\
+The application was installed on the device.\\
+\textbf{Test object}\\
+The application.\\
+\textbf{Input data}\\
+none\\
+\textbf{Procedure}
+\begin{enumerate}
+	\item \texttt{Click} on the application icon.
+\end{enumerate}
+\textbf{Result}\\
+The application starts in a sufficient speed.\\
+\textbf{Postcondition}\\
+The application starts and the \texttt{Project Overview} screen is visible.
+\paragraph*{\textbf{Create New Project}}
+\textbf{Prerequisite}\\
+The application is opened and the \texttt{Project Overview} screen is visible.\\
+\textbf{Test object}\\
+-\\
+\textbf{Input data}\\
+none\\
+\textbf{Procedure}
+\begin{enumerate}
+	\item \texttt{Click} on the \texttt{'+'} icon.
+	\item Insert project name in the \texttt{EditText} field.
+	\item Insert a project description into the field.
+	\item \texttt{Click} on the button \texttt{'Change Project Icon'}.
+	\item Select an icon in the new window and click on \texttt{'save'} in the upper right corner.
+	\item The creation window can be seen again.
+	\item \texttt{Swipe} left to get to the next window.
+	\item The first screen with project properties is visible.
+	\item Select a property for the visible categories \textit{Project Market}, \textit{Development Kind} and \textit{Process Methology}.
+	\item \texttt{Swipe} left to get to the next screen.
+	\item Select a property for the visible categories \textit{Programming Language}, \textit{Platform} and \textit{Industry Sector}.
+	\item \texttt{Swipe} left to get to the next screen.
+	\item Select a property for the category \textit{Software Architecture}.
+	\item \texttt{Swipe} left to get to the next screen.
+	\item This screen shows the options for \textit{Estimation Technique} and \textit{Influence Factor} set.
+	\item Select one of the available options for \textit{Estimation Technique} and \textit{Influence Factor}.
+	\item \texttt{Swipe} left to get to the next screen.
+	\item This screen shows an overview of all selected options for this project.
+	\item \texttt{Click} on \texttt{'Save Project'} in the upper right corner.
+\end{enumerate}
+\textbf{Result}\\
+A new project is created.\\
+\textbf{Postcondition}\\
+The project is visible on the \texttt{Project Overview} screen.
+\paragraph*{\textbf{Create Project with List Creation Option}}
+\textbf{Prerequisite}\\
+The application was installed on the device.\\
+\textbf{Test object}\\
+The application.\\
+\textbf{Input data}\\
+none\\
+\textbf{Procedure}
+\begin{enumerate}
+	\item \texttt{Click} on the \texttt{'+'} icon.
+	\item \texttt{Click} on the expandable menu in the upper right corner.
+	\item Choose the option \texttt{'List Creation'}.
+	\item The screen shows the \texttt{'List Creation'}.
+	\item Name and description of the project are empty. All other options have selected a standard value.
+	\item Each option can be edited.
+	\item \texttt{Click} on \texttt{'Save Project'} in the upper right corner saves the project.
+\end{enumerate}
+\textbf{Result}\\
+A new project is created.\\
+\textbf{Postcondition}\\
+The project is visible on the \texttt{Project Overview} screen.
+\paragraph*{\textbf{Cancel Project Creation}}
+\textbf{Prerequisite}\\
+The application was installed on the device.\\
+\textbf{Test object}\\
+The application.\\
+\textbf{Input data}\\
+none\\
+\textbf{Procedure}
+\begin{enumerate}
+	\item \texttt{Click} on the \texttt{'+'} icon.
+	\item Insert project name in the \texttt{EditText} field.
+	\item Insert a project description into the field.
+	\item \texttt{Click} on the button \texttt{'Change Project Icon'}.
+	\item Select an icon in the new window and click on \texttt{'save'} in the upper right corner.
+	\item The creation window can be seen again.
+	\item \texttt{Swipe} left to get to the next window.
+	\item The first screen with project properties is visible.
+	\item Select a property for the visible categories \textit{Project Market}, \textit{Development Kind} and \textit{Process Methology}.
+	\item \texttt{Click} the \texttt{Back Arrow} in the upper left corner.
+	\item A popup message is shown which point out that this option cancels the creation process.
+	\item \texttt{Click} on \texttt{'Yes'}.
+\end{enumerate}
+\textbf{Result}\\
+No new project was created.\\
+\textbf{Postcondition}\\
+The \texttt{Project Overview} screen is visible.
+\paragraph*{\textbf{Search Project}}
+\textbf{Prerequisite}\\
+The application inherits projects and the "Pizza Quotation Service" project is active. The Project Overview screen is visible.\\
+\textbf{Test object}\\
+none\\
+\textbf{Input data}\\
+none\\
+\textbf{Procedure}
+\begin{enumerate}
+	\item \texttt{Click} on the \texttt{'Search'} icon.
+	\item Insert \textit{"Pizza"} in the \texttt{search} field.
+	\item \texttt{Click} the search icon.
+\end{enumerate}
+\textbf{Result}\\
+The search project is displayed.\\
+\textbf{Postcondition}\\
+none.
+\paragraph*{\textbf{Filter Projects}}
+\textbf{Prerequisite}\\
+The application inherits projects. One \textit{Function Point} project and one \textit{COCOMO}. The Project Overview screen is visible.\\
+\textbf{Test object}\\
+none\\
+\textbf{Input data}\\
+none\\
+\textbf{Procedure}
+\begin{enumerate}
+	\item \texttt{Click} on the \texttt{'Filter'} icon in the upper right corner.
+	\item \texttt{Click} \textit{Estimation Method}.
+	\item Select \textit{Function Point} as method
+	\item Activate the filter.
+	\item Return to the Project Overview screen.
+\end{enumerate}
+\textbf{Result}\\
+Only Function Point projects are visible.\\
+\textbf{Postcondition}\\
+none.
+\paragraph*{\textbf{Delete Project}}
+\textbf{Prerequisite}\\
+The application inherits projects and the "Pizza Quotation Service" project is active.\\
+\textbf{Test object}\\
+"Pizza Quotation Service"\\
+\textbf{Input data}\\
+none\\
+\textbf{Procedure}
+\begin{enumerate}
+	\item \texttt{LongClick} on the "Pizza Quotation Service" project.
+	\item \texttt{Click} on \texttt{'delete'} icon.
+	\item confirm the screen with \texttt{'yes'}.
+\end{enumerate}
+\textbf{Result}\\
+The project is deleted.\\
+\textbf{Postcondition}\\
+The project can be restored in the settings.
+\paragraph*{\textbf{Transfer Estimation}}
+\textbf{Prerequisite}\\
+The relation screen is shown and inherits related projects\\
+\textbf{Test object}\\
+"Pizza Quotation Service"\\
+\textbf{Input data}\\
+none\\
+\textbf{Procedure}
+\begin{enumerate}
+	\item \texttt{Click} on a \textit{related} project.
+	\item \texttt{Click} on \texttt{'View Estimation'}.
+	\item \texttt{Click} on \texttt{'Transfer Estimation'}.
+\end{enumerate}
+\textbf{Result}\\
+The estimation is transfered to the "Pizza Quotation Service" project.\\
+\textbf{Postcondition}\\
+The transfered estimation can be shown in the project.
+\paragraph*{\textbf{View Projects Properties}}
+\textbf{Prerequisite}\\
+The application inherits projects and the "Pizza Quotation Service" project is active.\\
+\textbf{Test object}\\
+"Pizza Quotation Service" project\\
+\textbf{Input data}\\
+none\\
+\textbf{Procedure}
+\begin{enumerate}
+	\item \texttt{Longclick} on the "Pizza Quotation Service" project.
+	\item \texttt{Click} \texttt{'Project Properties'}.
+\end{enumerate}
+\textbf{Result}\\
+The project properties are shown in a new screen.\\
+\textbf{Postcondition}\\
+The properties can be edited.
+\paragraph*{\textbf{Function Point Estimation}}
+\textbf{Prerequisite}\\
+The application inherits projects and the "Pizza Quotation Service" project is active.\\
+\textbf{Test object}\\
+"Pizza Quotation Service" project\\
+\textbf{Input data}\\
+none\\
+\textbf{Procedure}
+\begin{enumerate}
+	\item \texttt{Click} on the "Pizza Quotation Service" project.
+	\item The estimation view is visible.
+	\item \texttt{Click} on \texttt{'Input Data'}.
+	\item Insert 10 in the \texttt{'medium'} field.
+	\item Go Back to the estimation view.
+\end{enumerate}
+\textbf{Result}\\
+The \texttt{total points}, \texttt{evaluated points} and \texttt{estimated days} were adapted.\\
+\textbf{Postcondition}\\
+none.
+\paragraph*{\textbf{Start Analysis}}
+\textbf{Prerequisite}\\
+The application inherits projects and the "Pizza Quotation Service" project is active.\\
+\textbf{Test object}\\
+none\\
+\textbf{Input data}\\
+none\\
+\textbf{Procedure}
+\begin{enumerate}
+	\item Open the \texttt{Menu Drawer} in the Project Overview.
+	\item \texttt{Click} on \texttt{analysis}
+	\item The \texttt{analysis} screen is visible
+\end{enumerate}
+\textbf{Result}\\
+The Analysis shows all active projects.\\
+\textbf{Postcondition}\\
+none.
+\paragraph*{\textbf{Open the Statistics}}
+\textbf{Prerequisite}\\
+The analysis screen is visible\\
+\textbf{Test object}\\
+none\\
+\textbf{Input data}\\
+none\\
+\textbf{Procedure}
+\begin{enumerate}
+	\item \texttt{Click} on \texttt{statistic} in the upper right corner
+\end{enumerate}
+\textbf{Result}\\
+The statistic screen for all project is shown.\\
+\textbf{Postcondition}\\
+none.
